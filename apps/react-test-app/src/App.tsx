@@ -29,7 +29,7 @@ function App() {
       <p className="read-the-docs">
         Click on the Vite and React logos to learn more
       </p>
-      <Button label="Click me" onClick={() => console.log("Clicked")} />
+      <Button  onClick={() => console.log("Clicked")} onMouseEnter={() => console.log("object")} >Click Me</Button>
     </>
   );
 }
