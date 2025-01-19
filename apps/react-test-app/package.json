@@ -12,7 +12,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@zenithui/primitive": "workspace:^",
+    "zenithui-primitive": "workspace:^",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
   },
