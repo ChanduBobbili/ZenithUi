@@ -1,6 +1,7 @@
 {
   "name": "@zenithui/primitive",
   "version": "0.0.1",
+  "description": "A ZenithUi is React UI component library, where this is the primitive library contains the primitive components",
   "license": "MIT",
   "type": "module",
   "private": false,
@@ -11,6 +12,23 @@
     "pnpm": ">=9",
     "node": ">=20"
   },
+  "author": {
+    "name": "Chandu Bobbili",
+    "email": "chandubobbili12@gmail.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ChanduBobbili/ZenithUi.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ChanduBobbili/ZenithUi/issues"
+  },
+  "keywords": [
+    "react",
+    "components",
+    "ui",
+    "accessible"
+  ],
   "packageManager": "pnpm@9.5.0",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -57,5 +75,13 @@
     "vite": "^6.0.5",
     "vite-plugin-dts": "^4.5.0",
     "vite-plugin-lib-inject-css": "^2.2.1"
+  },
+  "peerDependenciesMeta": {
+    "react": {
+      "optional": false
+    },
+    "react-dom": {
+      "optional": false
+    }
   }
 }
