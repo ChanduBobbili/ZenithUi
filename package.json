@@ -1,0 +1,25 @@
+{
+  "name": "zenithui-monorepo",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "turbo run dev",
+    "build": "turbo run build",
+    "lint": "turbo run lint",
+    "lint:fix": "turbo run lint:fix",
+    "clean": "turbo run clean"
+  },
+  "devDependencies": {
+    "@changesets/cli": "^2.27.11",
+    "eslint": "^9.18.0",
+    "eslint-config-custom": "workspace:^",
+    "prettier": "^3.4.2",
+    "tsconfig": "workspace:^",
+    "turbo": "^2.3.3"
+  },
+  "packageManager": "pnpm@9.15.2",
+  "dependencies": {
+    "prettier-plugin-tailwindcss": "^0.6.6"
+  }
+}
