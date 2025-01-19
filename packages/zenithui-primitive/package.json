@@ -1,8 +1,7 @@
 {
-  "name": "@zenithui/primitive",
-  "version": "0.0.1",
-  "description": "A ZenithUi is React UI component library, where this is the primitive library contains the primitive components",
-  "license": "MIT",
+  "name": "@zenithlib/primitive",
+  "version": "0.0.2",
+  "description": "A ZenithUi React component library containing primitive UI components.",
   "type": "module",
   "private": false,
   "publishConfig": {
@@ -27,7 +26,13 @@
     "react",
     "components",
     "ui",
-    "accessible"
+    "zenithui",
+    "accessible",
+    "design-system",
+    "styled-components",
+    "styled-system",
+    "tailwindcss",
+    "typescript"
   ],
   "packageManager": "pnpm@9.5.0",
   "module": "./dist/index.js",
