@@ -1,0 +1,41 @@
+{
+  "name": "eslint-config-custom",
+  "version": "0.0.0",
+  "private": true,
+  "main": "index.js",
+  "files": [
+    "index.js",
+    "node.js",
+    "cra.js"
+  ],
+  "author": {
+    "name": "Chandu Bobbili",
+    "email": "chandubobbili12@gmail.com"
+  },
+  "license": "UNLICENSED",
+  "keywords": [
+    "eslint",
+    "config",
+    "custom",
+    "lint",
+    "format",
+    "prettier",
+    "tanstack",
+    "turbo"
+  ],
+  "devDependencies": {
+    "@tanstack/eslint-plugin-query": "^5.52.0",
+    "@typescript-eslint/eslint-plugin": "^8.3.0",
+    "@typescript-eslint/parser": "^8.3.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-config-turbo": "^2.0.14",
+    "eslint-plugin-only-warn": "^1.1.0",
+    "eslint-plugin-prettier": "^5.2.1",
+    "eslint-plugin-react-hooks": "^4.6.2",
+    "eslint-plugin-react-refresh": "^0.4.11",
+    "typescript": "^5.5.4"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

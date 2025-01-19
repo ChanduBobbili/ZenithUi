@@ -1,0 +1,17 @@
+{
+  "name": "tsconfig",
+  "version": "0.0.0",
+  "private": true,
+  "publishConfig": {
+    "access": "public"
+  },
+  "author": {
+    "name": "Chandu Bobbili",
+    "email": "chandubobbili12@gmail.com"
+  },
+  "license": "UNLICENSED",
+  "keywords": [
+    "tsconfig",
+    "typescript"
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "tabWidth": 2,
+  "useTabs": false,
+  "semi": false,
+  "singleQuote": false,
+  "jsxSingleQuote": false,
+  "trailingComma": "all",
+  "arrowParens": "always",
+  "singleAttributePerLine": true,
+  "bracketSameLine": false,
+  "editorconfig": true,
+  "plugins": ["prettier-plugin-tailwindcss"],
+  "tailwindConfig": "./apps/react-test-app/tailwind.config.ts",
+  "tailwindFunctions": ["clsx", "cva", "cn", "twMerge", "tw"]
+}
