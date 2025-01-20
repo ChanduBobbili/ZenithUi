@@ -16,3 +16,16 @@ export {
 } from "./components/dialog";
 // Import of Count Down Component
 export { default as CountDownTimer } from "./components/count-down";
+// Import of Drawer Component
+export {
+	Drawer as ZenithUiDrawer,
+	DrawerPortal as ZenithUiDrawerPortal,
+	DrawerOverlay as ZenithUiDrawerOverlay,
+	DrawerTrigger as ZenithUiDrawerTrigger,
+	DrawerClose as ZenithUiDrawerClose,
+	DrawerContent as ZenithUiDrawerContent,
+	DrawerHeader as ZenithUiDrawerHeader,
+	DrawerFooter as ZenithUiDrawerFooter,
+	DrawerTitle as ZenithUiDrawerTitle,
+	DrawerDescription as ZenithUiDrawerDescription,
+} from "./components/drawer";

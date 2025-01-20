@@ -2,7 +2,7 @@ import { useState } from "react";
 import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 import "./App.css";
-import { Button, ZenithUiDialog, ZenithUiDialogContent} from "zenithui-primitive";
+import { Button,  ZenithUiDrawer, ZenithUiDrawerContent} from "zenithui-primitive";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -33,12 +33,17 @@ function App() {
       <Button  onClick={() => setOpen(true)} onMouseEnter={() => console.log("object")} >Click Me</Button>
 
       {open && (
-        <ZenithUiDialog
+        <ZenithUiDrawer
           open={open}
           onOpenChange={setOpen}
+          onClose={() => setOpen(false)}
+          direction="right"
         >
-          <ZenithUiDialogContent></ZenithUiDialogContent>
-        </ZenithUiDialog>
+          <ZenithUiDrawerContent
+            className="rounded-bl-md rounded-tl-md p-6 pb-4 pt-2 transition-all duration-300 ease-in-out"
+            OverlayClassName="bg-black/75"
+				></ZenithUiDrawerContent>
+        </ZenithUiDrawer>
       )}
     </>
   );
