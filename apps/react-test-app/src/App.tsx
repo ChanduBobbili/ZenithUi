@@ -40,7 +40,7 @@ function App() {
           direction="right"
         >
           <ZenithUiDrawerContent
-            className="rounded-bl-md rounded-tl-md p-6 pb-4 pt-2 transition-all duration-300 ease-in-out"
+            className="rounded-bl-md rounded-tl-md p-6 pb-4 pt-2 transition-all duration-300 ease-in-out w-1/2"
             OverlayClassName="bg-black/75"
 				></ZenithUiDrawerContent>
         </ZenithUiDrawer>
