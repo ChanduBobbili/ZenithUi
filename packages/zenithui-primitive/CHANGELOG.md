@@ -1,5 +1,11 @@
 # @zenithlib/primitive
 
+## 0.2.0
+
+### Minor Changes
+
+- Add the Count Down Timer Component
+
 ## 0.1.0
 
 ### Minor Changes
