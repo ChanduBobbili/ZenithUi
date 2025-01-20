@@ -1,42 +1,56 @@
 "use client"
 
 import * as React from "react"
-import * as ZenithUiDialogPrimitive from "@radix-ui/react-dialog"
+import * as DialogPrimitive from "@radix-ui/react-dialog"
 import { Cross2Icon } from "@radix-ui/react-icons"
 import { cn } from "../utils"
 
-const ZenithUiDialog = ZenithUiDialogPrimitive.Root
+const Dialog = DialogPrimitive.Root
 
-const ZenithUiDialogTrigger = ZenithUiDialogPrimitive.Trigger
+const DialogTrigger = DialogPrimitive.Trigger
 
-const ZenithUiDialogPortal = ZenithUiDialogPrimitive.Portal
+const DialogPortal = DialogPrimitive.Portal
 
-const ZenithUiDialogClose = ZenithUiDialogPrimitive.Close
-
-const ZenithUiDialogOverlay = React.forwardRef<
-	React.ElementRef<typeof ZenithUiDialogPrimitive.Overlay>,
-	React.ComponentPropsWithoutRef<typeof ZenithUiDialogPrimitive.Overlay>
+const DialogClose = React.forwardRef<
+	React.ElementRef<typeof DialogPrimitive.Close>,
+	React.ComponentPropsWithoutRef<typeof DialogPrimitive.Close>
 >(({ className, ...props }, ref) => (
-	<ZenithUiDialogPrimitive.Overlay
+	<DialogPrimitive.Close
 		ref={ref}
 		className={cn(
-			"fixed inset-0 z-50 bg-black/10 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",
+			"absolute right-4 top-4 rounded-sm opacity-70 ring-offset-white transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground",
+			className,
+		)}
+		{...props}
+	>
+		<Cross2Icon className="h-4 w-4 text-black fill-black" />
+	</DialogPrimitive.Close>
+))
+	
+const DialogOverlay = React.forwardRef<
+	React.ElementRef<typeof DialogPrimitive.Overlay>,
+	React.ComponentPropsWithoutRef<typeof DialogPrimitive.Overlay>
+>(({ className, ...props }, ref) => (
+	<DialogPrimitive.Overlay
+		ref={ref}
+		className={cn(
+			"fixed inset-0 z-50  bg-black/10 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",
 			className,
 		)}
 		{...props}
 	/>
 ))
-ZenithUiDialogOverlay.displayName = ZenithUiDialogPrimitive.Overlay.displayName
+DialogOverlay.displayName = DialogPrimitive.Overlay.displayName
 
-interface ZenithUiDialogContentProps
-	extends React.ComponentPropsWithoutRef<typeof ZenithUiDialogPrimitive.Content> {
+interface DialogContentProps
+	extends React.ComponentPropsWithoutRef<typeof DialogPrimitive.Content> {
 	hasCloseButton?: boolean // Optional boolean prop
 	closeButtonStyles?: string // Optional string prop for custom styles
 }
 
-const ZenithUiDialogContent = React.forwardRef<
-	React.ElementRef<typeof ZenithUiDialogPrimitive.Content>,
-	ZenithUiDialogContentProps
+const DialogContent = React.forwardRef<
+	React.ElementRef<typeof DialogPrimitive.Content>,
+	DialogContentProps
 >(
 	(
 		{
@@ -48,9 +62,9 @@ const ZenithUiDialogContent = React.forwardRef<
 		},
 		ref,
 	) => (
-		<ZenithUiDialogPortal>
-			<ZenithUiDialogOverlay />
-			<ZenithUiDialogPrimitive.Content
+		<DialogPortal>
+			<DialogOverlay />
+			<DialogPrimitive.Content
 				ref={ref}
 				className={cn(
 					"fixed left-[50%] top-[50%] z-50 grid w-full max-w-lg translate-x-[-50%] translate-y-[-50%] gap-4 border bg-white p-6 shadow-lg duration-200 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%] sm:rounded-lg",
@@ -60,7 +74,7 @@ const ZenithUiDialogContent = React.forwardRef<
 			>
 				{children}
 				{hasCloseButton && (
-					<ZenithUiDialogPrimitive.Close
+					<DialogPrimitive.Close
 						className={cn(
 							"absolute right-4 top-4 rounded-sm opacity-70 ring-offset-white transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-sky-100 data-[state=open]:text-slate-950",
 							closeButtonStyles,
@@ -68,15 +82,15 @@ const ZenithUiDialogContent = React.forwardRef<
 					>
 						<Cross2Icon className="h-4 w-4" />
 						<span className="sr-only">Close</span>
-					</ZenithUiDialogPrimitive.Close>
+					</DialogPrimitive.Close>
 				)}
-			</ZenithUiDialogPrimitive.Content>
-		</ZenithUiDialogPortal>
+			</DialogPrimitive.Content>
+		</DialogPortal>
 	),
 )
-ZenithUiDialogContent.displayName = ZenithUiDialogPrimitive.Content.displayName
+DialogContent.displayName = DialogPrimitive.Content.displayName
 
-const ZenithUiDialogHeader = ({
+const DialogHeader = ({
 	className,
 	...props
 }: React.HTMLAttributes<HTMLDivElement>) => (
@@ -88,9 +102,9 @@ const ZenithUiDialogHeader = ({
 		{...props}
 	/>
 )
-ZenithUiDialogHeader.displayName = "ZenithUiDialogHeader"
+DialogHeader.displayName = "DialogHeader"
 
-const ZenithUiDialogFooter = ({
+const DialogFooter = ({
 	className,
 	...props
 }: React.HTMLAttributes<HTMLDivElement>) => (
@@ -102,13 +116,13 @@ const ZenithUiDialogFooter = ({
 		{...props}
 	/>
 )
-ZenithUiDialogFooter.displayName = "ZenithUiDialogFooter"
+DialogFooter.displayName = "DialogFooter"
 
-const ZenithUiDialogTitle = React.forwardRef<
-	React.ElementRef<typeof ZenithUiDialogPrimitive.Title>,
-	React.ComponentPropsWithoutRef<typeof ZenithUiDialogPrimitive.Title>
+const DialogTitle = React.forwardRef<
+	React.ElementRef<typeof DialogPrimitive.Title>,
+	React.ComponentPropsWithoutRef<typeof DialogPrimitive.Title>
 >(({ className, ...props }, ref) => (
-	<ZenithUiDialogPrimitive.Title
+	<DialogPrimitive.Title
 		ref={ref}
 		className={cn(
 			"text-lg font-semibold leading-none tracking-tight",
@@ -117,29 +131,29 @@ const ZenithUiDialogTitle = React.forwardRef<
 		{...props}
 	/>
 ))
-ZenithUiDialogTitle.displayName = ZenithUiDialogPrimitive.Title.displayName
+DialogTitle.displayName = DialogPrimitive.Title.displayName
 
-const ZenithUiDialogDescription = React.forwardRef<
-	React.ElementRef<typeof ZenithUiDialogPrimitive.Description>,
-	React.ComponentPropsWithoutRef<typeof ZenithUiDialogPrimitive.Description>
+const DialogDescription = React.forwardRef<
+	React.ElementRef<typeof DialogPrimitive.Description>,
+	React.ComponentPropsWithoutRef<typeof DialogPrimitive.Description>
 >(({ className, ...props }, ref) => (
-	<ZenithUiDialogPrimitive.Description
+	<DialogPrimitive.Description
 		ref={ref}
 		className={cn("text-sm text-slate-600", className)}
 		{...props}
 	/>
 ))
-ZenithUiDialogDescription.displayName = ZenithUiDialogPrimitive.Description.displayName
+DialogDescription.displayName = DialogPrimitive.Description.displayName
 
 export {
-	ZenithUiDialog,
-	ZenithUiDialogPortal,
-	ZenithUiDialogOverlay,
-	ZenithUiDialogTrigger,
-	ZenithUiDialogClose,
-	ZenithUiDialogContent,
-	ZenithUiDialogHeader,
-	ZenithUiDialogFooter,
-	ZenithUiDialogTitle,
-	ZenithUiDialogDescription,
+	Dialog,
+	DialogPortal,
+	DialogOverlay,
+	DialogTrigger,
+	DialogClose,
+	DialogContent,
+	DialogHeader,
+	DialogFooter,
+	DialogTitle,
+	DialogDescription,
 }

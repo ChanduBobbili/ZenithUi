@@ -2,10 +2,11 @@ import { useState } from "react";
 import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 import "./App.css";
-import { Button, CountdownTimer} from "zenithui-primitive";
+import { Button, ZenithUiDialog, ZenithUiDialogContent} from "zenithui-primitive";
 
 function App() {
   const [count, setCount] = useState(0);
+  const [open, setOpen] = useState(false);
 
   return (
     <>
@@ -29,8 +30,16 @@ function App() {
       <p className="read-the-docs">
         Click on the Vite and React logos to learn more
       </p>
-      <Button  onClick={() => console.log("Clicked")} onMouseEnter={() => console.log("object")} >Click Me</Button>
-      <CountdownTimer startTime={new Date().toISOString()} format="with-names" />
+      <Button  onClick={() => setOpen(true)} onMouseEnter={() => console.log("object")} >Click Me</Button>
+
+      {open && (
+        <ZenithUiDialog
+          open={open}
+          onOpenChange={setOpen}
+        >
+          <ZenithUiDialogContent></ZenithUiDialogContent>
+        </ZenithUiDialog>
+      )}
     </>
   );
 }
