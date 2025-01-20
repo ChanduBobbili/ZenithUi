@@ -105,6 +105,66 @@ import CountDownTimer from "zenithui-primitive";
 
 ---
 
+### Dialog
+
+The Dialog component provides a modal dialog built on top of [Radix UI](https://www.radix-ui.com/themes/docs/components/dialog).
+
+#### Example Usage
+
+```javascript
+import {
+  ZenithUiDialog,
+  ZenithUiDialogTrigger,
+  ZenithUiDialogContent,
+  ZenithUiDialogTitle,
+  ZenithUiDialogDescription,
+  ZenithUiDialogClose,
+} from "zenithui-primitive";
+
+<ZenithUiDialog>
+  <ZenithUiDialogTrigger>Open Dialog</ZenithUiDialogTrigger>
+  <ZenithUiDialogContent>
+    <ZenithUiDialogTitle>Dialog Title</ZenithUiDialogTitle>
+    <ZenithUiDialogDescription>
+      This is the description of the dialog.
+    </ZenithUiDialogDescription>
+    <ZenithUiDialogClose>Close</ZenithUiDialogClose>
+  </ZenithUiDialogContent>
+</ZenithUiDialog>
+```
+
+---
+
+### Drawer
+
+The Drawer component is a sliding panel built on top of [Vaul](https://github.com/emilkowalski/vaul).
+
+#### Example Usage
+
+```javascript
+import {
+  ZenithUiDrawer,
+  ZenithUiDrawerTrigger,
+  ZenithUiDrawerContent,
+  ZenithUiDrawerTitle,
+  ZenithUiDrawerDescription,
+  ZenithUiDrawerClose,
+} from "zenithui-primitive";
+
+<ZenithUiDrawer>
+  <ZenithUiDrawerTrigger>Open Drawer</ZenithUiDrawerTrigger>
+  <ZenithUiDrawerContent>
+    <ZenithUiDrawerTitle>Drawer Title</ZenithUiDrawerTitle>
+    <ZenithUiDrawerDescription>
+      This is the description of the drawer.
+    </ZenithUiDrawerDescription>
+    <ZenithUiDrawerClose>Close</ZenithUiDrawerClose>
+  </ZenithUiDrawerContent>
+</ZenithUiDrawer>
+```
+
+---
+
 ## 🎨 Styling
 
 ZenithUi components are designed to be flexible and styled easily. Combine them with your existing CSS or utility-first frameworks like TailwindCSS for full control over the appearance.
