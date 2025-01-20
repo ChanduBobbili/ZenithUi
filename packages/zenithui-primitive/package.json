@@ -17,7 +17,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ChanduBobbili/ZenithUi.git"
+    "url": "https://github.com/ChanduBobbili/ZenithUi/tree/main/packages/zenithui-primitive"
   },
   "bugs": {
     "url": "https://github.com/ChanduBobbili/ZenithUi/issues"

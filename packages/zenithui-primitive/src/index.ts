@@ -1,18 +1,18 @@
 import "./index.css";
 // Import of Button Component
 export { default as Button } from "./components/button";
-//  Import of Dialog Component
+//  Import of ZenithUiDialog Component
 export {
-	Dialog,
-	DialogPortal,
-	DialogOverlay,
-	DialogTrigger,
-	DialogClose,
-	DialogContent,
-	DialogHeader,
-	DialogFooter,
-	DialogTitle,
-	DialogDescription,
+	ZenithUiDialog,
+	ZenithUiDialogPortal,
+	ZenithUiDialogOverlay,
+	ZenithUiDialogTrigger,
+	ZenithUiDialogClose,
+	ZenithUiDialogContent,
+	ZenithUiDialogHeader,
+	ZenithUiDialogFooter,
+	ZenithUiDialogTitle,
+	ZenithUiDialogDescription,
 } from "./components/dialog";
 // Import of Count Down Component
-export { default as CountdownTimer } from "./components/count-down";
+export { default as CountDownTimer } from "./components/count-down";

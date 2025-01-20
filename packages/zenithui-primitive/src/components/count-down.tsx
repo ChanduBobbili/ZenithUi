@@ -4,7 +4,7 @@ import { cn } from "../utils"
 /**
  * Props for the CountdownTimer component.
  */
-export type CountdownTimerProps = {
+export type CountDownTimerProps = {
 	/**
 	 * The start time for the countdown timer in a string format (ISO).
 	 */
@@ -45,7 +45,7 @@ export type CountdownTimerProps = {
 	onExpired?: (isExpire: boolean) => void;
 }
 
-const CountdownTimer: React.FC<CountdownTimerProps> = ({
+const CountDownTimer: React.FC<CountDownTimerProps> = ({
 	startTime,
 	className = "",
 	description = "",
@@ -108,4 +108,4 @@ const CountdownTimer: React.FC<CountdownTimerProps> = ({
 	)
 }
 
-export default CountdownTimer
+export default CountDownTimer
