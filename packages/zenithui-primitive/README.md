@@ -101,7 +101,7 @@ import CountDownTimer from "zenithui-primitive";
 
 ---
 
-### Dialog
+## Dialog
 
 The Dialog component provides a modal dialog built on top of [Radix UI](https://www.radix-ui.com/themes/docs/components/dialog).
 
@@ -117,7 +117,7 @@ import {
     ZenithUiDialogClose,
 } from "zenithui-primitive";
 
-;<ZenithUiDialog>
+<ZenithUiDialog>
   <ZenithUiDialogTrigger>Open Dialog</ZenithUiDialogTrigger>
   <ZenithUiDialogContent>
     <ZenithUiDialogTitle>Dialog Title</ZenithUiDialogTitle>
@@ -131,7 +131,7 @@ import {
 
 ---
 
-### Drawer
+## Drawer
 
 The Drawer component is a sliding panel built on top of [Vaul](https://github.com/emilkowalski/vaul).
 
@@ -147,7 +147,7 @@ import {
     ZenithUiDrawerClose,
 } from "zenithui-primitive";
 
-;<ZenithUiDrawer>
+<ZenithUiDrawer>
   <ZenithUiDrawerTrigger>Open Drawer</ZenithUiDrawerTrigger>
   <ZenithUiDrawerContent>
     <ZenithUiDrawerTitle>Drawer Title</ZenithUiDrawerTitle>
@@ -190,7 +190,7 @@ import {
 
 ---
 
-### Toggle
+## Toggle
 
 The `Toggle` component is used for creating toggleable elements that represent a binary state.
 
@@ -223,7 +223,7 @@ import { ZenithUiToggle } from "zenithui-primitive";
 
 ---
 
-### Toggle Group
+## Toggle Group
 
 The `ToggleGroup` and `ToggleGroupItem` components allow you to create a group of toggleable items. These are useful for building grouped toggle buttons with shared styling and behavior.
 
