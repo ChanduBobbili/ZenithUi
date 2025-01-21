@@ -1,0 +1,10 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --popover: 0 0% 100%;
+    --popover-foreground: 20 14.3% 4.1%;
+  }
+}
