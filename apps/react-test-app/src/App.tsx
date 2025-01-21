@@ -1,51 +1,72 @@
-import { useState } from "react";
-import viteLogo from "/vite.svg";
-import "./App.css";
-import { Button,  ZenithUiDialog,  ZenithUiDialogContent,  ZenithUiDialogHeader,  ZenithUiDialogTitle,  ZenithUiDrawer, ZenithUiDrawerContent} from "zenithui-primitive";
+import viteLogo from "/vite.svg"
+import "./App.css"
+import {
+  Button,
+  ZenithUiDialog,
+  ZenithUiDialogContent,
+  ZenithUiDialogDescription,
+  ZenithUiDialogHeader,
+  ZenithUiDialogTitle,
+  ZenithUiDialogTrigger,
+  ZenithUiDrawer,
+  ZenithUiDrawerContent,
+  ZenithUiDrawerDescription,
+  ZenithUiDrawerHeader,
+  ZenithUiDrawerTitle,
+  ZenithUiDrawerTrigger,
+} from "zenithui-primitive"
 
 function App() {
-  const [open, setOpen] = useState(false);
-  const [dialog,setdialog] = useState<boolean>(false)
-
   return (
     <>
       <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
+        <img
+          src={viteLogo}
+          className="logo"
+          alt="Vite logo"
+        />
       </div>
       <div className="card flex flex-col gap-2">
-        
-      <Button onClick={() => setOpen(true)}  >Open Drawer</Button>
-       <Button  onClick={() => setdialog(true)} >Open Dialog</Button>
-      </div>
-     
-      
-
-      {open && (
-        <ZenithUiDrawer
-          open={open}
-          onOpenChange={setOpen}
-          onClose={() => setOpen(false)}
-          direction="right"
-        >
+        <ZenithUiDrawer direction="right">
+          <ZenithUiDrawerTrigger asChild>
+            <Button>Open Drawer</Button>
+          </ZenithUiDrawerTrigger>
           <ZenithUiDrawerContent
-            className="rounded-bl-md rounded-tl-md p-6 pb-4 pt-2 transition-all duration-300 ease-in-out w-1/2"
+            className="w-1/2 rounded-bl-md rounded-tl-md p-6 pb-4 pt-2 transition-all duration-300 ease-in-out"
             OverlayClassName="bg-black/75"
-				></ZenithUiDrawerContent>
+          >
+            <ZenithUiDrawerHeader>
+              <ZenithUiDrawerTitle className="text-sky-400">
+                Drawer Tiltle
+              </ZenithUiDrawerTitle>
+              <ZenithUiDrawerDescription className="text-emerald-400">
+                Drawer Description
+              </ZenithUiDrawerDescription>
+            </ZenithUiDrawerHeader>
+
+            <p>jkjdgfkfgkfjhgkjfhgl</p>
+          </ZenithUiDrawerContent>
         </ZenithUiDrawer>
-      )}
-      {dialog && (
-        <ZenithUiDialog open={dialog} onOpenChange={setdialog}>
-          <ZenithUiDialogContent>
+        <ZenithUiDialog>
+          <ZenithUiDialogTrigger asChild>
+            <Button>Open Dialog</Button>
+          </ZenithUiDialogTrigger>
+          <ZenithUiDialogContent className="w-1/2 max-w-full">
             <ZenithUiDialogHeader>
-              <ZenithUiDialogTitle>dhfkgdfk</ZenithUiDialogTitle>
+              <ZenithUiDialogTitle className="text-sky-400">
+                Dialog Tiltle
+              </ZenithUiDialogTitle>
+              <ZenithUiDialogDescription className="text-emerald-400">
+                Dialog Description
+              </ZenithUiDialogDescription>
             </ZenithUiDialogHeader>
+
+            <p>jkjdgfkfgkfjhgkjfhgl</p>
           </ZenithUiDialogContent>
-        </ZenithUiDialog>
-      )}
+        </ZenithUiDialog>{" "}
+      </div>
     </>
-  );
+  )
 }
 
-export default App;
+export default App

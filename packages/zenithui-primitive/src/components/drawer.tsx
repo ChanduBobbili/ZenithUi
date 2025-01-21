@@ -93,7 +93,7 @@ const DrawerContent = forwardRef<
 				{withCloseable && (
 					<div
 						tabIndex={0}
-						className="mx-auto mr-4 h-[100px] w-2 cursor-grab rounded-full bg-muted hover:bg-slate-500 focus:cursor-grabbing"
+						className="mx-auto mr-4 h-[100px] w-2 cursor-grab rounded-full bg-muted bg-slate-300 hover:bg-slate-500 focus:cursor-grabbing"
 					/>
 				)}
 				<div className="flex size-full flex-col">{children}</div>
