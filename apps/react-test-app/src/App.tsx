@@ -17,7 +17,10 @@ import {
   ZenithUiPopover,
   ZenithUiPopoverContent,
   ZenithUiPopoverTrigger,
+  ZenithUiToggle,
+  ZenithUiToggleGroup,
 } from "zenithui-primitive"
+import { cn } from "./utils"
 
 function App() {
   return (
@@ -76,6 +79,24 @@ function App() {
             closeAnimate="slide"
           ></ZenithUiPopoverContent>
         </ZenithUiPopover>
+
+        <ZenithUiToggleGroup
+          type="single"
+          className="pointer-events-auto flex flex-col gap-2 p-0"
+        >
+          {["B", "C", "D"].map((option) => (
+            <ZenithUiToggle
+              key={option}
+              value={option}
+              aria-label={option}
+              className={cn(
+                "h-12 w-12 data-[state='on']:!bg-primary data-[state='on']:!text-white",
+              )}
+            >
+              {option}
+            </ZenithUiToggle>
+          ))}
+        </ZenithUiToggleGroup>
       </div>
     </>
   )

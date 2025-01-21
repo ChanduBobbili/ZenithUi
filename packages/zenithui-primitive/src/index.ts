@@ -36,3 +36,10 @@ export {
   PopoverContent as ZenithUiPopoverContent,
   PopoverAnchor as ZenithUiPopoverAnchor,
 } from "./components/popover"
+// Import of Toggle and ToggleGroup components
+export {
+  ToggleGroup as ZenithUiToggleGroup,
+  ToggleGroupItem as ZenithUiToggleGroupItem,
+} from "./components/toggle-group"
+
+export { Toggle as ZenithUiToggle } from "./components/toggle"
