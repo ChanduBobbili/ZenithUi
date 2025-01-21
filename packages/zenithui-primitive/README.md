@@ -28,9 +28,10 @@ All Button Props Applies for this Button component also.
 
 ### Example Usage
 
-```javascript
-import Button from "zenithui-primitive"
-;<Button onClick={() => console.log("Button clicked")}>Click Me</Button>
+```tsx
+import Button from "zenithui-primitive";
+
+<Button onClick={() => console.log("Button clicked")}>Click Me</Button>
 ```
 
 ---
@@ -55,9 +56,10 @@ The `CountDownTimer` component provides a countdown timer with customization opt
 
 #### Basic Countdown
 
-```javascript
-import CountDownTimer from "zenithui-primitive"
-;<CountDownTimer
+```tsx
+import CountDownTimer from "zenithui-primitive";
+
+<CountDownTimer
   startTime={new Date().toISOString()}
   onExpired={(isExpire) => console.log("Timer expired:", isExpire)}
 />
@@ -65,9 +67,10 @@ import CountDownTimer from "zenithui-primitive"
 
 #### Countdown with Description
 
-```javascript
-import CountDownTimer from "zenithui-primitive"
-;<CountDownTimer
+```tsx
+import CountDownTimer from "zenithui-primitive";
+
+<CountDownTimer
   startTime={new Date().toISOString()}
   description="until the event starts"
   descriptionClassName="text-gray-500"
@@ -76,9 +79,10 @@ import CountDownTimer from "zenithui-primitive"
 
 #### Countdown with Labels
 
-```javascript
-import CountDownTimer from "zenithui-primitive"
-;<CountDownTimer
+```tsx
+import CountDownTimer from "zenithui-primitive";
+
+<CountDownTimer
   startTime={new Date().toISOString()}
   format="with-names"
 />
@@ -86,9 +90,10 @@ import CountDownTimer from "zenithui-primitive"
 
 #### Custom Styling
 
-```javascript
-import CountDownTimer from "zenithui-primitive"
-;<CountDownTimer
+```tsx
+import CountDownTimer from "zenithui-primitive";
+
+<CountDownTimer
   startTime={new Date().toISOString()}
   className="font-bold text-blue-500"
 />
