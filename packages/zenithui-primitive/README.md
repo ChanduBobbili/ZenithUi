@@ -29,13 +29,9 @@ All Button Props Applies for this Button component also.
 ### Example Usage
 
 ```javascript
-import Button from "zenithui-primitive";
+import Button from "zenithui-primitive"
 
-<Button
-  onClick={() => console.log("Button clicked")}
->
-  Click Me
-</Button>
+;<Button onClick={() => console.log("Button clicked")}>Click Me</Button>
 ```
 
 ---
@@ -46,61 +42,61 @@ The `CountDownTimer` component provides a countdown timer with customization opt
 
 ### Props
 
-| Prop Name             | Type                | Default       | Description                                                                 |
-|-----------------------|---------------------|---------------|-----------------------------------------------------------------------------|
-| `startTime`           | `string`           | **Required**  | The start time for the countdown timer in ISO string format.               |
-| `format`              | `"with-names" \| "without-names"` | `"without-names"` | Format of the countdown display. Includes labels (`with-names`) or plain (`without-names`). |
-| `className`           | `string`           | `""`          | Additional CSS class name(s) for the countdown timer.                      |
-| `description`         | `string`           | `""`          | Description text displayed alongside the countdown timer.                  |
-| `minutes`             | `number`           | `5`           | Number of minutes for the countdown.                                       |
-| `descriptionClassName`| `string`           | `""`          | Additional CSS class name(s) for the description text.                     |
-| `onExpired`           | `(isExpire: boolean) => void` | `undefined` | Callback invoked when the countdown timer expires.                         |
+| Prop Name              | Type                              | Default           | Description                                                                                 |
+| ---------------------- | --------------------------------- | ----------------- | ------------------------------------------------------------------------------------------- |
+| `startTime`            | `string`                          | **Required**      | The start time for the countdown timer in ISO string format.                                |
+| `format`               | `"with-names" \| "without-names"` | `"without-names"` | Format of the countdown display. Includes labels (`with-names`) or plain (`without-names`). |
+| `className`            | `string`                          | `""`              | Additional CSS class name(s) for the countdown timer.                                       |
+| `description`          | `string`                          | `""`              | Description text displayed alongside the countdown timer.                                   |
+| `minutes`              | `number`                          | `5`               | Number of minutes for the countdown.                                                        |
+| `descriptionClassName` | `string`                          | `""`              | Additional CSS class name(s) for the description text.                                      |
+| `onExpired`            | `(isExpire: boolean) => void`     | `undefined`       | Callback invoked when the countdown timer expires.                                          |
 
 ### Example Usage
 
 #### Basic Countdown
 
 ```javascript
-import CountDownTimer from "zenithui-primitive";
+import CountDownTimer from "zenithui-primitive"
 
-<CountDownTimer
+;<CountDownTimer
   startTime={new Date().toISOString()}
   onExpired={(isExpire) => console.log("Timer expired:", isExpire)}
-/>;
+/>
 ```
 
 #### Countdown with Description
 
 ```javascript
-import CountDownTimer from "zenithui-primitive";
+import CountDownTimer from "zenithui-primitive"
 
-<CountDownTimer
+;<CountDownTimer
   startTime={new Date().toISOString()}
   description="until the event starts"
   descriptionClassName="text-gray-500"
-/>;
+/>
 ```
 
 #### Countdown with Labels
 
 ```javascript
-import CountDownTimer from "zenithui-primitive";
+import CountDownTimer from "zenithui-primitive"
 
-<CountDownTimer
+;<CountDownTimer
   startTime={new Date().toISOString()}
   format="with-names"
-/>;
+/>
 ```
 
 #### Custom Styling
 
 ```javascript
-import CountDownTimer from "zenithui-primitive";
+import CountDownTimer from "zenithui-primitive"
 
-<CountDownTimer
+;<CountDownTimer
   startTime={new Date().toISOString()}
-  className="text-blue-500 font-bold"
-/>;
+  className="font-bold text-blue-500"
+/>
 ```
 
 ---
@@ -119,9 +115,9 @@ import {
   ZenithUiDialogTitle,
   ZenithUiDialogDescription,
   ZenithUiDialogClose,
-} from "zenithui-primitive";
+} from "zenithui-primitive"
 
-<ZenithUiDialog>
+;<ZenithUiDialog>
   <ZenithUiDialogTrigger>Open Dialog</ZenithUiDialogTrigger>
   <ZenithUiDialogContent>
     <ZenithUiDialogTitle>Dialog Title</ZenithUiDialogTitle>
@@ -149,9 +145,9 @@ import {
   ZenithUiDrawerTitle,
   ZenithUiDrawerDescription,
   ZenithUiDrawerClose,
-} from "zenithui-primitive";
+} from "zenithui-primitive"
 
-<ZenithUiDrawer>
+;<ZenithUiDrawer>
   <ZenithUiDrawerTrigger>Open Drawer</ZenithUiDrawerTrigger>
   <ZenithUiDrawerContent>
     <ZenithUiDrawerTitle>Drawer Title</ZenithUiDrawerTitle>
@@ -161,6 +157,35 @@ import {
     <ZenithUiDrawerClose>Close</ZenithUiDrawerClose>
   </ZenithUiDrawerContent>
 </ZenithUiDrawer>
+```
+
+---
+
+## Popover
+
+A customizable and accessible popover component.
+
+### Customization
+
+You can modify the popover styles using the `className` prop or inline `style` attributes.
+
+### Example Usage
+
+```javascript
+import {
+  ZenithUiPopover,
+  ZenithUiPopoverTrigger,
+  ZenithUiPopoverContent,
+  ZenithUiPopoverArrow,
+} from "zenithui-primitive"
+
+;<ZenithUiPopover>
+  <ZenithUiPopoverTrigger>Open Popover</ZenithUiPopoverTrigger>
+  <ZenithUiPopoverContent className="rounded bg-gray-800 p-4 text-white">
+    This is a popover content.
+    <ZenithUiPopoverArrow />
+  </ZenithUiPopoverContent>
+</ZenithUiPopover>
 ```
 
 ---
