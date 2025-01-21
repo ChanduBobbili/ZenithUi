@@ -29,3 +29,17 @@ export {
   DrawerTitle as ZenithUiDrawerTitle,
   DrawerDescription as ZenithUiDrawerDescription,
 } from "./components/drawer"
+// Import of Popover Component
+export {
+  Popover as ZenithUiPopover,
+  PopoverTrigger as ZenithUiPopoverTrigger,
+  PopoverContent as ZenithUiPopoverContent,
+  PopoverAnchor as ZenithUiPopoverAnchor,
+} from "./components/popover"
+// Import of Toggle and ToggleGroup components
+export {
+  ToggleGroup as ZenithUiToggleGroup,
+  ToggleGroupItem as ZenithUiToggleGroupItem,
+} from "./components/toggle-group"
+
+export { Toggle as ZenithUiToggle } from "./components/toggle"

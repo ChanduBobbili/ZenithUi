@@ -1,5 +1,11 @@
 # zenithui-primitive
 
+## 0.4.0
+
+### Minor Changes
+
+- Added Popover, Toggle, Toggle-Group, Dialog Components
+
 ## 0.3.0
 
 ### Minor Changes
