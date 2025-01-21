@@ -29,3 +29,10 @@ export {
   DrawerTitle as ZenithUiDrawerTitle,
   DrawerDescription as ZenithUiDrawerDescription,
 } from "./components/drawer"
+// Import of Popover Component
+export {
+  Popover as ZenithUiPopover,
+  PopoverTrigger as ZenithUiPopoverTrigger,
+  PopoverContent as ZenithUiPopoverContent,
+  PopoverAnchor as ZenithUiPopoverAnchor,
+} from "./components/popover"

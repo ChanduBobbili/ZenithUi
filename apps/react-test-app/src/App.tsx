@@ -14,6 +14,9 @@ import {
   ZenithUiDrawerHeader,
   ZenithUiDrawerTitle,
   ZenithUiDrawerTrigger,
+  ZenithUiPopover,
+  ZenithUiPopoverContent,
+  ZenithUiPopoverTrigger,
 } from "zenithui-primitive"
 
 function App() {
@@ -61,7 +64,18 @@ function App() {
 
             <p>jkjdgfkfgkfjhgkjfhgl</p>
           </ZenithUiDialogContent>
-        </ZenithUiDialog>{" "}
+        </ZenithUiDialog>
+
+        <ZenithUiPopover>
+          <ZenithUiPopoverTrigger>
+            <Button>Open Popover</Button>
+          </ZenithUiPopoverTrigger>
+          <ZenithUiPopoverContent
+            side="right"
+            openAnimate="slide"
+            closeAnimate="slide"
+          ></ZenithUiPopoverContent>
+        </ZenithUiPopover>
       </div>
     </>
   )
