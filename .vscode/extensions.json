@@ -1,14 +1,15 @@
 {
-  "recommendations": [
-    "dbaeumer.vscode-eslint",
-    "esbenp.prettier-vscode",
-    "eamodio.gitlens",
-    "wix.glean",
-    "sburg.vscode-javascript-booster",
-    "vivaxy.vscode-conventional-commits",
-    "tombonnike.vscode-status-bar-format-toggle",
-    "donjayamanne.githistory",
-    "mhutchie.git-graph",
-    "ms-playwright.playwright",
-  ],
-}
+    "recommendations": [
+      "dbaeumer.vscode-eslint",
+      "esbenp.prettier-vscode",
+      "eamodio.gitlens",
+      "wix.glean",
+      "sburg.vscode-javascript-booster",
+      "vivaxy.vscode-conventional-commits",
+      "tombonnike.vscode-status-bar-format-toggle",
+      "donjayamanne.githistory",
+      "mhutchie.git-graph",
+      "ms-playwright.playwright"
+    ]
+  }
+  
