@@ -1,4 +1,10 @@
-# @zenithlib/primitive
+# zenithui-primitive
+
+## 0.3.0
+
+### Minor Changes
+
+- Added the Drawer component on top of the "vaul" package
 
 ## 0.2.0
 
