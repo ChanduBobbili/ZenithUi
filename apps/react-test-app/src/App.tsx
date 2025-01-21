@@ -19,14 +19,12 @@ import {
 function App() {
   return (
     <>
-      <div>
+      <div className="flex flex-col gap-2">
         <img
           src={viteLogo}
           className="logo"
           alt="Vite logo"
         />
-      </div>
-      <div className="card flex flex-col gap-2">
         <ZenithUiDrawer direction="right">
           <ZenithUiDrawerTrigger asChild>
             <Button>Open Drawer</Button>
