@@ -21,6 +21,7 @@ import {
   ZenithUiToggleGroup,
 } from "zenithui-primitive"
 import { cn } from "./utils"
+import { TimePicker } from "zenithui-time-picker"
 
 function App() {
   return (
@@ -97,6 +98,11 @@ function App() {
             </ZenithUiToggle>
           ))}
         </ZenithUiToggleGroup>
+
+        <TimePicker
+          time="12:34"
+          onTimeChange={(time) => console.log(time)}
+        />
       </div>
     </>
   )
