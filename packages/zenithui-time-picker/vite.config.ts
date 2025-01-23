@@ -10,7 +10,7 @@ export default defineConfig({
   build: {
     lib: {
       entry: path.resolve(__dirname, "src/index.ts"),
-      name: "ZenithUI",
+      name: "ZenithUI-Time-Picker",
       formats: ["es"],
       fileName: "index",
     },
