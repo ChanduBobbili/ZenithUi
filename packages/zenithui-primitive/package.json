@@ -1,6 +1,6 @@
 {
   "name": "zenithui-primitive",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "description": "A ZenithUi React component library containing primitive UI components.",
   "type": "module",
   "private": false,
