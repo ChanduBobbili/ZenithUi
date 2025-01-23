@@ -1,5 +1,11 @@
 # zenithui-primitive
 
+## 0.4.1
+
+### Patch Changes
+
+- Change the implementation of button component
+
 ## 0.4.0
 
 ### Minor Changes
