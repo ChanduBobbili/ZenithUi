@@ -1,5 +1,11 @@
 # zenithui-primitive
 
+## 0.5.0
+
+### Minor Changes
+
+- Removed the ZenithUi prefix in component names
+
 ## 0.4.3
 
 ### Patch Changes
