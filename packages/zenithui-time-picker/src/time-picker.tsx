@@ -17,41 +17,62 @@ import {
 } from "zenithui-primitive"
 
 interface TimePickerProps {
-  time: string // HH:MM
-  onTimeChange: (time: string) => void // HH:MM
+  /**
+   * The selected time in "HH:MM" format (24-hour clock).
+   */
+  time: string
+
+  /**
+   * Callback function to handle time changes, receives updated time in "HH:MM" format (24-hour clock).
+   */
+  onTimeChange: (time: string) => void
+
+  /**
+   * Alignment of the popover relative to the trigger element.
+   * Can be "center", "end", or "start".
+   * Default: "center".
+   */
   align?: "center" | "end" | "start"
+
+  /**
+   * Side of the trigger element where the popover will appear.
+   * Can be "top", "right", "bottom", or "left".
+   * Default: "bottom".
+   */
   side?: "top" | "right" | "bottom" | "left"
+
+  /**
+   * Offset for popover alignment along the alignment axis.
+   * Default: 10.
+   */
   alignOffset?: number
+
+  /**
+   * Offset for popover alignment along the side axis.
+   * Default: 10.
+   */
   sideOffset?: number
 }
 
-function TimePicker({
+const TimePicker: React.FC<TimePickerProps> = ({
   time,
   align = "center",
   side = "bottom",
   alignOffset = 10,
   sideOffset = 10,
   onTimeChange,
-}: TimePickerProps) {
+}) => {
   const [hour, setHour] = React.useState(getInitialHour(time))
   const [minute, setMinute] = React.useState(time?.split(":")?.[1])
   const [period, setPeriod] = React.useState(getInitialPeriod(time))
 
-  const hours = React.useMemo(() => {
-    return Array.from({ length: 13 }, (_, i) =>
-      i.toString().padStart(2, "0"),
-    ).filter((hour) => hour !== "00")
-  }, [])
+  const hours = React.useMemo(() => generateTimeOptions(1, 12), [])
+  const minutes = React.useMemo(() => generateTimeOptions(0, 59), [])
 
-  const minutes = React.useMemo(() => {
-    return Array.from({ length: 60 }, (_, i) => i.toString().padStart(2, "0"))
-  }, [])
-
-  // Handle time change effect
+  // Update time whenever hour, minute, or period changes
   React.useEffect(() => {
-    const newTime = `${convertTo24Hour(hour, period)}:${minute}`
-    onTimeChange(newTime)
-  }, [hour, minute, period])
+    onTimeChange(`${convertTo24Hour(hour, period)}:${minute}`)
+  }, [hour, minute, period, onTimeChange])
 
   return (
     <Popover>
@@ -62,8 +83,8 @@ function TimePicker({
             "flex w-full max-w-40 items-center justify-between text-white",
           )}
         >
-          <span>{`${formatTime(time)}`}</span>
-          <ClockIcon className="size-6 cursor-pointer self-center" />
+          <span>{formatTime(time)}</span>
+          <ClockIcon className="size-6 cursor-pointer" />
         </Button>
       </PopoverTrigger>
       <PopoverContent
@@ -74,9 +95,7 @@ function TimePicker({
         openAnimate="slide"
         closeAnimate="slide"
         className="grid h-80 w-60 grid-cols-3 gap-1 overflow-hidden rounded-md px-0 py-3"
-        onWheel={(e) => {
-          e.stopPropagation()
-        }}
+        onWheel={(e) => e.stopPropagation()}
       >
         <TimeScrollList
           options={hours}
@@ -98,18 +117,31 @@ function TimePicker({
   )
 }
 
-function TimeScrollList({
+interface TimeScrollListProps {
+  /**
+   * List of time options to display (e.g., hours, minutes, or AM/PM).
+   */
+  options: string[]
+
+  /**
+   * The currently selected value from the list.
+   */
+  value: string
+
+  /**
+   * Callback function triggered when a new value is selected.
+   */
+  onChange: (value: string) => void
+}
+
+const TimeScrollList: React.FC<TimeScrollListProps> = ({
   options,
   value,
   onChange,
-}: {
-  options: string[]
-  value: string
-  onChange: (value: string) => void
-}) {
+}) => {
   const listRef = React.useRef<HTMLDivElement>(null)
 
-  // // Scroll to the selected item when the list renders
+  // Scroll to the selected item when the list renders
   React.useEffect(() => {
     const index = options.findIndex((option) => option === value)
     if (listRef.current && index >= 0) {
@@ -125,9 +157,9 @@ function TimeScrollList({
         type="single"
         className="pointer-events-auto flex flex-col gap-2 p-0"
         value={value}
-        onValueChange={(value) => {
-          if (value) onChange(value)
-        }}
+        onValueChange={(selectedValue) =>
+          selectedValue && onChange(selectedValue)
+        }
       >
         {options.map((option) => (
           <ToggleGroupItem
@@ -143,6 +175,21 @@ function TimeScrollList({
         ))}
       </ToggleGroup>
     </div>
+  )
+}
+
+// Utility function to generate time options
+/**
+ * Generates an array of time options (hours or minutes) as strings,
+ * padded with leading zeros if necessary.
+ *
+ * @param start - Starting number of the range (inclusive).
+ * @param end - Ending number of the range (inclusive).
+ * @returns Array of time options as strings.
+ */
+const generateTimeOptions = (start: number, end: number): string[] => {
+  return Array.from({ length: end - start + 1 }, (_, i) =>
+    (i + start).toString().padStart(2, "0"),
   )
 }
 
