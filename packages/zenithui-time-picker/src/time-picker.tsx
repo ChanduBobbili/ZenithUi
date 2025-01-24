@@ -7,7 +7,14 @@ import {
   getInitialHour,
   getInitialPeriod,
 } from "./utils"
-import { Button, Popover, PopoverContent, PopoverTrigger, ToggleGroup, ToggleGroupItem } from "zenithui-primitive"
+import {
+  Button,
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+  ToggleGroup,
+  ToggleGroupItem,
+} from "zenithui-primitive"
 
 interface TimePickerProps {
   time: string // HH:MM
@@ -51,10 +58,12 @@ function TimePicker({
       <PopoverTrigger>
         <Button
           variant="outline"
-          className={cn("flex w-full max-w-32 items-center justify-between")}
+          className={cn(
+            "flex w-full max-w-40 items-center justify-between text-white",
+          )}
         >
-          <span className="text-sky-950">{`${formatTime(time)}`}</span>
-          <ClockIcon className="size-6 cursor-pointer self-center text-slate-500" />
+          <span>{`${formatTime(time)}`}</span>
+          <ClockIcon className="size-6 cursor-pointer self-center" />
         </Button>
       </PopoverTrigger>
       <PopoverContent
