@@ -1,5 +1,29 @@
 # zenithui-primitive
 
+## 0.5.0
+
+### Minor Changes
+
+- Removed the ZenithUi prefix in component names
+
+## 0.4.3
+
+### Patch Changes
+
+- Build Fixes
+
+## 0.4.2
+
+### Patch Changes
+
+- no summary
+
+## 0.4.1
+
+### Patch Changes
+
+- Change the implementation of button component
+
 ## 0.4.0
 
 ### Minor Changes

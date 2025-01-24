@@ -101,7 +101,7 @@ import CountDownTimer from "zenithui-primitive";
 
 ---
 
-### Dialog
+## Dialog
 
 The Dialog component provides a modal dialog built on top of [Radix UI](https://www.radix-ui.com/themes/docs/components/dialog).
 
@@ -109,29 +109,29 @@ The Dialog component provides a modal dialog built on top of [Radix UI](https://
 
 ```tsx
 import {
-    ZenithUiDialog,
-    ZenithUiDialogTrigger,
-    ZenithUiDialogContent,
-    ZenithUiDialogTitle,
-    ZenithUiDialogDescription,
-    ZenithUiDialogClose,
+    Dialog,
+    DialogTrigger,
+    DialogContent,
+    DialogTitle,
+    DialogDescription,
+    DialogClose,
 } from "zenithui-primitive";
 
-<ZenithUiDialog>
-  <ZenithUiDialogTrigger>Open Dialog</ZenithUiDialogTrigger>
-  <ZenithUiDialogContent>
-    <ZenithUiDialogTitle>Dialog Title</ZenithUiDialogTitle>
-    <ZenithUiDialogDescription>
+<Dialog>
+  <DialogTrigger>Open Dialog</DialogTrigger>
+  <DialogContent>
+    <DialogTitle>Dialog Title</DialogTitle>
+    <DialogDescription>
       This is the description of the dialog.
-    </ZenithUiDialogDescription>
-    <ZenithUiDialogClose>Close</ZenithUiDialogClose>
-  </ZenithUiDialogContent>
-</ZenithUiDialog>
+    </DialogDescription>
+    <DialogClose>Close</DialogClose>
+  </DialogContent>
+</Dialog>
 ```
 
 ---
 
-### Drawer
+## Drawer
 
 The Drawer component is a sliding panel built on top of [Vaul](https://github.com/emilkowalski/vaul).
 
@@ -139,24 +139,24 @@ The Drawer component is a sliding panel built on top of [Vaul](https://github.co
 
 ```tsx
 import {
-    ZenithUiDrawer,
-    ZenithUiDrawerTrigger,
-    ZenithUiDrawerContent,
-    ZenithUiDrawerTitle,
-    ZenithUiDrawerDescription,
-    ZenithUiDrawerClose,
+    Drawer,
+    DrawerTrigger,
+    DrawerContent,
+    DrawerTitle,
+    DrawerDescription,
+    DrawerClose,
 } from "zenithui-primitive";
 
-<ZenithUiDrawer>
-  <ZenithUiDrawerTrigger>Open Drawer</ZenithUiDrawerTrigger>
-  <ZenithUiDrawerContent>
-    <ZenithUiDrawerTitle>Drawer Title</ZenithUiDrawerTitle>
-    <ZenithUiDrawerDescription>
+<Drawer>
+  <DrawerTrigger>Open Drawer</DrawerTrigger>
+  <DrawerContent>
+    <DrawerTitle>Drawer Title</DrawerTitle>
+    <DrawerDescription>
       This is the description of the drawer.
-    </ZenithUiDrawerDescription>
-    <ZenithUiDrawerClose>Close</ZenithUiDrawerClose>
-  </ZenithUiDrawerContent>
-</ZenithUiDrawer>
+    </DrawerDescription>
+    <DrawerClose>Close</DrawerClose>
+  </DrawerContent>
+</Drawer>
 ```
 
 ---
@@ -173,30 +173,30 @@ You can modify the popover styles using the `className` prop or inline `style` a
 
 ```tsx
 import {
-    ZenithUiPopover,
-    ZenithUiPopoverTrigger,
-    ZenithUiPopoverContent,
-    ZenithUiPopoverArrow,
+    Popover,
+    PopoverTrigger,
+    PopoverContent,
+    PopoverArrow,
 } from "zenithui-primitive";
 
-<ZenithUiPopover>
-  <ZenithUiPopoverTrigger>Open Popover</ZenithUiPopoverTrigger>
-  <ZenithUiPopoverContent className="rounded bg-gray-800 p-4 text-white">
+<Popover>
+  <PopoverTrigger>Open Popover</PopoverTrigger>
+  <PopoverContent className="rounded bg-gray-800 p-4 text-white">
     This is a popover content.
-    <ZenithUiPopoverArrow />
-  </ZenithUiPopoverContent>
-</ZenithUiPopover>
+    <PopoverArrow />
+  </PopoverContent>
+</Popover>
 ```
 
 ---
 
-### Toggle
+## Toggle
 
 The `Toggle` component is used for creating toggleable elements that represent a binary state.
 
 #### Props
 
-The `ZenithUiToggle` component inherits all props from the underlying `Radix TogglePrimitive.Root` component. Additionally, it supports the following variants via `class-variance-authority`:
+The `Toggle` component inherits all props from the underlying `Radix TogglePrimitive.Root` component. Additionally, it supports the following variants via `class-variance-authority`:
 
 - **variant**: Controls the visual style of the toggle.
 
@@ -211,32 +211,32 @@ The `ZenithUiToggle` component inherits all props from the underlying `Radix Tog
 #### Example Usage
 
 ```tsx
-import { ZenithUiToggle } from "zenithui-primitive";
+import { Toggle } from "zenithui-primitive";
 
-<ZenithUiToggle
+<Toggle
   variant="outline"
   size="default"
 >
   Toggle Me
-</ZenithUiToggle>
+</Toggle>
 ```
 
 ---
 
-### Toggle Group
+## Toggle Group
 
 The `ToggleGroup` and `ToggleGroupItem` components allow you to create a group of toggleable items. These are useful for building grouped toggle buttons with shared styling and behavior.
 
 #### Components
 
-- **ZenithUiToggleGroup**: A wrapper component for grouping `ToggleGroupItem` components.
-- **ZenithUiToggleGroupItem**: Represents an individual toggleable item within the group.
+- **ToggleGroup**: A wrapper component for grouping `ToggleGroupItem` components.
+- **ToggleGroupItem**: Represents an individual toggleable item within the group.
 
 #### Props
 
-##### ZenithUiToggleGroup
+##### ToggleGroup
 
-The `ZenithUiToggleGroup` component inherits all props from the `Radix ToggleGroupPrimitive.Root` component. It also supports the following variants via `class-variance-authority`:
+The `ToggleGroup` component inherits all props from the `Radix ToggleGroupPrimitive.Root` component. It also supports the following variants via `class-variance-authority`:
 
 - **variant**: Controls the visual style of the toggles within the group.
   - `default` (default): Transparent background.
@@ -246,20 +246,20 @@ The `ZenithUiToggleGroup` component inherits all props from the `Radix ToggleGro
   - `sm`: Smaller size with height of `8px` and padding of `2px`.
   - `lg`: Larger size with height of `10px` and padding of `3px`.
 
-##### ZenithUiToggleGroupItem
+##### ToggleGroupItem
 
-The `ZenithUiToggleGroupItem` component inherits all props from the `Radix ToggleGroupPrimitive.Item` component. Additionally, it automatically inherits `variant` and `size` values from the enclosing `ToggleGroup`.
+The `ToggleGroupItem` component inherits all props from the `Radix ToggleGroupPrimitive.Item` component. Additionally, it automatically inherits `variant` and `size` values from the enclosing `ToggleGroup`.
 
 #### Example Usage
 
 ```tsx
-import { ZenithUiToggleGroup, ZenithUiToggleGroupItem } from "zenithui-primitive";
+import { ToggleGroup, ToggleGroupItem } from "zenithui-primitive";
 
-<ZenithUiToggleGroup type="single" variant="outline" size="default">
-  <ZenithUiToggleGroupItem value="option1">Option 1</ZenithUiToggleGroupItem>
-  <ZenithUiToggleGroupItem value="option2">Option 2</ZenithUiToggleGroupItem>
-  <ZenithUiToggleGroupItem value="option3">Option 3</ZenithUiToggleGroupItem>
-</ZenithUiToggleGroup>
+<ToggleGroup type="single" variant="outline" size="default">
+  <ToggleGroupItem value="option1">Option 1</ToggleGroupItem>
+  <ToggleGroupItem value="option2">Option 2</ToggleGroupItem>
+  <ToggleGroupItem value="option3">Option 3</ToggleGroupItem>
+</ToggleGroup>
 ```
 
 ---

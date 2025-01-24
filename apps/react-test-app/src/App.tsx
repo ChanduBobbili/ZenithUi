@@ -2,25 +2,26 @@ import viteLogo from "/vite.svg"
 import "./App.css"
 import {
   Button,
-  ZenithUiDialog,
-  ZenithUiDialogContent,
-  ZenithUiDialogDescription,
-  ZenithUiDialogHeader,
-  ZenithUiDialogTitle,
-  ZenithUiDialogTrigger,
-  ZenithUiDrawer,
-  ZenithUiDrawerContent,
-  ZenithUiDrawerDescription,
-  ZenithUiDrawerHeader,
-  ZenithUiDrawerTitle,
-  ZenithUiDrawerTrigger,
-  ZenithUiPopover,
-  ZenithUiPopoverContent,
-  ZenithUiPopoverTrigger,
-  ZenithUiToggle,
-  ZenithUiToggleGroup,
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+  Drawer,
+  DrawerContent,
+  DrawerDescription,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerTrigger,
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+  Toggle,
+  ToggleGroup,
 } from "zenithui-primitive"
 import { cn } from "./utils"
+import { TimePicker } from "zenithui-time-picker"
 
 function App() {
   return (
@@ -31,61 +32,57 @@ function App() {
           className="logo"
           alt="Vite logo"
         />
-        <ZenithUiDrawer direction="right">
-          <ZenithUiDrawerTrigger asChild>
+        <Drawer direction="right">
+          <DrawerTrigger asChild>
             <Button>Open Drawer</Button>
-          </ZenithUiDrawerTrigger>
-          <ZenithUiDrawerContent
+          </DrawerTrigger>
+          <DrawerContent
             className="w-1/2 rounded-bl-md rounded-tl-md p-6 pb-4 pt-2 transition-all duration-300 ease-in-out"
             OverlayClassName="bg-black/75"
           >
-            <ZenithUiDrawerHeader>
-              <ZenithUiDrawerTitle className="text-sky-400">
-                Drawer Tiltle
-              </ZenithUiDrawerTitle>
-              <ZenithUiDrawerDescription className="text-emerald-400">
+            <DrawerHeader>
+              <DrawerTitle className="text-sky-400">Drawer Tiltle</DrawerTitle>
+              <DrawerDescription className="text-emerald-400">
                 Drawer Description
-              </ZenithUiDrawerDescription>
-            </ZenithUiDrawerHeader>
+              </DrawerDescription>
+            </DrawerHeader>
 
             <p>jkjdgfkfgkfjhgkjfhgl</p>
-          </ZenithUiDrawerContent>
-        </ZenithUiDrawer>
-        <ZenithUiDialog>
-          <ZenithUiDialogTrigger asChild>
+          </DrawerContent>
+        </Drawer>
+        <Dialog>
+          <DialogTrigger asChild>
             <Button>Open Dialog</Button>
-          </ZenithUiDialogTrigger>
-          <ZenithUiDialogContent className="w-1/2 max-w-full">
-            <ZenithUiDialogHeader>
-              <ZenithUiDialogTitle className="text-sky-400">
-                Dialog Tiltle
-              </ZenithUiDialogTitle>
-              <ZenithUiDialogDescription className="text-emerald-400">
+          </DialogTrigger>
+          <DialogContent className="w-1/2 max-w-full">
+            <DialogHeader>
+              <DialogTitle className="text-sky-400">Dialog Tiltle</DialogTitle>
+              <DialogDescription className="text-emerald-400">
                 Dialog Description
-              </ZenithUiDialogDescription>
-            </ZenithUiDialogHeader>
+              </DialogDescription>
+            </DialogHeader>
 
             <p>jkjdgfkfgkfjhgkjfhgl</p>
-          </ZenithUiDialogContent>
-        </ZenithUiDialog>
+          </DialogContent>
+        </Dialog>
 
-        <ZenithUiPopover>
-          <ZenithUiPopoverTrigger>
+        <Popover>
+          <PopoverTrigger>
             <Button>Open Popover</Button>
-          </ZenithUiPopoverTrigger>
-          <ZenithUiPopoverContent
+          </PopoverTrigger>
+          <PopoverContent
             side="right"
             openAnimate="slide"
             closeAnimate="slide"
-          ></ZenithUiPopoverContent>
-        </ZenithUiPopover>
+          ></PopoverContent>
+        </Popover>
 
-        <ZenithUiToggleGroup
+        <ToggleGroup
           type="single"
           className="pointer-events-auto flex flex-col gap-2 p-0"
         >
           {["B", "C", "D"].map((option) => (
-            <ZenithUiToggle
+            <Toggle
               key={option}
               value={option}
               aria-label={option}
@@ -94,9 +91,16 @@ function App() {
               )}
             >
               {option}
-            </ZenithUiToggle>
+            </Toggle>
           ))}
-        </ZenithUiToggleGroup>
+        </ToggleGroup>
+
+        <TimePicker
+          time="12:34"
+          onTimeChange={(time) => console.log(time)}
+          align="center"
+          side="right"
+        />
       </div>
     </>
   )
