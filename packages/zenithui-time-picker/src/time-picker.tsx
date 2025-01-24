@@ -7,6 +7,7 @@ import {
   getInitialHour,
   getInitialPeriod,
 } from "./utils"
+import { Button, Popover, PopoverContent, PopoverTrigger, ToggleGroup, ToggleGroupItem } from "zenithui-primitive"
 
 interface TimePickerProps {
   time: string // HH:MM
@@ -21,8 +22,8 @@ function TimePicker({
   time,
   align = "center",
   side = "bottom",
-  alignOffset = 0,
-  sideOffset = 0,
+  alignOffset = 10,
+  sideOffset = 10,
   onTimeChange,
 }: TimePickerProps) {
   const [hour, setHour] = React.useState(getInitialHour(time))
@@ -46,8 +47,8 @@ function TimePicker({
   }, [hour, minute, period])
 
   return (
-    <ZenithUiPopover>
-      <ZenithUiPopoverTrigger asChild>
+    <Popover>
+      <PopoverTrigger>
         <Button
           variant="outline"
           className={cn("flex w-full max-w-32 items-center justify-between")}
@@ -55,13 +56,15 @@ function TimePicker({
           <span className="text-sky-950">{`${formatTime(time)}`}</span>
           <ClockIcon className="size-6 cursor-pointer self-center text-slate-500" />
         </Button>
-      </ZenithUiPopoverTrigger>
-      <ZenithUiPopoverContent
+      </PopoverTrigger>
+      <PopoverContent
         align={align}
         side={side}
         alignOffset={alignOffset}
         sideOffset={sideOffset}
-        className="grid h-fit w-60 grid-cols-3 gap-1 overflow-hidden rounded-sm px-0 py-3"
+        openAnimate="slide"
+        closeAnimate="slide"
+        className="grid h-80 w-60 grid-cols-3 gap-1 overflow-hidden rounded-md px-0 py-3"
         onWheel={(e) => {
           e.stopPropagation()
         }}
@@ -81,8 +84,8 @@ function TimePicker({
           value={period}
           onChange={setPeriod}
         />
-      </ZenithUiPopoverContent>
-    </ZenithUiPopover>
+      </PopoverContent>
+    </Popover>
   )
 }
 
@@ -108,7 +111,7 @@ function TimeScrollList({
 
   return (
     <div className="h-80 overflow-y-auto">
-      <ZenithUiToggleGroup
+      <ToggleGroup
         ref={listRef}
         type="single"
         className="pointer-events-auto flex flex-col gap-2 p-0"
@@ -118,7 +121,7 @@ function TimeScrollList({
         }}
       >
         {options.map((option) => (
-          <ZenithUiToggleGroupItem
+          <ToggleGroupItem
             key={option}
             value={option}
             aria-label={option}
@@ -127,9 +130,9 @@ function TimeScrollList({
             )}
           >
             {option}
-          </ZenithUiToggleGroupItem>
+          </ToggleGroupItem>
         ))}
-      </ZenithUiToggleGroup>
+      </ToggleGroup>
     </div>
   )
 }
