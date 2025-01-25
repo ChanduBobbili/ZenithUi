@@ -1,5 +1,13 @@
 # zenithui-time-picker
 
+## 1.1.0
+
+### Minor Changes
+
+- Added the classNames and formatter for the props
+  - classNames enables to customize the styles of the component.
+  - formatter enables the user to show custom format of the selected time.
+
 ## 1.0.0
 
 ### Major Changes

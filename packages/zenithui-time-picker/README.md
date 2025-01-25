@@ -43,14 +43,25 @@ const App = () => {
 
 #### `TimePicker` Props
 
-| Prop Name          | Type                                     | Description                                                                               | Default    |
-| ------------------ | ---------------------------------------- | ----------------------------------------------------------------------------------------- | ---------- |
-| **`time`**         | `string`                                 | The selected time in "HH:MM" format (24-hour clock).                                      | Required   |
-| **`onTimeChange`** | `(time: string) => void`                 | Callback function triggered when the time changes, providing the updated time in "HH:MM". | Required   |
-| **`align`**        | `"center" \| "end" \| "start"`           | Alignment of the popover relative to the trigger element.                                 | `"center"` |
-| **`side`**         | `"top" \| "right" \| "bottom" \| "left"` | Side of the trigger element where the popover will appear.                                | `"bottom"` |
-| **`alignOffset`**  | `number`                                 | Offset for popover alignment along the alignment axis.                                    | `10`       |
-| **`sideOffset`**   | `number`                                 | Offset for popover alignment along the side axis.                                         | `10`       |
+| Prop Name          | Type                                     | Description                                                                                  | Default    |
+| ------------------ | ---------------------------------------- | -------------------------------------------------------------------------------------------- | ---------- |
+| **`time`**         | `string`                                 | The selected time in "HH:MM" format (24-hour clock).                                         | Required   |
+| **`onTimeChange`** | `(time: string) => void`                 | Callback function triggered when the time changes, providing the updated time in "HH:MM".    | Required   |
+| **`align`**        | `"center" \| "end" \| "start"`           | Alignment of the popover relative to the trigger element.                                    | `"center"` |
+| **`side`**         | `"top" \| "right" \| "bottom" \| "left"` | Side of the trigger element where the popover will appear.                                   | `"bottom"` |
+| **`alignOffset`**  | `number`                                 | Offset for popover alignment along the alignment axis.                                       | `10`       |
+| **`sideOffset`**   | `number`                                 | Offset for popover alignment along the side axis.                                            | `10`       |
+| **`formatter`**    | `(time: string) => string`               | Custom formatter for time display, receives the time in "HH:MM" format and returns a string. | optional   |
+| **`classNames`**   | `TimePickerClassNames`                   | Object containing class names for customizing the appearance of the time picker.             | optional   |
+
+### `TimePickerClassNames`
+
+| Property                 | Type     | Description                                |
+| ------------------------ | -------- | ------------------------------------------ |
+| **`popoverContent`**     | `string` | Class name for the popover content.        |
+| **`button`**             | `string` | Class name for the popover trigger button. |
+| **`timeScrollList`**     | `string` | Class name for the time scroll list.       |
+| **`timeScrollListItem`** | `string` | Class name for the time scroll list item.  |
 
 ---
 
@@ -61,6 +72,8 @@ You can customize the alignment and positioning of the popover by using the foll
 - **`align`**: Controls the horizontal alignment of the popover. Options: `"center"`, `"start"`, `"end"`.
 - **`side`**: Controls the vertical positioning of the popover. Options: `"top"`, `"right"`, `"bottom"`, `"left"`.
 - **`alignOffset`** and **`sideOffset`**: Adjust the alignment and side positioning offsets for the popover.
+- **`classNames`**: Pass custom class names for the popover content, buttons, or scrollable lists.
+- **`formatter`**: Use a custom time formatter to display the time as desired.
 
 ---
 
