@@ -4,10 +4,14 @@ import { default as flattenColorPalette } from "tailwindcss/lib/util/flattenColo
 
 const config: Config = {
   darkMode: ["class"],
+  // important: true,
   content: [
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
     "./node_modules/@nextui-org/theme/dist/components/pagination.js",
+    // "./node_modules/@zenithui-time-picker/dist/time-picker.d.ts",
+    // "./node_modules/@zenithui-time-picker/dist/index.ts",
+    // "./node_modules/@zenithui-time-picker/dist/index.js",
   ],
   theme: {
     container: {

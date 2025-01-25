@@ -57,8 +57,7 @@
     "clean": "rm -rf dist",
     "lint": "eslint .",
     "lint:fix": "eslint \"**/*.{js,jsx,ts,tsx}\" --max-warnings 0 --fix",
-    "format": "prettier --write .",
-    "dev": "vite"
+    "format": "prettier --write ."
   },
   "peerDependencies": {
     "react": "^18.0.0 || ^17.0.0",

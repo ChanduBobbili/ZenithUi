@@ -5,7 +5,6 @@ import tseslint from "@typescript-eslint/eslint-plugin"
 import tsParser from "@typescript-eslint/parser"
 import react from "eslint-plugin-react"
 import eslintPluginPrettier from "eslint-plugin-prettier"
-import tanstackQuery from "@tanstack/eslint-plugin-query"
 
 export default [
   {
@@ -21,7 +20,6 @@ export default [
       "@typescript-eslint": tseslint,
       react,
       prettier: eslintPluginPrettier,
-      "@tanstack/query": tanstackQuery,
     },
     rules: {
       ...(reactRefresh.configs ? reactRefresh.configs.recommended.rules : {}),

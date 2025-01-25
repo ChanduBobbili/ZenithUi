@@ -3,7 +3,7 @@ import { ClockIcon } from "@radix-ui/react-icons"
 import {
   cn,
   convertTo24Hour,
-  formatTime,
+  formatTime24To12,
   getInitialHour,
   getInitialPeriod,
 } from "./utils"
@@ -52,6 +52,41 @@ interface TimePickerProps {
    * Default: 10.
    */
   sideOffset?: number
+  /**
+   * Class names for the Time Picker.
+   */
+  classNames?: TimePickerClassNames
+  /**
+   * Custom formatter for time display.
+   * @param time - The time in "HH:MM" format (24-hour clock).
+   * @returns Formatted time string.
+   */
+  formatter?: (time: string) => string
+}
+
+interface TimePickerClassNames {
+  /**
+   * Class name for the popover content.
+   */
+  popoverContent?: string
+  /**
+   * Class name for the popover trigger button.
+   */
+  button?: string
+
+  /**
+   * Class name for the time scroll list.
+   */
+  timeScrollList?: string
+
+  /**
+   * Class name for the time scroll list item.
+   */
+  timeScrollListItem?: string
+  /**
+   * Class name for the time scroll list item when selected.
+   */
+  Selected?: string
 }
 
 const TimePicker: React.FC<TimePickerProps> = ({
@@ -60,7 +95,9 @@ const TimePicker: React.FC<TimePickerProps> = ({
   side = "bottom",
   alignOffset = 10,
   sideOffset = 10,
+  classNames,
   onTimeChange,
+  formatter = formatTime24To12,
 }) => {
   const [hour, setHour] = React.useState(getInitialHour(time))
   const [minute, setMinute] = React.useState(time?.split(":")?.[1])
@@ -81,9 +118,10 @@ const TimePicker: React.FC<TimePickerProps> = ({
           variant="outline"
           className={cn(
             "flex w-full max-w-40 items-center justify-between text-white",
+            classNames?.button,
           )}
         >
-          <span>{formatTime(time)}</span>
+          <span>{formatter(time)}</span>
           <ClockIcon className="size-6 cursor-pointer" />
         </Button>
       </PopoverTrigger>
@@ -94,22 +132,28 @@ const TimePicker: React.FC<TimePickerProps> = ({
         sideOffset={sideOffset}
         openAnimate="slide"
         closeAnimate="slide"
-        className="grid h-80 w-60 grid-cols-3 gap-1 overflow-hidden rounded-md px-0 py-3"
+        className={cn(
+          "grid h-80 w-60 grid-cols-3 gap-1 overflow-hidden rounded-md px-0 py-3",
+          classNames?.popoverContent,
+        )}
         onWheel={(e) => e.stopPropagation()}
       >
         <TimeScrollList
           options={hours}
           value={hour}
+          classNames={classNames}
           onChange={setHour}
         />
         <TimeScrollList
           options={minutes}
           value={minute}
+          classNames={classNames}
           onChange={setMinute}
         />
         <TimeScrollList
           options={["AM", "PM"]}
           value={period}
+          classNames={classNames}
           onChange={setPeriod}
         />
       </PopoverContent>
@@ -132,11 +176,16 @@ interface TimeScrollListProps {
    * Callback function triggered when a new value is selected.
    */
   onChange: (value: string) => void
+  /**
+   * Class names for the Time Scroll List.
+   */
+  classNames?: TimePickerClassNames
 }
 
 const TimeScrollList: React.FC<TimeScrollListProps> = ({
   options,
   value,
+  classNames,
   onChange,
 }) => {
   const listRef = React.useRef<HTMLDivElement>(null)
@@ -151,28 +200,39 @@ const TimeScrollList: React.FC<TimeScrollListProps> = ({
   }, [value, options])
 
   return (
-    <div className="h-80 overflow-y-auto">
+    <div className="h-full overflow-y-auto">
       <ToggleGroup
         ref={listRef}
         type="single"
-        className="pointer-events-auto flex flex-col gap-2 p-0"
+        className={cn(
+          "pointer-events-auto flex flex-col gap-2 p-0",
+          classNames?.timeScrollList,
+        )}
         value={value}
         onValueChange={(selectedValue) =>
           selectedValue && onChange(selectedValue)
         }
       >
-        {options.map((option) => (
-          <ToggleGroupItem
-            key={option}
-            value={option}
-            aria-label={option}
-            className={cn(
-              "h-12 w-12 data-[state='on']:!bg-primary data-[state='on']:!text-white",
-            )}
-          >
-            {option}
-          </ToggleGroupItem>
-        ))}
+        {options.map((option) => {
+          const activeClasses = cn(
+            "data-[state=on]:!bg-primary data-[state=on]:!text-white", // Package default
+            generateActiveClasses(classNames?.Selected), // App-provided styles
+          )
+          return (
+            <ToggleGroupItem
+              key={option}
+              value={option}
+              aria-label={option}
+              className={cn(
+                "h-12 w-12 transition-all duration-500 ease-in-out",
+                classNames?.timeScrollListItem,
+                activeClasses,
+              )}
+            >
+              {option}
+            </ToggleGroupItem>
+          )
+        })}
       </ToggleGroup>
     </div>
   )
@@ -191,6 +251,20 @@ const generateTimeOptions = (start: number, end: number): string[] => {
   return Array.from({ length: end - start + 1 }, (_, i) =>
     (i + start).toString().padStart(2, "0"),
   )
+}
+
+// Utility function to generate active classes for selected items
+/**
+ * Generates CSS classes for active (selected) items.
+ *
+ * @param classNames - Class names provided by the user.
+ * @returns CSS classes for active items.
+ */
+const generateActiveClasses = (classNames: string | undefined) => {
+  const activeClasses = classNames?.split(" ") ?? []
+  return activeClasses
+    .map((className) => `data-[state=on]:!${className}`)
+    .join(" ")
 }
 
 export { TimePicker, type TimePickerProps }
