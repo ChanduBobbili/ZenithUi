@@ -96,10 +96,17 @@ function App() {
         </ToggleGroup>
 
         <TimePicker
-          time="12:34"
+          time="14:34"
           onTimeChange={(time) => console.log(time)}
           align="center"
           side="right"
+          classNames={{
+            button: "text-red-500",
+            timeScrollListItem: "bg-slate-500",
+            timeScrollList: "bg-emerald-500",
+            popoverContent: "bg-red-500",
+            // Selected: "text-green-500 bg-black",
+          }}
         />
       </div>
     </>

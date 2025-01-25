@@ -1,5 +1,4 @@
 import { clsx, type ClassValue } from "clsx"
-import dayjs from "dayjs"
 import { twMerge } from "tailwind-merge"
 
 export function cn(...inputs: ClassValue[]) {
@@ -28,10 +27,10 @@ export function convertTo24Hour(hour: string, period: string) {
   return hour
 }
 
-export function formatTime(time: string) {
-  const [hours, minutes] = time.split(":")
-  const date = new Date()
-  date.setHours(parseInt(hours))
-  date.setMinutes(parseInt(minutes))
-  return dayjs(date).format("hh:mm A")
+export function formatTime24To12(time24: string) {
+  const [hours24, minutes] = time24.split(":").map(Number) // Split and parse hours and minutes
+  const period = hours24 >= 12 ? "PM" : "AM" // Determine AM/PM
+  const hours12 = hours24 % 12 || 12 // Convert 24-hour to 12-hour format (0 becomes 12)
+
+  return `${hours12}:${minutes.toString().padStart(2, "0")} ${period}`
 }
