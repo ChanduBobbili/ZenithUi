@@ -107,7 +107,7 @@ interface LightBoxProps {
   /**
    * The animation to use for the lightbox.
    */
-  animation?: "slide" | "fade" | "stretch"
+  animation?: "slide" | "fade" | "stretch" | "flip" | "blur"
   /**
    * The function to call when the image deletes.
    */
@@ -212,10 +212,43 @@ const LightBox: React.FC<LightBoxProps> = ({
               ))}
             </>
           )}
+          {animation === "flip" && (
+            <div
+              className="absolute inset-0 z-0 transition-transform duration-500"
+              style={{
+                transform:
+                  currentIndex % 2 === 0 ? "rotateY(180deg)" : "rotateY(0deg)",
+                backgroundImage: `url(${typeof images[currentIndex] !== "string" ? images[currentIndex].src : images[currentIndex]})`,
+                backgroundSize: "cover",
+                backgroundRepeat: "no-repeat",
+                backgroundPosition: "center",
+              }}
+            />
+          )}
+          {animation === "blur" && (
+            <>
+              {images.map((image, index) => (
+                <div
+                  key={index}
+                  style={{
+                    backgroundImage: `url(${typeof image !== "string" ? image.src : image})`,
+                    backgroundSize: "cover",
+                    backgroundRepeat: "no-repeat",
+                    backgroundPosition: "center",
+                    filter: currentIndex === index ? "blur(0)" : "blur(10px)",
+                    transition:
+                      "filter 0.5s ease-in-out, opacity 0.5s ease-in-out",
+                    opacity: currentIndex === index ? 1 : 0,
+                  }}
+                  className="absolute inset-0"
+                />
+              ))}
+            </>
+          )}
 
           <div
             className={cn(
-              "flex w-full flex-row items-center justify-end gap-4 space-y-0",
+              "z-10 flex w-full flex-row items-center justify-end gap-4 space-y-0",
             )}
           >
             {/* Delete Button */}
@@ -258,7 +291,7 @@ const LightBox: React.FC<LightBoxProps> = ({
           </div>
 
           {/* Navigation Buttons */}
-          <div className="flex w-full items-center justify-between">
+          <div className="z-10 flex w-full items-center justify-between">
             {/* Previous Button */}
             <NavigationButton
               direction="left"
@@ -287,7 +320,9 @@ const LightBox: React.FC<LightBoxProps> = ({
           </div>
 
           {/* Footer */}
-          <div className={cn("flex w-full flex-col justify-end sm:flex-col")}>
+          <div
+            className={cn("z-10 flex w-full flex-col justify-end sm:flex-col")}
+          >
             {showCaption && (
               <div className="flex w-full flex-col gap-1 px-2">
                 <span
