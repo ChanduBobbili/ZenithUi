@@ -1,6 +1,6 @@
 {
   "name": "zenithui-light-box",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "A ZenithUi Light Box is React component that displays a light box with a content area and a close button.",
   "type": "module",
   "private": false,
