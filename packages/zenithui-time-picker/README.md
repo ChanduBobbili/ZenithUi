@@ -83,6 +83,13 @@ ZenithUi components are designed to be flexible and styled easily. Combine them 
 
 ---
 
+## 📦 Other Components
+
+- [ZenithUi Primitive](https://npmjs.com/package/zenithui-primitive)
+- [ZenithUi Light Box](https://npmjs.com/package/zenithui-light-box)
+
+---
+
 ## 🤝 Contributing
 
 Contributions are welcome! Please check out our [contributing guide](https://github.com/ChanduBobbili/ZenithUi/blob/main/CONTRIBUTING.md) for more details.
@@ -97,6 +104,6 @@ Found a bug or have a feature request? [Create an issue](https://github.com/Chan
 
 ## 📄 License
 
-ZenithUi is licensed under the [MIT License](https://github.com/ChanduBobbili/ZenithUi/blob/main/LICENSE).
+ZenithUi is licensed under the [MIT License](https://github.com/ChanduBobbili/ZenithUi/blob/main/LICENSE.md).
 
 Happy coding! 🚀
