@@ -75,6 +75,125 @@ interface LightBoxClassNames {
   overLay?: string
 }
 
+interface PaginationDotProps {
+  /**
+   * Whether the pagination dot is active.
+   */
+  active: boolean
+  /**
+   * The function to call when the pagination dot is clicked.
+   */
+  onClick: () => void
+  /**
+   * The class to apply to the pagination dot.
+   */
+  className?: string
+  /**
+   * The class to apply to the active pagination dot.
+   */
+  activeClassName?: string
+}
+
+interface NavigationButtonProps {
+  /**
+   * The direction of the navigation button.
+   */
+  direction: "left" | "right"
+  /**
+   * The function to call when the navigation button is clicked.
+   */
+  onClick: () => void
+  /**
+   * The class to apply to the navigation button.
+   */
+  className?: string
+  /**
+   * The children to render inside the navigation button.
+   */
+  children?: React.ReactNode
+}
+
+interface DeleteButtonProps {
+  /**
+   * The class to apply to the delete button.
+   */
+  className?: string
+  /**
+   * The function to call when the image is deleted.
+   */
+  onImageDelete?: (index: number) => void
+  /**
+   * The current index of the image.
+   */
+  currentIndex: number
+  /**
+   * The images to display in the lightbox.
+   */
+  images: LightBoxImages[] | string[]
+  /**
+   * The function to call when the open state of the lightbox changes.
+   */
+  onOpenChange: (open: boolean) => void
+  /**
+   * The function to call when the current index of the image changes.
+   */
+  setCurrentIndex: (index: number) => void
+  /**
+   * The children to render inside the delete button.
+   */
+  children?: React.ReactNode
+}
+
+interface CloseButtonProps {
+  /**
+   * The function to call when the open state of the lightbox changes.
+   */
+  onOpenChange: (open: boolean) => void
+  /**
+   * The class to apply to the close button.
+   */
+  className?: string
+  /**
+   * The children to render inside the close button.
+   */
+  children?: React.ReactNode
+}
+
+interface LightBoxComponents {
+  /**
+   * The component to use for the navigation button.
+   */
+  NavigationButtonLeft: React.FC<NavigationButtonProps>
+  /**
+   * The icon to use for the navigation button left.
+   */
+  NavigationButtonLeftIcon: React.JSX.Element
+  /**
+   * The component to use for the navigation button right.
+   */
+  NavigationButtonRight: React.FC<NavigationButtonProps>
+  /**
+   * The icon to use for the navigation button right.
+   */
+  NavigationButtonRightIcon: React.JSX.Element
+  /**
+   * The component to use for the delete button.
+   */
+  DeleteButton: React.FC<DeleteButtonProps>
+  /**
+   * The icon to use for the delete button.
+   */
+  DeleteButtonIcon: React.JSX.Element
+  /**
+   * The component to use for the close button.
+   */
+  CloseButton: React.FC<CloseButtonProps>
+  /**
+   * The icon to use for the close button.
+   */
+  CloseButtonIcon: React.JSX.Element
+}
+
 interface LightBoxProps {
   /**
    * The open state of the lightbox.
@@ -116,7 +235,14 @@ interface LightBoxProps {
    * Whether to show the caption.
    */
   showCaption?: boolean
+  /**
+   * The class names to apply to the lightbox.
+   */
   classNames?: LightBoxClassNames
+  /**
+   * The components to use for the lightbox.
+   */
+  components?: Partial<LightBoxComponents>
 }
 
 const LightBox: React.FC<LightBoxProps> = ({
@@ -131,6 +257,7 @@ const LightBox: React.FC<LightBoxProps> = ({
   animation = "slide",
   onImageDelete,
   classNames,
+  components,
 }) => {
   const [currentIndex, setCurrentIndex] = React.useState<number>(initialIndex)
 
@@ -252,71 +379,115 @@ const LightBox: React.FC<LightBoxProps> = ({
             )}
           >
             {/* Delete Button */}
-            {showDeleteButton && (
-              <div
-                className={cn(
-                  "flex size-10 cursor-pointer items-center justify-center rounded-full bg-white/30 text-white backdrop:blur-sm hover:bg-white/40",
-                  classNames?.deleteButton,
-                )}
-                onClick={() => {
-                  if (onImageDelete) {
-                    onImageDelete(currentIndex)
-                    if (images.length === 1) {
-                      onOpenChange(false)
-                    }
-                    if (currentIndex === images.length - 1) {
-                      setCurrentIndex(currentIndex - 1)
-                    } else {
-                      setCurrentIndex(currentIndex)
-                    }
-                  }
-                }}
-              >
-                <TRASH_BIN className="size-1/2" />
-              </div>
-            )}
+            {showDeleteButton &&
+              (components?.DeleteButton ? (
+                <components.DeleteButton
+                  onImageDelete={onImageDelete}
+                  currentIndex={currentIndex}
+                  images={images}
+                  onOpenChange={onOpenChange}
+                  setCurrentIndex={setCurrentIndex}
+                  className={classNames?.deleteButton}
+                />
+              ) : (
+                <DeleteButton
+                  onImageDelete={onImageDelete}
+                  currentIndex={currentIndex}
+                  images={images}
+                  onOpenChange={onOpenChange}
+                  setCurrentIndex={setCurrentIndex}
+                  className={classNames?.deleteButton}
+                >
+                  {components?.DeleteButtonIcon || (
+                    <TRASH_BIN className="size-1/2" />
+                  )}
+                </DeleteButton>
+              ))}
 
             {/* Close Button */}
-            {showCloseButton && (
-              <div
-                className={cn(
-                  "flex size-10 cursor-pointer items-center justify-center rounded-full bg-white/30 text-white backdrop:blur-sm hover:bg-white/40",
-                  classNames?.closeButton,
-                )}
-                onClick={() => onOpenChange(false)}
-              >
-                <PIP_ICON className="size-1/2" />
-              </div>
-            )}
+            {showCloseButton &&
+              (components?.CloseButton ? (
+                <components.CloseButton
+                  onOpenChange={onOpenChange}
+                  className={classNames?.closeButton}
+                >
+                  {components?.CloseButtonIcon}
+                </components.CloseButton>
+              ) : (
+                <CloseButton
+                  onOpenChange={onOpenChange}
+                  className={classNames?.closeButton}
+                >
+                  {components?.CloseButtonIcon || (
+                    <PIP_ICON className="size-1/2" />
+                  )}
+                </CloseButton>
+              ))}
           </div>
 
           {/* Navigation Buttons */}
           <div className="z-10 flex w-full items-center justify-between">
             {/* Previous Button */}
-            <NavigationButton
-              direction="left"
-              onClick={() => {
-                const prevIndex = currentIndex - 1
-                setCurrentIndex(prevIndex < 0 ? images.length - 1 : prevIndex)
-              }}
-              className={cn(
-                classNames?.navigateButtonLeft,
-                classNames?.navigateButton,
-              )}
-            />
+            {components?.NavigationButtonLeft ? (
+              <components.NavigationButtonLeft
+                direction="left"
+                onClick={() => {
+                  const prevIndex = currentIndex - 1
+                  setCurrentIndex(prevIndex < 0 ? images.length - 1 : prevIndex)
+                }}
+                className={cn(
+                  classNames?.navigateButtonLeft,
+                  classNames?.navigateButton,
+                )}
+              />
+            ) : (
+              <NavigationButton
+                direction="left"
+                onClick={() => {
+                  const prevIndex = currentIndex - 1
+                  setCurrentIndex(prevIndex < 0 ? images.length - 1 : prevIndex)
+                }}
+                className={cn(
+                  classNames?.navigateButtonLeft,
+                  classNames?.navigateButton,
+                )}
+              >
+                {components?.NavigationButtonLeftIcon || (
+                  <ARROW_RIGHT className="size-1/2 rotate-180" />
+                )}
+              </NavigationButton>
+            )}
 
             {/* Next Button */}
-            <NavigationButton
-              direction="right"
-              onClick={() => {
-                const nextIndex = currentIndex + 1
-                setCurrentIndex(nextIndex >= images.length ? 0 : nextIndex)
-              }}
-              className={cn(
-                classNames?.navigateButtonRight,
-                classNames?.navigateButton,
-              )}
-            />
+            {components?.NavigationButtonRight ? (
+              <components.NavigationButtonRight
+                direction="right"
+                onClick={() => {
+                  const nextIndex = currentIndex + 1
+                  setCurrentIndex(nextIndex >= images.length ? 0 : nextIndex)
+                }}
+                className={cn(
+                  classNames?.navigateButtonRight,
+                  classNames?.navigateButton,
+                )}
+              />
+            ) : (
+              <NavigationButton
+                direction="right"
+                onClick={() => {
+                  const nextIndex = currentIndex + 1
+                  setCurrentIndex(nextIndex >= images.length ? 0 : nextIndex)
+                }}
+                className={cn(
+                  classNames?.navigateButtonRight,
+                  classNames?.navigateButton,
+                )}
+              >
+                {components?.NavigationButtonRightIcon || (
+                  <ARROW_RIGHT className="size-1/2" />
+                )}
+              </NavigationButton>
+            )}
           </div>
 
           {/* Footer */}
@@ -372,12 +543,64 @@ const LightBox: React.FC<LightBoxProps> = ({
   )
 }
 
-const NavigationButton: React.FC<{
-  direction: "left" | "right"
-  onClick: () => void
-  className?: string
-}> = ({ direction, onClick, className }) => {
-  const isLeft = direction === "left"
+const CloseButton: React.FC<CloseButtonProps> = ({
+  onOpenChange,
+  className,
+  children,
+}) => {
+  return (
+    <div
+      className={cn(
+        "flex size-10 cursor-pointer items-center justify-center rounded-full bg-white/30 text-white backdrop:blur-sm hover:bg-white/40",
+        className,
+      )}
+      onClick={() => onOpenChange(false)}
+    >
+      {children}
+    </div>
+  )
+}
+
+const DeleteButton: React.FC<DeleteButtonProps> = ({
+  onImageDelete,
+  setCurrentIndex,
+  currentIndex,
+  images,
+  onOpenChange,
+  className,
+  children,
+}) => {
+  return (
+    <div
+      className={cn(
+        "flex size-10 cursor-pointer items-center justify-center rounded-full bg-white/30 text-white backdrop:blur-sm hover:bg-white/40",
+        className,
+      )}
+      onClick={() => {
+        if (onImageDelete) {
+          onImageDelete(currentIndex)
+          if (images.length === 1) {
+            onOpenChange(false)
+          }
+          if (currentIndex === images.length - 1) {
+            setCurrentIndex(currentIndex - 1)
+          } else {
+            setCurrentIndex(currentIndex)
+          }
+        }
+      }}
+    >
+      {children}
+    </div>
+  )
+}
+
+const NavigationButton: React.FC<NavigationButtonProps> = ({
+  direction,
+  onClick,
+  className,
+  children,
+}) => {
   return (
     <div
       className={cn(
@@ -387,17 +610,17 @@ const NavigationButton: React.FC<{
       onClick={onClick}
       aria-label={`Navigate ${direction}`}
     >
-      <ARROW_RIGHT className={cn("size-1/2", isLeft && "rotate-180")} />
+      {children}
     </div>
   )
 }
 
-const PaginationDot: React.FC<{
-  active: boolean
-  onClick: () => void
-  className?: string
-  activeClassName?: string
-}> = ({ active, onClick, className, activeClassName }) => (
+const PaginationDot: React.FC<PaginationDotProps> = ({
+  active,
+  onClick,
+  className,
+  activeClassName,
+}) => (
   <div
     data-active={active}
     className={cn(
