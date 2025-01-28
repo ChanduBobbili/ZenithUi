@@ -21,6 +21,8 @@ import {
 import { TimePicker } from "zenithui-time-picker"
 import { useState } from "react"
 import { LightBox, LightBoxImages } from "zenithui-light-box"
+import { CgClose } from "react-icons/cg"
+import { BiCloset, BiNavigation } from "react-icons/bi"
 
 function App() {
   const [open, setOpen] = useState<boolean>(false)
@@ -57,6 +59,14 @@ function App() {
           className="logo"
           alt="Vite logo"
         />
+
+        <Button
+          className="bg-red-500"
+          onClick={() => console.log("clicked")}
+          disabled={true}
+        >
+          Zenithui Button
+        </Button>
         <Drawer direction="right">
           <DrawerTrigger asChild>
             <button>Open Drawer</button>
@@ -142,6 +152,27 @@ function App() {
             navigateButtonRight: "text-yellow-500",
             overLay: "bg-yellow-500",
             lightBox: "border-red-500 border-2",
+          }}
+          components={{
+            CloseButtonIcon: <CgClose className="size-1/2" />,
+            DeleteButtonIcon: <BiNavigation className="size-1/2" />,
+            NavigationButtonLeftIcon: <BiNavigation className="size-1/2" />,
+            NavigationButtonRightIcon: <BiNavigation className="size-1/2" />,
+            CloseButton: ({ onOpenChange }) => (
+              <button onClick={() => onOpenChange(false)}>
+                <BiCloset />
+              </button>
+            ),
+            NavigationButtonLeft: ({ onClick }) => (
+              <button onClick={onClick}>
+                <BiCloset className="size-1/2" />
+              </button>
+            ),
+            NavigationButtonRight: ({ onClick }) => (
+              <button onClick={onClick}>
+                <BiNavigation className="size-1/2" />
+              </button>
+            ),
           }}
         />
       </div>

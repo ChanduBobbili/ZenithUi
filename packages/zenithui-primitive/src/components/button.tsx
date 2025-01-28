@@ -75,15 +75,14 @@ export interface ButtonProps
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   (props, forwardedRef) => {
-    const { className, variant, size, disabled, onClick, children, ...rest } =
-      props
+    const { className, variant, size, children, ...rest } = props
 
     return (
       <button
         {...rest}
         className={cn(
+          buttonVariants({ variant, size, className }),
           "rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600",
-          className,
         )}
         ref={forwardedRef}
       >
