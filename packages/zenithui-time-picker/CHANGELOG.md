@@ -1,5 +1,12 @@
 # zenithui-time-picker
 
+## 1.1.1
+
+### Patch Changes
+
+- Updated dependencies
+  - zenithui-primitive@1.0.0
+
 ## 1.1.0
 
 ### Minor Changes

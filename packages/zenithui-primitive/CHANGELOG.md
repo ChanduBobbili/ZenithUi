@@ -1,5 +1,11 @@
 # zenithui-primitive
 
+## 1.0.0
+
+### Major Changes
+
+- Fixed the issues related to button and the drawer
+
 ## 0.5.0
 
 ### Minor Changes
