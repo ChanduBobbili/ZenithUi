@@ -11,17 +11,26 @@ export default defineConfig({
   build: {
     lib: {
       entry: path.resolve(__dirname, "src/index.ts"),
-      name: "ZenithUI-Time-Picker",
-      formats: ["es"],
-      fileName: "index",
+      name: "ZenithUI-Light-Box",
     },
     rollupOptions: {
       external: ["react", "react-dom", "react/jsx-runtime"],
-      output: {
-        preserveModules: false,
-      },
+      output: [
+        {
+          format: "es",
+          dir: "dist/esm",
+          entryFileNames: "[name].js",
+          preserveModules: false,
+        },
+        {
+          format: "cjs",
+          dir: "dist/cjs",
+          entryFileNames: "[name].cjs",
+          preserveModules: false,
+        },
+      ],
     },
-    sourcemap: true, // Generate source maps for easier debugging
+    sourcemap: true,
   },
   plugins: [
     react(),
