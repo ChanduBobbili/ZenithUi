@@ -66,6 +66,7 @@ const App = () => {
 | `onImageDelete`    | `(index: number) => void`        | Callback function triggered when an image is deleted                                 | Optional  |
 | `showCaption`      | `boolean`                        | Whether to display image captions                                                    | `true`    |
 | `classNames`       | `LightBoxClassNames`             | Object containing class names for customizing the appearance of the lightbox         | Optional  |
+| `components`       | `LightBoxComponents`             | Object containing components for customizing the appearance of the lightbox          | Optional  |
 
 ---
 
@@ -98,6 +99,21 @@ const App = () => {
 | `closeButton`            | `string` | Class name for the close button             |
 | `deleteButton`           | `string` | Class name for the delete button            |
 | `overLay`                | `string` | Class name for the overlay background       |
+
+---
+
+### `LightBoxComponents`
+
+| Property                    | Type                    | Description                                      |
+| --------------------------- | ----------------------- | ------------------------------------------------ |
+| `NavigationButtonLeft`      | `NavigationButtonProps` | Custom component for the navigation button left  |
+| `NavigationButtonRight`     | `NavigationButtonProps` | Custom component for the navigation button right |
+| `DeleteButton`              | `DeleteButtonProps`     | Custom component for the delete button           |
+| `CloseButton`               | `CloseButtonProps`      | Custom component for the close button            |
+| `NavigationButtonLeftIcon`  | `React.JSX.Element`     | Custom icon for the navigation button left       |
+| `NavigationButtonRightIcon` | `React.JSX.Element`     | Custom icon for the navigation button right      |
+| `DeleteButtonIcon`          | `React.JSX.Element`     | Custom icon for the delete button                |
+| `CloseButtonIcon`           | `React.JSX.Element`     | Custom icon for the close button                 |
 
 ---
 
