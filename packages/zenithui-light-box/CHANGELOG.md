@@ -1,5 +1,11 @@
 # zenithui-light-box
 
+## 2.0.1
+
+### Patch Changes
+
+- Refactored the builds to enable support for both ESM and Commonjs
+
 ## 2.0.0
 
 ### Major Changes

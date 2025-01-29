@@ -1,5 +1,11 @@
 # zenithui-primitive
 
+## 1.0.1
+
+### Patch Changes
+
+- Refactored the builds to enable support for both ESM and Commonjs
+
 ## 1.0.0
 
 ### Major Changes
