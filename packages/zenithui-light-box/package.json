@@ -1,6 +1,6 @@
 {
   "name": "zenithui-light-box",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "A ZenithUi Light Box is React component that displays a light box with a content area and a close button.",
   "type": "module",
   "private": false,
@@ -37,13 +37,18 @@
     "light-box"
   ],
   "packageManager": "pnpm@9.5.0",
-  "module": "./dist/index.js",
+  "main": "./dist/cjs/index.cjs",
+  "module": "./dist/esm/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
       "import": {
         "types": "./dist/index.d.ts",
-        "default": "./dist/index.js"
+        "default": "./dist/esm/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/cjs/index.cjs"
       }
     }
   },
@@ -79,7 +84,6 @@
   },
   "dependencies": {
     "@radix-ui/react-dialog": "^1.1.5",
-    "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "tailwind-merge": "^2.6.0"
   }

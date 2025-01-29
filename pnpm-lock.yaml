@@ -207,8 +207,8 @@ importers:
         specifier: ^2.6.0
         version: 2.6.0
       zenithui-primitive:
-        specifier: ^0.5.0
-        version: 0.5.0(@types/react-dom@18.3.5(@types/react@18.3.18))(@types/react@18.3.18)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: ^1.0.0
+        version: 1.0.0(@types/react-dom@18.3.5(@types/react@18.3.18))(@types/react@18.3.18)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
     devDependencies:
       vite-plugin-dts:
         specifier: ^4.5.0
@@ -3127,8 +3127,8 @@ packages:
     resolution: {integrity: sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==}
     engines: {node: '>=10'}
 
-  zenithui-primitive@0.5.0:
-    resolution: {integrity: sha512-83N4B4vz2cKMNjMax3wJaBpWXQcN8VUUXo4OiKQ60hU0qxH1JRTV4ka8ElISEJlWbH8DPA2kcF++LIOy2V31TQ==}
+  zenithui-primitive@1.0.0:
+    resolution: {integrity: sha512-x9WgD7+YUvRYA8vmN1GRaF6CCEy98Qo0mKRkMEimqebR8Q44cKJ8H830nV12nWZ7zeTrrK6++mq7a/HUnfJn3A==}
     engines: {node: '>=20', pnpm: '>=9'}
     peerDependencies:
       react: ^18.0.0 || ^17.0.0
@@ -6226,7 +6226,7 @@ snapshots:
 
   yocto-queue@0.1.0: {}
 
-  zenithui-primitive@0.5.0(@types/react-dom@18.3.5(@types/react@18.3.18))(@types/react@18.3.18)(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
+  zenithui-primitive@1.0.0(@types/react-dom@18.3.5(@types/react@18.3.18))(@types/react@18.3.18)(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     dependencies:
       '@radix-ui/react-dialog': 1.1.5(@types/react-dom@18.3.5(@types/react@18.3.18))(@types/react@18.3.18)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@radix-ui/react-icons': 1.3.2(react@18.3.1)

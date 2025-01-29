@@ -1,5 +1,13 @@
 # zenithui-time-picker
 
+## 1.1.2
+
+### Patch Changes
+
+- Refactored the builds to enable support for both ESM and Commonjs
+- Updated dependencies
+  - zenithui-primitive@1.0.1
+
 ## 1.1.1
 
 ### Patch Changes
