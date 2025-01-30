@@ -1,0 +1,91 @@
+{
+  "name": "zenithui-day-picker",
+  "version": "2.0.1",
+  "description": "A ZenithUi Day Picker is React component that displays a day picker with a content area and a close button.",
+  "type": "module",
+  "private": false,
+  "publishConfig": {
+    "access": "public"
+  },
+  "engines": {
+    "pnpm": ">=9",
+    "node": ">=20"
+  },
+  "author": {
+    "name": "Chandu Bobbili",
+    "email": "chandubobbili12@gmail.com",
+    "url": "https://github.com/ChanduBobbili"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ChanduBobbili/ZenithUi/tree/main/packages/zenithui-day-picker"
+  },
+  "bugs": {
+    "url": "https://github.com/ChanduBobbili/ZenithUi/issues"
+  },
+  "keywords": [
+    "react",
+    "components",
+    "ui",
+    "zenithui",
+    "accessible",
+    "design-system",
+    "styled-components",
+    "styled-system",
+    "tailwindcss",
+    "typescript",
+    "day-picker"
+  ],
+  "packageManager": "pnpm@9.5.0",
+  "main": "./dist/cjs/index.cjs",
+  "module": "./dist/esm/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/esm/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/cjs/index.cjs"
+      }
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "sideEffects": [
+    "**/*.css"
+  ],
+  "scripts": {
+    "build": "vite build && tsc",
+    "clean": "rm -rf dist",
+    "lint": "eslint .",
+    "lint:fix": "eslint \"**/*.{js,jsx,ts,tsx}\" --max-warnings 0 --fix",
+    "format": "prettier --write .",
+    "dev": "vite"
+  },
+  "peerDependencies": {
+    "react": "^18.0.0 || ^17.0.0",
+    "react-dom": "^18.0.0 || ^17.0.0"
+  },
+  "devDependencies": {
+    "vite-plugin-dts": "^4.5.0",
+    "vite-plugin-lib-inject-css": "^2.2.1",
+    "vite-plugin-svgr": "^4.3.0"
+  },
+  "peerDependenciesMeta": {
+    "react": {
+      "optional": false
+    },
+    "react-dom": {
+      "optional": false
+    }
+  },
+  "dependencies": {
+    "date-fns": "^4.1.0",
+    "clsx": "^2.1.1",
+    "tailwind-merge": "^2.6.0"
+  }
+}
