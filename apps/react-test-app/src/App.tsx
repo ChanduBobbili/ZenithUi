@@ -23,6 +23,7 @@ import { useState } from "react"
 import { LightBox, LightBoxImages } from "zenithui-light-box"
 import { CgClose } from "react-icons/cg"
 import { BiCloset, BiNavigation } from "react-icons/bi"
+import { toast } from "zenithui-toast"
 
 function App() {
   const [open, setOpen] = useState<boolean>(false)
@@ -62,11 +63,16 @@ function App() {
 
         <Button
           className="bg-red-500"
-          onClick={() => console.log("clicked")}
-          disabled={true}
+          onClick={() => toast.success("Hello World")}
         >
           Zenithui Button
         </Button>
+        <button
+          className="rounded-md bg-sky-500 p-3"
+          onClick={() => toast.success("Hello World")}
+        >
+          Button
+        </button>
         <Drawer direction="right">
           <DrawerTrigger asChild>
             <button>Open Drawer</button>

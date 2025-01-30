@@ -18,6 +18,7 @@
     "tailwind-merge": "^2.6.0",
     "zenithui-light-box": "workspace:*",
     "zenithui-primitive": "workspace:*",
-    "zenithui-time-picker": "workspace:*"
+    "zenithui-time-picker": "workspace:*",
+    "zenithui-toast": "workspace:*"
   }
 }
