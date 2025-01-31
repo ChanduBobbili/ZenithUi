@@ -1,3 +1,4 @@
+import * as React from "react"
 import {
   addMonths,
   eachDayOfInterval,
@@ -9,14 +10,98 @@ import {
   startOfWeek,
   subMonths,
 } from "date-fns"
-import * as React from "react"
-
-interface DayPickerProps {
-  selected: Date
-  onSelect: (date: Date) => void
+import { cn } from "../utils"
+import Arrow from "../assets/arrow.svg?react"
+interface classNames {
+  /**
+   * The class names to apply to the calendar.
+   */
+  calendar: string
+  /**
+   * The class names to apply to the selected date.
+   */
+  selected: string
+  /**
+   * The class names to apply to the not selected date.
+   */
+  notSelected: string
+  /**
+   * The class names to apply to the header.
+   */
+  header: string
+  /**
+   * The class names to apply to the month caption.
+   */
+  monthCaption: string
+  /**
+   * The class names to apply to the previous month button.
+   */
+  prevMonthButton: string
+  /**
+   * The class names to apply to the next month button.
+   */
+  nextMonthButton: string
+  /**
+   * The class names to apply to the weekdays.
+   */
+  weekdays: string
+  /**
+   * The class names to apply to the weekday.
+   */
+  weekday: string
+  /**
+   * The class names to apply to the days.
+   */
+  days: string
+  /**
+   * The class names to apply to the day.
+   */
+  day: string
+  /**
+   * The class names to apply to the selected day.
+   */
+  daySelected: string
+  /**
+   * The class names to apply to the outside date (not in the current month).
+   */
+  outsideDate: string
 }
 
-const DayPicker: React.FC<DayPickerProps> = ({ selected, onSelect }) => {
+interface DayPickerProps {
+  /**
+   * The date that is currently selected.
+   */
+  selected: Date
+  /**
+   * The function that is called when a date is selected.
+   */
+  onSelect: (date: Date) => void
+  /**
+   * The class names to apply to the day picker.
+   */
+  classNames?: classNames
+  /**
+   * Whether to hide the navigation buttons.
+   */
+  hideNavigation?: boolean
+  /**
+   * Whether to hide the weekdays.
+   */
+  hideWeekdays?: boolean
+  /**
+   * Whether to hide the outside dates.
+   */
+  hideOutsideDates?: boolean
+}
+
+const DayPicker: React.FC<DayPickerProps> = ({
+  selected,
+  onSelect,
+  classNames,
+  hideNavigation = false,
+  hideWeekdays = false,
+  hideOutsideDates = true,
+}) => {
   const [currentMonth, setCurrentMonth] = React.useState<Date>(selected)
 
   const days = React.useMemo(() => {
@@ -37,35 +122,71 @@ const DayPicker: React.FC<DayPickerProps> = ({ selected, onSelect }) => {
   }
 
   return (
-    <div className="w-72 rounded-lg bg-white p-4 shadow-lg">
-      <div className="mb-4 flex items-center justify-between">
-        <button onClick={handlePrevMonth}>p</button>
-        <h2 className="text-lg font-semibold">
-          {format(currentMonth, "MMMM yyyy")}
-        </h2>
-        <button onClick={handleNextMonth}>n</button>
-      </div>
-      <div className="grid grid-cols-7 text-center text-sm text-gray-500">
-        {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map((day) => (
-          <div
-            key={day}
-            className="font-medium"
+    <div
+      className={cn(
+        "w-72 rounded-lg bg-white p-4 shadow-lg",
+        classNames?.calendar,
+      )}
+    >
+      {!hideNavigation && (
+        <div
+          className={cn(
+            "mb-4 flex items-center justify-between",
+            classNames?.header,
+          )}
+        >
+          <button
+            onClick={handlePrevMonth}
+            className={cn("text-sm", classNames?.prevMonthButton)}
           >
-            {day}
-          </div>
-        ))}
-      </div>
-      <div className="mt-2 grid grid-cols-7 gap-1">
+            <Arrow className="h-5 w-5 rotate-180" />
+          </button>
+          <h2 className={cn("text-lg font-semibold", classNames?.monthCaption)}>
+            {format(currentMonth, "MMMM yyyy")}
+          </h2>
+          <button
+            onClick={handleNextMonth}
+            className={cn(
+              "text-sm text-slate-950",
+              classNames?.nextMonthButton,
+            )}
+          >
+            <Arrow className="h-5 w-5" />
+          </button>
+        </div>
+      )}
+      {!hideWeekdays && (
+        <div
+          className={cn(
+            "grid grid-cols-7 text-center text-xs text-gray-500",
+            classNames?.weekdays,
+          )}
+        >
+          {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map((day) => (
+            <div
+              key={day}
+              className={cn("text-xs font-medium", classNames?.weekday)}
+            >
+              {day}
+            </div>
+          ))}
+        </div>
+      )}
+      <div className={cn("mt-2 grid grid-cols-7 gap-1", classNames?.days)}>
         {days.map((day) => (
           <button
             key={day.toISOString()}
             onClick={() => handleSelectDate(day)}
-            className={`rounded-full p-2 text-sm ${
-              selected &&
-              format(selected, "yyyy-MM-dd") === format(day, "yyyy-MM-dd")
-                ? "bg-blue-500 text-white"
-                : "hover:bg-gray-200"
-            } ${!isSameMonth(day, currentMonth) ? "opacity-50" : ""}`}
+            className={cn(
+              "rounded-full p-2 text-sm hover:bg-gray-200",
+              classNames?.day,
+              !isSameMonth(day, currentMonth) &&
+                (hideOutsideDates
+                  ? "invisible"
+                  : (classNames?.outsideDate ?? "")),
+              format(selected, "yyyy-MM-dd") === format(day, "yyyy-MM-dd") &&
+                (classNames?.daySelected ?? "bg-blue-500 text-white"),
+            )}
           >
             {format(day, "d")}
           </button>
@@ -75,4 +196,4 @@ const DayPicker: React.FC<DayPickerProps> = ({ selected, onSelect }) => {
   )
 }
 
-export default DayPicker
+export { DayPicker, type DayPickerProps }
