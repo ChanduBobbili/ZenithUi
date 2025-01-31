@@ -1,7 +1,7 @@
 {
   "name": "zenithui-day-picker",
-  "version": "2.0.1",
-  "description": "A ZenithUi Day Picker is React component that displays a day picker with a content area and a close button.",
+  "version": "0.0.0",
+  "description": "🗓️ A beautiful, customizable, and accessible React date picker component with modern styling and seamless Tailwind CSS integration",
   "type": "module",
   "private": false,
   "publishConfig": {
