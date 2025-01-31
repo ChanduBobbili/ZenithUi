@@ -19,13 +19,16 @@ import {
   PopoverTrigger,
 } from "zenithui-primitive"
 import { TimePicker } from "zenithui-time-picker"
+import { DayPicker } from "zenithui-day-picker"
 import { useState } from "react"
 import { LightBox, LightBoxImages } from "zenithui-light-box"
 import { CgClose } from "react-icons/cg"
 import { BiCloset, BiNavigation } from "react-icons/bi"
+import { toast } from "zenithui-toast"
 
 function App() {
   const [open, setOpen] = useState<boolean>(false)
+  const [selectedDate, setSelectedDate] = useState<Date>(new Date())
 
   const images: LightBoxImages[] = [
     {
@@ -62,11 +65,16 @@ function App() {
 
         <Button
           className="bg-red-500"
-          onClick={() => console.log("clicked")}
-          disabled={true}
+          onClick={() => toast.success("Hello World")}
         >
           Zenithui Button
         </Button>
+        <button
+          className="rounded-md bg-sky-500 p-3"
+          onClick={() => toast.success("Hello World")}
+        >
+          Button
+        </button>
         <Drawer direction="right">
           <DrawerTrigger asChild>
             <button>Open Drawer</button>
@@ -174,6 +182,13 @@ function App() {
               </button>
             ),
           }}
+        />
+        <DayPicker
+          selected={selectedDate}
+          onSelect={setSelectedDate}
+          hideNavigation={false}
+          hideOutsideDates={false}
+          hideWeekdays={false}
         />
       </div>
     </>

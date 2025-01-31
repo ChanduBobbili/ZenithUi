@@ -12,28 +12,28 @@ const PopoverAnchor = PopoverPrimitive.Anchor
 
 const animationClassMap = {
   fade: {
-    open: "data-[state=open]:animate-fade-in",
-    close: "data-[state=closed]:animate-fade-out",
+    open: "data-[state=open]:animate-zenithui-fade-in",
+    close: "data-[state=closed]:animate-zenithui-fade-out",
   },
   zoom: {
-    open: "data-[state=open]:animate-zoom-in",
-    close: "data-[state=closed]:animate-zoom-out",
+    open: "data-[state=open]:animate-zenithui-zoom-in",
+    close: "data-[state=closed]:animate-zenithui-zoom-out",
   },
   slide: {
-    open: "data-[state=open]:animate-slide-in-from-bottom",
-    close: "data-[state=closed]:animate-slide-out-to-bottom",
+    open: "data-[state=open]:animate-zenithui-slide-in-from-bottom",
+    close: "data-[state=closed]:animate-zenithui-slide-out-to-bottom",
   },
   flip: {
-    open: "data-[state=open]:animate-flip-in",
-    close: "data-[state=closed]:animate-flip-out",
+    open: "data-[state=open]:animate-zenithui-flip-in",
+    close: "data-[state=closed]:animate-zenithui-flip-out",
   },
   rotate: {
-    open: "data-[state=open]:animate-rotate-in",
-    close: "data-[state=closed]:animate-rotate-out",
+    open: "data-[state=open]:animate-zenithui-rotate-in",
+    close: "data-[state=closed]:animate-zenithui-rotate-out",
   },
   bounce: {
-    open: "data-[state=open]:animate-bounce-in",
-    close: "data-[state=closed]:animate-bounce-out",
+    open: "data-[state=open]:animate-zenithui-bounce-in",
+    close: "data-[state=closed]:animate-zenithui-bounce-out",
   },
 }
 

@@ -269,13 +269,13 @@ const LightBox: React.FC<LightBoxProps> = ({
       <DialogPrimitive.DialogPortal>
         <DialogPrimitive.Overlay
           className={cn(
-            "data-[state=open]:animate-fade-in data-[state=closed]:animate-fade-out fixed inset-0 z-50 bg-black/10",
+            "data-[state=open]:animate-zenithui-fade-in data-[state=closed]:animate-zenithui-fade-out fixed inset-0 z-50 bg-black/10",
             classNames?.overLay,
           )}
         />
         <DialogPrimitive.Content
           className={cn(
-            "data-[state=closed]:animate-fade-out data-[state=open]:animate-fade-in fixed left-[50%] top-[50%] z-50 grid w-full max-w-lg translate-x-[-50%] translate-y-[-50%] gap-4 border bg-background p-6 shadow-lg duration-200 sm:rounded-lg",
+            "data-[state=closed]:animate-zenithui-fade-out data-[state=open]:animate-zenithui-fade-in fixed left-[50%] top-[50%] z-50 grid w-full max-w-lg translate-x-[-50%] translate-y-[-50%] gap-4 border bg-background p-6 shadow-lg duration-200 sm:rounded-lg",
             "flex aspect-square min-w-[35%] flex-col justify-between overflow-hidden border-0 bg-white p-6 shadow-[inset_0_0_20px_5px_rgb(0,0,0,0.25)]",
             classNames?.lightBox,
           )}
