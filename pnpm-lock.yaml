@@ -102,6 +102,9 @@ importers:
       tailwind-merge:
         specifier: ^2.6.0
         version: 2.6.0
+      zenithui-day-picker:
+        specifier: workspace:*
+        version: link:../../packages/zenithui-day-picker
       zenithui-light-box:
         specifier: workspace:*
         version: link:../../packages/zenithui-light-box

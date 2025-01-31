@@ -19,6 +19,7 @@
     "zenithui-light-box": "workspace:*",
     "zenithui-primitive": "workspace:*",
     "zenithui-time-picker": "workspace:*",
+    "zenithui-day-picker": "workspace:*",
     "zenithui-toast": "workspace:*"
   }
 }
