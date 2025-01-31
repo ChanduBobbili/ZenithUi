@@ -1,5 +1,11 @@
 # zenithui-primitive
 
+## 1.0.2
+
+### Patch Changes
+
+- Removed unused tailwind configs for colors
+
 ## 1.0.1
 
 ### Patch Changes

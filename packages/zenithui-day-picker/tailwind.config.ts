@@ -3,20 +3,6 @@ export default {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
     extend: {
-      colors: {
-        muted: {
-          DEFAULT: "hsl(var(--muted))",
-          foreground: "hsl(var(--muted-foreground))",
-        },
-        accent: {
-          DEFAULT: "hsl(var(--accent))",
-          foreground: "hsl(var(--accent-foreground))",
-        },
-        popover: {
-          DEFAULT: "hsl(var(--popover))",
-          foreground: "hsl(var(--popover-foreground))",
-        },
-      },
       keyframes: {
         "fade-in": {
           from: { opacity: "0" },
@@ -66,6 +52,14 @@ export default {
           "0%, 100%": { transform: "scale(1.1)", opacity: "0.8" },
           "50%": { transform: "scale(1)", opacity: "1" },
         },
+        "scale-in": {
+          from: { transform: "scale(0.9)", opacity: "0" },
+          to: { transform: "scale(1)", opacity: "1" },
+        },
+        "scale-out": {
+          from: { transform: "scale(1)", opacity: "1" },
+          to: { transform: "scale(0.9)", opacity: "0" },
+        },
       },
       animation: {
         "fade-in": "fade-in 0.2s ease-out",
@@ -80,6 +74,8 @@ export default {
         "rotate-out": "rotate-out 0.3s ease-in",
         "bounce-in": "bounce-in 0.3s ease-out",
         "bounce-out": "bounce-out 0.3s ease-in",
+        "scale-in": "scale-in 0.2s ease-out",
+        "scale-out": "scale-out 0.2s ease-in",
       },
     },
   },
