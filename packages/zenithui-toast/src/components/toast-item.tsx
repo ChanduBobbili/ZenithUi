@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react"
 import { Toast, toastManager } from "./toast"
+import { cn } from "../utils"
 
 interface ToastProps {
   toast: Toast
@@ -19,7 +20,14 @@ export const ToastItem: React.FC<ToastProps> = ({ toast }) => {
 
   return (
     <div
-      className={`toast toast-${toast.type} rounded p-4 shadow-md ${fadeOut ? "toast-dismiss" : ""}`}
+      className={cn(
+        "rounded p-4 shadow-md text-white",
+        fadeOut ? "toast-dismiss" : "",
+        toast.type === "success" && "bg-green-500",
+        toast.type === "error" && "bg-red-500",
+        toast.type === "info" && "bg-blue-500",
+        toast.type === "warning" && "bg-yellow-500",
+      )}
     >
       {toast.message}
     </div>

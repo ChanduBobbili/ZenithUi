@@ -170,32 +170,6 @@
   .custom-outline:not(:has(.custom-outline:hover)):hover {
     @apply outline outline-2 outline-offset-0 outline-fuchsia-500 transition-[outline-color] transition-[outline-style] transition-[outline-width] duration-75;
   }
-
-  @media (max-width: 1440px) {
-    .chart-card-container {
-      width: 450px !important;
-    }
-
-    .chart-container {
-      height: 350px !important;
-    }
-  }
-
-  @media (min-width: 1441px) {
-    .chart-card-container {
-      width: 650px !important;
-    }
-
-    .chart-container {
-      height: 470px !important;
-    }
-  }
-}
-
-@layer utilities {
-  .border-neat {
-    @apply border-slate-100;
-  }
 }
 
 @keyframes logo-spin {
@@ -214,11 +188,6 @@
   }
 }
 
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
-  background-color: aquamarine;
+body {
+  background-color: #ffffff !important;
 }
