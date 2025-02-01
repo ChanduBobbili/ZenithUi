@@ -1,5 +1,11 @@
 # zenithui-time-picker
 
+## 1.2.0
+
+### Minor Changes
+
+- Removed dependency and reused bundle size and refactored the ui
+
 ## 1.1.2
 
 ### Patch Changes
