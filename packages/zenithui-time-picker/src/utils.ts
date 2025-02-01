@@ -66,3 +66,18 @@ export function formatTime24To12(time24: string) {
 
   return `${hours12}:${minutes.toString().padStart(2, "0")} ${period}`
 }
+
+// Utility function to generate time options
+/**
+ * Generates an array of time options (hours or minutes) as strings,
+ * padded with leading zeros if necessary.
+ *
+ * @param start - Starting number of the range (inclusive).
+ * @param end - Ending number of the range (inclusive).
+ * @returns Array of time options as strings.
+ */
+export function generateTimeOptions(start: number, end: number): string[] {
+  return Array.from({ length: end - start + 1 }, (_, i) =>
+    (i + start).toString().padStart(2, "0"),
+  )
+}

@@ -6,15 +6,10 @@ import {
   formatTime24To12,
   getInitialHour,
   getInitialPeriod,
+  generateTimeOptions,
 } from "./utils"
-import {
-  Button,
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-  ToggleGroup,
-  ToggleGroupItem,
-} from "zenithui-primitive"
+import { Popover, PopoverContent, PopoverTrigger } from "./components/popover"
+import { ToggleGroup, ToggleGroupItem } from "./components/toggle-group"
 
 interface TimePickerProps {
   /**
@@ -113,17 +108,32 @@ const TimePicker: React.FC<TimePickerProps> = ({
 
   return (
     <Popover>
-      <PopoverTrigger>
-        <Button
-          variant="outline"
+      <PopoverTrigger asChild>
+        <button
           className={cn(
-            "flex w-full max-w-40 items-center justify-between text-white",
+            "flex items-center justify-between rounded-md border",
+            "w-full max-w-40 border-slate-200 bg-white px-4 py-2 text-sm text-slate-950",
+            // Active state
+            "active:border active:border-slate-200 active:outline-none active:ring-0 active:hover:border active:hover:outline-none active:hover:ring-0 active:focus:border active:focus:outline-none active:focus:ring-0 active:disabled:border active:disabled:outline-none active:disabled:ring-0",
+            // Hover state
+            "hover:border-slate-200 hover:bg-slate-200",
+            // Transition
+            "transition-all duration-300 ease-in-out",
+            // Focus state
+            "focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50",
+            // Focus visible state
+            "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-opacity-50",
+            // Disabled state
+            "disabled:cursor-not-allowed disabled:bg-gray-200 disabled:text-gray-500 disabled:opacity-50",
+            "disabled:hover:bg-gray-200 disabled:hover:text-gray-500",
+            "disabled:active:ring-0",
+            "disabled:focus:outline-none disabled:focus:ring-0",
             classNames?.button,
           )}
         >
           <span>{formatter(time)}</span>
           <ClockIcon className="size-6 cursor-pointer" />
-        </Button>
+        </button>
       </PopoverTrigger>
       <PopoverContent
         align={align}
@@ -205,7 +215,7 @@ const TimeScrollList: React.FC<TimeScrollListProps> = ({
         ref={listRef}
         type="single"
         className={cn(
-          "pointer-events-auto flex flex-col gap-2 p-0",
+          "pointer-events-auto flex flex-col gap-2 px-0 py-1",
           classNames?.timeScrollList,
         )}
         value={value}
@@ -214,10 +224,6 @@ const TimeScrollList: React.FC<TimeScrollListProps> = ({
         }
       >
         {options.map((option) => {
-          const activeClasses = cn(
-            "data-[state=on]:!bg-primary data-[state=on]:!text-white", // Package default
-            generateActiveClasses(classNames?.Selected), // App-provided styles
-          )
           return (
             <ToggleGroupItem
               key={option}
@@ -226,7 +232,9 @@ const TimeScrollList: React.FC<TimeScrollListProps> = ({
               className={cn(
                 "h-12 w-12 transition-all duration-500 ease-in-out",
                 classNames?.timeScrollListItem,
-                activeClasses,
+                value === option &&
+                  (classNames?.Selected ??
+                    "bg-sky-700 text-white hover:bg-sky-800"),
               )}
             >
               {option}
@@ -236,35 +244,6 @@ const TimeScrollList: React.FC<TimeScrollListProps> = ({
       </ToggleGroup>
     </div>
   )
-}
-
-// Utility function to generate time options
-/**
- * Generates an array of time options (hours or minutes) as strings,
- * padded with leading zeros if necessary.
- *
- * @param start - Starting number of the range (inclusive).
- * @param end - Ending number of the range (inclusive).
- * @returns Array of time options as strings.
- */
-const generateTimeOptions = (start: number, end: number): string[] => {
-  return Array.from({ length: end - start + 1 }, (_, i) =>
-    (i + start).toString().padStart(2, "0"),
-  )
-}
-
-// Utility function to generate active classes for selected items
-/**
- * Generates CSS classes for active (selected) items.
- *
- * @param classNames - Class names provided by the user.
- * @returns CSS classes for active items.
- */
-const generateActiveClasses = (classNames: string | undefined) => {
-  const activeClasses = classNames?.split(" ") ?? []
-  return activeClasses
-    .map((className) => `data-[state=on]:!${className}`)
-    .join(" ")
 }
 
 export { TimePicker, type TimePickerProps }

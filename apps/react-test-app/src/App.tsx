@@ -1,4 +1,3 @@
-import viteLogo from "/vite.svg"
 import "./App.css"
 import {
   Button,
@@ -14,21 +13,15 @@ import {
   DrawerHeader,
   DrawerTitle,
   DrawerTrigger,
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
 } from "zenithui-primitive"
 import { TimePicker } from "zenithui-time-picker"
-import { DayPicker } from "zenithui-day-picker"
 import { useState } from "react"
 import { LightBox, LightBoxImages } from "zenithui-light-box"
-import { CgClose } from "react-icons/cg"
-import { BiCloset, BiNavigation } from "react-icons/bi"
 import { toast } from "zenithui-toast"
 
 function App() {
   const [open, setOpen] = useState<boolean>(false)
-  const [selectedDate, setSelectedDate] = useState<Date>(new Date())
+  // const [selectedDate, setSelectedDate] = useState<Date>(new Date())
 
   const images: LightBoxImages[] = [
     {
@@ -56,28 +49,17 @@ function App() {
   }
   return (
     <>
-      <div className="flex flex-col gap-2">
-        <img
-          src={viteLogo}
-          className="logo"
-          alt="Vite logo"
-        />
-
+      <div className="flex w-full flex-col items-center justify-center gap-2">
         <Button
           className="bg-red-500"
           onClick={() => toast.success("Hello World")}
         >
           Zenithui Button
         </Button>
-        <button
-          className="rounded-md bg-sky-500 p-3"
-          onClick={() => toast.success("Hello World")}
-        >
-          Button
-        </button>
+
         <Drawer direction="right">
           <DrawerTrigger asChild>
-            <button>Open Drawer</button>
+            <Button>Open Drawer</Button>
           </DrawerTrigger>
           <DrawerContent
             className="w-1/2 rounded-bl-md rounded-tl-md p-6 pb-4 pt-2 transition-all duration-300 ease-in-out"
@@ -95,7 +77,7 @@ function App() {
         </Drawer>
         <Dialog>
           <DialogTrigger asChild>
-            <button>Open Dialog</button>
+            <Button>Open Dialog</Button>
           </DialogTrigger>
           <DialogContent className="w-1/2 max-w-full">
             <DialogHeader>
@@ -109,32 +91,15 @@ function App() {
           </DialogContent>
         </Dialog>
 
-        <Popover>
-          <PopoverTrigger>
-            <Button>Open Popover</Button>
-          </PopoverTrigger>
-          <PopoverContent
-            side="right"
-            openAnimate="slide"
-            closeAnimate="slide"
-          ></PopoverContent>
-        </Popover>
-
         <TimePicker
           time="14:34"
           onTimeChange={(time) => console.log(time)}
           align="center"
           side="right"
-          // classNames={{
-          //   button: "text-red-500",
-          //   timeScrollListItem: "bg-slate-500",
-          //   timeScrollList: "bg-emerald-500",
-          //   popoverContent: "bg-red-500",
-          //   // Selected: "text-green-500 bg-black",
-          // }}
+          // classNames={{}}
         />
 
-        <button onClick={() => setOpen(true)}>Open</button>
+        <Button onClick={() => setOpen(true)}>Open Light Box</Button>
 
         <LightBox
           open={open}
@@ -147,49 +112,28 @@ function App() {
           animation="fade"
           showCaption={true}
           onImageDelete={handleImageDelete}
-          classNames={{
-            caption: "text-red-500",
-            captionDescription: "text-blue-500",
-            pagination: "text-green-500",
-            paginationButton: "text-yellow-500 bg-yellow-500",
-            paginationButtonActive: "bg-purple-900 border-purple-900",
-            closeButton: "text-blue-900",
-            deleteButton: " text-green-500",
-            navigateButton: "text-blue-500",
-            navigateButtonLeft: "text-blue-500",
-            navigateButtonRight: "text-yellow-500",
-            overLay: "bg-yellow-500",
-            lightBox: "border-red-500 border-2",
-          }}
-          components={{
-            CloseButtonIcon: <CgClose className="size-1/2" />,
-            DeleteButtonIcon: <BiNavigation className="size-1/2" />,
-            NavigationButtonLeftIcon: <BiNavigation className="size-1/2" />,
-            NavigationButtonRightIcon: <BiNavigation className="size-1/2" />,
-            CloseButton: ({ onOpenChange }) => (
-              <button onClick={() => onOpenChange(false)}>
-                <BiCloset />
-              </button>
-            ),
-            NavigationButtonLeft: ({ onClick }) => (
-              <button onClick={onClick}>
-                <BiCloset className="size-1/2" />
-              </button>
-            ),
-            NavigationButtonRight: ({ onClick }) => (
-              <button onClick={onClick}>
-                <BiNavigation className="size-1/2" />
-              </button>
-            ),
-          }}
+          // classNames={{
+          //   caption: "text-red-500",
+          //   captionDescription: "text-blue-500",
+          //   pagination: "text-green-500",
+          //   paginationButton: "text-yellow-500 bg-yellow-500",
+          //   paginationButtonActive: "bg-purple-900 border-purple-900",
+          //   closeButton: "text-blue-900",
+          //   deleteButton: " text-green-500",
+          //   navigateButton: "text-blue-500",
+          //   navigateButtonLeft: "text-blue-500",
+          //   navigateButtonRight: "text-yellow-500",
+          //   overLay: "bg-yellow-500",
+          //   lightBox: "border-red-500 border-2",
+          // }}
         />
-        <DayPicker
+        {/* <DayPicker
           selected={selectedDate}
           onSelect={setSelectedDate}
           hideNavigation={false}
           hideOutsideDates={false}
           hideWeekdays={false}
-        />
+        /> */}
       </div>
     </>
   )
