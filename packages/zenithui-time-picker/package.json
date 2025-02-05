@@ -36,7 +36,6 @@
     "typescript",
     "time-picker"
   ],
-  "packageManager": "pnpm@9.5.0",
   "main": "./dist/cjs/index.cjs",
   "module": "./dist/esm/index.js",
   "types": "./dist/index.d.ts",
@@ -69,10 +68,6 @@
     "react": "^18.0.0 || ^17.0.0",
     "react-dom": "^18.0.0 || ^17.0.0"
   },
-  "devDependencies": {
-    "vite-plugin-dts": "^4.5.0",
-    "vite-plugin-lib-inject-css": "^2.2.1"
-  },
   "peerDependenciesMeta": {
     "react": {
       "optional": false
@@ -87,6 +82,7 @@
     "@radix-ui/react-toggle": "^1.1.1",
     "@radix-ui/react-toggle-group": "^1.1.1",
     "clsx": "^2.1.1",
-    "tailwind-merge": "^2.6.0"
-  }
+    "tailwind-merge": "^3.0.1"
+  },
+  "packageManager": "pnpm@9.5.0"
 }
