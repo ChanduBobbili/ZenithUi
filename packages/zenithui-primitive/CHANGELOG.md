@@ -1,5 +1,11 @@
 # zenithui-primitive
 
+## 1.0.3
+
+### Patch Changes
+
+- Removed the tailwindcss, autoprefixer while bundling
+
 ## 1.0.2
 
 ### Patch Changes
