@@ -3,7 +3,6 @@ import defaultTheme from "tailwindcss/defaultTheme"
 import { default as flattenColorPalette } from "tailwindcss/lib/util/flattenColorPalette"
 
 const config: Config = {
-  darkMode: ["class"],
   // important: true,
   content: [
     "./index.html",
