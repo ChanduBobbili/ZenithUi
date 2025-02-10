@@ -1,5 +1,11 @@
 # zenithui-time-picker
 
+## 1.2.1
+
+### Patch Changes
+
+- migrate to tailwind css v4.0.5 and update PostCSS configuration
+
 ## 1.2.0
 
 ### Minor Changes
