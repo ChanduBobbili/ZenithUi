@@ -114,20 +114,20 @@ const TimePicker: React.FC<TimePickerProps> = ({
             "flex items-center justify-between rounded-md border",
             "w-full max-w-40 border-slate-200 bg-white px-4 py-2 text-sm text-slate-950",
             // Active state
-            "active:border active:border-slate-200 active:outline-none active:ring-0 active:hover:border active:hover:outline-none active:hover:ring-0 active:focus:border active:focus:outline-none active:focus:ring-0 active:disabled:border active:disabled:outline-none active:disabled:ring-0",
+            "active:border active:border-slate-200 active:ring-0 active:outline-none active:hover:border active:hover:ring-0 active:hover:outline-none active:focus:border active:focus:ring-0 active:focus:outline-none active:disabled:border active:disabled:ring-0 active:disabled:outline-none",
             // Hover state
             "hover:border-slate-200 hover:bg-slate-200",
             // Transition
             "transition-all duration-300 ease-in-out",
             // Focus state
-            "focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50",
+            "focus:ring-opacity-50 focus:ring-2 focus:ring-blue-500 focus:outline-none",
             // Focus visible state
-            "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-opacity-50",
+            "focus-visible:ring-opacity-50 focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:outline-none",
             // Disabled state
             "disabled:cursor-not-allowed disabled:bg-gray-200 disabled:text-gray-500 disabled:opacity-50",
             "disabled:hover:bg-gray-200 disabled:hover:text-gray-500",
             "disabled:active:ring-0",
-            "disabled:focus:outline-none disabled:focus:ring-0",
+            "disabled:focus:ring-0 disabled:focus:outline-none",
             classNames?.button,
           )}
         >

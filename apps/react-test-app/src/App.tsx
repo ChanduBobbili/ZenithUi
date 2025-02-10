@@ -61,7 +61,7 @@ function App() {
             <Button>Open Drawer</Button>
           </DrawerTrigger>
           <DrawerContent
-            className="w-1/2 rounded-bl-md rounded-tl-md p-6 pb-4 pt-2 transition-all duration-300 ease-in-out"
+            className="w-1/2 rounded-tl-md rounded-bl-md p-6 pt-2 pb-4 transition-all duration-300 ease-in-out"
             OverlayClassName="bg-black/75"
           >
             <DrawerHeader>
