@@ -1,6 +1,6 @@
 {
   "name": "zenithui-day-picker",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "🗓️ A beautiful, customizable, and accessible React date picker component with modern styling and seamless Tailwind CSS integration",
   "type": "module",
   "private": false,
@@ -62,8 +62,7 @@
     "clean": "rm -rf dist",
     "lint": "eslint .",
     "lint:fix": "eslint \"**/*.{js,jsx,ts,tsx}\" --max-warnings 0 --fix",
-    "format": "prettier --write .",
-    "dev": "vite"
+    "format": "prettier --write ."
   },
   "peerDependencies": {
     "react": "^18.0.0 || ^17.0.0",

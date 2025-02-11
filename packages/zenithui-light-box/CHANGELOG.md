@@ -1,5 +1,11 @@
 # zenithui-light-box
 
+## 2.0.2
+
+### Patch Changes
+
+- migrate to tailwind css v4.0.5 and update PostCSS configuration
+
 ## 2.0.1
 
 ### Patch Changes

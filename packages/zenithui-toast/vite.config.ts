@@ -29,4 +29,9 @@ export default defineConfig({
     sourcemap: true,
   },
   plugins: [react(), dts({ copyDtsFiles: true, rollupTypes: true })],
+  css: {
+    postcss: {
+      plugins: [],
+    },
+  },
 })

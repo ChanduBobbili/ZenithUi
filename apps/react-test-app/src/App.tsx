@@ -1,4 +1,3 @@
-import "./App.css"
 import {
   Button,
   Dialog,
@@ -17,7 +16,7 @@ import {
 import { TimePicker } from "zenithui-time-picker"
 import { useState } from "react"
 import { LightBox, LightBoxImages } from "zenithui-light-box"
-import { toast } from "zenithui-toast"
+// import { toast } from "zenithui-toast"
 
 function App() {
   const [open, setOpen] = useState<boolean>(false)
@@ -52,7 +51,7 @@ function App() {
       <div className="flex w-full flex-col items-center justify-center gap-2">
         <Button
           className="bg-red-500"
-          onClick={() => toast.success("Hello World")}
+          // onClick={() => toast.success("Hello World")}
         >
           Zenithui Button
         </Button>
@@ -62,7 +61,7 @@ function App() {
             <Button>Open Drawer</Button>
           </DrawerTrigger>
           <DrawerContent
-            className="w-1/2 rounded-bl-md rounded-tl-md p-6 pb-4 pt-2 transition-all duration-300 ease-in-out"
+            className="w-1/2 rounded-tl-md rounded-bl-md p-6 pt-2 pb-4 transition-all duration-300 ease-in-out"
             OverlayClassName="bg-black/75"
           >
             <DrawerHeader>

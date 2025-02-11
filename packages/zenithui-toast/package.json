@@ -76,6 +76,9 @@
       "optional": false
     }
   },
-  "dependencies": {},
+  "dependencies": {
+    "clsx": "^2.1.1",
+    "tailwind-merge": "^3.0.1"
+  },
   "packageManager": "pnpm@9.5.0"
 }
