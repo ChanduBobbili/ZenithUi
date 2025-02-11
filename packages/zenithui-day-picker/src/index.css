@@ -1,4 +1,155 @@
-@tailwind base;
+@import 'tailwindcss/theme' layer(theme);
+@import 'tailwindcss/preflight' layer(base);
+
+@theme {
+  --animate-zenithui-fade-in: zenithui-fade-in 0.2s ease-out;
+  --animate-zenithui-fade-out: zenithui-fade-out 0.2s ease-in;
+  --animate-zenithui-zoom-in: zenithui-zoom-in 0.2s ease-out;
+  --animate-zenithui-zoom-out: zenithui-zoom-out 0.2s ease-in;
+  --animate-zenithui-slide-in-from-bottom: zenithui-slide-in-from-bottom 0.2s
+    ease-out;
+  --animate-zenithui-slide-out-to-bottom: zenithui-slide-out-to-bottom 0.2s
+    ease-in;
+  --animate-zenithui-flip-in: zenithui-flip-in 0.3s ease-out;
+  --animate-zenithui-flip-out: zenithui-flip-out 0.3s ease-in;
+  --animate-zenithui-rotate-in: zenithui-rotate-in 0.3s ease-out;
+  --animate-zenithui-rotate-out: zenithui-rotate-out 0.3s ease-in;
+  --animate-zenithui-bounce-in: zenithui-bounce-in 0.3s ease-out;
+  --animate-zenithui-bounce-out: zenithui-bounce-out 0.3s ease-in;
+
+  @keyframes zenithui-fade-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  @keyframes zenithui-fade-out {
+    from {
+      opacity: 1;
+    }
+    to {
+      opacity: 0;
+    }
+  }
+  @keyframes zenithui-zoom-in {
+    from {
+      transform: scale(0.95);
+    }
+    to {
+      transform: scale(1);
+    }
+  }
+  @keyframes zenithui-zoom-out {
+    from {
+      transform: scale(1);
+    }
+    to {
+      transform: scale(0.95);
+    }
+  }
+  @keyframes zenithui-slide-in-from-bottom {
+    from {
+      transform: translateY(1rem);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+  @keyframes zenithui-slide-out-to-bottom {
+    from {
+      transform: translateY(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateY(1rem);
+      opacity: 0;
+    }
+  }
+  @keyframes zenithui-flip-in {
+    from {
+      transform: rotateY(-90deg);
+      opacity: 0;
+    }
+    to {
+      transform: rotateY(0);
+      opacity: 1;
+    }
+  }
+  @keyframes zenithui-flip-out {
+    from {
+      transform: rotateY(0);
+      opacity: 1;
+    }
+    to {
+      transform: rotateY(90deg);
+      opacity: 0;
+    }
+  }
+  @keyframes zenithui-rotate-in {
+    from {
+      transform: rotate(-45deg);
+      opacity: 0;
+    }
+    to {
+      transform: rotate(0);
+      opacity: 1;
+    }
+  }
+  @keyframes zenithui-rotate-out {
+    from {
+      transform: rotate(0);
+      opacity: 1;
+    }
+    to {
+      transform: rotate(45deg);
+      opacity: 0;
+    }
+  }
+  @keyframes zenithui-bounce-in {
+    0%,
+    100% {
+      transform: scale(0.9);
+      opacity: 0.8;
+    }
+    50% {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+  @keyframes zenithui-bounce-out {
+    0%,
+    100% {
+      transform: scale(1.1);
+      opacity: 0.8;
+    }
+    50% {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+}
+
+/*
+  The default border color has changed to `currentColor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentColor);
+  }
+}
 
 @layer base {
   @supports (scrollbar-width: auto) {

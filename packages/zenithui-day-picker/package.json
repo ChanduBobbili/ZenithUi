@@ -77,9 +77,10 @@
     }
   },
   "dependencies": {
-    "date-fns": "^4.1.0",
     "clsx": "^2.1.1",
-    "tailwind-merge": "^3.0.1"
+    "date-fns": "^4.1.0",
+    "tailwind-merge": "^3.0.1",
+    "tailwindcss": "^4.0.0"
   },
   "packageManager": "pnpm@9.5.0"
 }

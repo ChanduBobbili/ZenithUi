@@ -142,20 +142,20 @@ const DayPicker = React.forwardRef<HTMLDivElement, DayPickerProps>(
               className={cn(
                 "flex items-center justify-center rounded-md border-none p-1 text-center text-sm",
                 // Active state
-                "active:scale-95 active:border-none active:border-transparent active:outline-none active:ring-0 active:hover:border-none active:hover:outline-none active:hover:ring-0 active:focus:border-none active:focus:outline-none active:focus:ring-0 active:disabled:border-none active:disabled:outline-none active:disabled:ring-0",
+                "active:scale-95 active:border-none active:border-transparent active:outline-hidden active:ring-0 active:hover:border-none active:hover:outline-hidden active:hover:ring-0 active:focus:border-none active:focus:outline-hidden active:focus:ring-0 active:disabled:border-none active:disabled:outline-hidden active:disabled:ring-0",
                 // Hover state
                 "hover:border-none hover:bg-gray-200",
                 // Transition
                 "transition-all duration-300 ease-in-out",
                 // Focus state
-                "focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50",
+                "focus:outline-hidden focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50",
                 // Focus visible state
-                "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-opacity-50",
+                "focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-opacity-50",
                 // Disabled state
                 "disabled:cursor-not-allowed disabled:bg-gray-200 disabled:text-gray-500 disabled:opacity-50",
                 "disabled:hover:bg-gray-200 disabled:hover:text-gray-500",
                 "disabled:active:scale-100 disabled:active:ring-0",
-                "disabled:focus:outline-none disabled:focus:ring-0",
+                "disabled:focus:outline-hidden disabled:focus:ring-0",
                 classNames?.prevMonthButton,
               )}
             >
@@ -171,20 +171,20 @@ const DayPicker = React.forwardRef<HTMLDivElement, DayPickerProps>(
               className={cn(
                 "flex items-center justify-center rounded-md border-none p-1 text-center text-sm",
                 // Active state
-                "active:scale-95 active:border-none active:border-transparent active:outline-none active:ring-0 active:hover:border-none active:hover:outline-none active:hover:ring-0 active:focus:border-none active:focus:outline-none active:focus:ring-0 active:disabled:border-none active:disabled:outline-none active:disabled:ring-0",
+                "active:scale-95 active:border-none active:border-transparent active:outline-hidden active:ring-0 active:hover:border-none active:hover:outline-hidden active:hover:ring-0 active:focus:border-none active:focus:outline-hidden active:focus:ring-0 active:disabled:border-none active:disabled:outline-hidden active:disabled:ring-0",
                 // Hover state
                 "hover:border-none hover:bg-gray-200",
                 // Transition
                 "transition-all duration-300 ease-in-out",
                 // Focus state
-                "focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50",
+                "focus:outline-hidden focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50",
                 // Focus visible state
-                "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-opacity-50",
+                "focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-opacity-50",
                 // Disabled state
                 "disabled:cursor-not-allowed disabled:bg-gray-200 disabled:text-gray-500 disabled:opacity-50",
                 "disabled:hover:bg-gray-200 disabled:hover:text-gray-500",
                 "disabled:active:scale-100 disabled:active:ring-0",
-                "disabled:focus:outline-none disabled:focus:ring-0",
+                "disabled:focus:outline-hidden disabled:focus:ring-0",
                 classNames?.nextMonthButton,
               )}
             >
@@ -220,20 +220,20 @@ const DayPicker = React.forwardRef<HTMLDivElement, DayPickerProps>(
               className={cn(
                 "flex size-9 items-center justify-center rounded-md border text-center text-sm",
                 // Active state
-                "active:scale-95 active:border-none active:border-transparent active:outline-none active:ring-0 active:hover:border-none active:hover:outline-none active:hover:ring-0 active:focus:border-none active:focus:outline-none active:focus:ring-0 active:disabled:border-none active:disabled:outline-none active:disabled:ring-0",
+                "active:scale-95 active:border-none active:border-transparent active:outline-hidden active:ring-0 active:hover:border-none active:hover:outline-hidden active:hover:ring-0 active:focus:border-none active:focus:outline-hidden active:focus:ring-0 active:disabled:border-none active:disabled:outline-hidden active:disabled:ring-0",
                 // Hover state
                 "hover:border-none hover:bg-gray-200",
                 // Transition
                 "transition-all duration-300 ease-in-out",
                 // Focus state
-                "focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50",
+                "focus:outline-hidden focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50",
                 // Focus visible state
-                "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-opacity-50",
+                "focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-opacity-50",
                 // Disabled state
                 "disabled:cursor-not-allowed disabled:bg-gray-200 disabled:text-gray-500 disabled:opacity-50",
                 "disabled:hover:bg-gray-200 disabled:hover:text-gray-500",
                 "disabled:active:scale-100 disabled:active:ring-0",
-                "disabled:focus:outline-none disabled:focus:ring-0",
+                "disabled:focus:outline-hidden disabled:focus:ring-0",
                 classNames?.day,
                 // Outside date
                 !isSameMonth(day, currentMonth) &&
