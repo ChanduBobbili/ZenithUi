@@ -1,4 +1,5 @@
 import * as React from "react"
+import "./../index.css"
 import {
   addMonths,
   eachDayOfInterval,
@@ -125,127 +126,57 @@ const DayPicker = React.forwardRef<HTMLDivElement, DayPickerProps>(
     return (
       <div
         ref={ref}
-        className={cn(
-          "w-full max-w-sm rounded-lg bg-white p-4 text-slate-950 shadow-lg",
-          classNames?.calendar,
-        )}
+        className={cn("calendar", classNames?.calendar)}
       >
         {!hideNavigation && (
-          <div
-            className={cn(
-              "mb-4 flex items-center justify-between",
-              classNames?.header,
-            )}
-          >
+          <div className={cn("calendar-header", classNames?.header)}>
             <button
               onClick={handlePrevMonth}
-              className={cn(
-                "flex items-center justify-center rounded-md border-none p-1 text-center text-sm",
-                // Active state
-                "active:scale-95 active:border-none active:border-transparent active:outline-hidden active:ring-0 active:hover:border-none active:hover:outline-hidden active:hover:ring-0 active:focus:border-none active:focus:outline-hidden active:focus:ring-0 active:disabled:border-none active:disabled:outline-hidden active:disabled:ring-0",
-                // Hover state
-                "hover:border-none hover:bg-gray-200",
-                // Transition
-                "transition-all duration-300 ease-in-out",
-                // Focus state
-                "focus:outline-hidden focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50",
-                // Focus visible state
-                "focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-opacity-50",
-                // Disabled state
-                "disabled:cursor-not-allowed disabled:bg-gray-200 disabled:text-gray-500 disabled:opacity-50",
-                "disabled:hover:bg-gray-200 disabled:hover:text-gray-500",
-                "disabled:active:scale-100 disabled:active:ring-0",
-                "disabled:focus:outline-hidden disabled:focus:ring-0",
-                classNames?.prevMonthButton,
-              )}
+              className={cn("nav-button", classNames?.prevMonthButton)}
             >
-              <Arrow className="h-5 w-5 rotate-180" />
+              <Arrow className="arrow-icon left" />
             </button>
-            <h2
-              className={cn("text-lg font-semibold", classNames?.monthCaption)}
-            >
+            <h2 className={cn("month-caption", classNames?.monthCaption)}>
               {format(currentMonth, "MMMM yyyy")}
             </h2>
             <button
               onClick={handleNextMonth}
-              className={cn(
-                "flex items-center justify-center rounded-md border-none p-1 text-center text-sm",
-                // Active state
-                "active:scale-95 active:border-none active:border-transparent active:outline-hidden active:ring-0 active:hover:border-none active:hover:outline-hidden active:hover:ring-0 active:focus:border-none active:focus:outline-hidden active:focus:ring-0 active:disabled:border-none active:disabled:outline-hidden active:disabled:ring-0",
-                // Hover state
-                "hover:border-none hover:bg-gray-200",
-                // Transition
-                "transition-all duration-300 ease-in-out",
-                // Focus state
-                "focus:outline-hidden focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50",
-                // Focus visible state
-                "focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-opacity-50",
-                // Disabled state
-                "disabled:cursor-not-allowed disabled:bg-gray-200 disabled:text-gray-500 disabled:opacity-50",
-                "disabled:hover:bg-gray-200 disabled:hover:text-gray-500",
-                "disabled:active:scale-100 disabled:active:ring-0",
-                "disabled:focus:outline-hidden disabled:focus:ring-0",
-                classNames?.nextMonthButton,
-              )}
+              className={cn("nav-button", classNames?.nextMonthButton)}
             >
-              <Arrow className="h-5 w-5" />
+              <Arrow className="arrow-icon" />
             </button>
           </div>
         )}
         {!hideWeekdays && (
-          <div
-            className={cn(
-              "grid grid-cols-7 gap-2 text-center text-xs text-gray-500",
-              classNames?.weekdays,
-            )}
-          >
+          <div className={cn("weekdays", classNames?.weekdays)}>
             {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map((day) => (
               <div
                 key={day}
-                className={cn(
-                  "flex size-9 items-center justify-center text-center text-xs font-medium",
-                  classNames?.weekday,
-                )}
+                className={cn("weekday", classNames?.weekday)}
               >
                 {day}
               </div>
             ))}
           </div>
         )}
-        <div className={cn("mt-2 grid grid-cols-7 gap-2", classNames?.days)}>
+        <div className={cn("days", classNames?.days)}>
           {days.map((day) => (
             <button
               key={day.toISOString()}
               onClick={() => handleSelectDate(day)}
               className={cn(
-                "flex size-9 items-center justify-center rounded-md border text-center text-sm",
-                // Active state
-                "active:scale-95 active:border-none active:border-transparent active:outline-hidden active:ring-0 active:hover:border-none active:hover:outline-hidden active:hover:ring-0 active:focus:border-none active:focus:outline-hidden active:focus:ring-0 active:disabled:border-none active:disabled:outline-hidden active:disabled:ring-0",
-                // Hover state
-                "hover:border-none hover:bg-gray-200",
-                // Transition
-                "transition-all duration-300 ease-in-out",
-                // Focus state
-                "focus:outline-hidden focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50",
-                // Focus visible state
-                "focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-opacity-50",
-                // Disabled state
-                "disabled:cursor-not-allowed disabled:bg-gray-200 disabled:text-gray-500 disabled:opacity-50",
-                "disabled:hover:bg-gray-200 disabled:hover:text-gray-500",
-                "disabled:active:scale-100 disabled:active:ring-0",
-                "disabled:focus:outline-hidden disabled:focus:ring-0",
+                "day",
                 classNames?.day,
                 // Outside date
                 !isSameMonth(day, currentMonth) &&
                   (hideOutsideDates
-                    ? "invisible"
-                    : (classNames?.outsideDate ?? "opacity-50")),
+                    ? "hidden"
+                    : (classNames?.outsideDate ?? "outside-date")),
                 // Selected date
                 format(selected, "yyyy-MM-dd") === format(day, "yyyy-MM-dd") &&
-                  (classNames?.daySelected ??
-                    "bg-blue-500 text-white hover:bg-blue-600"),
+                  (classNames?.daySelected ?? "day-selected"),
                 // Today date
-                isToday(day) && (classNames?.today ?? "border-blue-100"),
+                isToday(day) && (classNames?.today ?? "today"),
               )}
             >
               {format(day, "d")}
