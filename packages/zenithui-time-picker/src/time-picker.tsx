@@ -1,12 +1,12 @@
 import * as React from "react"
 import { ClockIcon } from "@radix-ui/react-icons"
 import {
-  cn,
   convertTo24Hour,
   formatTime24To12,
   getInitialHour,
   getInitialPeriod,
   generateTimeOptions,
+  cn,
 } from "./utils"
 import { Popover, PopoverContent, PopoverTrigger } from "./components/popover"
 import { ToggleGroup, ToggleGroupItem } from "./components/toggle-group"
@@ -109,28 +109,7 @@ const TimePicker: React.FC<TimePickerProps> = ({
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <button
-          className={cn(
-            "flex items-center justify-between rounded-md border",
-            "w-full max-w-40 border-slate-200 bg-white px-4 py-2 text-sm text-slate-950",
-            // Active state
-            "active:border active:border-slate-200 active:ring-0 active:outline-none active:hover:border active:hover:ring-0 active:hover:outline-none active:focus:border active:focus:ring-0 active:focus:outline-none active:disabled:border active:disabled:ring-0 active:disabled:outline-none",
-            // Hover state
-            "hover:border-slate-200 hover:bg-slate-200",
-            // Transition
-            "transition-all duration-300 ease-in-out",
-            // Focus state
-            "focus:ring-opacity-50 focus:ring-2 focus:ring-blue-500 focus:outline-none",
-            // Focus visible state
-            "focus-visible:ring-opacity-50 focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:outline-none",
-            // Disabled state
-            "disabled:cursor-not-allowed disabled:bg-gray-200 disabled:text-gray-500 disabled:opacity-50",
-            "disabled:hover:bg-gray-200 disabled:hover:text-gray-500",
-            "disabled:active:ring-0",
-            "disabled:focus:ring-0 disabled:focus:outline-none",
-            classNames?.button,
-          )}
-        >
+        <button className={cn("custom-button", classNames?.button)}>
           <span>{formatter(time)}</span>
           <ClockIcon className="size-6 cursor-pointer" />
         </button>
@@ -142,10 +121,7 @@ const TimePicker: React.FC<TimePickerProps> = ({
         sideOffset={sideOffset}
         openAnimate="slide"
         closeAnimate="slide"
-        className={cn(
-          "grid h-80 w-60 grid-cols-3 gap-1 overflow-hidden rounded-md px-0 py-3",
-          classNames?.popoverContent,
-        )}
+        className={cn("popover-content", classNames?.popoverContent)}
         onWheel={(e) => e.stopPropagation()}
       >
         <TimeScrollList
@@ -210,14 +186,11 @@ const TimeScrollList: React.FC<TimeScrollListProps> = ({
   }, [value, options])
 
   return (
-    <div className="h-full overflow-y-auto">
+    <div className="custom-scrollbar">
       <ToggleGroup
         ref={listRef}
         type="single"
-        className={cn(
-          "pointer-events-auto flex flex-col gap-2 px-0 py-1",
-          classNames?.timeScrollList,
-        )}
+        className={cn("time-scroll-list", classNames?.timeScrollList)}
         value={value}
         onValueChange={(selectedValue) =>
           selectedValue && onChange(selectedValue)
@@ -230,11 +203,10 @@ const TimeScrollList: React.FC<TimeScrollListProps> = ({
               value={option}
               aria-label={option}
               className={cn(
-                "h-12 w-12 transition-all duration-500 ease-in-out",
+                "time-scroll-list-item",
                 classNames?.timeScrollListItem,
-                value === option &&
-                  (classNames?.Selected ??
-                    "bg-sky-700 text-white hover:bg-sky-800"),
+                value === option ? "selected" : "",
+                value === option ? classNames?.Selected : "",
               )}
             >
               {option}

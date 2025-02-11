@@ -1,37 +1,149 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/**
+ 
+  Styles for time-picker.tsx
 
-@layer base {
-  @supports (scrollbar-width: auto) {
-    * {
-      scrollbar-width: thin;
-    }
-  }
+*/
 
-  @supports (scrollbar-color: auto) {
-    * {
-      scrollbar-color: #cbd5e1 transparent;
-    }
-  }
-
-  /* *::-webkit-scrollbar-button {
-    width: 0px;
-    height: 0px;
-  } */
-
-  @supports selector(::-webkit-scrollbar) {
-    *::-webkit-scrollbar-thumb {
-      background: #cbd5e1;
-    }
-
-    *::-webkit-scrollbar-track {
-      background: transparent;
-    }
-
-    /* ::-webkit-scrollbar {
-      max-width: var(--scrollbar-width-legacy);
-      max-height: var(--scrollbar-width-legacy);
-    } */
-  }
+/* Button */
+.custom-button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 10rem; /* max-w-40 */
+  border: 1px solid #e2e8f0; /* border-slate-200 */
+  background-color: white;
+  padding: 0.5rem 1rem; /* px-4 py-2 */
+  font-size: 0.875rem; /* text-sm */
+  color: #0f172a; /* text-slate-950 */
+  border-radius: 0.375rem; /* rounded-md */
+  transition: all 0.3s ease-in-out;
 }
+
+/* Hover state */
+.custom-button:hover {
+  border-color: #e2e8f0; /* hover:border-slate-200 */
+  background-color: #e2e8f0; /* hover:bg-slate-200 */
+}
+
+/* Active state */
+.custom-button:active {
+  border: 1px solid #e2e8f0;
+  outline: none;
+}
+
+/* Focus state */
+.custom-button:focus {
+  outline: 1px solid #3b82f6; /* focus:ring-blue-500 */
+}
+
+/* Focus-visible state */
+.custom-button:focus-visible {
+  outline: 1px solid #3b82f6; /* focus-visible:ring-blue-500 */
+}
+
+/* Disabled state */
+.custom-button:disabled {
+  cursor: not-allowed;
+  background-color: #e5e7eb; /* bg-gray-200 */
+  color: #6b7280; /* text-gray-500 */
+  opacity: 0.5;
+}
+
+/* Disabled hover state */
+.custom-button:disabled:hover {
+  background-color: #e5e7eb; /* bg-gray-200 */
+  color: #6b7280; /* text-gray-500 */
+}
+
+/* Disabled active and focus states */
+.custom-button:disabled:active,
+.custom-button:disabled:focus {
+  outline: none;
+}
+
+/* Popover content */
+.popover-content {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* grid-cols-3 */
+  justify-items: center;
+  height: 20rem; /* h-80 */
+  width: 15rem; /* w-60 */
+  gap: 0.25rem; /* gap-1 */
+  overflow: hidden;
+  border-radius: 0.375rem; /* rounded-md */
+  padding: 0 0rem 0 0rem; /* px-0 */
+  padding-top: 0.75rem; /* py-3 */
+  padding-bottom: 0.75rem;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15); /* shadow-md */
+}
+
+.custom-scrollbar {
+  height: 100%;
+  overflow-y: auto;
+}
+
+.time-scroll-list {
+  pointer-events: auto; /* Enable pointer interactions */
+  display: flex;
+  flex-direction: column; /* Stack children vertically */
+  gap: 0.5rem; /* gap-2 */
+  padding: 0.25rem;
+}
+
+.time-scroll-list-item {
+  height: 3rem; /* h-12 */
+  width: 3rem; /* w-12 */
+  transition: all 0.2s ease-in-out; /* transition-all duration-200 ease-in-out */
+  background-color: white; /* bg-white */
+  color: #0f172a; /* text-slate-950 */
+  border-radius: 0.375rem; /* rounded-md */
+  border: 1px solid #e2e8f0; /* border-slate-200 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Selected state */
+.time-scroll-list-item.selected {
+  background-color: #0369a1; /* bg-sky-700 */
+  color: white; /* text-white */
+}
+
+/* Hover state for selected */
+.time-scroll-list-item.selected:hover {
+  background-color: #075985; /* hover:bg-sky-800 */
+}
+
+/**
+  
+  Global styles for scrollbar
+  
+*/
+
+/* Scrollbar */
+* {
+  scrollbar-width: thin;
+}
+
+* {
+  scrollbar-color: #cbd5e1 transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* *::-webkit-scrollbar-button {
+  width: 0px;
+  height: 0px;
+} */
+
+/* ::-webkit-scrollbar {
+  max-width: var(--scrollbar-width-legacy);
+  max-height: var(--scrollbar-width-legacy);
+} */
