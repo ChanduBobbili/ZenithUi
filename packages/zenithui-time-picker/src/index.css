@@ -76,6 +76,7 @@
   padding-top: 0.75rem; /* py-3 */
   padding-bottom: 0.75rem;
   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15); /* shadow-md */
+  background-color: white; /* bg-white */
 }
 
 .custom-scrollbar {

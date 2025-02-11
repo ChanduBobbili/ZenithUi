@@ -18,24 +18,6 @@ pnpm add zenithui-primitive
 
 ---
 
-## 🔘 Button
-
-The `Button` component is a simple and interactive button for your React applications.
-
-### Props
-
-All Button Props Applies for this Button component also.
-
-### Example Usage
-
-```tsx
-import Button from "zenithui-primitive";
-
-<Button onClick={() => console.log("Button clicked")}>Click Me</Button>
-```
-
----
-
 ## ⏳ CountDownTimer
 
 The `CountDownTimer` component provides a countdown timer with customization options such as labels, descriptions, and expiry callbacks.
