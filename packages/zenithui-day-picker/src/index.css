@@ -1,4 +1,4 @@
-
+@tailwind base;
 
 @layer base {
   @supports (scrollbar-width: auto) {
