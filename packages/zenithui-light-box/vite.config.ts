@@ -12,7 +12,7 @@ export default defineConfig({
       name: "ZenithUI-Light-Box",
     },
     rollupOptions: {
-      external: ["react", "react-dom", "react/jsx-runtime"],
+      external: ["react", "react-dom"],
       output: [
         {
           format: "es",
@@ -36,9 +36,4 @@ export default defineConfig({
     dts({ copyDtsFiles: true, rollupTypes: true }),
     svgr(),
   ],
-  css: {
-    postcss: {
-      plugins: [],
-    },
-  },
 })

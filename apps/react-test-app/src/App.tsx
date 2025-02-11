@@ -50,8 +50,8 @@ function App() {
     <>
       <div className="flex w-full flex-col items-center justify-center gap-2">
         <Button
-          className="bg-red-500"
-          // onClick={() => toast.success("Hello World")}
+          className="text-red-500"
+          onClick={() => setOpen(true)}
         >
           Zenithui Button
         </Button>
