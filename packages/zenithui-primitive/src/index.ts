@@ -1,6 +1,4 @@
 import "./index.css"
-// Import of Button Component
-export { default as Button } from "./components/button"
 //  Import of ZenithUiDialog Component
 export {
   Dialog,
