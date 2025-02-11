@@ -48,7 +48,7 @@ function App() {
     console.log(`Image at index ${index} deleted`)
   }
   return (
-    <div className="flex h-full w-full flex-col items-center justify-center gap-2 bg-slate-100">
+    <div className="flex h-screen w-full flex-col items-center justify-center gap-2 overflow-y-auto bg-slate-100">
       <Button
         className="text-red-500"
         onClick={() => setOpen(true)}
@@ -95,7 +95,9 @@ function App() {
         onTimeChange={(time) => console.log(time)}
         align="center"
         side="right"
-        // classNames={{}}
+        classNames={{
+          popoverContent: "bg-slate-500",
+        }}
       />
 
       <Button onClick={() => setOpen(true)}>Open Light Box</Button>
