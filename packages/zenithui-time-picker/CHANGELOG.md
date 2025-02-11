@@ -1,5 +1,11 @@
 # zenithui-time-picker
 
+## 1.3.0
+
+### Minor Changes
+
+- Migrate tailwind css to raw css
+
 ## 1.2.1
 
 ### Patch Changes
