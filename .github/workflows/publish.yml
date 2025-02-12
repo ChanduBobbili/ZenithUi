@@ -1,0 +1,61 @@
+name: Publish Package to NPM
+
+on:
+  push:
+    tags:
+      - "*" # Trigger on any tag push
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "lts/*" # Use the latest LTS version of Node.js
+          registry-url: "https://registry.npmjs.org/"
+
+      - name: Install pnpm
+        run: npm install -g pnpm
+
+      - name: Extract package and version from tag
+        id: extract
+        run: |
+          TAG_NAME=${{ github.ref_name }}
+          PACKAGE_NAME=$(echo "$TAG_NAME" | cut -d'@' -f1)
+          PACKAGE_VERSION=$(echo "$TAG_NAME" | cut -d'@' -f2)
+          echo "PACKAGE_NAME=$PACKAGE_NAME" >> $GITHUB_ENV
+          echo "PACKAGE_VERSION=$PACKAGE_VERSION" >> $GITHUB_ENV
+          echo "PACKAGE_NAME=$PACKAGE_NAME"
+          echo "PACKAGE_VERSION=$PACKAGE_VERSION"
+
+      - name: Navigate to package directory and install dependencies
+        run: |
+          cd packages/$PACKAGE_NAME
+          pnpm install
+
+      - name: Lint package
+        run: |
+          cd packages/$PACKAGE_NAME
+          pnpm lint
+
+      - name: Build package
+        run: |
+          cd packages/$PACKAGE_NAME
+          pnpm build
+
+      - name: Publish package
+        run: |
+          cd packages/$PACKAGE_NAME
+          pnpm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Clear build artifacts
+        run: pnpm build:clear
+
+      - name: Remove node_modules
+        run: rm -rf node_modules
