@@ -1,6 +1,6 @@
 # ZenithUi Day Picker
 
-A customizable and lightweight day picker component for React, built with `date-fns` for date manipulation.
+A ZenithUi Day Picker is a React component that provides a customizable and lightweight calendar interface for selecting dates, built with `date-fns` for efficient date manipulation. It features a clean, modern design with support for navigation, highlighting, and flexible configurations.
 
 ## Features
 
@@ -43,14 +43,15 @@ export default App;
 
 ### `DayPickerProps`
 
-| Prop Name          | Type                   | Description                                                     | Default    |
-| ------------------ | ---------------------- | --------------------------------------------------------------- | ---------- |
-| `selected`         | `Date`                 | The currently selected date.                                    | `required` |
-| `onSelect`         | `(date: Date) => void` | Function called when a date is selected.                        | `required` |
-| `classNames`       | `Partial<ClassNames>`  | Custom class names for styling different parts of the calendar. | `optional` |
-| `hideNavigation`   | `boolean`              | Hide previous/next month buttons.                               | `false`    |
-| `hideWeekdays`     | `boolean`              | Hide weekday names.                                             | `false`    |
-| `hideOutsideDates` | `boolean`              | Hide dates that belong to the previous/next month.              | `false`    |
+| Prop Name          | Type                  | Description                                                     | Default    |
+| ------------------ | --------------------- | --------------------------------------------------------------- | ---------- |
+| `selected`         | `Date`                | The currently selected date.                                    | `required` |
+| `onSelect`         | `(date: any) => void` | Function called when a date is selected.                        | `required` |
+| `mode`             | `single or range`     | The mode of the calendar to select date.                        | `required` |
+| `classNames`       | `Partial<ClassNames>` | Custom class names for styling different parts of the calendar. | `optional` |
+| `hideNavigation`   | `boolean`             | Hide previous/next month buttons.                               | `false`    |
+| `hideWeekdays`     | `boolean`             | Hide weekday names.                                             | `false`    |
+| `hideOutsideDates` | `boolean`             | Hide dates that belong to the previous/next month.              | `false`    |
 
 ### `ClassNames` (Optional Styling)
 
@@ -68,6 +69,9 @@ export default App;
 | `daySelected`     | Styles for the selected day.               |
 | `outsideDate`     | Styles for days outside the current month. |
 | `today`           | Styles for today's date.                   |
+| `rangeStart`      | Styles for start date of range             |
+| `rangeEnd`        | Styles for end date of range               |
+| `rangeDates`      | Styles for dates btw the range             |
 
 ## Customization
 

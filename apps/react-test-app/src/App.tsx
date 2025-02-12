@@ -20,7 +20,12 @@ import { DayPicker } from "zenithui-day-picker"
 
 function App() {
   const [open, setOpen] = useState<boolean>(false)
-  const [selectedDate, setSelectedDate] = useState<Date>(new Date())
+  const after7Days = new Date()
+  after7Days.setDate(new Date().getDate() + 7)
+  const [selectedDate, setSelectedDate] = useState<{ from: Date; to: Date }>({
+    from: new Date(),
+    to: after7Days,
+  })
 
   const images: LightBoxImages[] = [
     {
@@ -120,7 +125,9 @@ function App() {
         //   lightBox: "border-red-500 border-2",
         // }}
       />
+
       <DayPicker
+        mode="range"
         selected={selectedDate}
         onSelect={setSelectedDate}
         hideNavigation={false}
