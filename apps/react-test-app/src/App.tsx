@@ -16,6 +16,7 @@ import { TimePicker } from "zenithui-time-picker"
 import { useState } from "react"
 import { LightBox, LightBoxImages } from "zenithui-light-box"
 import { DayPicker } from "zenithui-day-picker"
+import { toast } from "zenithui-toast"
 // import { toast } from "zenithui-toast"
 
 function App() {
@@ -134,6 +135,8 @@ function App() {
         hideOutsideDates={false}
         hideWeekdays={false}
       />
+
+      <button onClick={() => toast.success("jjfdig")}>Show Toast</button>
     </div>
   )
 }

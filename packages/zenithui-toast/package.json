@@ -32,7 +32,6 @@
     "design-system",
     "styled-components",
     "styled-system",
-    "tailwindcss",
     "typescript",
     "toast"
   ],
@@ -49,13 +48,11 @@
         "types": "./dist/index.d.ts",
         "default": "./dist/cjs/index.cjs"
       }
-    }
+    },
+    "./styles.css": "./dist/esm/styles.css"
   },
   "files": [
     "dist"
-  ],
-  "sideEffects": [
-    "**/*.css"
   ],
   "scripts": {
     "build": "vite build && tsc",
