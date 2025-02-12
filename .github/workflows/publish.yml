@@ -58,7 +58,7 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Clear build artifacts
-        run: pnpm build:clear
+        run: rm -rf dist
 
       - name: Remove node_modules
         run: rm -rf node_modules
