@@ -1,5 +1,4 @@
 import {
-  Button,
   Dialog,
   DialogContent,
   DialogDescription,
@@ -21,7 +20,12 @@ import { DayPicker } from "zenithui-day-picker"
 
 function App() {
   const [open, setOpen] = useState<boolean>(false)
-  const [selectedDate, setSelectedDate] = useState<Date>(new Date())
+  const after7Days = new Date()
+  after7Days.setDate(new Date().getDate() + 7)
+  const [selectedDate, setSelectedDate] = useState<{ from: Date; to: Date }>({
+    from: new Date(),
+    to: after7Days,
+  })
 
   const images: LightBoxImages[] = [
     {
@@ -49,16 +53,9 @@ function App() {
   }
   return (
     <div className="flex h-screen w-full flex-col items-center justify-center gap-2 overflow-y-auto bg-slate-100">
-      <Button
-        className="text-red-500"
-        onClick={() => setOpen(true)}
-      >
-        Zenithui Button
-      </Button>
-
       <Drawer direction="right">
         <DrawerTrigger asChild>
-          <Button>Open Drawer</Button>
+          <button>Open Drawer</button>
         </DrawerTrigger>
         <DrawerContent
           className="w-1/2 rounded-tl-md rounded-bl-md p-6 pt-2 pb-4 transition-all duration-300 ease-in-out"
@@ -76,7 +73,7 @@ function App() {
       </Drawer>
       <Dialog>
         <DialogTrigger asChild>
-          <Button>Open Dialog</Button>
+          <button>Open Dialog</button>
         </DialogTrigger>
         <DialogContent className="w-1/2 max-w-full">
           <DialogHeader>
@@ -100,7 +97,7 @@ function App() {
         }}
       />
 
-      <Button onClick={() => setOpen(true)}>Open Light Box</Button>
+      <button onClick={() => setOpen(true)}>Open Light Box</button>
 
       <LightBox
         open={open}
@@ -128,7 +125,9 @@ function App() {
         //   lightBox: "border-red-500 border-2",
         // }}
       />
+
       <DayPicker
+        mode="range"
         selected={selectedDate}
         onSelect={setSelectedDate}
         hideNavigation={false}

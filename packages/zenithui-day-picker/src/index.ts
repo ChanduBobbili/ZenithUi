@@ -1,2 +1,6 @@
 import "./index.css"
-export { DayPicker, type DayPickerProps } from "./components/day-picker"
+export {
+  DayPicker,
+  type DayPickerProps,
+  type DateRange,
+} from "./components/day-picker"

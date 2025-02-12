@@ -1,6 +1,6 @@
 # 🌈 zenithui-time-picker
 
-A customizable, accessible, and lightweight time picker component for React applications. This component allows users to select time using a scrollable interface for hours, minutes, and periods (AM/PM), with built-in support for both 12-hour and 24-hour formats.
+A ZenithUi Time Picker is a React component that provides a smooth and accessible interface for selecting time. Featuring a scrollable design for hours, minutes, and (AM/PM) selection, it supports both 12-hour and 24-hour formats with seamless customization options for a modern user experience.
 
 ---
 
@@ -88,6 +88,7 @@ ZenithUi components are designed to be flexible and styled easily. Combine them 
 - [ZenithUi Primitive](https://npmjs.com/package/zenithui-primitive)
 - [ZenithUi Light Box](https://npmjs.com/package/zenithui-light-box)
 - [ZenithUi Day Picker](https://npmjs.com/package/zenithui-day-picker)
+
 ---
 
 ## 🤝 Contributing

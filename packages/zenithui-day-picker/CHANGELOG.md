@@ -1,5 +1,11 @@
 # zenithui-day-picker
 
+## 2.0.0
+
+### Major Changes
+
+- Introduced the mode for the day-picker which enables to select single date or range of date
+
 ## 1.1.0
 
 ### Minor Changes

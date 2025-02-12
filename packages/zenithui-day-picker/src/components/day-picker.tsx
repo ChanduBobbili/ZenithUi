@@ -6,13 +6,16 @@ import {
   endOfMonth,
   endOfWeek,
   format,
+  isAfter,
+  isBefore,
+  isSameDay,
   isSameMonth,
   isToday,
   startOfMonth,
   startOfWeek,
   subMonths,
 } from "date-fns"
-import { cn } from "../utils"
+import { cn, getInitialDate, getInitialRange } from "../utils"
 import Arrow from "../assets/arrow.svg?react"
 interface classNames {
   /**
@@ -56,6 +59,18 @@ interface classNames {
    */
   daySelected: string
   /**
+   * The class names to apply to the range start date.
+   */
+  rangeStart: string
+  /**
+   * The class names to apply to the range end date.
+   */
+  rangeEnd: string
+  /**
+   * The class names to apply to the dates in the range.
+   */
+  rangeDates: string
+  /**
    * The class names to apply to the outside date (not in the current month).
    */
   outsideDate: string
@@ -65,15 +80,24 @@ interface classNames {
   today: string
 }
 
+/**
+ * The Date type from the Range Selection
+ */
+export type DateRange = [Date, Date] | { from: Date; to: Date }
+
 interface DayPickerProps {
   /**
    * The date that is currently selected.
    */
-  selected: Date
+  selected: Date | DateRange
   /**
    * The function that is called when a date is selected.
    */
-  onSelect: (date: Date) => void
+  onSelect: (date: any) => void
+  /**
+   * The selection mode. (single | range)
+   */
+  mode: "single" | "range"
   /**
    * The class names to apply to the day picker.
    */
@@ -98,13 +122,24 @@ const DayPicker = React.forwardRef<HTMLDivElement, DayPickerProps>(
       selected,
       onSelect,
       classNames,
+      mode = "single",
       hideNavigation = false,
       hideWeekdays = false,
       hideOutsideDates = false,
     },
     ref,
   ) => {
-    const [currentMonth, setCurrentMonth] = React.useState<Date>(selected)
+    if (mode === "range" && selected instanceof Date) {
+      throw new Error(
+        "Range mode requires an array of two dates or Range Object",
+      )
+    }
+    const [currentMonth, setCurrentMonth] = React.useState<Date>(
+      getInitialDate(selected),
+    )
+    const [range, setRange] = React.useState<DateRange>(
+      getInitialRange(selected),
+    )
 
     const days = React.useMemo(() => {
       return eachDayOfInterval({
@@ -120,8 +155,58 @@ const DayPicker = React.forwardRef<HTMLDivElement, DayPickerProps>(
       if (!isSameMonth(date, currentMonth)) {
         setCurrentMonth(startOfMonth(date))
       }
-      if (onSelect) onSelect(date)
+      onSelect(date)
     }
+
+    const handleRangeSelect = (date: Date) => {
+      if (Array.isArray(range)) {
+        // if (isBefore(date, range[0])) {
+        //   setRange([date, range[1]])
+        // } else if (isAfter(date, range[0])) {
+        //   setRange([date, range[1]])
+        // }
+
+        // if (isAfter(date, range[1])) {
+        //   setRange([range[0], date])
+        // } else if (isBefore(date, range[1])) {
+        //   setRange([range[0], date])
+        // }
+
+        if (date < range[0]) {
+          setRange([date, range[0]])
+        } else {
+          setRange([range[0], date])
+        }
+      } else {
+        // if (isBefore(date, range.from)) {
+        //   setRange({ from: date, to: range.to })
+        // } else if (isAfter(date, range.from)) {
+        //   setRange({ from: date, to: range.to })
+        // }
+
+        // if (isAfter(date, range.to)) {
+        //   setRange({ from: range.from, to: date })
+        // } else if (isBefore(date, range.to)) {
+        //   setRange({ from: range.from, to: date })
+        // }
+
+        if (date < range.from) {
+          setRange({ from: date, to: range.to })
+        } else {
+          setRange({ from: range.from, to: date })
+        }
+      }
+    }
+
+    React.useEffect(() => {
+      if (mode === "range") {
+        if (Array.isArray(range)) {
+          if (range[0] && range[1]) onSelect(range)
+        } else {
+          if (range.from && range.to) onSelect(range)
+        }
+      }
+    }, [range])
 
     return (
       <div
@@ -159,29 +244,70 @@ const DayPicker = React.forwardRef<HTMLDivElement, DayPickerProps>(
             ))}
           </div>
         )}
-        <div className={cn("days", classNames?.days)}>
-          {days.map((day) => (
-            <button
-              key={day.toISOString()}
-              onClick={() => handleSelectDate(day)}
-              className={cn(
-                "day",
-                classNames?.day,
-                // Outside date
-                !isSameMonth(day, currentMonth) &&
-                  (hideOutsideDates
-                    ? "hidden"
-                    : (classNames?.outsideDate ?? "outside-date")),
-                // Selected date
-                format(selected, "yyyy-MM-dd") === format(day, "yyyy-MM-dd") &&
-                  (classNames?.daySelected ?? "day-selected"),
-                // Today date
-                isToday(day) && (classNames?.today ?? "today"),
-              )}
-            >
-              {format(day, "d")}
-            </button>
-          ))}
+        <div
+          className={cn(
+            "days",
+            mode === "range" && "gap-x-4",
+            classNames?.days,
+          )}
+        >
+          {days.map((day) => {
+            const date = getInitialDate(selected)
+
+            const isSelected = isSameDay(date, day)
+
+            const isRangeStart = Array.isArray(range)
+              ? isSameDay(range[0], day)
+              : isSameDay(range.from, day)
+
+            const isRangeEnd = Array.isArray(range)
+              ? isSameDay(range[1], day)
+              : isSameDay(range.to, day)
+
+            const isInRange = Array.isArray(range)
+              ? isBefore(day, range[1]) && isAfter(day, range[0])
+              : isBefore(day, range.to) && isAfter(day, range.from)
+
+            return (
+              <button
+                key={day.toISOString()}
+                onClick={() => {
+                  if (mode === "single") {
+                    handleSelectDate(day)
+                  } else {
+                    handleRangeSelect(day)
+                  }
+                }}
+                className={cn(
+                  "day",
+                  classNames?.day,
+                  // Outside date
+                  !isSameMonth(day, currentMonth) &&
+                    (hideOutsideDates
+                      ? "hidden"
+                      : (classNames?.outsideDate ?? "outside-date")),
+                  // Selected date
+                  mode === "single" &&
+                    isSelected &&
+                    (classNames?.daySelected ?? "day-selected"),
+                  // Range Dates
+                  mode === "range"
+                    ? isRangeStart
+                      ? (classNames?.rangeStart ?? "range-start")
+                      : isRangeEnd
+                        ? (classNames?.rangeEnd ?? "range-end")
+                        : isInRange
+                          ? (classNames?.rangeDates ?? "range-dates")
+                          : ""
+                    : "",
+                  // Today date
+                  isToday(day) && (classNames?.today ?? "today"),
+                )}
+              >
+                {format(day, "d")}
+              </button>
+            )
+          })}
         </div>
       </div>
     )
