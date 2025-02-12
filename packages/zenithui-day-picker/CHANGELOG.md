@@ -1,5 +1,11 @@
 # zenithui-day-picker
 
+## 2.0.1
+
+### Patch Changes
+
+- Changed the active and focus state's styles
+
 ## 2.0.0
 
 ### Major Changes
