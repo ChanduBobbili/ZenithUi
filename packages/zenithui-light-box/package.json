@@ -49,13 +49,11 @@
         "types": "./dist/index.d.ts",
         "default": "./dist/cjs/index.cjs"
       }
-    }
+    },
+    "./styles.css": "./dist/styles.css"
   },
   "files": [
     "dist"
-  ],
-  "sideEffects": [
-    "**/*.css"
   ],
   "scripts": {
     "build": "vite build && tsc",

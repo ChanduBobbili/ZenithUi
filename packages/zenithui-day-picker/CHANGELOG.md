@@ -1,5 +1,11 @@
 # zenithui-day-picker
 
+## 1.1.0
+
+### Minor Changes
+
+- Migrate tailwind css to raw css
+
 ## 1.0.1
 
 ### Patch Changes

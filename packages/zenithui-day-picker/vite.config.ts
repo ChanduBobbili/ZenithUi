@@ -36,9 +36,4 @@ export default defineConfig({
     dts({ copyDtsFiles: true, rollupTypes: true }),
     svgr(),
   ],
-  css: {
-    postcss: {
-      plugins: [],
-    },
-  },
 })
