@@ -16,11 +16,12 @@ import {
 import { TimePicker } from "zenithui-time-picker"
 import { useState } from "react"
 import { LightBox, LightBoxImages } from "zenithui-light-box"
+import { DayPicker } from "zenithui-day-picker"
 // import { toast } from "zenithui-toast"
 
 function App() {
   const [open, setOpen] = useState<boolean>(false)
-  // const [selectedDate, setSelectedDate] = useState<Date>(new Date())
+  const [selectedDate, setSelectedDate] = useState<Date>(new Date())
 
   const images: LightBoxImages[] = [
     {
@@ -47,94 +48,95 @@ function App() {
     console.log(`Image at index ${index} deleted`)
   }
   return (
-    <>
-      <div className="flex w-full flex-col items-center justify-center gap-2">
-        <Button
-          className="bg-red-500"
-          // onClick={() => toast.success("Hello World")}
+    <div className="flex h-screen w-full flex-col items-center justify-center gap-2">
+      <Button
+        className="bg-red-500"
+        // onClick={() => toast.success("Hello World")}
+      >
+        Zenithui Button
+      </Button>
+
+      <Drawer direction="right">
+        <DrawerTrigger asChild>
+          <Button>Open Drawer</Button>
+        </DrawerTrigger>
+        <DrawerContent
+          className="w-1/2 rounded-tl-md rounded-bl-md p-6 pt-2 pb-4 transition-all duration-300 ease-in-out"
+          OverlayClassName="bg-black/75"
         >
-          Zenithui Button
-        </Button>
+          <DrawerHeader>
+            <DrawerTitle className="text-sky-400">Drawer Tiltle</DrawerTitle>
+            <DrawerDescription className="text-emerald-400">
+              Drawer Description
+            </DrawerDescription>
+          </DrawerHeader>
 
-        <Drawer direction="right">
-          <DrawerTrigger asChild>
-            <Button>Open Drawer</Button>
-          </DrawerTrigger>
-          <DrawerContent
-            className="w-1/2 rounded-tl-md rounded-bl-md p-6 pt-2 pb-4 transition-all duration-300 ease-in-out"
-            OverlayClassName="bg-black/75"
-          >
-            <DrawerHeader>
-              <DrawerTitle className="text-sky-400">Drawer Tiltle</DrawerTitle>
-              <DrawerDescription className="text-emerald-400">
-                Drawer Description
-              </DrawerDescription>
-            </DrawerHeader>
+          <p>jkjdgfkfgkfjhgkjfhgl</p>
+        </DrawerContent>
+      </Drawer>
+      <Dialog>
+        <DialogTrigger asChild>
+          <Button>Open Dialog</Button>
+        </DialogTrigger>
+        <DialogContent className="w-1/2 max-w-full">
+          <DialogHeader>
+            <DialogTitle className="text-sky-400">Dialog Tiltle</DialogTitle>
+            <DialogDescription className="text-emerald-400">
+              Dialog Description
+            </DialogDescription>
+          </DialogHeader>
 
-            <p>jkjdgfkfgkfjhgkjfhgl</p>
-          </DrawerContent>
-        </Drawer>
-        <Dialog>
-          <DialogTrigger asChild>
-            <Button>Open Dialog</Button>
-          </DialogTrigger>
-          <DialogContent className="w-1/2 max-w-full">
-            <DialogHeader>
-              <DialogTitle className="text-sky-400">Dialog Tiltle</DialogTitle>
-              <DialogDescription className="text-emerald-400">
-                Dialog Description
-              </DialogDescription>
-            </DialogHeader>
+          <p>jkjdgfkfgkfjhgkjfhgl</p>
+        </DialogContent>
+      </Dialog>
 
-            <p>jkjdgfkfgkfjhgkjfhgl</p>
-          </DialogContent>
-        </Dialog>
+      <TimePicker
+        time="14:34"
+        onTimeChange={(time) => console.log(time)}
+        align="center"
+        side="right"
+        // classNames={{}}
+      />
 
-        <TimePicker
-          time="14:34"
-          onTimeChange={(time) => console.log(time)}
-          align="center"
-          side="right"
-          // classNames={{}}
-        />
+      <Button onClick={() => setOpen(true)}>Open Light Box</Button>
 
-        <Button onClick={() => setOpen(true)}>Open Light Box</Button>
-
-        <LightBox
-          open={open}
-          onOpenChange={setOpen}
-          images={images}
-          initialIndex={0}
-          showCloseButton={true}
-          showDeleteButton={true}
-          showPagination={true}
-          animation="fade"
-          showCaption={true}
-          onImageDelete={handleImageDelete}
-          // classNames={{
-          //   caption: "text-red-500",
-          //   captionDescription: "text-blue-500",
-          //   pagination: "text-green-500",
-          //   paginationButton: "text-yellow-500 bg-yellow-500",
-          //   paginationButtonActive: "bg-purple-900 border-purple-900",
-          //   closeButton: "text-blue-900",
-          //   deleteButton: " text-green-500",
-          //   navigateButton: "text-blue-500",
-          //   navigateButtonLeft: "text-blue-500",
-          //   navigateButtonRight: "text-yellow-500",
-          //   overLay: "bg-yellow-500",
-          //   lightBox: "border-red-500 border-2",
-          // }}
-        />
-        {/* <DayPicker
-          selected={selectedDate}
-          onSelect={setSelectedDate}
-          hideNavigation={false}
-          hideOutsideDates={false}
-          hideWeekdays={false}
-        /> */}
-      </div>
-    </>
+      <LightBox
+        open={open}
+        onOpenChange={setOpen}
+        images={images}
+        initialIndex={0}
+        showCloseButton={true}
+        showDeleteButton={true}
+        showPagination={true}
+        animation="fade"
+        showCaption={true}
+        onImageDelete={handleImageDelete}
+        // classNames={{
+        //   caption: "text-red-500",
+        //   captionDescription: "text-blue-500",
+        //   pagination: "text-green-500",
+        //   paginationButton: "text-yellow-500 bg-yellow-500",
+        //   paginationButtonActive: "bg-purple-900 border-purple-900",
+        //   closeButton: "text-blue-900",
+        //   deleteButton: " text-green-500",
+        //   navigateButton: "text-blue-500",
+        //   navigateButtonLeft: "text-blue-500",
+        //   navigateButtonRight: "text-yellow-500",
+        //   overLay: "bg-yellow-500",
+        //   lightBox: "border-red-500 border-2",
+        // }}
+      />
+      <DayPicker
+        selected={selectedDate}
+        onSelect={setSelectedDate}
+        hideNavigation={false}
+        hideOutsideDates={false}
+        hideWeekdays={false}
+        classNames={{
+          calendar: "text-slate-950 shadow-lg !border !border-slate-200",
+        }}
+      />
+    </div>
   )
 }
 
