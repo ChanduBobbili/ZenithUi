@@ -5,26 +5,33 @@ import { ToastType } from "./toast-provider"
  */
 class ToastSingleton {
   private addToast: ((message: string, type: ToastType) => void) | null = null
+  // Queue for early calls
+  private pendingToasts: { message: string; type: ToastType }[] = []
 
   register(addToast: (message: string, type: ToastType) => void) {
     this.addToast = addToast
+
+    // Process any pending toasts
+    this.pendingToasts.forEach(({ message, type }) =>
+      this.addToast?.(message, type),
+    )
+    // Clear queue after processing
+    this.pendingToasts = []
   }
 
-  success(message: string) {
-    this.addToast?.(message, "success")
+  private showToast = (message: string, type: ToastType) => {
+    if (this.addToast) {
+      this.addToast(message, type)
+    } else {
+      // Queue toast if not registered yet
+      this.pendingToasts.push({ message, type })
+    }
   }
 
-  info(message: string) {
-    this.addToast?.(message, "info")
-  }
-
-  error(message: string) {
-    this.addToast?.(message, "error")
-  }
-
-  warning(message: string) {
-    this.addToast?.(message, "warning")
-  }
+  success = (message: string) => this.showToast(message, "success")
+  info = (message: string) => this.showToast(message, "info")
+  error = (message: string) => this.showToast(message, "error")
+  warning = (message: string) => this.showToast(message, "warning")
 }
 
 // Private instance
