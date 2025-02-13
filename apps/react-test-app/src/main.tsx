@@ -6,10 +6,7 @@ import { ToastProvider } from "zenithui-toast"
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <ToastProvider
-      richColors
-      enableQueueSystem
-    >
+    <ToastProvider richColors>
       <App />
     </ToastProvider>
   </StrictMode>,

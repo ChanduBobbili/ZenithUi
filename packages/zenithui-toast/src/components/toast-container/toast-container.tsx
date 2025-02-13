@@ -2,7 +2,8 @@ import "./toast-container.css"
 import { createPortal } from "react-dom"
 import { Toast, useToast } from "../toast-provider"
 import { ToastItem } from "../toast-item/toast-item"
-import { cn, getPositionClass } from "../../utils"
+import { cn, getPositionClass, reverseToasts } from "../../utils"
+import { useMemo } from "react"
 
 interface ToastContainerProps {
   /**
@@ -13,9 +14,18 @@ interface ToastContainerProps {
 
 export const ToastContainer: React.FC<ToastContainerProps> = ({ toasts }) => {
   const { position } = useToast()
+
+  const memoToasts = useMemo(() => {
+    if (["bottom-left", "bottom-center", "bottom-right"].includes(position)) {
+      return reverseToasts(toasts)
+    } else {
+      return toasts
+    }
+  }, [toasts])
+
   return createPortal(
     <div className={cn("zenithui-toast-container", getPositionClass(position))}>
-      {toasts.map((toast) => (
+      {memoToasts.map((toast) => (
         <ToastItem
           key={toast.id}
           toast={toast}

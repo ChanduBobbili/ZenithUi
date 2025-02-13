@@ -1,6 +1,11 @@
 import { clsx, type ClassValue } from "clsx"
 import { twMerge } from "tailwind-merge"
-import { ToastPosition, ToastType } from "./components/toast-provider"
+import {
+  Toast,
+  ToastAnimation,
+  ToastPosition,
+  ToastType,
+} from "./components/toast-provider"
 
 /**
  * Merges class names using clsx and twMerge.
@@ -10,6 +15,19 @@ import { ToastPosition, ToastType } from "./components/toast-provider"
  */
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
+}
+
+/**
+ * The Function to reverse the toaats
+ * @param toasts @type {Toast}
+ * @returns
+ */
+export function reverseToasts(toasts: Toast[]) {
+  const ret = []
+  for (var i = toasts.length - 1; i >= 0; i--) {
+    ret.push(toasts[i])
+  }
+  return ret
 }
 
 /**
@@ -57,5 +75,64 @@ export function getToastTheme(type: ToastType) {
       return "zenithui-toast-warning"
     default:
       return "zenithui-toast-success"
+  }
+}
+
+/**
+ *
+ * @param animation @type {ToastAnimation} The animation of the toast.
+ * @param position @type {ToastPosition}
+ * @param isEnter @type {boolean}
+ * @description Returns the animation class for the toast.
+ */
+export function getToastAnimation(
+  animation: ToastAnimation,
+  position: ToastPosition,
+  isEnter: boolean,
+) {
+  switch (animation) {
+    case "fade":
+      return getFadeAnimation(position, isEnter)
+    case "slide":
+      return getSlideAnimation(position, isEnter)
+    default:
+      break
+  }
+}
+
+/**
+ *
+ * @param position @type {ToastPosition}
+ * @param isEnter @type {boolean}
+ * @description Returns the fade animation according to the position
+ */
+function getFadeAnimation(position: ToastPosition, isEnter: boolean) {
+  switch (position) {
+    case "top-left":
+    case "top-right":
+    case "top-center":
+      return isEnter ? "zenithui-fade-in-top" : "zenithui-fade-out-top"
+    case "bottom-center":
+    case "bottom-left":
+    case "bottom-right":
+    default:
+      return isEnter ? "zenithui-fade-in-bottom" : "zenithui-fade-out-bottom"
+  }
+}
+
+function getSlideAnimation(position: ToastPosition, isEnter: boolean) {
+  switch (position) {
+    case "top-left":
+    case "bottom-left":
+      return isEnter ? "zenithui-slide-in-left" : "zenithui-slide-out-left"
+    case "top-right":
+    case "bottom-right":
+      return isEnter ? "zenithui-slide-in-right" : "zenithui-slide-out-right"
+    case "top-center":
+      return isEnter ? "zenithui-fade-in-top" : "zenithui-fade-out-top"
+    case "bottom-center":
+      return isEnter ? "zenithui-fade-in-bottom" : "zenithui-fade-out-bottom"
+    default:
+      return ""
   }
 }

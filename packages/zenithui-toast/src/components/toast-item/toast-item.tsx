@@ -1,6 +1,6 @@
 import "./toast-item.css"
 import { Toast, useToast } from "../toast-provider"
-import { cn, getToastTheme } from "../../utils"
+import { cn, getToastAnimation, getToastTheme } from "../../utils"
 import { ToastAsset } from "../toast-asset"
 
 interface ToastItemProps {
@@ -11,7 +11,7 @@ interface ToastItemProps {
 }
 
 export const ToastItem: React.FC<ToastItemProps> = ({ toast }) => {
-  const { richColors, removeToast } = useToast()
+  const { richColors, animation, position, removeToast } = useToast()
   return (
     <div
       data-type={toast.type}
@@ -19,7 +19,7 @@ export const ToastItem: React.FC<ToastItemProps> = ({ toast }) => {
       className={cn(
         "zenithui-toast-wrapper",
         richColors ? getToastTheme(toast.type) : "",
-        toast.remove ? "zenithui-fade-out-bottom" : "zenithui-fade-in-bottom",
+        getToastAnimation(animation, position, !toast.remove),
       )}
       onAnimationEnd={() => toast.remove && removeToast(toast.id)}
     >

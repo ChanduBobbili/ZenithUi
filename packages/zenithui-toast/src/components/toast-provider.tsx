@@ -12,6 +12,7 @@ export type ToastPosition =
   | "bottom-right"
   | "top-center"
   | "bottom-center"
+export type ToastAnimation = "slide" | "fade" | "zoom" | "flip"
 
 export interface Toast {
   /**
@@ -59,6 +60,12 @@ interface ToastContextProps {
    * @default false
    */
   richColors: boolean
+  /**
+   * The animation of the toast.
+   * @type {string}
+   * @default "fade"
+   */
+  animation: ToastAnimation
 }
 
 /**
@@ -129,7 +136,7 @@ interface ToastProviderProps {
    * @type {string}
    * @default "fade"
    */
-  animation?: "slide" | "fade" | "zoom" | "flip" | "none"
+  animation?: ToastAnimation
   /**
    * The style of the toast.
    * @type {React.CSSProperties}
@@ -175,6 +182,7 @@ export const ToastProvider: React.FC<ToastProviderProps> = ({
   disableAutoDismiss = false,
   enableQueueSystem = false,
   maxToasts = 3,
+  animation = "fade",
 }) => {
   const [toasts, setToasts] = React.useState<Toast[]>([])
   const [queue, setQueue] = React.useState<Toast[]>([])
@@ -224,7 +232,7 @@ export const ToastProvider: React.FC<ToastProviderProps> = ({
 
   return (
     <ToastContext.Provider
-      value={{ addToast, removeToast, richColors, position }}
+      value={{ addToast, removeToast, richColors, position, animation }}
     >
       {children}
       <ToastContainer toasts={toasts} />

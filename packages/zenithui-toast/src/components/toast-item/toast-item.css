@@ -76,6 +76,11 @@
   outline: 2px solid #f3f4f6;
 }
 
+/*
+    Animations ----------------------------------------
+*/
+
+/* Fade */
 .zenithui-fade-in-top {
   animation-name: zenithui-fade-in-top;
   animation-duration: 200ms;
@@ -149,5 +154,74 @@
   to {
     opacity: "0";
     transform: translateY(20px);
+  }
+}
+
+/* Slide */
+.zenithui-slide-in-left {
+  animation-name: zenithui-slide-in-left;
+  animation-duration: 300ms;
+  animation-timing-function: ease-in-out;
+  animation-fill-mode: forwards;
+}
+
+.zenithui-slide-out-left {
+  animation-name: zenithui-slide-out-left;
+  animation-duration: 300ms;
+  animation-timing-function: ease-in-out;
+  animation-fill-mode: forwards;
+}
+
+.zenithui-slide-in-right {
+  animation-name: zenithui-slide-in-right;
+  animation-duration: 300ms;
+  animation-timing-function: ease-in-out;
+  animation-fill-mode: forwards;
+}
+
+.zenithui-slide-out-right {
+  animation-name: zenithui-slide-out-right;
+  animation-duration: 300ms;
+  animation-timing-function: ease-in-out;
+  animation-fill-mode: forwards;
+}
+
+/* Key frame for the slide in from left */
+@keyframes zenithui-slide-in-left {
+  from {
+    transform: translateX(-150px);
+  }
+  to {
+    transform: translateX(0px);
+  }
+}
+
+/* Key frame for the slide out to left */
+@keyframes zenithui-slide-out-left {
+  from {
+    transform: translateX(0px);
+  }
+  to {
+    transform: translateX(150px);
+  }
+}
+
+/* Key frame for the slide in from right */
+@keyframes zenithui-slide-in-right {
+  from {
+    transform: translateX(150px);
+  }
+  to {
+    transform: translateX(0px);
+  }
+}
+
+/* Key frame for the slide out to right */
+@keyframes zenithui-slide-out-right {
+  from {
+    transform: translateX(0px);
+  }
+  to {
+    transform: translateX(-150px);
   }
 }
