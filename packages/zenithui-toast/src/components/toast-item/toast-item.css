@@ -12,6 +12,34 @@
   cursor: pointer;
 }
 
+.zenithui-toast-success {
+  color: #047857;
+  border: 1px solid #10b981;
+  background-color: #defff6;
+  box-shadow: 1px 1px 2px #10b981;
+}
+
+.zenithui-toast-error {
+  color: #be123c;
+  border: 1px solid #f43f5e;
+  background-color: #ffe2e9;
+  box-shadow: 1px 1px 2px #f43f5e;
+}
+
+.zenithui-toast-info {
+  color: #0369a1;
+  border: 1px solid #0ea5e9;
+  background-color: #dbf2ff;
+  box-shadow: 1px 1px 2px #0ea5e9;
+}
+
+.zenithui-toast-warning {
+  color: #b45309;
+  border: 1px solid #f59e0b;
+  background-color: #fff4dd;
+  box-shadow: 1px 1px 2px #f59e0b;
+}
+
 .zenithui-toast-close {
   border: none;
   border-radius: 100%;
@@ -38,4 +66,80 @@
 .zenithui-toast-close:focus-visible {
   border: 0px;
   outline: 2px solid #f3f4f6;
+}
+
+.zenithui-fade-in-top {
+  animation-name: zenithui-fade-in-top;
+  animation-duration: 200ms;
+  animation-timing-function: ease-in-out;
+  animation-fill-mode: forwards;
+}
+
+.zenithui-fade-out-top {
+  animation-name: zenithui-fade-out-top;
+  animation-duration: 200ms;
+  animation-timing-function: ease-in-out;
+  animation-fill-mode: forwards;
+}
+
+.zenithui-fade-in-bottom {
+  animation-name: zenithui-fade-in-bottom;
+  animation-duration: 200ms;
+  animation-timing-function: ease-in-out;
+  animation-fill-mode: forwards;
+}
+
+.zenithui-fade-out-bottom {
+  animation-name: zenithui-fade-out-bottom;
+  animation-duration: 200ms;
+  animation-timing-function: ease-in-out;
+  animation-fill-mode: forwards;
+}
+
+/* Key frame for the fade in from top */
+@keyframes zenithui-fade-in-top {
+  from {
+    opacity: "0";
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: "1";
+    transform: translateY(0px);
+  }
+}
+
+/* Key frame for the fade out to top */
+@keyframes zenithui-fade-out-top {
+  from {
+    opacity: "1";
+    transform: translateY(0px);
+  }
+  to {
+    opacity: "0";
+    transform: translateY(-20px);
+  }
+}
+
+/* Key frame for the fade in from bottom */
+@keyframes zenithui-fade-in-bottom {
+  from {
+    opacity: "0";
+    transform: translateY(20px);
+  }
+  to {
+    opacity: "1";
+    transform: translateY(0px);
+  }
+}
+
+/* Key frame for the fade out to bottom */
+@keyframes zenithui-fade-out-bottom {
+  from {
+    opacity: "1";
+    transform: translateY(0px);
+  }
+  to {
+    opacity: "0";
+    transform: translateY(20px);
+  }
 }

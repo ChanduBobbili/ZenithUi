@@ -1,26 +1,29 @@
 import "./toast-item.css"
 import * as React from "react"
-import { Toast } from "../toast-provider"
+import { Toast, useToast } from "../toast-provider"
+import { cn, getToastTheme } from "../../utils"
 
 interface ToastItemProps {
   /**
    * The Instance Item of Toast.
    */
   toast: Toast
-  /**
-   * The callback function to remove the toast
-   * @param id
-   * @returns
-   */
-  removeToast: (id: string) => void
 }
 
-export const ToastItem: React.FC<ToastItemProps> = ({ toast, removeToast }) => {
+export const ToastItem: React.FC<ToastItemProps> = ({ toast }) => {
+  const { richColors, removeToast } = useToast()
   return (
-    <div className={"zenithui-toast"}>
+    <div
+      className={cn(
+        "zenithui-toast",
+        richColors ? getToastTheme(toast.type) : "",
+        toast.remove ? "zenithui-fade-out-bottom" : "zenithui-fade-in-bottom",
+      )}
+      onAnimationEnd={() => toast.remove && removeToast(toast.id)}
+    >
       {toast.message}
       <button
-        className="zenithui-toast-close"
+        className={cn("zenithui-toast-close")}
         onClick={() => removeToast(toast.id)}
       >
         x
