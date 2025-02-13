@@ -1,8 +1,10 @@
-.zenithui-toast {
+.zenithui-toast-wrapper {
   display: flex;
   align-items: center;
   justify-content: space-between;
   min-width: 300px;
+  width: 350px;
+  max-width: 350px;
   padding: 8px 16px;
   border-radius: 8px;
   font-size: 12px;
@@ -12,32 +14,38 @@
   cursor: pointer;
 }
 
+.zenithui-toast {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
 .zenithui-toast-success {
   color: #047857;
   border: 1px solid #10b981;
-  background-color: #defff6;
-  box-shadow: 1px 1px 2px #10b981;
+  background-color: #edfdf9;
+  box-shadow: 1px 1px 2px #7fffd4;
 }
 
 .zenithui-toast-error {
   color: #be123c;
   border: 1px solid #f43f5e;
-  background-color: #ffe2e9;
-  box-shadow: 1px 1px 2px #f43f5e;
+  background-color: #ffeff3;
+  box-shadow: 1px 1px 2px #ff8196;
 }
 
 .zenithui-toast-info {
   color: #0369a1;
   border: 1px solid #0ea5e9;
-  background-color: #dbf2ff;
-  box-shadow: 1px 1px 2px #0ea5e9;
+  background-color: #f0f9ff;
+  box-shadow: 1px 1px 2px #84d8ff;
 }
 
 .zenithui-toast-warning {
   color: #b45309;
   border: 1px solid #f59e0b;
-  background-color: #fff4dd;
-  box-shadow: 1px 1px 2px #f59e0b;
+  background-color: #fffbf1;
+  box-shadow: 1px 1px 2px #ffd284;
 }
 
 .zenithui-toast-close {

@@ -111,7 +111,7 @@ interface ToastProviderProps {
    * @type {boolean}
    * @default true
    */
-  enableAutoDismiss?: boolean
+  disableAutoDismiss?: boolean
   /**
    * The animation of the toast.
    * @type {string}
@@ -160,7 +160,7 @@ export const ToastProvider: React.FC<ToastProviderProps> = ({
   position = "top-right",
   richColors = false,
   duration = 3000,
-  enableAutoDismiss = true,
+  disableAutoDismiss = false,
 }) => {
   const [toasts, setToasts] = React.useState<Toast[]>([])
 
@@ -172,7 +172,7 @@ export const ToastProvider: React.FC<ToastProviderProps> = ({
     ])
 
     // Auto-dismiss toast after duration
-    if (enableAutoDismiss) {
+    if (!disableAutoDismiss) {
       setTimeout(() => {
         setToasts((prev) =>
           prev.map((toast) =>

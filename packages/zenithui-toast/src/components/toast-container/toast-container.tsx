@@ -1,5 +1,4 @@
 import "./toast-container.css"
-import * as React from "react"
 import { createPortal } from "react-dom"
 import { Toast, useToast } from "../toast-provider"
 import { ToastItem } from "../toast-item/toast-item"
