@@ -32,7 +32,6 @@
     "design-system",
     "styled-components",
     "styled-system",
-    "tailwindcss",
     "typescript"
   ],
   "main": "./dist/cjs/index.cjs",

@@ -1,0 +1,40 @@
+.zenithui-toast-container {
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  overflow: hidden;
+  padding: 8px;
+}
+
+.zenithui-top-left {
+  top: 12px;
+  left: 12px;
+}
+
+.zenithui-top-right {
+  top: 12px;
+  right: 12px;
+}
+
+.zenithui-bottom-left {
+  bottom: 12px;
+  left: 12px;
+}
+
+.zenithui-bottom-right {
+  bottom: 12px;
+  right: 12px;
+}
+
+.zenithui-top-center {
+  top: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.zenithui-bottom-center {
+  bottom: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+}

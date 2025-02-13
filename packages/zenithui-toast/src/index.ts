@@ -1,4 +1,3 @@
 import "./index.css"
-
-export { Toaster } from "./components/toaster"
+export { ToastProvider } from "./components/toast-provider"
 export { toast } from "./components/toast"

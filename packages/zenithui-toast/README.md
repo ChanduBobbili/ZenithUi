@@ -5,13 +5,10 @@ A modern, lightweight toast notification system for React applications. ZenithUI
 ## ✨ Features
 
 - 🚀 Simple and intuitive API
-- 🎨 Highly customizable appearance
+- 🎨 RichColor Support
 - ⚡️ Smooth animations
 - 📱 Responsive and mobile-friendly
 - 🎯 Multiple positions support
-- ⌨️ Keyboard accessible
-- 🌗 Light and dark mode support
-- 🎭 Custom components support
 - 🔧 TypeScript ready
 
 ---
@@ -28,6 +25,66 @@ pnpm add zenithui-toast
 
 ---
 
+### Usage
+
+Once installed, you can use the `ToastProvider` and `toast` component in your React application as follows:
+
+```tsx
+import {ToastProvider, toast } from "zenithui-toast";
+
+createRoot(document.getElementById("root")!).render(
+  <StrictMode>
+    <ToastProvider>
+      <App />
+    </ToastProvider>
+  </StrictMode>,
+)
+
+const App = () => {
+  return (
+    <div>
+       <button onClick={() => toast.success("Success Toast")}>
+        Toast Success
+      </button>
+      <button onClick={() => toast.info("Info Toast")}>Toast Info</button>
+      <button onClick={() => toast.error("Error Toast")}>Toast Error</button>
+      <button onClick={() => toast.warning("Warning Toast")}>
+        Toast Warning
+      </button>
+    </div>
+  );
+};
+```
+
+---
+
+---
+
+## Props
+
+#### `ToastProvider` Props
+
+| Prop Name            | Type             | Description                                                                               | Default        |
+| -------------------- | ---------------- | ----------------------------------------------------------------------------------------- | -------------- |
+| `position`           | `ToastPosition`  | The position of the toast.                                                                | `bottom-right` |
+| `richColors`         | `boolean`        | Whether to use rich colors for the toast.                                                 | `false`        |
+| `animation`          | `ToastAnimation` | The animation of the toast.                                                               | `fade`         |
+| `duration`           | `number`         | The duration of the toast to display.                                                     | `5 seconds`    |
+| `disableAutoDismiss` | `boolean`        | Whether to enable auto dismiss for the toast.                                             | `true`         |
+| `enableQueueSystem`  | `boolean`        | If too many toasts appear at once, we should queue them instead of overwhelming the user. | `false`        |
+| `maxToasts`          | `number`         | The maximum no of toasts to show when queue system is enabled.                            | `3`            |
+| `showCloseButton`    | `boolean`        | Whether to show the close button for the toast.                                           | `false`        |
+
+### `Types`
+
+| Type Name        | Possible values                                                        |
+| ---------------- | ---------------------------------------------------------------------- |
+| `ToastPosition`  | `top-left,top-right,bottom-left,bottom-right,top-center,bottom-center` |
+| `ToastAnimation` | `slide, fade`                                                          |
+| `Toasts`         | `success, error, info, warning`                                        |
+
+---
+
 ## 🎨 Styling
 
 ZenithUi components are designed to be flexible and styled easily. Combine them with your existing CSS or utility-first frameworks like TailwindCSS for full control over the appearance.
@@ -37,7 +94,8 @@ ZenithUi components are designed to be flexible and styled easily. Combine them 
 ## 📦 Other Components
 
 - [ZenithUi Time Picker](https://npmjs.com/package/zenithui-time-picker)
-- [ZenithUi Primitive](https://npmjs.com/package/zenithui-primitive)
+- [ZenithUi Day Picker](https://npmjs.com/package/zenithui-day-picker)
+- [ZenithUi Light Box](https://npmjs.com/package/zenithui-light-box)
 
 ---
 

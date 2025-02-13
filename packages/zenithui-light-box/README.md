@@ -110,10 +110,10 @@ const App = () => {
 | `NavigationButtonRight`     | `NavigationButtonProps` | Custom component for the navigation button right |
 | `DeleteButton`              | `DeleteButtonProps`     | Custom component for the delete button           |
 | `CloseButton`               | `CloseButtonProps`      | Custom component for the close button            |
-| `NavigationButtonLeftIcon`  | `React.JSX.Element`     | Custom icon for the navigation button left       |
-| `NavigationButtonRightIcon` | `React.JSX.Element`     | Custom icon for the navigation button right      |
-| `DeleteButtonIcon`          | `React.JSX.Element`     | Custom icon for the delete button                |
-| `CloseButtonIcon`           | `React.JSX.Element`     | Custom icon for the close button                 |
+| `NavigationButtonLeftIcon`  | `React.ReactNode`       | Custom icon for the navigation button left       |
+| `NavigationButtonRightIcon` | `React.ReactNode`       | Custom icon for the navigation button right      |
+| `DeleteButtonIcon`          | `React.ReactNode`       | Custom icon for the delete button                |
+| `CloseButtonIcon`           | `React.ReactNode`       | Custom icon for the close button                 |
 
 ---
 
@@ -137,8 +137,8 @@ ZenithUi components are designed to be flexible and styled easily. Combine them 
 ## 📦 Other Components
 
 - [ZenithUi Time Picker](https://npmjs.com/package/zenithui-time-picker)
-- [ZenithUi Primitive](https://npmjs.com/package/zenithui-primitive)
 - [ZenithUi Day Picker](https://npmjs.com/package/zenithui-day-picker)
+- [ZenithUi Toast](https://npmjs.com/package/zenithui-toast)
 
 ---
 

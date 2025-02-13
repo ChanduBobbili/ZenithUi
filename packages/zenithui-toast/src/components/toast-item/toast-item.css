@@ -1,0 +1,249 @@
+.zenithui-toast-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-width: 300px;
+  width: 350px;
+  max-width: 350px;
+  padding: 12px 16px;
+  border-radius: 8px;
+  font-size: 12px;
+  color: #020617;
+  background-color: white;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+}
+
+.zenithui-toast {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.zenithui-toast-close {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  transform: translate(50%, -50%);
+  border: none;
+  border-radius: 100%;
+  background-color: #1e293b;
+  color: #ffffff;
+  padding: 4px;
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
+}
+
+.zenithui-toast-close:hover {
+  background-color: #020617;
+}
+
+.zenithui-toast-close:active {
+  border: 0px;
+  outline: 2px solid #020617;
+}
+
+.zenithui-toast-close:focus {
+  border: 0px;
+  outline: 2px solid #020617;
+}
+
+.zenithui-toast-close:focus-visible {
+  border: 0px;
+  outline: 2px solid #020617;
+}
+
+.zenithui-toast-close-rich:hover {
+  background-color: #edfdf9;
+}
+.zenithui-toast-close-rich:active {
+  border: 0px;
+  outline: 2px solid #edfdf9;
+}
+.zenithui-toast-close-rich:focus {
+  border: 0px;
+  outline: 2px solid #edfdf9;
+}
+.zenithui-toast-close-rich:focus-visible {
+  border: 0px;
+  outline: 2px solid #edfdf9;
+}
+
+.zenithui-toast-success {
+  color: #047857;
+  border: 1px solid #10b981;
+  background-color: #edfdf9;
+  box-shadow: 1px 1px 2px #7fffd4;
+}
+
+.zenithui-toast-error {
+  color: #be123c;
+  border: 1px solid #f43f5e;
+  background-color: #ffeff3;
+  box-shadow: 1px 1px 2px #ff8196;
+}
+
+.zenithui-toast-info {
+  color: #0369a1;
+  border: 1px solid #0ea5e9;
+  background-color: #f0f9ff;
+  box-shadow: 1px 1px 2px #84d8ff;
+}
+
+.zenithui-toast-warning {
+  color: #b45309;
+  border: 1px solid #f59e0b;
+  background-color: #fffbf1;
+  box-shadow: 1px 1px 2px #ffd284;
+}
+
+/*
+    Animations ----------------------------------------
+*/
+
+/* Fade */
+.zenithui-fade-in-top {
+  animation-name: zenithui-fade-in-top;
+  animation-duration: 200ms;
+  animation-timing-function: ease-in-out;
+  animation-fill-mode: forwards;
+}
+
+.zenithui-fade-out-top {
+  animation-name: zenithui-fade-out-top;
+  animation-duration: 200ms;
+  animation-timing-function: ease-in-out;
+  animation-fill-mode: forwards;
+}
+
+.zenithui-fade-in-bottom {
+  animation-name: zenithui-fade-in-bottom;
+  animation-duration: 200ms;
+  animation-timing-function: ease-in-out;
+  animation-fill-mode: forwards;
+}
+
+.zenithui-fade-out-bottom {
+  animation-name: zenithui-fade-out-bottom;
+  animation-duration: 200ms;
+  animation-timing-function: ease-in-out;
+  animation-fill-mode: forwards;
+}
+
+/* Key frame for the fade in from top */
+@keyframes zenithui-fade-in-top {
+  from {
+    opacity: "0";
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: "1";
+    transform: translateY(0px);
+  }
+}
+
+/* Key frame for the fade out to top */
+@keyframes zenithui-fade-out-top {
+  from {
+    opacity: "1";
+    transform: translateY(0px);
+  }
+  to {
+    opacity: "0";
+    transform: translateY(-20px);
+  }
+}
+
+/* Key frame for the fade in from bottom */
+@keyframes zenithui-fade-in-bottom {
+  from {
+    opacity: "0";
+    transform: translateY(20px);
+  }
+  to {
+    opacity: "1";
+    transform: translateY(0px);
+  }
+}
+
+/* Key frame for the fade out to bottom */
+@keyframes zenithui-fade-out-bottom {
+  from {
+    opacity: "1";
+    transform: translateY(0px);
+  }
+  to {
+    opacity: "0";
+    transform: translateY(20px);
+  }
+}
+
+/* Slide */
+.zenithui-slide-in-left {
+  animation-name: zenithui-slide-in-left;
+  animation-duration: 300ms;
+  animation-timing-function: ease-in-out;
+  animation-fill-mode: forwards;
+}
+
+.zenithui-slide-out-left {
+  animation-name: zenithui-slide-out-left;
+  animation-duration: 300ms;
+  animation-timing-function: ease-in-out;
+  animation-fill-mode: forwards;
+}
+
+.zenithui-slide-in-right {
+  animation-name: zenithui-slide-in-right;
+  animation-duration: 300ms;
+  animation-timing-function: ease-in-out;
+  animation-fill-mode: forwards;
+}
+
+.zenithui-slide-out-right {
+  animation-name: zenithui-slide-out-right;
+  animation-duration: 300ms;
+  animation-timing-function: ease-in-out;
+  animation-fill-mode: forwards;
+}
+
+/* Key frame for the slide in from left */
+@keyframes zenithui-slide-in-left {
+  from {
+    transform: translateX(-150px);
+  }
+  to {
+    transform: translateX(0px);
+  }
+}
+
+/* Key frame for the slide out to left */
+@keyframes zenithui-slide-out-left {
+  from {
+    transform: translateX(0px);
+  }
+  to {
+    transform: translateX(150px);
+  }
+}
+
+/* Key frame for the slide in from right */
+@keyframes zenithui-slide-in-right {
+  from {
+    transform: translateX(150px);
+  }
+  to {
+    transform: translateX(0px);
+  }
+}
+
+/* Key frame for the slide out to right */
+@keyframes zenithui-slide-out-right {
+  from {
+    transform: translateX(0px);
+  }
+  to {
+    transform: translateX(-150px);
+  }
+}
