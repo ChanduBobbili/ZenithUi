@@ -176,9 +176,9 @@ interface ToastProviderProps {
 
 export const ToastProvider: React.FC<ToastProviderProps> = ({
   children,
-  position = "top-right",
+  position = "bottom-right",
   richColors = false,
-  duration = 3000,
+  duration = 5000,
   disableAutoDismiss = false,
   enableQueueSystem = false,
   maxToasts = 3,
