@@ -136,7 +136,10 @@ function App() {
         hideWeekdays={false}
       />
 
-      <button onClick={() => toast.success("jjfdig")}>Show Toast</button>
+      <button onClick={() => toast.success("1")}>Toast Success</button>
+      <button onClick={() => toast.info("2")}>Toast Info</button>
+      <button onClick={() => toast.error("3")}>Toast Error</button>
+      <button onClick={() => toast.warning("4")}>Toast Warning</button>
     </div>
   )
 }

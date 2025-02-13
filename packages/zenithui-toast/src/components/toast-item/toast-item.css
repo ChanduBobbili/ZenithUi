@@ -1,0 +1,41 @@
+.zenithui-toast {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-width: 300px;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 12px;
+  color: #020617;
+  background-color: white;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+}
+
+.zenithui-toast-close {
+  border: none;
+  border-radius: 100%;
+  background: none;
+  padding: 4px;
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
+}
+
+.zenithui-toast-close:hover {
+  background-color: #f3f4f6;
+}
+
+.zenithui-toast-close:active {
+  border: 0px;
+  outline: 2px solid #f3f4f6;
+}
+
+.zenithui-toast-close:focus {
+  border: 0px;
+  outline: 2px solid #f3f4f6;
+}
+
+.zenithui-toast-close:focus-visible {
+  border: 0px;
+  outline: 2px solid #f3f4f6;
+}
