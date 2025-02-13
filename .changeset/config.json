@@ -7,7 +7,5 @@
   "access": "public",
   "baseBranch": "main",
   "updateInternalDependencies": "patch",
-  "ignore": [
-    "react-test-app"
-  ]
+  "ignore": ["react-test-app", "zenithui-toast"]
 }

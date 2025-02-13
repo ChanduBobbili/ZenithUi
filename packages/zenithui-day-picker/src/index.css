@@ -16,6 +16,7 @@
 
 .nav-button {
   border: none;
+  border-radius: 6px;
   background: none;
   padding: 8px;
   cursor: pointer;
@@ -24,6 +25,21 @@
 
 .nav-button:hover {
   background-color: #f3f4f6;
+}
+
+.nav-button:active {
+  border: 0px;
+  outline: 2px solid #f3f4f6;
+}
+
+.nav-button:focus {
+  border: 0px;
+  outline: 2px solid #f3f4f6;
+}
+
+.nav-button:focus-visible {
+  border: 0px;
+  outline: 2px solid #f3f4f6;
 }
 
 .arrow-icon {
@@ -85,12 +101,12 @@
 }
 
 .day:focus {
-  outline: 0px;
+  outline: 2px solid rgba(59, 130, 246, 1);
   border: 0px;
 }
 
 .day:focus-visible {
-  outline: 0px;
+  outline: 2px solid rgba(59, 130, 246, 1);
   border: 0px;
 }
 

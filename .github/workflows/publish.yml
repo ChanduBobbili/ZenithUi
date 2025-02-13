@@ -11,6 +11,9 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Ensures full Git history
+          ref: main # Ensure you check out a named branch
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -50,12 +53,12 @@ jobs:
       - name: Publish package
         run: |
           cd packages/$PACKAGE_NAME
-          pnpm publish --access public
+          npm publish --access public --no-git-checks
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Clear build artifacts
-        run: pnpm build:clear
+        run: rm -rf dist
 
       - name: Remove node_modules
         run: rm -rf node_modules
