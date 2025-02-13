@@ -11,7 +11,9 @@ interface ToastItemProps {
 }
 
 export const ToastItem: React.FC<ToastItemProps> = ({ toast }) => {
-  const { richColors, animation, position, removeToast } = useToast()
+  const { richColors, animation, position, showCloseButton, removeToast } =
+    useToast()
+
   return (
     <div
       data-type={toast.type}
@@ -29,17 +31,19 @@ export const ToastItem: React.FC<ToastItemProps> = ({ toast }) => {
         </div>
         <span>{toast.message}</span>
       </div>
-      <button
-        className={cn(
-          "zenithui-toast-close",
-          richColors
-            ? `${getToastTheme(toast.type)} zenithui-toast-close-rich`
-            : "",
-        )}
-        onClick={() => removeToast(toast.id)}
-      >
-        <CloseIcon />
-      </button>
+      {showCloseButton ? (
+        <button
+          className={cn(
+            "zenithui-toast-close",
+            richColors
+              ? `${getToastTheme(toast.type)} zenithui-toast-close-rich`
+              : "",
+          )}
+          onClick={() => removeToast(toast.id)}
+        >
+          <CloseIcon />
+        </button>
+      ) : null}
     </div>
   )
 }

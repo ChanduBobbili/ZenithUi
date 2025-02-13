@@ -24,7 +24,7 @@ yarn add zenithui-day-picker
 
 ```tsx
 import React, { useState } from "react";
-import { DayPicker } from "./DayPicker";
+import { DayPicker } from "zenithui-day-picker";
 
 const App = () => {
   const [selectedDate, setSelectedDate] = useState(new Date());
@@ -100,8 +100,8 @@ ZenithUi components are designed to be flexible and styled easily. Combine them 
 ## 📦 Other Components
 
 - [ZenithUi Time Picker](https://npmjs.com/package/zenithui-time-picker)
-- [ZenithUi Primitive](https://npmjs.com/package/zenithui-primitive)
 - [ZenithUi Light Box](https://npmjs.com/package/zenithui-light-box)
+- [ZenithUi Toast](https://npmjs.com/package/zenithui-toast)
 
 ---
 

@@ -12,7 +12,7 @@ export type ToastPosition =
   | "bottom-right"
   | "top-center"
   | "bottom-center"
-export type ToastAnimation = "slide" | "fade" | "zoom" | "flip"
+export type ToastAnimation = "slide" | "fade"
 
 export interface Toast {
   /**
@@ -30,7 +30,12 @@ export interface Toast {
    * @type {string}
    */
   message: string
-
+  /**
+   * Whether to remove the toast from the toast container.
+   * @type {boolean}
+   * @default false
+   * @description This is used to remove the toast from the toast container.
+   */
   remove: boolean
 }
 
@@ -66,6 +71,12 @@ interface ToastContextProps {
    * @default "fade"
    */
   animation: ToastAnimation
+  /**
+   * Whether to show the close button for the toast.
+   * @type {boolean}
+   * @default false
+   */
+  showCloseButton?: boolean
 }
 
 /**
@@ -104,13 +115,13 @@ interface ToastProviderProps {
   /**
    * The position of the toast.
    * @type {ToastPosition}
-   * @default "top-right"
+   * @default "bottom-right"
    */
   position?: ToastPosition
   /**
-   * The duration of the toast.
+   * The duration of the toast to display.
    * @type {number}
-   * @default 3000
+   * @default 5000
    */
   duration?: number
   /**
@@ -138,51 +149,58 @@ interface ToastProviderProps {
    */
   animation?: ToastAnimation
   /**
-   * The style of the toast.
-   * @type {React.CSSProperties}
+   * Whether to show the close button for the toast.
+   * @type {boolean}
+   * @default false
    */
-  style?: React.CSSProperties
-  /**
-   * The class name of the toast.
-   * @type {string}
-   */
-  className?: string
-  /**
-   * The class name of the toast container.
-   * @type {string}
-   */
-  containerClassName?: string
-  /**
-   * The class name of the toast item.
-   * @type {string}
-   */
-  itemClassName?: string
-  /**
-   * The class name of the toast item close button.
-   * @type {string}
-   */
-  itemCloseClassName?: string
-  /**
-   * The class name of the toast item icon.
-   * @type {string}
-   */
-  itemIconClassName?: string
-  /**
-   * The class name of the toast item message.
-   * @type {string}
-   */
-  itemMessageClassName?: string
+  showCloseButton?: boolean
+  // /**
+  //  * The style of the toast.
+  //  * @type {React.CSSProperties}
+  //  */
+  // style?: React.CSSProperties
+  // /**
+  //  * The class name of the toast.
+  //  * @type {string}
+  //  */
+  // className?: string
+  // /**
+  //  * The class name of the toast container.
+  //  * @type {string}
+  //  */
+  // containerClassName?: string
+  // /**
+  //  * The class name of the toast item.
+  //  * @type {string}
+  //  */
+  // itemClassName?: string
+  // /**
+  //  * The class name of the toast item close button.
+  //  * @type {string}
+  //  */
+  // itemCloseClassName?: string
+  // /**
+  //  * The class name of the toast item icon.
+  //  * @type {string}
+  //  */
+  // itemIconClassName?: string
+  // /**
+  //  * The class name of the toast item message.
+  //  * @type {string}
+  //  */
+  // itemMessageClassName?: string
 }
 
 export const ToastProvider: React.FC<ToastProviderProps> = ({
   children,
   position = "bottom-right",
-  richColors = false,
-  duration = 5000,
-  disableAutoDismiss = false,
-  enableQueueSystem = false,
-  maxToasts = 3,
   animation = "fade",
+  duration = 5000,
+  maxToasts = 3,
+  richColors = false,
+  disableAutoDismiss = true,
+  enableQueueSystem = false,
+  showCloseButton = false,
 }) => {
   const [toasts, setToasts] = React.useState<Toast[]>([])
   const [queue, setQueue] = React.useState<Toast[]>([])
@@ -232,7 +250,14 @@ export const ToastProvider: React.FC<ToastProviderProps> = ({
 
   return (
     <ToastContext.Provider
-      value={{ addToast, removeToast, richColors, position, animation }}
+      value={{
+        addToast,
+        removeToast,
+        richColors,
+        position,
+        animation,
+        showCloseButton,
+      }}
     >
       {children}
       <ToastContainer toasts={toasts} />
