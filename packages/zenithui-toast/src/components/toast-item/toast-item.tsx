@@ -1,7 +1,7 @@
 import "./toast-item.css"
 import { Toast, useToast } from "../toast-provider"
 import { cn, getToastAnimation, getToastTheme } from "../../utils"
-import { ToastAsset } from "../toast-asset"
+import { CloseIcon, ToastAsset } from "../toast-asset"
 
 interface ToastItemProps {
   /**
@@ -29,12 +29,17 @@ export const ToastItem: React.FC<ToastItemProps> = ({ toast }) => {
         </div>
         <span>{toast.message}</span>
       </div>
-      {/* <button
-        className={cn("zenithui-toast-close")}
+      <button
+        className={cn(
+          "zenithui-toast-close",
+          richColors
+            ? `${getToastTheme(toast.type)} zenithui-toast-close-rich`
+            : "",
+        )}
         onClick={() => removeToast(toast.id)}
       >
-        x
-      </button> */}
+        <CloseIcon />
+      </button>
     </div>
   )
 }
