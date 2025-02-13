@@ -167,7 +167,7 @@ interface LightBoxComponents {
   /**
    * The icon to use for the navigation button left.
    */
-  NavigationButtonLeftIcon: React.JSX.Element
+  NavigationButtonLeftIcon: React.ReactNode
   /**
    * The component to use for the navigation button right.
    */
@@ -175,7 +175,7 @@ interface LightBoxComponents {
   /**
    * The icon to use for the navigation button right.
    */
-  NavigationButtonRightIcon: React.JSX.Element
+  NavigationButtonRightIcon: React.ReactNode
   /**
    * The component to use for the delete button.
    */
@@ -183,7 +183,7 @@ interface LightBoxComponents {
   /**
    * The icon to use for the delete button.
    */
-  DeleteButtonIcon: React.JSX.Element
+  DeleteButtonIcon: React.ReactNode
   /**
    * The component to use for the close button.
    */
@@ -191,7 +191,7 @@ interface LightBoxComponents {
   /**
    * The icon to use for the close button.
    */
-  CloseButtonIcon: React.JSX.Element
+  CloseButtonIcon: React.ReactNode
 }
 
 interface LightBoxProps {

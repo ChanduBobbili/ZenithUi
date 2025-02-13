@@ -110,10 +110,10 @@ const App = () => {
 | `NavigationButtonRight`     | `NavigationButtonProps` | Custom component for the navigation button right |
 | `DeleteButton`              | `DeleteButtonProps`     | Custom component for the delete button           |
 | `CloseButton`               | `CloseButtonProps`      | Custom component for the close button            |
-| `NavigationButtonLeftIcon`  | `React.JSX.Element`     | Custom icon for the navigation button left       |
-| `NavigationButtonRightIcon` | `React.JSX.Element`     | Custom icon for the navigation button right      |
-| `DeleteButtonIcon`          | `React.JSX.Element`     | Custom icon for the delete button                |
-| `CloseButtonIcon`           | `React.JSX.Element`     | Custom icon for the close button                 |
+| `NavigationButtonLeftIcon`  | `React.ReactNode`       | Custom icon for the navigation button left       |
+| `NavigationButtonRightIcon` | `React.ReactNode`       | Custom icon for the navigation button right      |
+| `DeleteButtonIcon`          | `React.ReactNode`       | Custom icon for the delete button                |
+| `CloseButtonIcon`           | `React.ReactNode`       | Custom icon for the close button                 |
 
 ---
 
