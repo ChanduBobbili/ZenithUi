@@ -211,33 +211,57 @@ const DayPicker = React.forwardRef<HTMLDivElement, DayPickerProps>(
     return (
       <div
         ref={ref}
-        className={cn("calendar", classNames?.calendar)}
+        className={cn(classNames?.calendar ? classNames?.calendar : "calendar")}
       >
         {!hideNavigation && (
-          <div className={cn("calendar-header", classNames?.header)}>
+          <div
+            className={cn(
+              classNames?.header ? classNames.header : "calendar-header",
+            )}
+          >
             <button
               onClick={handlePrevMonth}
-              className={cn("nav-button", classNames?.prevMonthButton)}
+              className={cn(
+                classNames?.prevMonthButton
+                  ? classNames.prevMonthButton
+                  : "nav-button",
+              )}
             >
               <Arrow className="arrow-icon left" />
             </button>
-            <h2 className={cn("month-caption", classNames?.monthCaption)}>
+            <h2
+              className={cn(
+                classNames?.monthCaption
+                  ? classNames.monthCaption
+                  : "month-caption",
+              )}
+            >
               {format(currentMonth, "MMMM yyyy")}
             </h2>
             <button
               onClick={handleNextMonth}
-              className={cn("nav-button", classNames?.nextMonthButton)}
+              className={cn(
+                classNames?.nextMonthButton
+                  ? classNames.nextMonthButton
+                  : "nav-button",
+              )}
             >
               <Arrow className="arrow-icon" />
             </button>
           </div>
         )}
         {!hideWeekdays && (
-          <div className={cn("weekdays", classNames?.weekdays)}>
+          <div
+            className={cn(
+              classNames?.weekdays ? classNames.weekdays : "weekdays",
+            )}
+          >
             {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map((day) => (
               <div
                 key={day}
-                className={cn("weekday", classNames?.weekday)}
+                className={cn(
+                  classNames?.weekday ? classNames.weekday : "weekday",
+                )}
               >
                 {day}
               </div>
@@ -246,9 +270,8 @@ const DayPicker = React.forwardRef<HTMLDivElement, DayPickerProps>(
         )}
         <div
           className={cn(
-            "days",
-            mode === "range" && "gap-x-4",
-            classNames?.days,
+            mode === "range" ? "gap-x-4" : "",
+            classNames?.days ? classNames.day : "days",
           )}
         >
           {days.map((day) => {
@@ -279,29 +302,45 @@ const DayPicker = React.forwardRef<HTMLDivElement, DayPickerProps>(
                   }
                 }}
                 className={cn(
-                  "day",
-                  classNames?.day,
+                  classNames?.day ? classNames.day : "day",
                   // Outside date
-                  !isSameMonth(day, currentMonth) &&
-                    (hideOutsideDates
+                  !isSameMonth(day, currentMonth)
+                    ? hideOutsideDates
                       ? "hidden"
-                      : (classNames?.outsideDate ?? "outside-date")),
+                      : classNames?.outsideDate
+                        ? classNames.outsideDate
+                        : "outside-date"
+                    : "",
                   // Selected date
-                  mode === "single" &&
-                    isSelected &&
-                    (classNames?.daySelected ?? "day-selected"),
+                  mode === "single"
+                    ? isSelected
+                      ? classNames?.daySelected
+                        ? classNames.daySelected
+                        : "day-selected"
+                      : ""
+                    : "",
                   // Range Dates
                   mode === "range"
                     ? isRangeStart
-                      ? (classNames?.rangeStart ?? "range-start")
+                      ? classNames?.rangeStart
+                        ? classNames.rangeStart
+                        : "range-start"
                       : isRangeEnd
-                        ? (classNames?.rangeEnd ?? "range-end")
+                        ? classNames?.rangeEnd
+                          ? classNames.rangeEnd
+                          : "range-end"
                         : isInRange
-                          ? (classNames?.rangeDates ?? "range-dates")
+                          ? classNames?.rangeDates
+                            ? classNames.rangeDates
+                            : "range-dates"
                           : ""
                     : "",
                   // Today date
-                  isToday(day) && (classNames?.today ?? "today"),
+                  isToday(day)
+                    ? classNames?.today
+                      ? classNames.today
+                      : "today"
+                    : "",
                 )}
               >
                 {format(day, "d")}
