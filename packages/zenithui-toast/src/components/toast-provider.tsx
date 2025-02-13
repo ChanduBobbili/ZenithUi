@@ -113,6 +113,18 @@ interface ToastProviderProps {
    */
   disableAutoDismiss?: boolean
   /**
+   * If too many toasts appear at once, we should queue them instead of overwhelming the user.
+   * @type {boolean}
+   * @default false
+   */
+  enableQueueSystem?: boolean
+  /**
+   * The maximum no of toasts to show when queue system is enabled.
+   * @type {number}
+   * @default 3
+   */
+  maxToasts?: number
+  /**
    * The animation of the toast.
    * @type {string}
    * @default "fade"
@@ -161,31 +173,49 @@ export const ToastProvider: React.FC<ToastProviderProps> = ({
   richColors = false,
   duration = 3000,
   disableAutoDismiss = false,
+  enableQueueSystem = false,
+  maxToasts = 3,
 }) => {
   const [toasts, setToasts] = React.useState<Toast[]>([])
+  const [queue, setQueue] = React.useState<Toast[]>([])
 
   const addToast = React.useCallback((message: string, type: ToastType) => {
     const id = Math.random().toString(36).substring(2, 11)
-    setToasts((prevToasts) => [
-      ...prevToasts,
-      { id, type, message, remove: false },
-    ])
+    const newToast: Toast = { id, type, message, remove: false }
 
-    // Auto-dismiss toast after duration
-    if (!disableAutoDismiss) {
-      setTimeout(() => {
-        setToasts((prev) =>
-          prev.map((toast) =>
-            toast.id === id ? { ...toast, remove: true } : toast,
-          ),
-        )
-      }, duration)
+    if (enableQueueSystem) {
+      setQueue((prev) => [...prev, newToast])
+    } else {
+      setToasts((prev) => [...prev, newToast])
     }
   }, [])
 
   const removeToast = React.useCallback((id: string) => {
     setToasts((prev) => prev.filter((toast) => toast.id !== id))
   }, [])
+
+  // Process the queue, ensuring only `maxToasts` are displayed at a time
+  React.useEffect(() => {
+    if (enableQueueSystem && queue.length > 0 && toasts.length < maxToasts) {
+      const nextToast = queue[0]
+
+      // Remove the Queue
+      setQueue((prev) => prev.slice(1))
+      // Render the Toast
+      setToasts((prev) => [...prev, nextToast])
+
+      // Auto-dismiss toast after duration
+      if (!disableAutoDismiss) {
+        setTimeout(() => {
+          setToasts((prev) =>
+            prev.map((toast) =>
+              toast.id === nextToast.id ? { ...toast, remove: true } : toast,
+            ),
+          )
+        }, duration)
+      }
+    }
+  }, [queue, enableQueueSystem, maxToasts, toasts])
 
   // Automatically register toast singleton when ToastProvider is used
   React.useEffect(() => {
