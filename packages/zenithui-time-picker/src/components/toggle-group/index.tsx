@@ -1,39 +1,97 @@
-"use client"
+"use-client"
 
 import * as React from "react"
-import * as ToggleGroupPrimitive from "@radix-ui/react-toggle-group"
-import { cn } from "../../utils"
 
-const ToggleGroup = React.forwardRef<
-  React.ComponentRef<typeof ToggleGroupPrimitive.Root>,
-  React.ComponentPropsWithoutRef<typeof ToggleGroupPrimitive.Root>
->(({ className, children, ...props }, ref) => (
-  <ToggleGroupPrimitive.Root
-    ref={ref}
-    className={cn("toggle-group", className)}
-    {...props}
-  >
-    {children}
-  </ToggleGroupPrimitive.Root>
-))
+type ToggleGroupType = "single" | "multiple"
 
-ToggleGroup.displayName = ToggleGroupPrimitive.Root.displayName
+type ToggleGroupContextType = {
+  selectedValues: string | string[]
+  toggleValue: (value: string) => void
+  type: ToggleGroupType
+}
 
-const ToggleGroupItem = React.forwardRef<
-  React.ComponentRef<typeof ToggleGroupPrimitive.Item>,
-  React.ComponentPropsWithoutRef<typeof ToggleGroupPrimitive.Item>
->(({ className, children, ...props }, ref) => {
+const ToggleGroupContext = React.createContext<
+  ToggleGroupContextType | undefined
+>(undefined)
+
+type ToggleGroupRootProps = {
+  type?: ToggleGroupType
+  value: string | string[]
+  onChange?: (value: string | string[]) => void
+  children: React.ReactNode
+}
+
+const ToggleGroupRoot: React.FC<ToggleGroupRootProps> = ({
+  type = "single",
+  value,
+  onChange,
+  children,
+}) => {
+  if (type === "single" && Array.isArray(value)) {
+    throw new Error("ToggleGroup: value must be a string when type is single")
+  } else if (type === "multiple" && !Array.isArray(value)) {
+    throw new Error("ToggleGroup: value must be an array when type is multiple")
+  }
+
+  const [selectedValues, setSelectedValues] = React.useState<string | string[]>(
+    value,
+  )
+
+  const toggleValue = (toggle: string) => {
+    if (type === "single") {
+      setSelectedValues(toggle)
+      onChange?.(toggle)
+    } else {
+      setSelectedValues((prev) => {
+        const prevArray = Array.isArray(prev) ? prev : []
+        const newValues = prevArray.includes(toggle)
+          ? prevArray.filter((v) => v !== toggle)
+          : [...prevArray, toggle]
+        onChange?.(newValues)
+        return newValues
+      })
+    }
+  }
+
   return (
-    <ToggleGroupPrimitive.Item
-      ref={ref}
-      className={cn("toggle-group-item", className)}
-      {...props}
+    <ToggleGroupContext.Provider value={{ selectedValues, toggleValue, type }}>
+      <div role="group">{children}</div>
+    </ToggleGroupContext.Provider>
+  )
+}
+
+type ToggleGroupItemProps = {
+  value: string
+  children: React.ReactNode
+}
+
+const ToggleGroupItem: React.FC<ToggleGroupItemProps> = ({
+  value,
+  children,
+}) => {
+  const context = React.useContext(ToggleGroupContext)
+  if (!context) {
+    throw new Error("ToggleGroupItem must be used within a ToggleGroup")
+  }
+
+  const { selectedValues, toggleValue, type } = context
+
+  const isSelected =
+    type === "single"
+      ? selectedValues === value
+      : (selectedValues as string[]).includes(value)
+
+  return (
+    <button
+      type="button"
+      role="switch"
+      aria-checked={isSelected}
+      aria-pressed={isSelected}
+      onClick={() => toggleValue(value)}
     >
       {children}
-    </ToggleGroupPrimitive.Item>
+    </button>
   )
-})
+}
 
-ToggleGroupItem.displayName = ToggleGroupPrimitive.Item.displayName
-
-export { ToggleGroup, ToggleGroupItem }
+export { ToggleGroupRoot, ToggleGroupItem }
