@@ -6,13 +6,13 @@
   min-width: 300px;
   width: 350px;
   max-width: 350px;
-  padding: 12px 16px;
+  padding: 16px 20px;
   border-radius: 8px;
-  font-size: 12px;
+  font-size: 14px;
+  font-weight: 400;
   color: #020617;
   background-color: white;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-  cursor: pointer;
 }
 
 .zenithui-toast {

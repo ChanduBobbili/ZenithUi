@@ -54,29 +54,41 @@ interface ToastContextProps {
    */
   removeToast: (id: string) => void
   /**
+   * The function to set the toasts in the toast container
+   * @param value @type {React.SetStateAction<Toast[]>}
+   * @returns
+   */
+  setToasts: (value: React.SetStateAction<Toast[]>) => void
+  /**
    * The position of the toast.
    * @type {ToastPosition}
-   * @default "top-right"
    */
   position: ToastPosition
   /**
    * Whether to use rich colors for the toast.
    * @type {boolean}
-   * @default false
    */
   richColors: boolean
   /**
    * The animation of the toast.
    * @type {string}
-   * @default "fade"
    */
   animation: ToastAnimation
   /**
    * Whether to show the close button for the toast.
    * @type {boolean}
-   * @default false
    */
-  showCloseButton?: boolean
+  showCloseButton: boolean
+  /**
+   * Whether to enable auto dismiss for the toast.
+   * @type {boolean}
+   */
+  disableAutoDismiss: boolean
+  /**
+   * The duration of the toast to display.
+   * @type {number}
+   */
+  duration: number
 }
 
 /**
@@ -198,7 +210,7 @@ export const ToastProvider: React.FC<ToastProviderProps> = ({
   duration = 5000,
   maxToasts = 3,
   richColors = false,
-  disableAutoDismiss = true,
+  disableAutoDismiss = false,
   enableQueueSystem = false,
   showCloseButton = false,
 }) => {
@@ -224,22 +236,10 @@ export const ToastProvider: React.FC<ToastProviderProps> = ({
   React.useEffect(() => {
     if (enableQueueSystem && queue.length > 0 && toasts.length < maxToasts) {
       const nextToast = queue[0]
-
       // Remove the Queue
       setQueue((prev) => prev.slice(1))
       // Render the Toast
       setToasts((prev) => [...prev, nextToast])
-
-      // Auto-dismiss toast after duration
-      if (!disableAutoDismiss) {
-        setTimeout(() => {
-          setToasts((prev) =>
-            prev.map((toast) =>
-              toast.id === nextToast.id ? { ...toast, remove: true } : toast,
-            ),
-          )
-        }, duration)
-      }
     }
   }, [queue, enableQueueSystem, maxToasts, toasts])
 
@@ -253,10 +253,13 @@ export const ToastProvider: React.FC<ToastProviderProps> = ({
       value={{
         addToast,
         removeToast,
+        setToasts,
         richColors,
         position,
         animation,
         showCloseButton,
+        disableAutoDismiss,
+        duration,
       }}
     >
       {children}
