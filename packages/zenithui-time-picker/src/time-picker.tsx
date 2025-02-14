@@ -9,7 +9,7 @@ import {
   cn,
 } from "./utils"
 import { Popover, PopoverContent, PopoverTrigger } from "./components/popover"
-import { ToggleGroup, ToggleGroupItem } from "./components/toggle-group"
+import { ToggleGroupRoot, ToggleGroupItem } from "./components/toggle-group"
 
 interface TimePickerProps {
   /**
@@ -187,14 +187,16 @@ const TimeScrollList: React.FC<TimeScrollListProps> = ({
 
   return (
     <div className="custom-scrollbar">
-      <ToggleGroup
+      <ToggleGroupRoot
         ref={listRef}
         type="single"
         className={cn("time-scroll-list", classNames?.timeScrollList)}
         value={value}
-        onValueChange={(selectedValue) =>
-          selectedValue && onChange(selectedValue)
-        }
+        onValueChange={(selectedValue) => {
+          if (typeof selectedValue === "string") {
+            onChange(selectedValue)
+          }
+        }}
       >
         {options.map((option) => {
           return (
@@ -213,7 +215,7 @@ const TimeScrollList: React.FC<TimeScrollListProps> = ({
             </ToggleGroupItem>
           )
         })}
-      </ToggleGroup>
+      </ToggleGroupRoot>
     </div>
   )
 }
