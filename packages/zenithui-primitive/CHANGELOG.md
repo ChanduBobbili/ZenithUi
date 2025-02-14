@@ -1,5 +1,11 @@
 # zenithui-primitive
 
+## 1.0.5
+
+### Patch Changes
+
+- Removed the dependency on the radix-ui for toggle-group
+
 ## 1.0.4
 
 ### Patch Changes

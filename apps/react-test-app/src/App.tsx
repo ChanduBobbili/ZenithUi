@@ -17,10 +17,10 @@ import { useState } from "react"
 import { LightBox, LightBoxImages } from "zenithui-light-box"
 import { DayPicker } from "zenithui-day-picker"
 import { toast } from "zenithui-toast"
-// import { toast } from "zenithui-toast"
 
 function App() {
   const [open, setOpen] = useState<boolean>(false)
+  // const [value, setValue] = useState<string[]>([])
   const after7Days = new Date()
   after7Days.setDate(new Date().getDate() + 7)
   const [selectedDate, setSelectedDate] = useState<{ from: Date; to: Date }>({
