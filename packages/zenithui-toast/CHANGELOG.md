@@ -1,5 +1,11 @@
 # zenithui-toast
 
+## 1.0.1
+
+### Patch Changes
+
+- Fixed Auto Dismiss and z-index of toasts container
+
 ## 1.0.0
 
 ### Major Changes
