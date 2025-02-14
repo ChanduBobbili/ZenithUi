@@ -34,9 +34,4 @@ export default defineConfig({
     libInjectCss(),
     dts({ copyDtsFiles: true, rollupTypes: true }),
   ],
-  css: {
-    postcss: {
-      plugins: [],
-    },
-  },
 })

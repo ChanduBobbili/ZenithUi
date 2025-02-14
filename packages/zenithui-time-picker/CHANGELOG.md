@@ -1,5 +1,11 @@
 # zenithui-time-picker
 
+## 1.3.1
+
+### Patch Changes
+
+- Removed the dependency on the radix-ui for toggle-group
+
 ## 1.3.0
 
 ### Minor Changes

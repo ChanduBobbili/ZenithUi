@@ -1,6 +1,6 @@
 {
   "name": "zenithui-primitive",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "A ZenithUi React component library containing primitive UI components.",
   "type": "module",
   "private": false,
@@ -51,9 +51,6 @@
   },
   "files": [
     "dist"
-  ],
-  "sideEffects": [
-    "**/*.css"
   ],
   "scripts": {
     "build": "vite build && tsc",
