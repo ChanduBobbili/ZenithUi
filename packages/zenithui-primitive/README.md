@@ -53,7 +53,7 @@ import CountDownTimer from "zenithui-primitive";
 import CountDownTimer from "zenithui-primitive";
 
 <CountDownTimer
-  startTime={new Date().toISOString()}
+  startTime={new Date().toISOString()}Prop Name	Type	Description	Default
   description="until the event starts"
   descriptionClassName="text-gray-500"
 />
@@ -207,41 +207,52 @@ import { Toggle } from "zenithui-primitive";
 
 ## Toggle Group
 
-The `ToggleGroup` and `ToggleGroupItem` components allow you to create a group of toggleable items. These are useful for building grouped toggle buttons with shared styling and behavior.
+The `ToggleGroup` component allows users to select one or multiple toggle buttons within a group. It consists of a root wrapper (`ToggleGroupRoot`) and individual toggle buttons (`ToggleGroupItem`).
 
 #### Components
 
-- **ToggleGroup**: A wrapper component for grouping `ToggleGroupItem` components.
+- **ToggleGroupRoot**: A wrapper component for grouping `ToggleGroupItem` components.
 - **ToggleGroupItem**: Represents an individual toggleable item within the group.
 
 #### Props
 
-##### ToggleGroup
+##### ToggleGroupRoot
 
-The `ToggleGroup` component inherits all props from the `Radix ToggleGroupPrimitive.Root` component. It also supports the following variants via `class-variance-authority`:
-
-- **variant**: Controls the visual style of the toggles within the group.
-  - `default` (default): Transparent background.
-  - `outline`: Border with hover effects.
-- **size**: Controls the size of the toggles within the group.
-  - `default` (default): Height of `9px` and padding of `3px`.
-  - `sm`: Smaller size with height of `8px` and padding of `2px`.
-  - `lg`: Larger size with height of `10px` and padding of `3px`.
+| Prop Name       | Type                                  | Default    | Description                                                |
+| --------------- | ------------------------------------- | ---------- | ---------------------------------------------------------- |
+| `type`          | `single \| multiple`                  | `single`   | Defines if the group allows single or multiple selections. |
+| `value`         | `string \| string[]`                  | `required` | Controlled value of the selected item(s).                  |
+| `onValueChange` | `(value: string \| string[]) => void` | `required` | Callback triggered when the selection changes.             |
 
 ##### ToggleGroupItem
 
-The `ToggleGroupItem` component inherits all props from the `Radix ToggleGroupPrimitive.Item` component. Additionally, it automatically inherits `variant` and `size` values from the enclosing `ToggleGroup`.
+| Prop Name | Type     | Default | Description                         |
+| --------- | -------- | ------- | ----------------------------------- |
+| `value`   | `string` | `""`    | Unique value for the toggle button. |
+
+### Accessibility
+
+- Uses `role="group"` for `ToggleGroupRoot`.
+- Uses `role="switch"`, `aria-checked`, and `aria-pressed` for `ToggleGroupItem`.
+- Disabled items include `data-disabled="true"` for styling.
 
 #### Example Usage
 
 ```tsx
-import { ToggleGroup, ToggleGroupItem } from "zenithui-primitive";
+import { ToggleGroupRoot, ToggleGroupItem } from "zenithui-primitive";
 
-<ToggleGroup type="single" variant="outline" size="default">
-  <ToggleGroupItem value="option1">Option 1</ToggleGroupItem>
-  <ToggleGroupItem value="option2">Option 2</ToggleGroupItem>
-  <ToggleGroupItem value="option3">Option 3</ToggleGroupItem>
-</ToggleGroup>
+function App() {
+  const [value, setValue] = React.useState("option1");
+
+  return (
+    <ToggleGroupRoot type="single" value={value} onValueChange={setValue}>
+      <ToggleGroupItem value="option1">Option 1</ToggleGroupItem>
+      <ToggleGroupItem value="option2">Option 2</ToggleGroupItem>
+      <ToggleGroupItem value="option3">Option 3</ToggleGroupItem>
+    </ToggleGroupRoot>
+  );
+}
+
 ```
 
 ---

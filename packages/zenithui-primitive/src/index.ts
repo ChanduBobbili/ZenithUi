@@ -35,6 +35,6 @@ export {
   PopoverAnchor,
 } from "./components/popover"
 // Import of Toggle and ToggleGroup components
-export { ToggleGroup, ToggleGroupItem } from "./components/toggle-group"
+export { ToggleGroupRoot, ToggleGroupItem } from "./components/toggle-group"
 
 export { Toggle } from "./components/toggle"
