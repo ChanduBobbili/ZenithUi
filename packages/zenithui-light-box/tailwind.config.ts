@@ -1,9 +1,6 @@
 /** @type {import('tailwindcss').Config} */
-import type { Config } from "tailwindcss"
-
-const config: Config = {
+export default {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
-  important: ".zenithui", // Namespace Tailwind styles
   theme: {
     extend: {
       keyframes: {
@@ -74,6 +71,5 @@ const config: Config = {
       },
     },
   },
+  plugins: [],
 }
-
-export default config

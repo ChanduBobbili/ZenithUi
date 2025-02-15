@@ -1,10 +1,12 @@
 import type { Config } from "tailwindcss"
-import defaultTheme from "tailwindcss/defaultTheme"
-import { default as flattenColorPalette } from "tailwindcss/lib/util/flattenColorPalette"
 
 const config: Config = {
-  // important: true,
-  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
+  darkMode: ["class"],
+  content: [
+    "./index.html",
+    "./src/**/*.{js,ts,jsx,tsx}",
+    "./node_modules/@nextui-org/theme/dist/components/pagination.js",
+  ],
   theme: {
     container: {
       center: true,
@@ -24,8 +26,8 @@ const config: Config = {
         custom: "0px 3px 8px 0px rgb(37 99 235 / 8%)",
       },
       fontFamily: {
-        sans: ["InterVariable", "Roboto", ...defaultTheme.fontFamily.sans],
-        mono: ["JetBrains Mono", ...defaultTheme.fontFamily.mono],
+        sans: ["InterVariable", "Roboto"],
+        mono: ["JetBrains Mono"],
       },
       colors: {
         border: "hsl(var(--border))",
@@ -124,33 +126,53 @@ const config: Config = {
             transform: "rotate(60deg) scale(0.5)",
           },
         },
-        "slide-in-from-top": {
-          "0%": { transform: "translateY(-0.5rem)", opacity: "0" },
-          "100%": { transform: "translateY(0)", opacity: "1" },
+        "fade-in": {
+          from: { opacity: "0" },
+          to: { opacity: "1" },
+        },
+        "fade-out": {
+          from: { opacity: "1" },
+          to: { opacity: "0" },
+        },
+        "zoom-in": {
+          from: { transform: "scale(0.95)" },
+          to: { transform: "scale(1)" },
+        },
+        "zoom-out": {
+          from: { transform: "scale(1)" },
+          to: { transform: "scale(0.95)" },
         },
         "slide-in-from-bottom": {
-          "0%": { transform: "translateY(0.5rem)", opacity: "0" },
-          "100%": { transform: "translateY(0)", opacity: "1" },
+          from: { transform: "translateY(1rem)", opacity: "0" },
+          to: { transform: "translateY(0)", opacity: "1" },
         },
-        "slide-in-from-left": {
-          "0%": { transform: "translateX(-0.5rem)", opacity: "0" },
-          "100%": { transform: "translateX(0)", opacity: "1" },
+        "slide-out-to-bottom": {
+          from: { transform: "translateY(0)", opacity: "1" },
+          to: { transform: "translateY(1rem)", opacity: "0" },
         },
-        "slide-in-from-right": {
-          "0%": { transform: "translateX(0.5rem)", opacity: "0" },
-          "100%": { transform: "translateX(0)", opacity: "1" },
+        "slide-up": {
+          from: { transform: "translateY(100%)", opacity: "0" },
+          to: { transform: "translateY(0)", opacity: "1" },
+        },
+        "slide-down": {
+          from: { transform: "translateY(0)", opacity: "1" },
+          to: { transform: "translateY(100%)", opacity: "0" },
         },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
         blink: "blink 0.2s ease-in-out",
-        "slide-right-bottom": "slide-right-bottom 2s ease-in-out",
-        "slide-right-corner": "slide-right-corner 2s ease-in-out",
-        "slide-in-from-top": "slide-in-from-top 0.2s ease-out",
-        "slide-in-from-bottom": "slide-in-from-bottom 0.2s ease-out",
-        "slide-in-from-left": "slide-in-from-left 0.2s ease-out",
-        "slide-in-from-right": "slide-in-from-right 0.2s ease-out",
+        "slide-right-bottom": "slide-right-bottom 2s ease-in-out forwards",
+        "slide-right-corner": "slide-right-corner 2s ease-in-out forwards",
+        "slide-in-from-bottom": "slide-in-from-bottom 0.2s ease-out forwards",
+        "slide-out-to-bottom": "slide-out-to-bottom 0.2s ease-in forwards",
+        "fade-in": "fade-in 0.2s ease-out forwards",
+        "fade-out": "fade-out 0.2s ease-in forwards",
+        "zoom-in": "zoom-in 0.2s ease-out forwards",
+        "zoom-out": "zoom-out 0.2s ease-in forwards",
+        "slide-up": "slide-up 0.2s ease-out forwards",
+        "slide-down": "slide-down 0.2s ease-out forwards",
       },
     },
     variants: {
@@ -159,18 +181,7 @@ const config: Config = {
       },
     },
   },
-  plugins: [addVariablesForColors],
-}
-
-function addVariablesForColors({ addBase, theme }: any) {
-  const allColors = flattenColorPalette(theme("colors"))
-  const newVars = Object.fromEntries(
-    Object.entries(allColors).map(([key, val]) => [`--${key}`, val]),
-  )
-
-  addBase({
-    ":root": newVars,
-  })
+  plugins: [],
 }
 
 export default config
