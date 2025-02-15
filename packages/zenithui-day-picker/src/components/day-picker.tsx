@@ -15,7 +15,7 @@ import {
   startOfWeek,
   subMonths,
 } from "date-fns"
-import { cn, getInitialDate, getInitialRange } from "../utils"
+import { cn, getInitialDate, getInitialRange, isBetweenRange } from "../utils"
 import Arrow from "../assets/arrow.svg?react"
 interface classNames {
   /**
@@ -84,6 +84,7 @@ interface classNames {
  * The Date type from the Range Selection
  */
 export type DateRange = [Date, Date] | { from: Date; to: Date }
+type InternalRange = [Date, Date | null] | { from: Date; to: Date | null }
 
 interface DayPickerProps {
   /**
@@ -137,9 +138,10 @@ const DayPicker = React.forwardRef<HTMLDivElement, DayPickerProps>(
     const [currentMonth, setCurrentMonth] = React.useState<Date>(
       getInitialDate(selected),
     )
-    const [range, setRange] = React.useState<DateRange>(
+    const [range, setRange] = React.useState<InternalRange>(
       getInitialRange(selected),
     )
+    const [focus, setFocus] = React.useState<Date | null>(null)
 
     const days = React.useMemo(() => {
       return eachDayOfInterval({
@@ -158,45 +160,44 @@ const DayPicker = React.forwardRef<HTMLDivElement, DayPickerProps>(
       onSelect(date)
     }
 
-    const handleRangeSelect = (date: Date) => {
-      if (Array.isArray(range)) {
-        // if (isBefore(date, range[0])) {
-        //   setRange([date, range[1]])
-        // } else if (isAfter(date, range[0])) {
-        //   setRange([date, range[1]])
-        // }
-
-        // if (isAfter(date, range[1])) {
-        //   setRange([range[0], date])
-        // } else if (isBefore(date, range[1])) {
-        //   setRange([range[0], date])
-        // }
-
-        if (date < range[0]) {
-          setRange([date, range[0]])
+    const handleRangeSelect = React.useCallback(
+      (date: Date) => {
+        if (Array.isArray(range)) {
+          if (range[0] && range[1]) {
+            setRange([date, null])
+          } else if (isAfter(date, range[0])) {
+            setFocus(null)
+            setRange([range[0], date])
+          } else {
+            setFocus(null)
+            setRange([date, range[0]])
+          }
         } else {
-          setRange([range[0], date])
+          if (range.from && range.to) {
+            setRange({ from: date, to: null })
+          } else if (isAfter(date, range.from)) {
+            setFocus(null)
+            setRange({ from: range.from, to: date })
+          } else {
+            setFocus(null)
+            setRange({ from: date, to: range.from })
+          }
         }
-      } else {
-        // if (isBefore(date, range.from)) {
-        //   setRange({ from: date, to: range.to })
-        // } else if (isAfter(date, range.from)) {
-        //   setRange({ from: date, to: range.to })
-        // }
+      },
+      [range, setRange],
+    )
 
-        // if (isAfter(date, range.to)) {
-        //   setRange({ from: range.from, to: date })
-        // } else if (isBefore(date, range.to)) {
-        //   setRange({ from: range.from, to: date })
-        // }
-
-        if (date < range.from) {
-          setRange({ from: date, to: range.to })
-        } else {
-          setRange({ from: range.from, to: date })
+    const handleMouseEnter = React.useCallback(
+      (day: Date) => {
+        if (
+          mode === "range" &&
+          (Array.isArray(range) ? range[1] === null : range.to === null)
+        ) {
+          setFocus(day)
         }
-      }
-    }
+      },
+      [range],
+    )
 
     React.useEffect(() => {
       if (mode === "range") {
@@ -284,12 +285,18 @@ const DayPicker = React.forwardRef<HTMLDivElement, DayPickerProps>(
               : isSameDay(range.from, day)
 
             const isRangeEnd = Array.isArray(range)
-              ? isSameDay(range[1], day)
-              : isSameDay(range.to, day)
+              ? range[1] && isSameDay(range[1], day)
+              : range.to && isSameDay(range.to, day)
 
             const isInRange = Array.isArray(range)
-              ? isBefore(day, range[1]) && isAfter(day, range[0])
-              : isBefore(day, range.to) && isAfter(day, range.from)
+              ? focus
+                ? isBetweenRange(day, { from: range[0], to: range[1] }, focus)
+                : range[1] && isBefore(day, range[1]) && isAfter(day, range[0])
+              : focus
+                ? isBetweenRange(day, range, focus)
+                : range.to &&
+                  isBefore(day, range.to) &&
+                  isAfter(day, range.from)
 
             return (
               <button
@@ -301,6 +308,7 @@ const DayPicker = React.forwardRef<HTMLDivElement, DayPickerProps>(
                     handleRangeSelect(day)
                   }
                 }}
+                onMouseEnter={() => handleMouseEnter(day)}
                 className={cn(
                   classNames?.day ? classNames.day : "day",
                   // Outside date

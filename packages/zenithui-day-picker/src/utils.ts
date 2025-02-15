@@ -1,6 +1,7 @@
 import { clsx, type ClassValue } from "clsx"
 import { twMerge } from "tailwind-merge"
 import { DateRange } from "./components/day-picker"
+import { isAfter, isBefore, isWithinInterval } from "date-fns"
 
 /**
  * Merges class names using clsx and twMerge.
@@ -38,4 +39,29 @@ export function getInitialRange(selected: Date | DateRange): DateRange {
   return selected instanceof Date
     ? { from: new Date(), to: new Date() }
     : selected
+}
+
+/**
+ * Whether the day is between the range and focus
+ * @param day The day to check
+ * @param range The range to check against
+ * @param focus The focus date
+ * @returns @type {boolean}
+ */
+export function isBetweenRange(
+  day: Date,
+  range: { from: Date | null; to: Date | null },
+  focus: Date | null,
+) {
+  // Ensure required values are present
+  if (!range.from || !focus) return false
+  if (isAfter(focus, range.from)) {
+    // Case 1: focus is after range.from
+    return isWithinInterval(day, { start: range.from, end: focus })
+  }
+  if (isBefore(focus, range.from)) {
+    // Case 2: focus is before range.from
+    return isWithinInterval(day, { start: focus, end: range.from })
+  }
+  return false
 }
