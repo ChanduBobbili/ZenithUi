@@ -1,5 +1,11 @@
 # zenithui-day-picker
 
+## 2.0.2
+
+### Patch Changes
+
+- Fixed the selection of date Range
+
 ## 2.0.1
 
 ### Patch Changes
