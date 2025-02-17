@@ -16,6 +16,39 @@ export type ToastPosition =
   | "bottom-center"
 export type ToastAnimation = "slide" | "fade"
 
+export interface ToastOptions {
+  /**
+   * Whether to use rich colors for the toast.
+   * @type {boolean}
+   * @default false
+   */
+  richColors?: boolean
+  /**
+   * The duration of the toast to display.
+   * @type {number}
+   * @default 5000
+   */
+  duration?: number
+  /**
+   * Whether to enable auto dismiss for the toast.
+   * @type {boolean}
+   * @default true
+   */
+  disableAutoDismiss?: boolean
+  /**
+   * The animation of the toast.
+   * @type {string}
+   * @default "fade"
+   */
+  animation?: ToastAnimation
+  /**
+   * Whether to show the close button for the toast.
+   * @type {boolean}
+   * @default false
+   */
+  showCloseButton?: boolean
+}
+
 export interface Toast {
   /**
    * The unique identifier of the toast.
@@ -32,6 +65,12 @@ export interface Toast {
    * @type {string}
    */
   message: string
+  /**
+   * The options to customize the toast.
+   * @type {ToastOptions}
+   * @description This is used to customize the toast.
+   */
+  options?: Partial<ToastOptions>
   /**
    * Whether to remove the toast from the toast container.
    * @type {boolean}
@@ -226,16 +265,19 @@ export const ToastProvider: React.FC<ToastProviderProps> = ({
   const [toasts, setToasts] = React.useState<Toast[]>([])
   const [queue, setQueue] = React.useState<Toast[]>([])
 
-  const addToast = React.useCallback((message: string, type: ToastType) => {
-    const id = Math.random().toString(36).substring(2, 11)
-    const newToast: Toast = { id, type, message, remove: false }
+  const addToast = React.useCallback(
+    (message: string, type: ToastType, options?: ToastOptions) => {
+      const id = Math.random().toString(36).substring(2, 11)
+      const newToast: Toast = { id, type, message, remove: false, options }
 
-    if (enableQueueSystem) {
-      setQueue((prev) => [...prev, newToast])
-    } else {
-      setToasts((prev) => [...prev, newToast])
-    }
-  }, [])
+      if (enableQueueSystem) {
+        setQueue((prev) => [...prev, newToast])
+      } else {
+        setToasts((prev) => [...prev, newToast])
+      }
+    },
+    [],
+  )
 
   const removeToast = React.useCallback((id: string) => {
     setToasts((prev) => prev.filter((toast) => toast.id !== id))

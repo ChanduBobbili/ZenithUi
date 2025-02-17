@@ -143,7 +143,17 @@ function App() {
         // }}
       />
 
-      <button onClick={() => toast.success("Success Toast")}>
+      <button
+        onClick={() =>
+          toast.success("Success Toast", {
+            animation: "slide",
+            duration: 2000,
+            disableAutoDismiss: true,
+            showCloseButton: true,
+            richColors: true,
+          })
+        }
+      >
         Toast Success
       </button>
       <button onClick={() => toast.info("Info Toast")}>Toast Info</button>

@@ -23,17 +23,26 @@ export const ToastItem: React.FC<ToastItemProps> = ({ toast }) => {
     setToasts,
   } = useToast()
 
+  const { options } = toast
+
   // useRef to store timeout reference
   const timeoutRef = useRef<NodeJS.Timeout | null>(null)
 
   // Auto-dismiss toast after duration
   useEffect(() => {
-    if (!disableAutoDismiss) {
-      timeoutRef.current = setTimeout(() => {
-        setToasts((prev) =>
-          prev.map((t) => (t.id === toast.id ? { ...t, remove: true } : t)),
-        )
-      }, duration)
+    if (
+      !(options?.disableAutoDismiss
+        ? options.disableAutoDismiss
+        : disableAutoDismiss)
+    ) {
+      timeoutRef.current = setTimeout(
+        () => {
+          setToasts((prev) =>
+            prev.map((t) => (t.id === toast.id ? { ...t, remove: true } : t)),
+          )
+        },
+        options?.duration ? options?.duration : duration,
+      )
     }
 
     return () => {
@@ -49,11 +58,21 @@ export const ToastItem: React.FC<ToastItemProps> = ({ toast }) => {
       aria-live="assertive"
       tabIndex={0}
       data-type={toast.type}
-      data-rich-colors={richColors}
+      data-rich-colors={options?.richColors ? options.richColors : richColors}
       className={cn(
         "zenithui-toast-wrapper",
-        richColors ? getToastTheme(toast.type) : "",
-        getToastAnimation(animation, position, !toast.remove),
+        options?.richColors
+          ? options.richColors
+            ? getToastTheme(toast.type)
+            : ""
+          : richColors
+            ? getToastTheme(toast.type)
+            : "",
+        getToastAnimation(
+          options?.animation ? options.animation : animation,
+          position,
+          !toast.remove,
+        ),
       )}
       onAnimationEnd={() => toast.remove && removeToast(toast.id)}
     >
@@ -63,13 +82,19 @@ export const ToastItem: React.FC<ToastItemProps> = ({ toast }) => {
         </div>
         <span>{toast.message}</span>
       </div>
-      {showCloseButton ? (
+      {(
+        options?.showCloseButton ? options.showCloseButton : showCloseButton
+      ) ? (
         <button
           className={cn(
             "zenithui-toast-close",
-            richColors
-              ? `${getToastTheme(toast.type)} zenithui-toast-close-rich`
-              : "",
+            options?.richColors
+              ? options.richColors
+                ? `${getToastTheme(toast.type)} zenithui-toast-close-rich`
+                : ""
+              : richColors
+                ? `${getToastTheme(toast.type)} zenithui-toast-close-rich`
+                : "",
           )}
           onClick={() => {
             if (timeoutRef.current) {
