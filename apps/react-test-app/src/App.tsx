@@ -94,7 +94,7 @@ function App() {
         align="center"
         side="right"
         classNames={{
-          popoverContent: "bg-slate-500",
+          // popoverContent: "bg-slate-500",
         }}
       />
 

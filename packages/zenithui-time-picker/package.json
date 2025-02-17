@@ -73,9 +73,7 @@
     }
   },
   "dependencies": {
-    "@radix-ui/react-popover": "^1.1.6",
-    "clsx": "^2.1.1",
-    "tailwind-merge": "^3.0.1"
+    "@radix-ui/react-popover": "^1.1.6"
   },
   "packageManager": "pnpm@9.5.0"
 }

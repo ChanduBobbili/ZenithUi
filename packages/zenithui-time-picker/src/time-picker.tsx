@@ -108,7 +108,7 @@ const TimePicker: React.FC<TimePickerProps> = ({
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <button className={cn("custom-button", classNames?.button)}>
+        <button className={cn("zenithui-time-trigger", classNames?.button)}>
           <span>{formatter(time)}</span>
           <ClockIcon />
         </button>
@@ -120,7 +120,7 @@ const TimePicker: React.FC<TimePickerProps> = ({
         sideOffset={sideOffset}
         openAnimate="slide"
         closeAnimate="slide"
-        className={cn("popover-content", classNames?.popoverContent)}
+        className={cn("zenithui-time-container", classNames?.popoverContent)}
         onWheel={(e) => e.stopPropagation()}
       >
         <TimeScrollList
@@ -185,11 +185,14 @@ const TimeScrollList: React.FC<TimeScrollListProps> = ({
   }, [value, options])
 
   return (
-    <div className="custom-scrollbar">
+    <div className="zenithui-time-custom-scroll">
       <ToggleGroupRoot
         ref={listRef}
         type="single"
-        className={cn("time-scroll-list", classNames?.timeScrollList)}
+        className={cn(
+          "zenithui-time-scroll-container",
+          classNames?.timeScrollList,
+        )}
         value={value}
         onValueChange={(selectedValue) => {
           if (typeof selectedValue === "string") {
@@ -204,9 +207,9 @@ const TimeScrollList: React.FC<TimeScrollListProps> = ({
               value={option}
               aria-label={option}
               className={cn(
-                "time-scroll-list-item",
+                "zenithui-time-item",
                 classNames?.timeScrollListItem,
-                value === option ? "selected" : "",
+                value === option ? "zenithui-selected" : "",
                 value === option ? classNames?.Selected : "",
               )}
             >
