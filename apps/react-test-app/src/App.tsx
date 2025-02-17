@@ -93,9 +93,7 @@ function App() {
         onTimeChange={(time) => console.log(time)}
         align="center"
         side="right"
-        classNames={{
-          // popoverContent: "bg-slate-500",
-        }}
+        theme="auto"
       />
 
       <button onClick={() => setOpen(true)}>Open Light Box</button>

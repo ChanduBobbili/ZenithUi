@@ -6,6 +6,7 @@ import {
   getInitialPeriod,
   generateTimeOptions,
   cn,
+  getTheme,
 } from "./utils"
 import { Popover, PopoverContent, PopoverTrigger } from "./components/popover"
 import { ToggleGroupRoot, ToggleGroupItem } from "./components/toggle-group"
@@ -51,6 +52,10 @@ interface TimePickerProps {
    */
   classNames?: TimePickerClassNames
   /**
+   * Enables the dark theme of the Time Picker.
+   */
+  theme?: "light" | "dark" | "auto"
+  /**
    * Custom formatter for time display.
    * @param time - The time in "HH:MM" format (24-hour clock).
    * @returns Formatted time string.
@@ -87,6 +92,7 @@ const TimePicker: React.FC<TimePickerProps> = ({
   time,
   align = "center",
   side = "bottom",
+  theme = "light",
   alignOffset = 10,
   sideOffset = 10,
   classNames,
@@ -108,7 +114,13 @@ const TimePicker: React.FC<TimePickerProps> = ({
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <button className={cn("zenithui-time-trigger", classNames?.button)}>
+        <button
+          className={cn(
+            getTheme(theme),
+            "zenithui-time-trigger",
+            classNames?.button,
+          )}
+        >
           <span>{formatter(time)}</span>
           <ClockIcon />
         </button>
@@ -120,7 +132,11 @@ const TimePicker: React.FC<TimePickerProps> = ({
         sideOffset={sideOffset}
         openAnimate="slide"
         closeAnimate="slide"
-        className={cn("zenithui-time-container", classNames?.popoverContent)}
+        className={cn(
+          getTheme(theme),
+          "zenithui-time-container",
+          classNames?.popoverContent,
+        )}
         onWheel={(e) => e.stopPropagation()}
       >
         <TimeScrollList
