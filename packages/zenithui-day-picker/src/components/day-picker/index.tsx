@@ -1,6 +1,4 @@
 import * as React from "react"
-
-import "./../index.css"
 import { cn, getInitialDate, getInitialRange } from "../../utils"
 import {
   eachDayOfInterval,
@@ -13,6 +11,7 @@ import {
 } from "date-fns"
 import { DayPickerHeader } from "./header"
 import { DayPickerDay } from "./day"
+import "./../../index.css"
 
 interface classNames {
   /**
@@ -115,6 +114,10 @@ interface DayPickerProps {
    * Whether to hide the outside dates.
    */
   hideOutsideDates?: boolean
+  /**
+   * Enables the dark theme of the calendar.
+   */
+  enableDarkTheme?: boolean
 }
 
 const DayPicker = React.forwardRef<HTMLDivElement, DayPickerProps>(
@@ -127,6 +130,7 @@ const DayPicker = React.forwardRef<HTMLDivElement, DayPickerProps>(
       hideNavigation = false,
       hideWeekdays = false,
       hideOutsideDates = false,
+      enableDarkTheme = false,
     },
     ref,
   ) => {
@@ -207,10 +211,21 @@ const DayPicker = React.forwardRef<HTMLDivElement, DayPickerProps>(
       }
     }, [range])
 
+    React.useEffect(() => {
+      const root = document.querySelectorAll(".zenithui-calendar")[0]
+      if (root) {
+        if (enableDarkTheme) {
+          root.classList.add("dark")
+        } else {
+          root.classList.remove("dark")
+        }
+      }
+    }, [enableDarkTheme])
+
     return (
       <div
         ref={ref}
-        className={cn("calendar", classNames?.calendar)}
+        className={cn("zenithui-calendar", classNames?.calendar)}
       >
         {/* Navgation Section */}
         {!hideNavigation && (

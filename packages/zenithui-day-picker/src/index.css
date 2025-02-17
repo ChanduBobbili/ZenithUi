@@ -2,6 +2,7 @@
 :root {
   --bg-color: white;
   --text-color: black;
+  --selected-text-color: white;
   --shadow-color: rgba(0, 0, 0, 0.1);
   --hover-bg: #f3f4f6;
   --selected-bg: rgba(59, 130, 246, 1);
@@ -9,19 +10,33 @@
   --range-bg: rgba(59, 130, 246, 0.5);
   --outline-color: rgba(59, 130, 246, 1);
 }
+/* 
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg-color: #1e1e1e;
+    --text-color: white;
+    --shadow-color: rgba(255, 255, 255, 0.2);
+    --hover-bg: #374151;
+    --selected-bg: rgba(255, 255, 255, 1);
+    --selected-bg-hover: rgba(255, 255, 255, 0.75);
+    --range-bg: rgba(255, 255, 255, 0.5);
+    --outline-color: rgba(255, 255, 255, 1);
+  }
+} */
 
 .dark {
   --bg-color: #1e1e1e;
   --text-color: white;
-  --shadow-color: rgba(255, 255, 255, 0.1);
+  --selected-text-color: black;
+  --shadow-color: rgba(255, 255, 255, 0.2);
   --hover-bg: #374151;
-  --selected-bg: rgba(29, 78, 216, 1);
-  --selected-bg-hover: rgba(29, 78, 216, 0.75);
-  --range-bg: rgba(29, 78, 216, 0.5);
-  --outline-color: rgba(29, 78, 216, 1);
+  --selected-bg: rgba(255, 255, 255, 1);
+  --selected-bg-hover: rgba(255, 255, 255, 0.75);
+  --range-bg: rgba(255, 255, 255, 0.5);
+  --outline-color: rgba(255, 255, 255, 1);
 }
 
-.calendar {
+.zenithui-calendar {
   width: 100%;
   max-width: 320px;
   background-color: var(--bg-color);
@@ -111,30 +126,30 @@
 /* Selected Day */
 .day[data-selected="true"]:not([data-selected-custom="true"]) {
   background-color: var(--selected-bg);
-  color: white;
+  color: var(--selected-text-color);
 }
 
 .day[data-selected="true"]:not([data-selected-custom="true"]):hover {
   background-color: var(--selected-bg-hover);
-}
+  color: var(--selected-text-color);}
 
 /* Range Start */
 .day[data-range-start="true"]:not([data-range-start-custom="true"]) {
   background-color: var(--selected-bg);
-  color: white;
+  color: var(--selected-text-color);
   border-radius: 6px 0 0 6px;
 }
 
 .day[data-range-end="true"]:not([data-range-end-custom="true"]) {
   background-color: var(--selected-bg);
-  color: white;
+  color: var(--selected-text-color);
   border-radius: 0 6px 6px 0;
 }
 
 /* In-Range Dates */
 .day[data-range-dates="true"]:not([data-range-dates-custom="true"]) {
   background-color: var(--range-bg);
-  color: white;
+  color: var(--selected-text-color);
 }
 
 /* Today */

@@ -1,6 +1,6 @@
 import { addMonths, format, subMonths } from "date-fns"
 import { cn } from "../../utils"
-import Arrow from "../assets/arrow.svg?react"
+import Arrow from "../../assets/arrow.svg?react"
 
 interface DayPickerHeaderProps {
   currentMonth: Date
