@@ -52,6 +52,7 @@ export default App;
 | `hideNavigation`   | `boolean`             | Hide previous/next month buttons.                               | `false`    |
 | `hideWeekdays`     | `boolean`             | Hide weekday names.                                             | `false`    |
 | `hideOutsideDates` | `boolean`             | Hide dates that belong to the previous/next month.              | `false`    |
+| `theme`            | `light, dark, auto`   | Theme of the calendar                                           | `auto`     |
 
 ### `ClassNames` (Optional Styling)
 

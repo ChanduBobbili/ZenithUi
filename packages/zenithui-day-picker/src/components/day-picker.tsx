@@ -116,6 +116,10 @@ interface DayPickerProps {
    * Whether to hide the outside dates.
    */
   hideOutsideDates?: boolean
+  /**
+   * Enables the dark theme of the calendar.
+   */
+  theme?: "light" | "dark" | "auto"
 }
 
 const DayPicker = React.forwardRef<HTMLDivElement, DayPickerProps>(
@@ -128,6 +132,7 @@ const DayPicker = React.forwardRef<HTMLDivElement, DayPickerProps>(
       hideNavigation = false,
       hideWeekdays = false,
       hideOutsideDates = false,
+      theme = "auto",
     },
     ref,
   ) => {
@@ -209,6 +214,23 @@ const DayPicker = React.forwardRef<HTMLDivElement, DayPickerProps>(
         }
       }
     }, [range])
+
+    React.useEffect(() => {
+      const root = document.querySelectorAll(".zenithui-calendar")[0]
+      if (root) {
+        if (theme === "dark") {
+          root.classList.add("dark")
+        } else if (theme === "light") {
+          root.classList.remove("dark")
+        } else {
+          if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+            root.classList.add("dark")
+          } else {
+            root.classList.remove("dark")
+          }
+        }
+      }
+    }, [theme])
 
     return (
       <div

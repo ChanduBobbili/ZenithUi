@@ -122,7 +122,8 @@
 }
 
 .day[data-selected="true"]:not([data-selected-custom="true"]):hover {
-  background-color: rgba(59, 130, 246, 0.75);
+  background-color: var(--selected-bg-hover);
+  color: var(--selected-text-color);
 }
 
 /* Range Start */

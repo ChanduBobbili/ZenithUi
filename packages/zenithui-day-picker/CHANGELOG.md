@@ -1,5 +1,11 @@
 # zenithui-day-picker
 
+## 2.1.0
+
+### Minor Changes
+
+- Implemented the light and dark theme
+
 ## 2.0.3
 
 ### Patch Changes
