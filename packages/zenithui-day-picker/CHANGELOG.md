@@ -1,5 +1,11 @@
 # zenithui-day-picker
 
+## 2.1.1
+
+### Patch Changes
+
+- Fixed the css variables
+
 ## 2.1.0
 
 ### Minor Changes
