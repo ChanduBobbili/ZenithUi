@@ -1,5 +1,11 @@
 # zenithui-time-picker
 
+## 1.4.0
+
+### Minor Changes
+
+- Added the Count Down component
+
 ## 1.3.1
 
 ### Patch Changes

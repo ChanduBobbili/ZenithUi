@@ -1,5 +1,11 @@
 # zenithui-day-picker
 
+## 2.2.1
+
+### Patch Changes
+
+- refactored the theme setting
+
 ## 2.2.0
 
 ### Minor Changes
