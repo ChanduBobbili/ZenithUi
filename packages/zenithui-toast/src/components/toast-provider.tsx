@@ -3,8 +3,10 @@
 import * as React from "react"
 import { registerToast } from "./toast"
 import { ToastContainer } from "./toast-container/toast-container"
+import { cn, getTheme } from "../utils"
 
 export type ToastType = "success" | "info" | "error" | "warning"
+export type Theme = "auto" | "light" | "dark"
 export type ToastPosition =
   | "top-left"
   | "top-right"
@@ -13,6 +15,39 @@ export type ToastPosition =
   | "top-center"
   | "bottom-center"
 export type ToastAnimation = "slide" | "fade"
+
+export interface ToastOptions {
+  /**
+   * Whether to use rich colors for the toast.
+   * @type {boolean}
+   * @default false
+   */
+  richColors?: boolean
+  /**
+   * The duration of the toast to display.
+   * @type {number}
+   * @default 5000
+   */
+  duration?: number
+  /**
+   * Whether to enable auto dismiss for the toast.
+   * @type {boolean}
+   * @default true
+   */
+  disableAutoDismiss?: boolean
+  /**
+   * The animation of the toast.
+   * @type {string}
+   * @default "fade"
+   */
+  animation?: ToastAnimation
+  /**
+   * Whether to show the close button for the toast.
+   * @type {boolean}
+   * @default false
+   */
+  showCloseButton?: boolean
+}
 
 export interface Toast {
   /**
@@ -30,6 +65,12 @@ export interface Toast {
    * @type {string}
    */
   message: string
+  /**
+   * The options to customize the toast.
+   * @type {ToastOptions}
+   * @description This is used to customize the toast.
+   */
+  options?: Partial<ToastOptions>
   /**
    * Whether to remove the toast from the toast container.
    * @type {boolean}
@@ -166,6 +207,12 @@ interface ToastProviderProps {
    * @default false
    */
   showCloseButton?: boolean
+  /**
+   * The theme of the toast.
+   * @type {Theme}
+   * @default "light"
+   */
+  theme?: Theme
   // /**
   //  * The style of the toast.
   //  * @type {React.CSSProperties}
@@ -207,6 +254,7 @@ export const ToastProvider: React.FC<ToastProviderProps> = ({
   children,
   position = "bottom-right",
   animation = "fade",
+  theme = "light",
   duration = 5000,
   maxToasts = 3,
   richColors = false,
@@ -217,16 +265,19 @@ export const ToastProvider: React.FC<ToastProviderProps> = ({
   const [toasts, setToasts] = React.useState<Toast[]>([])
   const [queue, setQueue] = React.useState<Toast[]>([])
 
-  const addToast = React.useCallback((message: string, type: ToastType) => {
-    const id = Math.random().toString(36).substring(2, 11)
-    const newToast: Toast = { id, type, message, remove: false }
+  const addToast = React.useCallback(
+    (message: string, type: ToastType, options?: ToastOptions) => {
+      const id = Math.random().toString(36).substring(2, 11)
+      const newToast: Toast = { id, type, message, remove: false, options }
 
-    if (enableQueueSystem) {
-      setQueue((prev) => [...prev, newToast])
-    } else {
-      setToasts((prev) => [...prev, newToast])
-    }
-  }, [])
+      if (enableQueueSystem) {
+        setQueue((prev) => [...prev, newToast])
+      } else {
+        setToasts((prev) => [...prev, newToast])
+      }
+    },
+    [],
+  )
 
   const removeToast = React.useCallback((id: string) => {
     setToasts((prev) => prev.filter((toast) => toast.id !== id))
@@ -263,7 +314,10 @@ export const ToastProvider: React.FC<ToastProviderProps> = ({
       }}
     >
       {children}
-      <ToastContainer toasts={toasts} />
+      <ToastContainer
+        toasts={toasts}
+        className={cn(getTheme(theme))}
+      />
     </ToastContext.Provider>
   )
 }

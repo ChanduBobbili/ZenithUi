@@ -1,37 +1,60 @@
-import { ToastType } from "./toast-provider"
+import { ToastOptions, ToastType } from "./toast-provider"
 
 /**
  * ToastSingleton class to manage the toast
  */
 class ToastSingleton {
-  private addToast: ((message: string, type: ToastType) => void) | null = null
+  private addToast:
+    | ((message: string, type: ToastType, options?: ToastOptions) => void)
+    | null = null
   // Queue for early calls
-  private pendingToasts: { message: string; type: ToastType }[] = []
+  private pendingToasts: {
+    message: string
+    type: ToastType
+    options?: ToastOptions
+  }[] = []
 
-  register(addToast: (message: string, type: ToastType) => void) {
+  register(
+    addToast: (
+      message: string,
+      type: ToastType,
+      options?: ToastOptions,
+    ) => void,
+  ) {
     this.addToast = addToast
 
     // Process any pending toasts
-    this.pendingToasts.forEach(({ message, type }) =>
-      this.addToast?.(message, type),
+    this.pendingToasts.forEach(({ message, type, options }) =>
+      this.addToast?.(message, type, options),
     )
     // Clear queue after processing
     this.pendingToasts = []
   }
 
-  private showToast = (message: string, type: ToastType) => {
+  private showToast = (
+    message: string,
+    type: ToastType,
+    options?: ToastOptions,
+  ) => {
     if (this.addToast) {
-      this.addToast(message, type)
+      this.addToast(message, type, options)
     } else {
       // Queue toast if not registered yet
-      this.pendingToasts.push({ message, type })
+      this.pendingToasts.push({ message, type, options })
     }
   }
 
-  success = (message: string) => this.showToast(message, "success")
-  info = (message: string) => this.showToast(message, "info")
-  error = (message: string) => this.showToast(message, "error")
-  warning = (message: string) => this.showToast(message, "warning")
+  success = (message: string, options?: ToastOptions) =>
+    this.showToast(message, "success", options)
+
+  info = (message: string, options?: ToastOptions) =>
+    this.showToast(message, "info", options)
+
+  error = (message: string, options?: ToastOptions) =>
+    this.showToast(message, "error", options)
+
+  warning = (message: string, options?: ToastOptions) =>
+    this.showToast(message, "warning", options)
 }
 
 // Private instance
@@ -47,7 +70,7 @@ export const toast = {
 
 // Internal function to register `addToast`
 export const registerToast = (
-  addToast: (message: string, type: ToastType) => void,
+  addToast: (message: string, type: ToastType, options?: ToastOptions) => void,
 ) => {
   toastInstance.register(addToast)
 }
