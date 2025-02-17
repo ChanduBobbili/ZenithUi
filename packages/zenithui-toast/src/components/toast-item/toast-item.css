@@ -1,3 +1,75 @@
+/* Light Theme Variables */
+:root {
+  --text-color: #020617;
+  --bg-color: white;
+  --box-shadow: rgba(0, 0, 0, 0.1);
+
+  /* Success colors */
+  --success-text: #047857;
+  --success-bg: #edfdf9;
+  --success-border: #10b981;
+  --success-shadow: #7fffd4;
+
+  /* Error colors */
+  --error-text: #be123c;
+  --error-bg: #ffeff3;
+  --error-border: #f43f5e;
+  --error-shadow: #ff8196;
+
+  /* Info colors */
+  --info-text: #0369a1;
+  --info-bg: #f0f9ff;
+  --info-border: #0ea5e9;
+  --info-shadow: #84d8ff;
+
+  /* Warning colors */
+  --warning-text: #b45309;
+  --warning-bg: #fffbf1;
+  --warning-border: #f59e0b;
+  --warning-shadow: #ffd284;
+
+  /* Close button colors */
+  --close-btn-bg: #1e293b;
+  --close-btn-hover: #020617;
+  --close-rich: #edfdf9;
+}
+
+/* Dark Theme Variables */
+.dark {
+  --text-color: #ffffff;
+  --bg-color: #1e293b;
+  --box-shadow: rgba(0, 0, 0, 0.3);
+
+  /* Success colors */
+  --success-text: #ffffff;
+  --success-bg: #065f46;
+  --success-border: #10b981;
+  --success-shadow: #7fffd4;
+
+  /* Error colors */
+  --error-text: #ffffff;
+  --error-bg: #be123c;
+  --error-border: #f43f5e;
+  --error-shadow: #ff8196;
+
+  /* Info colors */
+  --info-text: #ffffff;
+  --info-bg: #0369a1;
+  --info-border: #0ea5e9;
+  --info-shadow: #84d8ff;
+
+  /* Warning colors */
+  --warning-text: #ffffff;
+  --warning-bg: #b45309;
+  --warning-border: #f59e0b;
+  --warning-shadow: #ffd284;
+
+  /* Close button colors */
+  --close-btn-bg: #ffffff;
+  --close-btn-hover: #edfdf9;
+  --close-rich: #334155;
+}
+
 .zenithui-toast-wrapper {
   position: relative;
   display: flex;
@@ -10,9 +82,9 @@
   border-radius: 8px;
   font-size: 14px;
   font-weight: 400;
-  color: #020617;
-  background-color: white;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  color: var(--text-color);
+  background-color: var(--bg-color);
+  box-shadow: 0px 4px 6px var(--box-shadow);
 }
 
 .zenithui-toast {
@@ -28,15 +100,15 @@
   transform: translate(50%, -50%);
   border: none;
   border-radius: 100%;
-  background-color: #1e293b;
-  color: #ffffff;
+  background-color: var(--close-btn-bg);
+  color: var(--bg-color);
   padding: 4px;
   cursor: pointer;
   transition: transform 0.2s ease-in-out;
 }
 
 .zenithui-toast-close:hover {
-  background-color: #020617;
+  background-color: var(--close-btn-hover);
 }
 
 .zenithui-toast-close:active {
@@ -46,56 +118,56 @@
 
 .zenithui-toast-close:focus {
   border: 0px;
-  outline: 2px solid #020617;
+  outline: 2px solid var(--close-btn-hover);
 }
 
 .zenithui-toast-close:focus-visible {
   border: 0px;
-  outline: 2px solid #020617;
+  outline: 2px solid var(--close-btn-hover);
 }
 
 .zenithui-toast-close-rich:hover {
-  background-color: #edfdf9;
+  background-color: var(--close-rich);
 }
 .zenithui-toast-close-rich:active {
   border: 0px;
-  outline: 2px solid #edfdf9;
+  outline: 2px solid var(--close-rich);
 }
 .zenithui-toast-close-rich:focus {
   border: 0px;
-  outline: 2px solid #edfdf9;
+  outline: 2px solid var(--close-rich);
 }
 .zenithui-toast-close-rich:focus-visible {
   border: 0px;
-  outline: 2px solid #edfdf9;
+  outline: 2px solid var(--close-rich);
 }
 
 .zenithui-toast-success {
-  color: #047857;
-  border: 1px solid #10b981;
-  background-color: #edfdf9;
-  box-shadow: 1px 1px 2px #7fffd4;
+  color: var(--success-text);
+  border: 1px solid var(--success-border);
+  background-color: var(--success-bg);
+  box-shadow: 1px 1px 2px var(--success-shadow);
 }
 
 .zenithui-toast-error {
-  color: #be123c;
-  border: 1px solid #f43f5e;
-  background-color: #ffeff3;
-  box-shadow: 1px 1px 2px #ff8196;
+  color: var(--error-text);
+  border: 1px solid var(--error-border);
+  background-color: var(--error-bg);
+  box-shadow: 1px 1px 2px var(--error-shadow);
 }
 
 .zenithui-toast-info {
-  color: #0369a1;
-  border: 1px solid #0ea5e9;
-  background-color: #f0f9ff;
-  box-shadow: 1px 1px 2px #84d8ff;
+  color: var(--info-text);
+  border: 1px solid var(--info-border);
+  background-color: var(--info-bg);
+  box-shadow: 1px 1px 2px var(--info-shadow);
 }
 
 .zenithui-toast-warning {
-  color: #b45309;
-  border: 1px solid #f59e0b;
-  background-color: #fffbf1;
-  box-shadow: 1px 1px 2px #ffd284;
+  color: var(--warning-text);
+  border: 1px solid var(--warning-border);
+  background-color: var(--warning-bg);
+  box-shadow: 1px 1px 2px var(--warning-shadow);
 }
 
 /*

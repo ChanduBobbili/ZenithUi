@@ -5,14 +5,18 @@ import { ToastItem } from "../toast-item/toast-item"
 import { cn, getPositionClass, reverseToasts } from "../../utils"
 import { useMemo } from "react"
 
-interface ToastContainerProps {
+interface ToastContainerProps extends React.HTMLAttributes<HTMLDivElement> {
   /**
    * The List of Item of Toast Instance.
    */
   toasts: Toast[]
 }
 
-export const ToastContainer: React.FC<ToastContainerProps> = ({ toasts }) => {
+export const ToastContainer: React.FC<ToastContainerProps> = ({
+  toasts,
+  className,
+  ...props
+}) => {
   const { position } = useToast()
 
   const memoToasts = useMemo(() => {
@@ -23,15 +27,24 @@ export const ToastContainer: React.FC<ToastContainerProps> = ({ toasts }) => {
     }
   }, [toasts])
 
-  return createPortal(
-    <div className={cn("zenithui-toast-container", getPositionClass(position))}>
-      {memoToasts.map((toast) => (
-        <ToastItem
-          key={toast.id}
-          toast={toast}
-        />
-      ))}
-    </div>,
-    document.body,
-  )
+  return memoToasts.length > 0
+    ? createPortal(
+        <div
+          className={cn(
+            "zenithui-toast-container",
+            className,
+            getPositionClass(position),
+          )}
+          {...props}
+        >
+          {memoToasts.map((toast) => (
+            <ToastItem
+              key={toast.id}
+              toast={toast}
+            />
+          ))}
+        </div>,
+        document.body,
+      )
+    : null
 }

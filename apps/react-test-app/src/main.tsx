@@ -6,7 +6,11 @@ import "./index.css"
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <ToastProvider>
+    <ToastProvider
+      theme="auto"
+      richColors
+      disableAutoDismiss
+    >
       <App />
     </ToastProvider>
   </StrictMode>,

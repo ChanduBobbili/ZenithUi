@@ -3,8 +3,10 @@
 import * as React from "react"
 import { registerToast } from "./toast"
 import { ToastContainer } from "./toast-container/toast-container"
+import { cn, getTheme } from "../utils"
 
 export type ToastType = "success" | "info" | "error" | "warning"
+export type Theme = "auto" | "light" | "dark"
 export type ToastPosition =
   | "top-left"
   | "top-right"
@@ -166,6 +168,12 @@ interface ToastProviderProps {
    * @default false
    */
   showCloseButton?: boolean
+  /**
+   * The theme of the toast.
+   * @type {Theme}
+   * @default "light"
+   */
+  theme?: Theme
   // /**
   //  * The style of the toast.
   //  * @type {React.CSSProperties}
@@ -207,6 +215,7 @@ export const ToastProvider: React.FC<ToastProviderProps> = ({
   children,
   position = "bottom-right",
   animation = "fade",
+  theme = "light",
   duration = 5000,
   maxToasts = 3,
   richColors = false,
@@ -263,7 +272,10 @@ export const ToastProvider: React.FC<ToastProviderProps> = ({
       }}
     >
       {children}
-      <ToastContainer toasts={toasts} />
+      <ToastContainer
+        toasts={toasts}
+        className={cn(getTheme(theme))}
+      />
     </ToastContext.Provider>
   )
 }
