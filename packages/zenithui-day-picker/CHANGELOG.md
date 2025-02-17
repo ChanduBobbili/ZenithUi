@@ -1,5 +1,11 @@
 # zenithui-day-picker
 
+## 2.2.0
+
+### Minor Changes
+
+- Reduced the dependency on the clsx and tailwind-merge
+
 ## 2.1.0
 
 ### Minor Changes
