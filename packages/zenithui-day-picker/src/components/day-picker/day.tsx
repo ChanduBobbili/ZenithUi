@@ -109,7 +109,7 @@ export function DayPickerDay({
         }
       }}
       onMouseEnter={() => handleMouseEnter(day)}
-      className={cn("day", classNames?.day, {
+      className={cn("zenithui-day", classNames?.day, {
         // Outside date
         [classNames?.outsideDate ?? ""]: !isSameMonth(day, currentMonth),
 

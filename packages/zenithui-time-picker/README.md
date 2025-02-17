@@ -18,7 +18,7 @@ pnpm add zenithui-time-picker
 
 ---
 
-### Usage
+## ⏳ TimePicker
 
 Once installed, you can use the `TimePicker` component in your React application as follows:
 
@@ -74,6 +74,71 @@ You can customize the alignment and positioning of the popover by using the foll
 - **`alignOffset`** and **`sideOffset`**: Adjust the alignment and side positioning offsets for the popover.
 - **`classNames`**: Pass custom class names for the popover content, buttons, or scrollable lists.
 - **`formatter`**: Use a custom time formatter to display the time as desired.
+
+---
+
+## ⏳ CountDownTimer
+
+The `CountDownTimer` component provides a countdown timer with customization options such as labels, descriptions, and expiry callbacks.
+
+### Props
+
+| Prop Name              | Type                              | Default           | Description                                                                                 |
+| ---------------------- | --------------------------------- | ----------------- | ------------------------------------------------------------------------------------------- |
+| `startTime`            | `string`                          | **Required**      | The start time for the countdown timer in ISO string format.                                |
+| `format`               | `"with-names" \| "without-names"` | `"without-names"` | Format of the countdown display. Includes labels (`with-names`) or plain (`without-names`). |
+| `className`            | `string`                          | `""`              | Additional CSS class name(s) for the countdown timer.                                       |
+| `description`          | `string`                          | `""`              | Description text displayed alongside the countdown timer.                                   |
+| `minutes`              | `number`                          | `5`               | Number of minutes for the countdown.                                                        |
+| `descriptionClassName` | `string`                          | `""`              | Additional CSS class name(s) for the description text.                                      |
+| `onExpired`            | `(isExpire: boolean) => void`     | `undefined`       | Callback invoked when the countdown timer expires.                                          |
+
+### Example Usage
+
+#### Basic Countdown
+
+```tsx
+import CountDownTimer from "zenithui-primitive";
+
+<CountDownTimer
+  startTime={new Date().toISOString()}
+  onExpired={(isExpire) => console.log("Timer expired:", isExpire)}
+/>
+```
+
+#### Countdown with Description
+
+```tsx
+import CountDownTimer from "zenithui-primitive";
+
+<CountDownTimer
+  startTime={new Date().toISOString()}Prop Name	Type	Description	Default
+  description="until the event starts"
+  descriptionClassName="text-gray-500"
+/>
+```
+
+#### Countdown with Labels
+
+```tsx
+import CountDownTimer from "zenithui-primitive";
+
+<CountDownTimer
+  startTime={new Date().toISOString()}
+  format="with-names"
+/>
+```
+
+#### Custom Styling
+
+```tsx
+import CountDownTimer from "zenithui-primitive";
+
+<CountDownTimer
+  startTime={new Date().toISOString()}
+  className="font-bold text-blue-500"
+/>
+```
 
 ---
 

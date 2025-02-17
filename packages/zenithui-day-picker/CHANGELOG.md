@@ -1,10 +1,16 @@
 # zenithui-day-picker
 
-## 2.1.1
+## 2.2.1
 
 ### Patch Changes
 
-- Fixed the css variables
+- refactored the theme setting
+
+## 2.2.0
+
+### Minor Changes
+
+- Reduced the dependency on the clsx and tailwind-merge
 
 ## 2.1.0
 

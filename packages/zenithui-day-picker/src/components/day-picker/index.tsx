@@ -1,5 +1,5 @@
 import * as React from "react"
-import { cn, getInitialDate, getInitialRange } from "../../utils"
+import { cn, getInitialDate, getInitialRange, getTheme } from "../../utils"
 import {
   eachDayOfInterval,
   endOfMonth,
@@ -211,27 +211,14 @@ const DayPicker = React.forwardRef<HTMLDivElement, DayPickerProps>(
       }
     }, [range])
 
-    React.useEffect(() => {
-      const root = document.querySelectorAll(".zenithui-calendar")[0]
-      if (root) {
-        if (theme === "dark") {
-          root.classList.add("dark")
-        } else if (theme === "light") {
-          root.classList.remove("dark")
-        } else {
-          if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
-            root.classList.add("dark")
-          } else {
-            root.classList.remove("dark")
-          }
-        }
-      }
-    }, [theme])
-
     return (
       <div
         ref={ref}
-        className={cn("zenithui-calendar", classNames?.calendar)}
+        className={cn(
+          getTheme(theme),
+          "zenithui-calendar",
+          classNames?.calendar,
+        )}
       >
         {/* Navgation Section */}
         {!hideNavigation && (
@@ -248,11 +235,11 @@ const DayPicker = React.forwardRef<HTMLDivElement, DayPickerProps>(
         )}
         {/* Weekdays Section */}
         {!hideWeekdays && (
-          <div className={cn("weekdays", classNames?.weekdays)}>
+          <div className={cn("zenithui-weekdays", classNames?.weekdays)}>
             {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map((day) => (
               <div
                 key={day}
-                className={cn("weekday", classNames?.weekday)}
+                className={cn("zenithui-weekday", classNames?.weekday)}
               >
                 {day}
               </div>
@@ -263,9 +250,9 @@ const DayPicker = React.forwardRef<HTMLDivElement, DayPickerProps>(
         {/* Days Section */}
         <div
           className={cn(
-            "days",
+            "zenithui-days",
             classNames?.days,
-            mode === "range" ? "gap-x-4" : "",
+            mode === "range" ? "zenithui-gap-x-4" : "",
           )}
         >
           {days.map((day) => (
