@@ -1,5 +1,5 @@
 import * as React from "react"
-import { cn, getInitialDate, getInitialRange } from "../../utils"
+import { cn, getInitialDate, getInitialRange, getTheme } from "../../utils"
 import {
   eachDayOfInterval,
   endOfMonth,
@@ -211,27 +211,14 @@ const DayPicker = React.forwardRef<HTMLDivElement, DayPickerProps>(
       }
     }, [range])
 
-    React.useEffect(() => {
-      const root = document.querySelectorAll(".zenithui-calendar")[0]
-      if (root) {
-        if (theme === "dark") {
-          root.classList.add("dark")
-        } else if (theme === "light") {
-          root.classList.remove("dark")
-        } else {
-          if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
-            root.classList.add("dark")
-          } else {
-            root.classList.remove("dark")
-          }
-        }
-      }
-    }, [theme])
-
     return (
       <div
         ref={ref}
-        className={cn("zenithui-calendar", classNames?.calendar)}
+        className={cn(
+          getTheme(theme),
+          "zenithui-calendar",
+          classNames?.calendar,
+        )}
       >
         {/* Navgation Section */}
         {!hideNavigation && (

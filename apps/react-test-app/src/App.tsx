@@ -93,7 +93,7 @@ function App() {
         onTimeChange={(time) => console.log(time)}
         align="center"
         side="right"
-        theme="auto"
+        theme="light"
       />
 
       <button onClick={() => setOpen(true)}>Open Light Box</button>

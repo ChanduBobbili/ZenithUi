@@ -33,6 +33,25 @@ export function cn(
 }
 
 /**
+ * The function `getTheme` returns the theme based on the input theme value.
+ * @param theme @type {"auto" | "light" | "dark"}
+ * @returns
+ */
+export function getTheme(theme: "auto" | "light" | "dark") {
+  switch (theme) {
+    case "dark":
+      return "dark"
+    case "auto":
+      return window.matchMedia("(prefers-color-scheme: dark)").matches
+        ? "dark"
+        : "light"
+    case "light":
+    default:
+      return
+  }
+}
+
+/**
  * Gets the initial date from the selected date or range.
  * If the selected date is a Date, it returns the date.
  * If the selected date is an array, it returns the first element of the array.
