@@ -1,5 +1,14 @@
 # zenithui-toast
 
+## 1.1.0
+
+### Minor Changes
+
+- Theme Provider and Options for toast instance to customize.
+  - Theme support (light, dark, auto).
+  - Options for toast to customize single toast also.
+    - RichColor, duration, disableAutoDismiss, animation, showCloseButton.
+
 ## 1.0.1
 
 ### Patch Changes

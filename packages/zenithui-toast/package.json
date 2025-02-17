@@ -1,6 +1,6 @@
 {
   "name": "zenithui-toast",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "A ZenithUi Toast is React component that displays a toast notification with a content area and a close button.",
   "type": "module",
   "private": false,
