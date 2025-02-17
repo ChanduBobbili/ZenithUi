@@ -1,5 +1,11 @@
 # zenithui-day-picker
 
+## 2.0.3
+
+### Patch Changes
+
+- changed approach for styling and enabling custom style in day-picker
+
 ## 2.0.2
 
 ### Patch Changes

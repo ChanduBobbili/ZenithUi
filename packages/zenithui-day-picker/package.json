@@ -1,6 +1,6 @@
 {
   "name": "zenithui-day-picker",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "description": "A ZenithUi Time Picker is React component enables users to select a date or date range from calendar.",
   "type": "module",
   "private": false,
