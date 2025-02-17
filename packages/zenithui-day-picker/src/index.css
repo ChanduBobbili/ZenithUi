@@ -1,50 +1,50 @@
 /* Light & Dark Theme Variables */
 :root {
-  --bg-color: white;
-  --text-color: black;
-  --selected-text-color: white;
-  --shadow-color: rgba(0, 0, 0, 0.1);
-  --hover-bg: #f3f4f6;
-  --selected-bg: rgba(59, 130, 246, 1);
-  --selected-bg-hover: rgba(59, 130, 246, 0.75);
-  --range-bg: rgba(59, 130, 246, 0.5);
-  --outline-color: rgba(59, 130, 246, 1);
+  --zenithui-bg-color: white;
+  --zenithui-text-color: black;
+  --zenithui-selected-text-color: white;
+  --zenithui-shadow-color: rgba(0, 0, 0, 0.1);
+  --zenithui-hover-bg: #f3f4f6;
+  --zenithui-selected-bg: rgba(59, 130, 246, 1);
+  --zenithui-selected-bg-hover: rgba(59, 130, 246, 0.75);
+  --zenithui-range-bg: rgba(59, 130, 246, 0.5);
+  --zenithui-outline-color: rgba(59, 130, 246, 1);
 }
 /* 
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg-color: #1e1e1e;
-    --text-color: white;
-    --shadow-color: rgba(255, 255, 255, 0.2);
-    --hover-bg: #374151;
-    --selected-bg: rgba(255, 255, 255, 1);
-    --selected-bg-hover: rgba(255, 255, 255, 0.75);
-    --range-bg: rgba(255, 255, 255, 0.5);
-    --outline-color: rgba(255, 255, 255, 1);
+    --zenithui-bg-color: #1e1e1e;
+    --zenithui-text-color: white;
+    --zenithui-shadow-color: rgba(255, 255, 255, 0.2);
+    --zenithui-hover-bg: #374151;
+    --zenithui-selected-bg: rgba(255, 255, 255, 1);
+    --zenithui-selected-bg-hover: rgba(255, 255, 255, 0.75);
+    --zenithui-range-bg: rgba(255, 255, 255, 0.5);
+    --zenithui-outline-color: rgba(255, 255, 255, 1);
   }
 } */
 
 .dark {
-  --bg-color: #1e1e1e;
-  --text-color: white;
-  --selected-text-color: black;
-  --shadow-color: rgba(255, 255, 255, 0.2);
-  --hover-bg: #374151;
-  --selected-bg: rgba(255, 255, 255, 1);
-  --selected-bg-hover: rgba(255, 255, 255, 0.75);
-  --range-bg: rgba(255, 255, 255, 0.5);
-  --outline-color: rgba(255, 255, 255, 1);
+  --zenithui-bg-color: #1e1e1e;
+  --zenithui-text-color: white;
+  --zenithui-selected-text-color: black;
+  --zenithui-shadow-color: rgba(255, 255, 255, 0.2);
+  --zenithui-hover-bg: #374151;
+  --zenithui-selected-bg: rgba(255, 255, 255, 1);
+  --zenithui-selected-bg-hover: rgba(255, 255, 255, 0.75);
+  --zenithui-range-bg: rgba(255, 255, 255, 0.5);
+  --zenithui-outline-color: rgba(255, 255, 255, 1);
 }
 
 .zenithui-calendar {
   width: 100%;
   min-width: 300px;
   max-width: 320px;
-  background-color: var(--bg-color);
-  color: var(--text-color);
+  background-color: var(--zenithui-bg-color);
+  color: var(--zenithui-text-color);
   padding: 16px;
   border-radius: 8px;
-  box-shadow: 0px 4px 6px var(--shadow-color);
+  box-shadow: 0px 4px 6px var(--zenithui-shadow-color);
 }
 
 .zenithui-calendar-header {
@@ -66,11 +66,11 @@
 }
 
 .zenithui-nav-button:hover {
-  background-color: var(--hover-bg);
+  background-color: var(--zenithui-hover-bg);
 }
 
 .zenithui-nav-button:focus {
-  outline: 2px solid var(--hover-bg);
+  outline: 2px solid var(--zenithui-hover-bg);
 }
 
 .zenithui-arrow-icon {
@@ -121,48 +121,48 @@
   font-weight: 500;
   cursor: pointer;
   transition: background 0.3s ease-in-out;
-  background-color: var(--bg-color);
-  color: var(--text-color);
+  background-color: var(--zenithui-bg-color);
+  color: var(--zenithui-text-color);
 }
 
 .zenithui-day:hover {
-  background-color: var(--hover-bg);
+  background-color: var(--zenithui-hover-bg);
 }
 
 /* Selected Day */
 .zenithui-day[data-selected="true"]:not([data-selected-custom="true"]) {
-  background-color: var(--selected-bg);
-  color: var(--selected-text-color);
+  background-color: var(--zenithui-selected-bg);
+  color: var(--zenithui-selected-text-color);
 }
 
 .zenithui-day[data-selected="true"]:not([data-selected-custom="true"]):hover {
-  background-color: var(--selected-bg-hover);
-  color: var(--selected-text-color);
+  background-color: var(--zenithui-selected-bg-hover);
+  color: var(--zenithui-selected-text-color);
 }
 
 /* Range Start */
 .zenithui-day[data-range-start="true"]:not([data-range-start-custom="true"]) {
-  background-color: var(--selected-bg);
-  color: var(--selected-text-color);
+  background-color: var(--zenithui-selected-bg);
+  color: var(--zenithui-selected-text-color);
   border-radius: 6px 0 0 6px;
 }
 
 .zenithui-day[data-range-end="true"]:not([data-range-end-custom="true"]) {
-  background-color: var(--selected-bg);
-  color: var(--selected-text-color);
+  background-color: var(--zenithui-selected-bg);
+  color: var(--zenithui-selected-text-color);
   border-radius: 0 6px 6px 0;
 }
 
 /* In-Range Dates */
 .zenithui-day[data-range-dates="true"]:not([data-range-dates-custom="true"]) {
-  background-color: var(--range-bg);
-  color: var(--selected-text-color);
+  background-color: var(--zenithui-range-bg);
+  color: var(--zenithui-selected-text-color);
   border-radius: 0px;
 }
 
 /* Today */
 .zenithui-day[data-today="true"]:not([data-today-custom="true"]) {
-  border: 2px solid var(--outline-color);
+  border: 2px solid var(--zenithui-outline-color);
 }
 
 /* Outside Date */
