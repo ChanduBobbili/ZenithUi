@@ -1,10 +1,49 @@
-.calendar {
+/* Light & Dark Theme Variables */
+:root {
+  --bg-color: white;
+  --text-color: black;
+  --selected-text-color: white;
+  --shadow-color: rgba(0, 0, 0, 0.1);
+  --hover-bg: #f3f4f6;
+  --selected-bg: rgba(59, 130, 246, 1);
+  --selected-bg-hover: rgba(59, 130, 246, 0.75);
+  --range-bg: rgba(59, 130, 246, 0.5);
+  --outline-color: rgba(59, 130, 246, 1);
+}
+/* 
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg-color: #1e1e1e;
+    --text-color: white;
+    --shadow-color: rgba(255, 255, 255, 0.2);
+    --hover-bg: #374151;
+    --selected-bg: rgba(255, 255, 255, 1);
+    --selected-bg-hover: rgba(255, 255, 255, 0.75);
+    --range-bg: rgba(255, 255, 255, 0.5);
+    --outline-color: rgba(255, 255, 255, 1);
+  }
+} */
+
+.dark {
+  --bg-color: #1e1e1e;
+  --text-color: white;
+  --selected-text-color: black;
+  --shadow-color: rgba(255, 255, 255, 0.2);
+  --hover-bg: #374151;
+  --selected-bg: rgba(255, 255, 255, 1);
+  --selected-bg-hover: rgba(255, 255, 255, 0.75);
+  --range-bg: rgba(255, 255, 255, 0.5);
+  --outline-color: rgba(255, 255, 255, 1);
+}
+
+.zenithui-calendar {
   width: 100%;
   max-width: 320px;
-  background-color: white;
+  background-color: var(--bg-color);
+  color: var(--text-color);
   padding: 16px;
   border-radius: 8px;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 4px 6px var(--shadow-color);
 }
 
 .calendar-header {
@@ -20,26 +59,17 @@
   background: none;
   padding: 8px;
   cursor: pointer;
-  transition: transform 0.2s ease-in-out;
+  transition:
+    transform 0.2s ease-in-out,
+    background 0.2s;
 }
 
 .nav-button:hover {
-  background-color: #f3f4f6;
-}
-
-.nav-button:active {
-  border: 0px;
-  outline: 2px solid #f3f4f6;
+  background-color: var(--hover-bg);
 }
 
 .nav-button:focus {
-  border: 0px;
-  outline: 2px solid #f3f4f6;
-}
-
-.nav-button:focus-visible {
-  border: 0px;
-  outline: 2px solid #f3f4f6;
+  outline: 2px solid var(--hover-bg);
 }
 
 .arrow-icon {
@@ -74,11 +104,6 @@
   gap: 4px;
 }
 
-.gap-x-4 {
-  row-gap: 4px;
-  column-gap: 0px;
-}
-
 .day {
   width: 100%;
   height: 40px;
@@ -90,35 +115,18 @@
   font-weight: 500;
   cursor: pointer;
   transition: background 0.3s ease-in-out;
-  padding: 0px;
-  margin: 0px;
-  border: 0px;
-  background-color: white;
+  background-color: var(--bg-color);
+  color: var(--text-color);
 }
 
 .day:hover {
-  background-color: #e5e7eb;
-}
-
-.day:active {
-  outline: 0px;
-  border: 0px;
-}
-
-.day:focus {
-  outline: 2px solid rgba(59, 130, 246, 1);
-  border: 0px;
-}
-
-.day:focus-visible {
-  outline: 2px solid rgba(59, 130, 246, 1);
-  border: 0px;
+  background-color: var(--hover-bg);
 }
 
 /* Selected Day */
 .day[data-selected="true"]:not([data-selected-custom="true"]) {
-  background-color: rgba(59, 130, 246, 1);
-  color: white;
+  background-color: var(--selected-bg);
+  color: var(--selected-text-color);
 }
 
 .day[data-selected="true"]:not([data-selected-custom="true"]):hover {
@@ -128,41 +136,26 @@
 
 /* Range Start */
 .day[data-range-start="true"]:not([data-range-start-custom="true"]) {
-  background-color: rgba(59, 130, 246, 1);
-  color: white;
+  background-color: var(--selected-bg);
+  color: var(--selected-text-color);
   border-radius: 6px 0 0 6px;
 }
 
-.day[data-range-start="true"]:not([data-range-start-custom="true"]):hover {
-  background-color: rgba(59, 130, 246, 1);
-}
-
-/* Range End */
 .day[data-range-end="true"]:not([data-range-end-custom="true"]) {
-  background-color: rgba(59, 130, 246, 1);
-  color: white;
+  background-color: var(--selected-bg);
+  color: var(--selected-text-color);
   border-radius: 0 6px 6px 0;
-}
-
-.day[data-range-end="true"]:not([data-range-end-custom="true"]):hover {
-  background-color: rgba(59, 130, 246, 1);
 }
 
 /* In-Range Dates */
 .day[data-range-dates="true"]:not([data-range-dates-custom="true"]) {
-  background-color: rgba(59, 130, 246, 0.5);
-  color: white;
-  border-radius: 0px 0px 0px 0px;
-  border: 0px;
-}
-
-.day[data-range-dates="true"]:not([data-range-dates-custom="true"]):hover {
-  background-color: rgba(59, 130, 246, 1);
+  background-color: var(--range-bg);
+  color: var(--selected-text-color);
 }
 
 /* Today */
 .day[data-today="true"]:not([data-today-custom="true"]) {
-  border: 2px solid #3b82f6;
+  border: 2px solid var(--outline-color);
 }
 
 /* Outside Date */
@@ -170,7 +163,7 @@
   opacity: 0.5;
 }
 
-/* hideOutsideDates */
+/* Hide Outside Dates */
 .day[data-visibility="true"] {
   visibility: hidden;
 }

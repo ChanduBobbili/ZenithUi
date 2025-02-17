@@ -1,6 +1,6 @@
 import { clsx, type ClassValue } from "clsx"
 import { twMerge } from "tailwind-merge"
-import { DateRange } from "./components/day-picker"
+import { DateRange } from "./components/day-picker/index"
 import { isAfter, isBefore, isWithinInterval } from "date-fns"
 
 /**

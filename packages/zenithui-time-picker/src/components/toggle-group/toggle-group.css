@@ -15,7 +15,8 @@
   justify-content: center;
   text-align: center;
   font-size: 0.875rem; /* Equivalent to text-sm */
-  border: 1px solid transparent;
+  border: 0px;
+  padding: 0px;
   border-radius: 0.375rem; /* Equivalent to rounded-md */
   transition: all 0.3s ease-in-out;
 }
