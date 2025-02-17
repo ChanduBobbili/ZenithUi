@@ -4,8 +4,6 @@ on:
   push:
     tags:
       - "*" # Trigger on any tag
-    branches:
-      - main # Only trigger if the tag is on main
 
 jobs:
   publish:

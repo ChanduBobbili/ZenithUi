@@ -126,7 +126,7 @@ function App() {
       />
 
       <DayPicker
-        mode="range"
+        mode="single"
         selected={selectedDate}
         onSelect={setSelectedDate}
         hideNavigation={false}
