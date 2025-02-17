@@ -131,7 +131,8 @@
 
 .day[data-selected="true"]:not([data-selected-custom="true"]):hover {
   background-color: var(--selected-bg-hover);
-  color: var(--selected-text-color);}
+  color: var(--selected-text-color);
+}
 
 /* Range Start */
 .day[data-range-start="true"]:not([data-range-start-custom="true"]) {

@@ -134,6 +134,7 @@ function App() {
         hideNavigation={false}
         hideOutsideDates={false}
         hideWeekdays={false}
+        theme="auto"
         // classNames={{
         //   calendar: "bg-slate-50",
         //   day: "bg-slate-50",
