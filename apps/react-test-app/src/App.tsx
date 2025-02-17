@@ -59,7 +59,7 @@ function App() {
           <button>Open Drawer</button>
         </DrawerTrigger>
         <DrawerContent
-          className="w-1/2 rounded-tl-md rounded-bl-md p-6 pt-2 pb-4 transition-all duration-300 ease-in-out"
+          className="w-1/2 rounded-bl-md rounded-tl-md p-6 pb-4 pt-2 transition-all duration-300 ease-in-out"
           OverlayClassName="bg-black/75"
         >
           <DrawerHeader>
@@ -134,6 +134,14 @@ function App() {
         hideNavigation={false}
         hideOutsideDates={false}
         hideWeekdays={false}
+        // classNames={{
+        //   calendar: "bg-slate-50",
+        //   day: "bg-slate-50",
+        //   rangeDates: "bg-sky-50",
+        //   rangeStart: "bg-blue-500",
+        //   rangeEnd: "bg-red-500",
+        //   outsideDate: "bg-red-100",
+        // }}
       />
 
       <button onClick={() => toast.success("Success Toast")}>

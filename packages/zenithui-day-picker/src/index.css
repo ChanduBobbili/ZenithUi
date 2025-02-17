@@ -87,8 +87,13 @@
   justify-content: center;
   border-radius: 6px;
   font-size: 14px;
+  font-weight: 500;
   cursor: pointer;
   transition: background 0.3s ease-in-out;
+  padding: 0px;
+  margin: 0px;
+  border: 0px;
+  background-color: white;
 }
 
 .day:hover {
@@ -110,54 +115,61 @@
   border: 0px;
 }
 
-.outside-date {
-  opacity: 0.5;
-}
-
-.today {
-  border: 2px solid rgba(59, 130, 246, 1);
-}
-
-.day-selected {
+/* Selected Day */
+.day[data-selected="true"]:not([data-selected-custom="true"]) {
   background-color: rgba(59, 130, 246, 1);
   color: white;
 }
 
-.day-selected:hover {
+.day[data-selected="true"]:not([data-selected-custom="true"]):hover {
   background-color: rgba(59, 130, 246, 0.75);
 }
 
-.range-start {
+/* Range Start */
+.day[data-range-start="true"]:not([data-range-start-custom="true"]) {
   background-color: rgba(59, 130, 246, 1);
   color: white;
   border-radius: 6px 0 0 6px;
 }
 
-.range-start:hover {
+.day[data-range-start="true"]:not([data-range-start-custom="true"]):hover {
   background-color: rgba(59, 130, 246, 1);
 }
 
-.range-end {
+/* Range End */
+.day[data-range-end="true"]:not([data-range-end-custom="true"]) {
   background-color: rgba(59, 130, 246, 1);
   color: white;
   border-radius: 0 6px 6px 0;
 }
 
-.range-end:hover {
+.day[data-range-end="true"]:not([data-range-end-custom="true"]):hover {
   background-color: rgba(59, 130, 246, 1);
 }
 
-.range-dates {
+/* In-Range Dates */
+.day[data-range-dates="true"]:not([data-range-dates-custom="true"]) {
   background-color: rgba(59, 130, 246, 0.5);
   color: white;
   border-radius: 0px 0px 0px 0px;
   border: 0px;
 }
 
-.range-dates:hover {
+.day[data-range-dates="true"]:not([data-range-dates-custom="true"]):hover {
   background-color: rgba(59, 130, 246, 1);
 }
 
-.hidden {
+/* Today */
+.day[data-today="true"]:not([data-today-custom="true"]) {
+  border: 2px solid #3b82f6;
+}
+
+/* Outside Date */
+.day[data-outside-date="true"]:not([data-outside-date-custom="true"]) {
+  opacity: 0.5;
+}
+
+/* hideOutsideDates */
+.day[data-visibility="true"] {
   visibility: hidden;
 }
