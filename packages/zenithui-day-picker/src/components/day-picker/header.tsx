@@ -22,21 +22,21 @@ export function DayPickerHeader({
   const handleNextMonth = () => setCurrentMonth(addMonths(currentMonth, 1))
 
   return (
-    <div className={cn("calendar-header", classNames?.header)}>
+    <div className={cn("zenithui-calendar-header", classNames?.header)}>
       <button
         onClick={handlePrevMonth}
-        className={cn("nav-button", classNames?.prevMonthButton)}
+        className={cn("zenithui-nav-button", classNames?.prevMonthButton)}
       >
-        <Arrow className="arrow-icon left" />
+        <Arrow className="zenithui-arrow-icon left" />
       </button>
-      <h2 className={cn("month-caption", classNames?.monthCaption)}>
+      <h2 className={cn("zenithui-month-caption", classNames?.monthCaption)}>
         {format(currentMonth, "MMMM yyyy")}
       </h2>
       <button
         onClick={handleNextMonth}
-        className={cn("nav-button", classNames?.nextMonthButton)}
+        className={cn("zenithui-nav-button", classNames?.nextMonthButton)}
       >
-        <Arrow className="arrow-icon" />
+        <Arrow className="zenithui-arrow-icon" />
       </button>
     </div>
   )
