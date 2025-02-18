@@ -1,19 +1,13 @@
 import * as React from "react"
 import { cn, getInitialDate, getInitialRange, getTheme } from "../../utils"
-import {
-  eachDayOfInterval,
-  endOfMonth,
-  endOfWeek,
-  isAfter,
-  isSameMonth,
-  startOfMonth,
-  startOfWeek,
-} from "date-fns"
+import { isAfter, isSameMonth, startOfMonth } from "date-fns"
 import { DayPickerHeader } from "./header"
-import { DayPickerDay } from "./day"
 import "./../../index.css"
+import { DayPickerDays } from "./days"
+import { DayPickerMonths } from "./months"
+import { DayPickerYears } from "./years"
 
-interface classNames {
+export interface DayPickerclassNames {
   /**
    * The class names to apply to the calendar.
    */
@@ -81,6 +75,7 @@ interface classNames {
  */
 export type DateRange = [Date, Date] | { from: Date; to: Date }
 export type DatePickerMode = "single" | "range"
+export type DayPickerState = "day" | "month" | "year"
 export type InternalRange =
   | [Date, Date | null]
   | { from: Date; to: Date | null }
@@ -101,7 +96,7 @@ interface DayPickerProps {
   /**
    * The class names to apply to the day picker.
    */
-  classNames?: Partial<classNames>
+  classNames?: Partial<DayPickerclassNames>
   /**
    * Whether to hide the navigation buttons.
    */
@@ -140,6 +135,8 @@ const DayPicker = React.forwardRef<HTMLDivElement, DayPickerProps>(
       )
     }
 
+    const [state, setState] = React.useState<DayPickerState>("day")
+
     const [currentMonth, setCurrentMonth] = React.useState<Date>(
       getInitialDate(selected),
     )
@@ -147,13 +144,6 @@ const DayPicker = React.forwardRef<HTMLDivElement, DayPickerProps>(
       getInitialRange(selected),
     )
     const [focus, setFocus] = React.useState<Date | null>(null)
-
-    const days = React.useMemo(() => {
-      return eachDayOfInterval({
-        start: startOfWeek(startOfMonth(currentMonth)),
-        end: endOfWeek(endOfMonth(currentMonth)),
-      })
-    }, [currentMonth])
 
     const handleSelectDate = (date: Date) => {
       if (!isSameMonth(date, currentMonth)) {
@@ -224,62 +214,40 @@ const DayPicker = React.forwardRef<HTMLDivElement, DayPickerProps>(
         {!hideNavigation && (
           <DayPickerHeader
             currentMonth={currentMonth}
+            state={state}
             setCurrentMonth={setCurrentMonth}
-            classNames={{
-              header: classNames?.header,
-              monthCaption: classNames?.monthCaption,
-              nextMonthButton: classNames?.nextMonthButton,
-              prevMonthButton: classNames?.prevMonthButton,
-            }}
+            setState={setState}
+            classNames={classNames}
           />
         )}
-        {/* Weekdays Section */}
-        {!hideWeekdays && (
-          <div className={cn("zenithui-weekdays", classNames?.weekdays)}>
-            {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map((day) => (
-              <div
-                key={day}
-                className={cn("zenithui-weekday", classNames?.weekday)}
-              >
-                {day}
-              </div>
-            ))}
-          </div>
-        )}
-
         {/* Days Section */}
-        <div
-          className={cn(
-            "zenithui-days",
-            classNames?.days,
-            mode === "range" ? "zenithui-gap-x-4" : "",
-          )}
-        >
-          {days.map((day) => (
-            <DayPickerDay
-              key={day.toISOString()}
-              currentMonth={currentMonth}
-              day={day}
-              focus={focus}
-              range={range}
-              selected={selected}
-              mode={mode}
-              hideOutsideDates={hideOutsideDates}
-              handleMouseEnter={handleMouseEnter}
-              handleRangeSelect={handleRangeSelect}
-              handleSelectDate={handleSelectDate}
-              classNames={{
-                day: classNames?.day,
-                daySelected: classNames?.daySelected,
-                outsideDate: classNames?.outsideDate,
-                rangeDates: classNames?.rangeDates,
-                rangeEnd: classNames?.rangeEnd,
-                rangeStart: classNames?.rangeStart,
-                today: classNames?.today,
-              }}
-            />
-          ))}
-        </div>
+        {state === "day" ? (
+          <DayPickerDays
+            hideWeekdays={hideWeekdays}
+            currentMonth={currentMonth}
+            focus={focus}
+            hideOutsideDates={hideOutsideDates}
+            mode={mode}
+            range={range}
+            selected={selected}
+            handleSelectDate={handleSelectDate}
+            handleMouseEnter={handleMouseEnter}
+            handleRangeSelect={handleRangeSelect}
+            classNames={classNames}
+          />
+        ) : state === "month" ? (
+          <DayPickerMonths
+            currentMonth={currentMonth}
+            setCurrentMonth={setCurrentMonth}
+            setState={setState}
+          />
+        ) : (
+          <DayPickerYears
+            currentMonth={currentMonth}
+            setCurrentMonth={setCurrentMonth}
+            setState={setState}
+          />
+        )}
       </div>
     )
   },

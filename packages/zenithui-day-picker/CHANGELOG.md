@@ -1,5 +1,11 @@
 # zenithui-day-picker
 
+## 2.3.0
+
+### Minor Changes
+
+- Added support to change the month and year not the day
+
 ## 2.2.1
 
 ### Patch Changes

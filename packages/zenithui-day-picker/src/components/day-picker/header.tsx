@@ -1,40 +1,67 @@
-import { addMonths, format, subMonths } from "date-fns"
+import { addMonths, addYears, format, subMonths, subYears } from "date-fns"
 import { cn } from "../../utils"
 import Arrow from "../../assets/arrow.svg?react"
+import { DayPickerclassNames, DayPickerState } from "."
 
 interface DayPickerHeaderProps {
   currentMonth: Date
   setCurrentMonth: (date: Date) => void
-  classNames?: {
-    header?: string
-    prevMonthButton?: string
-    nextMonthButton?: string
-    monthCaption?: string
-  }
+  state: DayPickerState
+  setState: (state: DayPickerState) => void
+  classNames?: Partial<DayPickerclassNames>
 }
 
 export function DayPickerHeader({
   currentMonth,
+  state,
   setCurrentMonth,
+  setState,
   classNames,
 }: DayPickerHeaderProps) {
-  const handlePrevMonth = () => setCurrentMonth(subMonths(currentMonth, 1))
-  const handleNextMonth = () => setCurrentMonth(addMonths(currentMonth, 1))
+  const handlePrev = () => {
+    if (state === "day") setCurrentMonth(subMonths(currentMonth, 1))
+    else if (state === "year") setCurrentMonth(subYears(currentMonth, 12))
+  }
+  const handleNext = () => {
+    if (state === "day") setCurrentMonth(addMonths(currentMonth, 1))
+    else if (state === "year") setCurrentMonth(addYears(currentMonth, 12))
+  }
 
   return (
     <div className={cn("zenithui-calendar-header", classNames?.header)}>
       <button
-        onClick={handlePrevMonth}
+        onClick={handlePrev}
         className={cn("zenithui-nav-button", classNames?.prevMonthButton)}
+        disabled={state === "month"}
       >
         <Arrow className="zenithui-arrow-icon left" />
       </button>
-      <h2 className={cn("zenithui-month-caption", classNames?.monthCaption)}>
-        {format(currentMonth, "MMMM yyyy")}
-      </h2>
+
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <button
+          className={cn("zenithui-month-caption", classNames?.monthCaption)}
+          onClick={() => setState("month")}
+        >
+          {format(currentMonth, "MMMM")}
+        </button>
+        <button
+          className={cn("zenithui-month-caption", classNames?.monthCaption)}
+          onClick={() => setState("year")}
+        >
+          {format(currentMonth, "yyyy")}
+        </button>
+      </div>
+
       <button
-        onClick={handleNextMonth}
+        onClick={handleNext}
         className={cn("zenithui-nav-button", classNames?.nextMonthButton)}
+        disabled={state === "month"}
       >
         <Arrow className="zenithui-arrow-icon" />
       </button>

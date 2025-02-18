@@ -76,6 +76,11 @@
   outline: 2px solid var(--zenithui-hover-bg);
 }
 
+.zenithui-nav-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
 .zenithui-arrow-icon {
   width: 20px;
   height: 20px;
@@ -86,8 +91,42 @@
 }
 
 .zenithui-month-caption {
-  font-size: 16px;
-  font-weight: bold;
+  font-size: 14px;
+  font-weight: 500;
+  border: 2px solid transparent;
+  border-radius: 6px;
+  background: none;
+  min-width: 100px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition:
+    transform 0.2s ease-in-out,
+    background 0.2s;
+  transition:
+    transform 0.2s ease-in-out,
+    background 0.2s;
+}
+
+.zenithui-month-caption:hover {
+  border: 2px solid var(--zenithui-hover-bg);
+}
+
+.zenithui-month-caption:focus {
+  outline: 2px solid var(--zenithui-hover-bg);
+}
+
+.zenithui-month-caption:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.zenithui-months {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 4px;
 }
 
 .zenithui-weekdays {
@@ -130,6 +169,11 @@
 
 .zenithui-day:hover {
   background-color: var(--zenithui-hover-bg);
+}
+
+.zenithui-day:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
 }
 
 /* Selected Day */
