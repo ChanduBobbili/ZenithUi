@@ -1,4 +1,5 @@
 import { Table } from "nextra/components"
+import { Callout } from "nextra/components"
 
 # Time Picker
 
@@ -153,3 +154,15 @@ const App = () => {
 
   </tbody>
 </Table>
+
+---
+
+<Callout type="info">
+  Import your styles.css/global.css after the `app.jsx`, Hence your styles will
+  have higher specificity
+</Callout>
+
+```jsx {2}
+import { TimePicker } from "zenithui-time-picker"
+import "./styles.css"
+```

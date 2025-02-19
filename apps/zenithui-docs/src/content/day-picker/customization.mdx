@@ -1,4 +1,6 @@
 import { Table } from "nextra/components"
+import { ImageZoom } from "nextra/components"
+import { Callout } from "nextra/components"
 
 # Customization
 
@@ -91,3 +93,21 @@ The classNames to custom the Component
 
   </tbody>
 </Table>
+
+---
+
+## Anotation
+
+<ImageZoom src="/day-picker-anotation.png" />
+
+---
+
+<Callout type="info">
+  Import your styles.css/global.css after the `app.jsx`, Hence your styles will
+  have higher specificity
+</Callout>
+
+```jsx {2}
+import { DayPicker } from "zenithui-day-picker";
+import "./styles.css"
+```

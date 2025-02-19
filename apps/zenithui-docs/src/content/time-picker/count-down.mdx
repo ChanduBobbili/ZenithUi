@@ -1,4 +1,5 @@
 import { Table } from "nextra/components"
+import { Callout } from "nextra/components"
 
 # Count Down
 
@@ -35,17 +36,6 @@ import CountDownTimer from "zenithui-primitive";
 <CountDownTimer
   startTime={new Date().toISOString()}
   format="with-names"
-/>
-```
-
-## 🎨 Custom Styling
-
-```tsx
-import CountDownTimer from "zenithui-primitive";
-
-<CountDownTimer
-  startTime={new Date().toISOString()}
-  className="font-bold text-blue-500"
 />
 ```
 
@@ -126,3 +116,26 @@ import CountDownTimer from "zenithui-primitive";
 
   </tbody>
 </Table>
+
+---
+
+## 🎨 Custom Styling
+
+```tsx
+import CountDownTimer from "zenithui-primitive";
+
+<CountDownTimer
+  startTime={new Date().toISOString()}
+  className="font-bold text-blue-500"
+/>
+```
+
+<Callout type="info">
+  Import your styles.css/global.css after the `app.jsx`, Hence your styles will
+  have higher specificity
+</Callout>
+
+```jsx {2}
+import CountDownTimer from "zenithui-primitive"
+import "./styles.css"
+```
