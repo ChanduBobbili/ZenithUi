@@ -136,7 +136,7 @@ importers:
   apps/zenithui-docs:
     dependencies:
       next:
-        specifier: 15.1.7
+        specifier: ^15.0.2
         version: 15.1.7(@babel/core@7.26.8)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       nextra:
         specifier: ^4.2.13

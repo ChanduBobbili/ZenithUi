@@ -1,4 +1,4 @@
-import { Steps } from "nextra/components"
+import { Steps } from 'nextra/components'
 
 # Get Started
 
@@ -34,11 +34,11 @@ npm i nextra-theme-docs
 ### Create the following Next.js config and theme config under the root directory
 
 ```js filename="next.config.mjs"
-import nextra from "nextra"
+import nextra from 'nextra'
 
 const withNextra = nextra({
-  theme: "nextra-theme-blog",
-  themeConfig: "./theme.config.js",
+  theme: 'nextra-theme-blog',
+  themeConfig: './theme.config.js'
 })
 export default withNextra()
 ```
@@ -48,17 +48,17 @@ export default withNextra()
 ```js filename="theme.config.js"
 export default {
   project: {
-    link: "https://github.com/shuding/nextra", // GitHub link in the navbar
+    link: 'https://github.com/shuding/nextra' // GitHub link in the navbar
   },
-  docsRepositoryBase: "https://github.com/shuding/nextra/blob/master", // base URL for the docs repository
-  getNextSeoProps: () => ({ titleTemplate: "%s – Nextra" }),
+  docsRepositoryBase: 'https://github.com/shuding/nextra/blob/master', // base URL for the docs repository
+  getNextSeoProps: () => ({ titleTemplate: '%s – Nextra' }),
   navigation: true,
   darkMode: true,
   footer: {
-    text: `MIT ${new Date().getFullYear()} © Shu Ding.`,
+    text: `MIT ${new Date().getFullYear()} © Shu Ding.`
   },
   editLink: {
-    text: "Edit this page on GitHub",
+    text: 'Edit this page on GitHub'
   },
   logo: (
     <>
@@ -68,24 +68,15 @@ export default {
   ),
   head: (
     <>
-      <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-      />
-      <meta
-        name="description"
-        content="Nextra: the next docs builder"
-      />
-      <meta
-        name="og:title"
-        content="Nextra: the next docs builder"
-      />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <meta name="description" content="Nextra: the next docs builder" />
+      <meta name="og:title" content="Nextra: the next docs builder" />
     </>
   ),
   primaryHue: {
     dark: 204,
-    light: 212,
-  },
+    light: 212
+  }
 }
 ```
 

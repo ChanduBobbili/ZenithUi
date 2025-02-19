@@ -1,10 +1,11 @@
-import type { Metadata } from "next"
+/* eslint-env node */
 import { Layout, Navbar } from "nextra-theme-docs"
+import { Head } from "nextra/components"
 import { getPageMap } from "nextra/page-map"
-import "./globals.css"
 import "nextra-theme-docs/style.css"
 
-export const metadata: Metadata = {
+export const metadata = {
+  metadataBase: new URL("https://nextra.site"),
   title: {
     default: "Zenithui",
     template: "%s - Zenithui",
@@ -14,6 +15,10 @@ export const metadata: Metadata = {
   generator: "Next.js",
   appleWebApp: {
     title: "Zenithui-Docs",
+  },
+  other: {
+    "msapplication-TileImage": "/ms-icon-144x144.png",
+    "msapplication-TileColor": "#fff",
   },
 }
 
@@ -30,13 +35,18 @@ const navbar = (
 
 export default async function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode
-}>) {
+}) {
   const pageMap = await getPageMap()
   return (
-    <html lang="en">
-      <body className="antialiased">
+    <html
+      lang="en"
+      dir="ltr"
+      suppressHydrationWarning
+    >
+      <Head faviconGlyph="✦" />
+      <body>
         <Layout
           navbar={navbar}
           footer={<></>}
@@ -44,16 +54,6 @@ export default async function RootLayout({
           docsRepositoryBase="https://github.com/ChanduBobbili/ZenithUi"
           sidebar={{ defaultMenuCollapseLevel: 1 }}
           pageMap={pageMap}
-          navigation={{
-            prev: true,
-            next: true,
-          }}
-          darkMode={true}
-          themeSwitch={{
-            dark: "Dark",
-            light: "Light",
-            system: "System",
-          }}
         >
           {children}
         </Layout>

@@ -8,6 +8,7 @@
     "clean": {},
     "lint": {},
     "lint:fix": {},
+    "next:clean": {},
     "dev": {
       "persistent": true,
       "cache": false

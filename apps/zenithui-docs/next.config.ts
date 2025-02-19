@@ -5,16 +5,12 @@ const withNextra = nextra({
   search: {
     codeblocks: false,
   },
-  defaultShowCopyCode: true,
-  mdxOptions: {
-    remarkPlugins: [],
-    rehypePlugins: [],
-  },
+  contentDirBasePath: "/docs",
   // ... Other Nextra config options
 })
 
 // You can include other Next.js configuration options here, in addition to Nextra settings:
 export default withNextra({
-  // reactStrictMode: true,
+  reactStrictMode: true,
   // ... Other Next.js config options
 })
