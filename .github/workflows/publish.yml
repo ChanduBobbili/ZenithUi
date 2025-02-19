@@ -3,7 +3,8 @@ name: Publish Package to NPM
 on:
   push:
     tags:
-      - "*" # Trigger on any tag
+      - "!zenithui-docs@*" # Exclude zenithui-docs tags
+      - "*" # Trigger on any other tag
 
 jobs:
   publish:

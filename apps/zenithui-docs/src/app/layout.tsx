@@ -2,6 +2,7 @@
 import { Layout, Navbar } from "nextra-theme-docs"
 import { Head } from "nextra/components"
 import { getPageMap } from "nextra/page-map"
+import { SpeedInsights } from "@vercel/speed-insights/next"
 import "nextra-theme-docs/style.css"
 import { Metadata } from "next"
 
@@ -67,6 +68,7 @@ export default async function RootLayout({
         >
           {children}
         </Layout>
+        <SpeedInsights />
       </body>
     </html>
   )
