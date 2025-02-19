@@ -20,6 +20,7 @@
     "type": "git",
     "url": "git+https://github.com/ChanduBobbili/ZenithUi.git#main"
   },
+  "homepage": "https://zenithui-docs.vercel.app/",
   "bugs": {
     "url": "https://github.com/ChanduBobbili/ZenithUi/issues"
   },
