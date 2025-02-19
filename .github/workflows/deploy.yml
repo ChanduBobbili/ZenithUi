@@ -10,19 +10,20 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Repository
+      - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0
+          fetch-depth: 0 # Ensures full Git history
+          ref: main # Ensure you check out a named branch
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: "20"
-          cache: "pnpm"
+          node-version: "lts/*" # Use the latest LTS version of Node.js
+          registry-url: "https://registry.npmjs.org/"
 
       - name: Install pnpm
-        run: npm install -g pnpm@9
+        run: npm install -g pnpm
 
       - name: Install Dependencies
         run: pnpm install
