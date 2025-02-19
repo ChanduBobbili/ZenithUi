@@ -19,6 +19,7 @@
 
 # production
 /build
+_pagefind/
 
 # misc
 .DS_Store
