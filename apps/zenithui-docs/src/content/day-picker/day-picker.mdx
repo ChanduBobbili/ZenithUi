@@ -1,0 +1,18 @@
+# Day Picker
+
+```tsx
+import React, { useState } from "react";
+import { DayPicker } from "zenithui-day-picker";
+
+const App = () => {
+  const [selectedDate, setSelectedDate] = useState(new Date());
+
+  return (
+    <div>
+      <DayPicker selected={selectedDate} onSelect={setSelectedDate} />
+    </div>
+  );
+};
+
+export default App;
+```

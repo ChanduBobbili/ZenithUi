@@ -1,7 +1,7 @@
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
-  index: "",
+  "getting-started": "",
   "day-picker": "",
-  "time-picker": "",
-  toast: "",
+  api: "",
+  customization: "",
 }
