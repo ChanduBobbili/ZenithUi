@@ -17,21 +17,22 @@ export const metadata: Metadata = {
   },
 }
 
+const navbar = (
+  <Navbar
+    logo={
+      <div>
+        <b>Zenithui</b>
+      </div>
+    }
+    projectLink="https://github.com/ChanduBobbili/ZenithUi"
+  />
+)
+
 export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode
 }>) {
-  const navbar = (
-    <Navbar
-      logo={
-        <div>
-          <b>Zenithui</b>
-        </div>
-      }
-      projectLink="https://github.com/ChanduBobbili/ZenithUi"
-    />
-  )
   const pageMap = await getPageMap()
   return (
     <html lang="en">
@@ -39,18 +40,19 @@ export default async function RootLayout({
         <Layout
           navbar={navbar}
           footer={<></>}
-          editLink="Edit this page on GitHub"
-          docsRepositoryBase="https://github.com/shuding/nextra/blob/main/examples/docs"
+          editLink={null}
+          docsRepositoryBase="https://github.com/ChanduBobbili/ZenithUi"
           sidebar={{ defaultMenuCollapseLevel: 1 }}
           pageMap={pageMap}
           navigation={{
             prev: true,
             next: true,
           }}
+          darkMode={true}
           themeSwitch={{
-            dark: "Темный",
-            light: "Светлый",
-            system: "Системный",
+            dark: "Dark",
+            light: "Light",
+            system: "System",
           }}
         >
           {children}
