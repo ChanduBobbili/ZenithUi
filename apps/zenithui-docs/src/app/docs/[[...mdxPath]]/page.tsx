@@ -1,11 +1,15 @@
 /* eslint-disable react-hooks/rules-of-hooks -- false positive, useMDXComponents isn't react hooks */
 
-import { generateStaticParamsFor, importPage } from 'nextra/pages'
-import { useMDXComponents } from '../../../../mdx-components'
+import { generateStaticParamsFor, importPage } from "nextra/pages"
+import { useMDXComponents } from "../../../../mdx-components"
 
-export const generateStaticParams = generateStaticParamsFor('mdxPath')
+export const generateStaticParams = generateStaticParamsFor("mdxPath")
 
-export async function generateMetadata(props) {
+export async function generateMetadata(props: {
+  params: {
+    mdxPath: string[]
+  }
+}) {
   const params = await props.params
   const { metadata } = await importPage(params.mdxPath)
   return metadata
@@ -13,13 +17,23 @@ export async function generateMetadata(props) {
 
 const Wrapper = useMDXComponents().wrapper
 
-export default async function Page(props) {
+export default async function Page(props: {
+  params: {
+    mdxPath: string[]
+  }
+}) {
   const params = await props.params
   const result = await importPage(params.mdxPath)
   const { default: MDXContent, toc, metadata } = result
   return (
-    <Wrapper toc={toc} metadata={metadata}>
-      <MDXContent {...props} params={params} />
+    <Wrapper
+      toc={toc}
+      metadata={metadata}
+    >
+      <MDXContent
+        {...props}
+        params={params}
+      />
     </Wrapper>
   )
 }

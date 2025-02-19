@@ -9,7 +9,8 @@
     "dev": "turbo run dev",
     "lint": "turbo run lint",
     "lint:fix": "turbo run lint:fix",
-    "next:clean": "turbo run next:clean"
+    "next:clean": "turbo run next:clean",
+    "start": "turbo run start"
   },
   "devDependencies": {
     "@changesets/cli": "^2.27.12",
