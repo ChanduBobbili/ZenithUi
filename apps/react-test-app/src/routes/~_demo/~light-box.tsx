@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router"
 import { useState } from "react"
 import { LightBox, LightBoxImages } from "zenithui-light-box"
-import { dummyImages } from "../../dummy"
+import { dummyImages } from "../../utils/dummy"
 
 export const Route = createFileRoute("/_demo/light-box")({
   component: RouteComponent,

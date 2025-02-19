@@ -1,17 +1,25 @@
 import "./toast-item.css"
 import { Toast, useToast } from "../toast-provider"
-import { cn, getToastAnimation, getToastTheme } from "../../utils"
+import {
+  cn,
+  getToastAnimation,
+  getToastTheme,
+} from "../../utils"
 import { CloseIcon, ToastAsset } from "../toast-asset"
 import { useEffect, useRef } from "react"
 
-interface ToastItemProps {
+interface ToastItemProps extends React.HTMLAttributes<HTMLDivElement> {
   /**
    * The Instance Item of Toast.
    */
   toast: Toast
 }
 
-export const ToastItem: React.FC<ToastItemProps> = ({ toast }) => {
+export const ToastItem: React.FC<ToastItemProps> = ({
+  toast,
+  className,
+  ...props
+}) => {
   const {
     richColors,
     animation,
@@ -54,6 +62,7 @@ export const ToastItem: React.FC<ToastItemProps> = ({ toast }) => {
 
   return (
     <div
+      {...props}
       role="alert"
       aria-live="assertive"
       tabIndex={0}
@@ -73,6 +82,7 @@ export const ToastItem: React.FC<ToastItemProps> = ({ toast }) => {
           position,
           !toast.remove,
         ),
+        className,
       )}
       onAnimationEnd={() => toast.remove && removeToast(toast.id)}
     >
