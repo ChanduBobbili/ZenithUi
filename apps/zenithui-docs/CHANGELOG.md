@@ -1,5 +1,11 @@
 # zenithui-docs
 
+## 0.1.2
+
+### Patch Changes
+
+- TEstin
+
 ## 0.1.1
 
 ### Patch Changes
