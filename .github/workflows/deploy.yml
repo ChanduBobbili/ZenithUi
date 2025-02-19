@@ -2,8 +2,8 @@ name: Deploy ZenithUI Docs to Vercel
 
 on:
   push:
-    branches:
-      - main
+    tags:
+      - "zenithui-docs@*" # Only zenithui-docs tags
 
 jobs:
   deploy:
