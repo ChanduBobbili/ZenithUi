@@ -2,7 +2,7 @@
   "name": "zenithui-docs",
   "version": "0.1.0",
   "description": "Zeithui Documentation",
-  "private": true,
+  "private": false,
   "engines": {
     "pnpm": ">=9",
     "node": ">=20"
