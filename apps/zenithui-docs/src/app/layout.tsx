@@ -25,7 +25,12 @@ export const metadata = {
 const navbar = (
   <Navbar
     logo={
-      <div>
+      <div
+        style={{
+          fontFamily: "cursive",
+          fontSize: "2rem",
+        }}
+      >
         <b>Zenithui</b>
       </div>
     }

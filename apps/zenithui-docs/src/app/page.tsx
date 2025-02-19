@@ -2,10 +2,10 @@ export default function IndexPage() {
   return (
     <h1
       style={{
-        textAlign: 'center',
+        textAlign: "center",
         fontSize: 64,
-        margin: '25vh 0',
-        fontWeight: 'bold'
+        margin: "25vh 0",
+        fontWeight: "bold",
       }}
     >
       Index page
