@@ -1,0 +1,168 @@
+import { Table } from "nextra/components"
+import { Callout } from "nextra/components"
+
+# Time Picker
+
+Once installed, you can use the `TimePicker` component in your React application as follows:
+
+```tsx
+import { TimePicker } from "zenithui-time-picker";
+
+const App = () => {
+  const [selectedTime, setSelectedTime] = useState("12:00");
+
+  return (
+    <div>
+      <h1>Selected Time: {selectedTime}</h1>
+      <TimePicker time={selectedTime} onTimeChange={setSelectedTime} />
+    </div>
+  );
+};
+```
+
+---
+
+## 🛠 TimePicker Props
+
+<Table>
+  <thead>
+    <Table.Tr>
+      <Table.Th>Prop Name </Table.Th>
+      <Table.Th>Type</Table.Th>
+      <Table.Th>Description</Table.Th>
+      <Table.Th>Default</Table.Th>
+    </Table.Tr>
+  </thead>
+  <tbody>
+    <Table.Tr>
+      <Table.Td>**Time**</Table.Td>
+      <Table.Td>`string`</Table.Td>
+      <Table.Td>The selected time in "HH:MM" format (24-hour clock).</Table.Td>
+      <Table.Td>Required</Table.Td>
+    </Table.Tr>
+
+    <Table.Tr>
+      <Table.Td>**onTimeChange**</Table.Td>
+      <Table.Td>`(time: string) => void`</Table.Td>
+      <Table.Td>
+        Callback function triggered when the time changes, providing the updated
+        time in "HH:MM".
+      </Table.Td>
+      <Table.Td>Required</Table.Td>
+    </Table.Tr>
+
+    <Table.Tr>
+      <Table.Td>**align**</Table.Td>
+      <Table.Td>`"center" | "end" | "start"`</Table.Td>
+      <Table.Td>
+        Alignment of the popover relative to the trigger element.
+      </Table.Td>
+      <Table.Td>`"center"`</Table.Td>
+    </Table.Tr>
+
+     <Table.Tr>
+      <Table.Td>**side**</Table.Td>
+      <Table.Td>`"top" | "right" | "bottom" | "left"`</Table.Td>
+      <Table.Td>
+       Side of the trigger element where the popover will appear.
+      </Table.Td>
+      <Table.Td>`"bottom"`</Table.Td>
+    </Table.Tr>
+
+    <Table.Tr>
+      <Table.Td>**alignOffset**</Table.Td>
+      <Table.Td>`number`</Table.Td>
+      <Table.Td>
+        Offset for popover alignment along the alignment axis.
+      </Table.Td>
+      <Table.Td>`10`</Table.Td>
+    </Table.Tr>
+
+    <Table.Tr>
+        <Table.Td>**sideOffset**</Table.Td>
+        <Table.Td>`number`</Table.Td>
+        <Table.Td>
+            Offset for popover alignment along the side axis.
+        </Table.Td>
+        <Table.Td>`10`</Table.Td>
+    </Table.Tr>
+
+    <Table.Tr>
+        <Table.Td>**formatter**</Table.Td>
+        <Table.Td>`(time: string) => string`</Table.Td>
+        <Table.Td>
+            Custom formatter for time display, receives the time in “HH:MM” format and returns a string.
+        </Table.Td>
+        <Table.Td>optional</Table.Td>
+    </Table.Tr>
+
+    <Table.Tr>
+        <Table.Td>**classNames**</Table.Td>
+        <Table.Td>`TimePickerClassNames`</Table.Td>
+        <Table.Td>
+            Object containing class names for customizing the appearance of the time picker.
+        </Table.Td>
+        <Table.Td>optional</Table.Td>
+    </Table.Tr>
+
+    <Table.Tr>
+      <Table.Td>**theme**</Table.Td>
+      <Table.Td>`"light" | "dark" | "auto"`</Table.Td>
+      <Table.Td>Theme of the calendar.</Table.Td>
+      <Table.Td>`"auto"`</Table.Td>
+    </Table.Tr>
+
+  </tbody>
+</Table>
+
+---
+
+## 🎨 Custom Styling
+
+<Table>
+  <thead>
+    <Table.Tr>
+      <Table.Th>Prop Name </Table.Th>
+      <Table.Th>Type</Table.Th>
+      <Table.Th>Description</Table.Th>
+    </Table.Tr>
+  </thead>
+  <tbody>
+    <Table.Tr>
+      <Table.Td>**popoverContent**</Table.Td>
+      <Table.Td>`string`</Table.Td>
+      <Table.Td>Class name for the popover content.</Table.Td>
+    </Table.Tr>
+
+    <Table.Tr>
+        <Table.Td>**button**</Table.Td>
+        <Table.Td>`string`</Table.Td>
+        <Table.Td>Class name for the popover trigger button.</Table.Td>
+    </Table.Tr>
+
+    <Table.Tr>
+        <Table.Td>**timeScrollList**</Table.Td>
+        <Table.Td>`string`</Table.Td>
+        <Table.Td>Class name for the time scroll list.</Table.Td>
+    </Table.Tr>
+
+    <Table.Tr>
+        <Table.Td>**timeScrollListItem**</Table.Td>
+        <Table.Td>`string`</Table.Td>
+        <Table.Td>Class name for the time scroll list item.</Table.Td>
+    </Table.Tr>
+
+  </tbody>
+</Table>
+
+---
+
+<Callout type="info">
+  Import your styles.css/global.css after the `app.jsx`, Hence your styles will
+  have higher specificity
+</Callout>
+
+```jsx {2}
+import { TimePicker } from "zenithui-time-picker"
+import "./styles.css"
+```
