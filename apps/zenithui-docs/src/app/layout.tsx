@@ -4,6 +4,7 @@ import { Head } from "nextra/components"
 import { getPageMap } from "nextra/page-map"
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import "nextra-theme-docs/style.css"
+import "./global.css"
 import { Metadata } from "next"
 
 export const metadata: Metadata = {
@@ -65,6 +66,7 @@ export default async function RootLayout({
           docsRepositoryBase="https://github.com/ChanduBobbili/ZenithUi"
           sidebar={{ defaultMenuCollapseLevel: 1 }}
           pageMap={pageMap}
+          lastUpdated={undefined}
         >
           {children}
         </Layout>
