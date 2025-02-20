@@ -33,7 +33,13 @@ function RouteComponent() {
       >
         Toast Error
       </button>
-      <button onClick={() => toast.warning("Warning Toast")}>
+      <button
+        onClick={() =>
+          toast.warning("Warning Toast", {
+            position: "top-left",
+          })
+        }
+      >
         Toast Warning
       </button>
 

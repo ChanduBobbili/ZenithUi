@@ -47,6 +47,13 @@ export interface ToastOptions {
    * @default false
    */
   showCloseButton?: boolean
+  /**
+   * The position of the toast.
+   * @type {ToastPosition}
+   * @default "top-right"
+   * @description This is used to position the toast.
+   */
+  position?: ToastPosition
 }
 
 export interface Toast {
