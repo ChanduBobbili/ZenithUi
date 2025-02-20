@@ -1,0 +1,141 @@
+import { Table } from "nextra/components"
+import { Callout } from "nextra/components"
+
+# Count Down
+
+The `CountDownTimer` component provides a customizable countdown timer with options for labels, descriptions, and an expiry callback.
+
+## 📌 Basic Countdown
+
+```tsx
+import CountDownTimer from "zenithui-primitive";
+
+<CountDownTimer
+  startTime={new Date().toISOString()}
+  onExpired={(isExpire) => console.log("Timer expired:", isExpire)}
+/>
+```
+
+## ⏳ Countdown with Description
+
+```tsx
+import CountDownTimer from "zenithui-primitive";
+
+<CountDownTimer
+  startTime={new Date().toISOString()}Prop Name	Type	Description	Default
+  description="until the event starts"
+  descriptionClassName="text-gray-500"
+/>
+```
+
+## 🔢 Countdown with Labels
+
+```tsx
+import CountDownTimer from "zenithui-primitive";
+
+<CountDownTimer
+  startTime={new Date().toISOString()}
+  format="with-names"
+/>
+```
+
+---
+
+## 🛠 CountDownTimer Props
+
+<Table>
+  <thead>
+    <Table.Tr>
+      <Table.Th>Prop Name </Table.Th>
+      <Table.Th>Type</Table.Th>
+      <Table.Th>Description</Table.Th>
+      <Table.Th>Default</Table.Th>
+    </Table.Tr>
+  </thead>
+  <tbody>
+    <Table.Tr>
+      <Table.Td>**startTime**</Table.Td>
+      <Table.Td>`string`</Table.Td>
+      <Table.Td>The start time for the countdown timer in ISO string format.</Table.Td>
+      <Table.Td>Required</Table.Td>
+    </Table.Tr>
+
+    <Table.Tr>
+      <Table.Td>**format**</Table.Td>
+      <Table.Td>`"with-names" \| "without-names"` | `"without-names"`</Table.Td>
+      <Table.Td>
+       Format of the countdown display. Includes labels (`with-names`) or plain (`without-names`).
+      </Table.Td>
+      <Table.Td>`"without-names"`</Table.Td>
+    </Table.Tr>
+
+    <Table.Tr>
+      <Table.Td>**minutes**</Table.Td>
+      <Table.Td>`number`</Table.Td>
+      <Table.Td>
+       Number of minutes for the countdown.
+      </Table.Td>
+      <Table.Td>`5`</Table.Td>
+    </Table.Tr>
+
+    <Table.Tr>
+        <Table.Td>**onExpired**</Table.Td>
+        <Table.Td>`(isExpire: boolean) => void`</Table.Td>
+        <Table.Td>
+            Callback invoked when the countdown timer expires.
+        </Table.Td>
+        <Table.Td>optional</Table.Td>
+    </Table.Tr>
+
+    <Table.Tr>
+      <Table.Td>**description**</Table.Td>
+      <Table.Td>`string`</Table.Td>
+      <Table.Td>
+       Description text displayed alongside the countdown
+      </Table.Td>
+      <Table.Td>optional</Table.Td>
+    </Table.Tr>
+
+    <Table.Tr>
+      <Table.Td>**className**</Table.Td>
+      <Table.Td>`string`</Table.Td>
+      <Table.Td>
+        Additional CSS class name(s) for the countdown timer.
+      </Table.Td>
+      <Table.Td>optional</Table.Td>
+    </Table.Tr>
+
+    <Table.Tr>
+        <Table.Td>**descriptionClassName**</Table.Td>
+        <Table.Td>`string`</Table.Td>
+        <Table.Td>
+           Additional CSS class name(s) for the description text.
+        </Table.Td>
+        <Table.Td>optional</Table.Td>
+    </Table.Tr>
+
+  </tbody>
+</Table>
+
+---
+
+## 🎨 Custom Styling
+
+```tsx
+import CountDownTimer from "zenithui-primitive";
+
+<CountDownTimer
+  startTime={new Date().toISOString()}
+  className="font-bold text-blue-500"
+/>
+```
+
+<Callout type="info">
+  Import your styles.css/global.css after the `app.jsx`, Hence your styles will
+  have higher specificity
+</Callout>
+
+```jsx {2}
+import CountDownTimer from "zenithui-primitive"
+import "./styles.css"
+```

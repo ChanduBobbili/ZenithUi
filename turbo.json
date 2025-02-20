@@ -3,11 +3,13 @@
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
-      "outputs": ["dist/**", "build/**"]
+      "outputs": ["dist/**", "build/**", "out/**", "public/**"]
     },
     "clean": {},
     "lint": {},
     "lint:fix": {},
+    "next:clean": {},
+    "start": {},
     "dev": {
       "persistent": true,
       "cache": false

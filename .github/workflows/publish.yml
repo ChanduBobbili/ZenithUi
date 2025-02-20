@@ -3,7 +3,11 @@ name: Publish Package to NPM
 on:
   push:
     tags:
-      - "*" # Trigger on any tag
+      - "zenithui-day-picker@*"
+      - "zenithui-time-picker@*"
+      - "zenithui-primitive@*"
+      - "zenithui-toast@*"
+      - "zenithui-light-box@*"
 
 jobs:
   publish:
@@ -35,22 +39,30 @@ jobs:
           echo "PACKAGE_NAME=$PACKAGE_NAME"
           echo "PACKAGE_VERSION=$PACKAGE_VERSION"
 
+      - name: Skip publishing for zenithui-docs
+        if: env.PACKAGE_NAME == 'zenithui-docs'
+        run: echo "Skipping publish for zenithui-docs"
+
       - name: Navigate to package directory and install dependencies
+        if: env.PACKAGE_NAME != 'zenithui-docs'
         run: |
           cd packages/$PACKAGE_NAME
           pnpm install
 
       - name: Lint package
+        if: env.PACKAGE_NAME != 'zenithui-docs'
         run: |
           cd packages/$PACKAGE_NAME
           pnpm lint
 
       - name: Build package
+        if: env.PACKAGE_NAME != 'zenithui-docs'
         run: |
           cd packages/$PACKAGE_NAME
           pnpm build
 
       - name: Publish package
+        if: env.PACKAGE_NAME != 'zenithui-docs'
         run: |
           cd packages/$PACKAGE_NAME
           npm publish --access public --no-git-checks

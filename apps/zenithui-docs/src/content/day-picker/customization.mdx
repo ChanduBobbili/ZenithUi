@@ -1,0 +1,113 @@
+import { Table } from "nextra/components"
+import { ImageZoom } from "nextra/components"
+import { Callout } from "nextra/components"
+
+# Customization
+
+The classNames to custom the Component
+
+---
+
+<Table>
+  <thead>
+    <Table.Tr>
+      <Table.Th>Key</Table.Th>
+      <Table.Th>Description</Table.Th>
+    </Table.Tr>
+  </thead>
+  <tbody>
+    <Table.Tr>
+      <Table.Td>**calendar**</Table.Td>
+      <Table.Td>Styles for the calendar container.</Table.Td>
+    </Table.Tr>
+
+    <Table.Tr>
+      <Table.Td>**header**</Table.Td>
+      <Table.Td>Styles for the header section.</Table.Td>
+    </Table.Tr>
+
+    <Table.Tr>
+      <Table.Td>**monthCaption**</Table.Td>
+      <Table.Td>Styles for the month name caption.</Table.Td>
+    </Table.Tr>
+
+    <Table.Tr>
+      <Table.Td>**prevMonthButton**</Table.Td>
+      <Table.Td>Styles for the previous month button.</Table.Td>
+    </Table.Tr>
+
+    <Table.Tr>
+      <Table.Td>**nextMonthButton**</Table.Td>
+      <Table.Td>Styles for the next month button.</Table.Td>
+    </Table.Tr>
+
+    <Table.Tr>
+      <Table.Td>**weekdays**</Table.Td>
+      <Table.Td>Styles for the weekdays container.</Table.Td>
+    </Table.Tr>
+
+    <Table.Tr>
+      <Table.Td>**weekday**</Table.Td>
+      <Table.Td>Styles for each weekday label.</Table.Td>
+    </Table.Tr>
+
+    <Table.Tr>
+      <Table.Td>**days**</Table.Td>
+      <Table.Td>Styles for the days grid.</Table.Td>
+    </Table.Tr>
+
+    <Table.Tr>
+      <Table.Td>**day**</Table.Td>
+      <Table.Td>Styles for an individual day.</Table.Td>
+    </Table.Tr>
+
+    <Table.Tr>
+      <Table.Td>**daySelected**</Table.Td>
+      <Table.Td>Styles for the selected day.</Table.Td>
+    </Table.Tr>
+
+    <Table.Tr>
+      <Table.Td>**outsideDate**</Table.Td>
+      <Table.Td>Styles for days outside the current month.</Table.Td>
+    </Table.Tr>
+
+    <Table.Tr>
+      <Table.Td>**today**</Table.Td>
+      <Table.Td>Styles for today's date.</Table.Td>
+    </Table.Tr>
+
+    <Table.Tr>
+      <Table.Td>**rangeStart**</Table.Td>
+      <Table.Td>Styles for the start date of the range.</Table.Td>
+    </Table.Tr>
+
+    <Table.Tr>
+      <Table.Td>**rangeEnd**</Table.Td>
+      <Table.Td>Styles for the end date of the range.</Table.Td>
+    </Table.Tr>
+
+    <Table.Tr>
+      <Table.Td>**rangeDates**</Table.Td>
+      <Table.Td>Styles for dates between the range.</Table.Td>
+    </Table.Tr>
+
+  </tbody>
+</Table>
+
+---
+
+## Anotation
+
+<ImageZoom src="/day-picker-anotation.png" />
+
+---
+
+<Callout type="info">
+  Import your styles.css/global.css after the `app.jsx`, Hence your styles will
+  have higher specificity
+</Callout>
+
+```jsx {2}
+import { DayPicker } from "zenithui-day-picker";
+import "./styles.css"
+```

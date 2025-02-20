@@ -1,0 +1,51 @@
+{
+  "name": "zenithui-docs",
+  "version": "0.1.2",
+  "description": "Zeithui Documentation",
+  "private": false,
+  "engines": {
+    "pnpm": ">=9",
+    "node": ">=20"
+  },
+  "author": {
+    "name": "Chandu Bobbili",
+    "email": "chandubobbili12@gmail.com",
+    "url": "https://github.com/ChanduBobbili"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ChanduBobbili/ZenithUi.git#main"
+  },
+  "scripts": {
+    "dev": "next dev --turbopack",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "clean": "cd public && rm -rf _pagefind && pnpm next:clean",
+    "next:clean": "rm -rf .next && rm -rf build",
+    "postbuild": "pagefind --site .next/server/app --output-path public/_pagefind"
+  },
+  "dependencies": {
+    "@vercel/speed-insights": "^1.2.0",
+    "next": "^15.0.2",
+    "nextra": "^4.2.13",
+    "nextra-theme-docs": "^4.2.13",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "^3.2.0",
+    "@tailwindcss/postcss": "^4.0.7",
+    "@types/mdx": "^2.0.13",
+    "@types/node": "^22.13.4",
+    "@types/react": "^19.0.10",
+    "@types/react-dom": "^19.0.4",
+    "eslint": "^9.20.1",
+    "eslint-config-next": "15.1.7",
+    "pagefind": "^1.3.0",
+    "postcss": "^8.5.2",
+    "tailwindcss": "^4.0.7",
+    "typescript": "^5.7.3"
+  },
+  "packageManager": "pnpm@9.5.0"
+}

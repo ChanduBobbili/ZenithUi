@@ -1,0 +1,76 @@
+import { Table } from "nextra/components"
+
+# API
+
+The props of the `DayPicker` component
+
+---
+
+<Table>
+  <thead>
+    <Table.Tr>
+      <Table.Th>Prop Name</Table.Th>
+      <Table.Th>Type</Table.Th>
+      <Table.Th>Description</Table.Th>
+      <Table.Th>Default</Table.Th>
+    </Table.Tr>
+  </thead>
+  <tbody>
+    <Table.Tr>
+      <Table.Td>**selected**</Table.Td>
+      <Table.Td>`Date`</Table.Td>
+      <Table.Td>The currently selected date.</Table.Td>
+      <Table.Td>Required</Table.Td>
+    </Table.Tr>
+
+    <Table.Tr>
+      <Table.Td>**onSelect**</Table.Td>
+      <Table.Td>`(date: any) => void`</Table.Td>
+      <Table.Td>Function called when a date is selected.</Table.Td>
+      <Table.Td>Required</Table.Td>
+    </Table.Tr>
+
+    <Table.Tr>
+      <Table.Td>**mode**</Table.Td>
+      <Table.Td>`"single" | "range"`</Table.Td>
+      <Table.Td>The mode of the calendar to select a date.</Table.Td>
+      <Table.Td>Required</Table.Td>
+    </Table.Tr>
+
+    <Table.Tr>
+      <Table.Td>**classNames**</Table.Td>
+      <Table.Td>`Partial<ClassNames>`</Table.Td>
+      <Table.Td>Custom class names for styling different parts of the calendar.</Table.Td>
+      <Table.Td>Optional</Table.Td>
+    </Table.Tr>
+
+    <Table.Tr>
+      <Table.Td>**hideNavigation**</Table.Td>
+      <Table.Td>`boolean`</Table.Td>
+      <Table.Td>Hide previous/next month buttons.</Table.Td>
+      <Table.Td>`false`</Table.Td>
+    </Table.Tr>
+
+    <Table.Tr>
+      <Table.Td>**hideWeekdays**</Table.Td>
+      <Table.Td>`boolean`</Table.Td>
+      <Table.Td>Hide weekday names.</Table.Td>
+      <Table.Td>`false`</Table.Td>
+    </Table.Tr>
+
+    <Table.Tr>
+      <Table.Td>**hideOutsideDates**</Table.Td>
+      <Table.Td>`boolean`</Table.Td>
+      <Table.Td>Hide dates that belong to the previous/next month.</Table.Td>
+      <Table.Td>`false`</Table.Td>
+    </Table.Tr>
+
+    <Table.Tr>
+      <Table.Td>**theme**</Table.Td>
+      <Table.Td>`"light" | "dark" | "auto"`</Table.Td>
+      <Table.Td>Theme of the calendar.</Table.Td>
+      <Table.Td>`"auto"`</Table.Td>
+    </Table.Tr>
+
+  </tbody>
+</Table>

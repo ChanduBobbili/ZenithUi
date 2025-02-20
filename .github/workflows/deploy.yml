@@ -1,0 +1,40 @@
+name: Deploy ZenithUI Docs to Vercel
+
+on:
+  push:
+    tags:
+      - "zenithui-docs@*" # Only zenithui-docs tags
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Ensures full Git history
+          ref: main # Ensure you check out a named branch
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "lts/*" # Use the latest LTS version of Node.js
+          registry-url: "https://registry.npmjs.org/"
+
+      - name: Install pnpm
+        run: npm install -g pnpm
+
+      - name: Install Dependencies
+        run: pnpm install
+
+      - name: Build ZenithUI Docs
+        run: pnpm build --filter zenithui-docs
+
+      - name: Deploy to Vercel
+        run: |
+          pnpm turbo run build --filter zenithui-docs
+          npx vercel --prod --token ${{ secrets.VERCEL_TOKEN }}
+        env:
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
