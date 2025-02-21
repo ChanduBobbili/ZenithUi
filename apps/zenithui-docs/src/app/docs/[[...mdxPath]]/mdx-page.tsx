@@ -14,8 +14,6 @@ interface MdxPageProps {
 export default function MdxPage({ mdxPath, toc, metadata }: MdxPageProps) {
   const [MDXContent, setMDXContent] = useState<React.ComponentType | null>(null)
 
-  console.log(mdxPath, "mdxPath")
-
   useEffect(() => {
     // Dynamically import the MDX content
     import(`@/content/${mdxPath}.mdx`)

@@ -6,23 +6,18 @@ export const generateStaticParams = generateStaticParamsFor("mdxPath")
 export async function generateMetadata(props: {
   params: { mdxPath: string[] }
 }) {
-  const { params } = props
+  const params = await props.params
   const { metadata } = await importPage(params.mdxPath)
   return metadata
 }
 
-export default async function Page({
-  params,
-}: {
-  params: { mdxPath: string[] }
-}) {
-  const paths = params.mdxPath ?? [""]
+export default async function Page(props: { params: { mdxPath: string[] } }) {
+  const params = await props.params
+  const paths = params.mdxPath
   const { toc, metadata } = await importPage(paths)
 
-  console.log(paths, "paths------------")
-
-  // Pass MDX module path instead of component
-  const mdxPath = params.mdxPath?.join("/") ?? "/"
+  // Pass MDX module path instead of component Fallback to default if no path provided (root "docs" page)
+  const mdxPath = paths?.length > 0 ? paths.join("/") : "index"
   return (
     <MdxPage
       mdxPath={mdxPath}
