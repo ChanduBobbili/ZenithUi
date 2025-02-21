@@ -48,7 +48,7 @@ export function getTheme(theme: "auto" | "light" | "dark") {
     case "auto":
       return window.matchMedia("(prefers-color-scheme: dark)").matches
         ? "dark"
-        : "light"
+        : ""
     case "light":
     default:
       return

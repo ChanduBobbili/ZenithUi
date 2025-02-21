@@ -1,37 +1,33 @@
-// "use client"
-
-import MdxWrapper from "@/components/mdx-wrapper"
 import { generateStaticParamsFor, importPage } from "nextra/pages"
+import MdxPage from "./mdx-page"
 
 export const generateStaticParams = generateStaticParamsFor("mdxPath")
 
 export async function generateMetadata(props: {
-  params: Promise<{
-    mdxPath: string[]
-  }>
+  params: { mdxPath: string[] }
 }) {
-  const params = await props.params
+  const { params } = props
   const { metadata } = await importPage(params.mdxPath)
   return metadata
 }
 
-export default async function Page(props: {
-  params: Promise<{
-    mdxPath: string[]
-  }>
+export default async function Page({
+  params,
+}: {
+  params: { mdxPath: string[] }
 }) {
-  const params = await props.params
-  const result = await importPage(params.mdxPath)
-  const { default: MDXContent, toc, metadata } = result
+  const paths = params.mdxPath ?? [""]
+  const { toc, metadata } = await importPage(paths)
+
+  console.log(paths, "paths------------")
+
+  // Pass MDX module path instead of component
+  const mdxPath = params.mdxPath?.join("/") ?? "/"
   return (
-    <MdxWrapper
+    <MdxPage
+      mdxPath={mdxPath}
       toc={toc}
       metadata={metadata}
-    >
-      <MDXContent
-        {...props}
-        params={params}
-      />
-    </MdxWrapper>
+    />
   )
 }
