@@ -8,7 +8,7 @@
   --zenithui-text: #0f172a;
   --zenithui-border: #e2e8f0;
   --zenithui-hover-bg: #e2e8f0;
-  --zenithui-focus-outline: #3b82f6;
+  --zenithui-focus-outline: #075985;
   --zenithui-disabled-bg: #e5e7eb;
   --zenithui-disabled-text: #6b7280;
   --zenithui-selected-bg: #0369a1;
@@ -19,11 +19,11 @@
 
 /* Dark Mode */
 .dark {
-  --zenithui-bg: #1e293b;
+  --zenithui-bg: #18181b;
   --zenithui-text: white;
   --zenithui-border: #334155;
   --zenithui-hover-bg: #475569;
-  --zenithui-focus-outline: #38bdf8;
+  --zenithui-focus-outline: #0369a1;
   --zenithui-disabled-bg: #64748b;
   --zenithui-disabled-text: #94a3b8;
   --zenithui-selected-bg: #0284c7;
@@ -46,6 +46,7 @@
   color: var(--zenithui-text);
   border-radius: 0.375rem;
   transition: all 0.3s ease-in-out;
+  cursor: pointer;
 }
 
 /* Hover state */
@@ -91,7 +92,7 @@
   overflow: hidden;
   border-radius: 0.375rem;
   padding: 0.75rem 0;
-  box-shadow: 0 0.5rem 1rem var(--zenithui-shadow);
+  border: 1px solid var(--zenithui-border);
   background-color: var(--zenithui-bg);
 }
 
@@ -121,6 +122,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
 }
 
 .zenithui-time-item:focus,
@@ -151,13 +153,18 @@
 /* Scrollbar */
 .zenithui-time-custom-scroll {
   scrollbar-width: thin;
-  scrollbar-color: var(--zenithui-scrollbar) transparent;
+  /* scrollbar-color: var(--zenithui-scrollbar) transparent; */
 }
 
 .zenithui-time-custom-scroll::-webkit-scrollbar-thumb {
-  background: var(--zenithui-scrollbar);
+  scrollbar-width: thin;
+  /* background: var(--zenithui-scrollbar); */
 }
 
 .zenithui-time-custom-scroll::-webkit-scrollbar-track {
   background: transparent;
+}
+
+.count-down-text {
+  color: var(--zenithui-text);
 }

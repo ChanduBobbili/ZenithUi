@@ -28,7 +28,7 @@ export default function CodePreview({ code, children }: CodePreviewProps) {
       </TabsList>
       <TabsContent
         value="preview"
-        className="flex items-center justify-center overflow-hidden rounded-sm bg-slate-100 p-20 dark:bg-slate-900"
+        className="flex items-center justify-center overflow-hidden rounded-sm bg-slate-100 p-20 dark:bg-zinc-900"
       >
         {children}
       </TabsContent>

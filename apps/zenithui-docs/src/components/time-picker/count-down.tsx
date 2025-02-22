@@ -46,7 +46,7 @@ import { CountDownTimer } from "zenithui-time-picker";
       <CountDownTimer
         startTime={new Date().toISOString()}
         description="until the event starts"
-        descriptionClassName="!text-gray-500"
+        descriptionClassName="text-red-500"
       />
     </CodePreview>
   )

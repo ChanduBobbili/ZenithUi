@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 
-export function useTheme(): string {
+export function useTheme() {
   const getTheme = () => {
     const storedTheme = localStorage.getItem("theme")
 
@@ -19,7 +19,7 @@ export function useTheme(): string {
     return storedTheme === "dark" || hasDarkClass ? "dark" : ""
   }
 
-  const [theme, setTheme] = useState<string>(getTheme)
+  const [theme, setTheme] = useState<"dark" | "">(getTheme)
 
   useEffect(() => {
     const handleStorageChange = () => {

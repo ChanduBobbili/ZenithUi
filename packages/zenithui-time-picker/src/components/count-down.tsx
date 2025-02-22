@@ -1,51 +1,9 @@
 "use client"
 
-import React, { useEffect, useState } from "react"
+import { useEffect, useMemo, useState } from "react"
 import { cn } from "./utils"
-
-/**
- * Props for the CountdownTimer component.
- */
-export type CountDownTimerProps = {
-  /**
-   * The start time for the countdown timer in a string format (ISO).
-   */
-  startTime: string
-
-  /**
-   * The format of the countdown display.
-   * Can be "with-names" to include labels (e.g., hours, minutes) or "without-names" for a plain numeric display.
-   * @default "without-names"
-   */
-  format?: "with-names" | "without-names"
-
-  /**
-   * Additional CSS class name(s) to apply to the countdown timer component.
-   */
-  className?: string
-
-  /**
-   * Description text to display alongside the countdown timer.
-   */
-  description?: string
-
-  /**
-   * The number of minutes for the countdown timer.
-   * @default 5
-   */
-  minutes?: number
-
-  /**
-   * Additional CSS class name(s) to apply to the description text.
-   */
-  descriptionClassName?: string
-
-  /**
-   * Callback function to be called when the countdown timer expires.
-   * @param isExpire - A boolean indicating whether the timer has expired.
-   */
-  onExpired?: (isExpire: boolean) => void
-}
+import { CountDownTimerProps } from "./types"
+import { useTheme } from "../hooks/use-theme"
 
 const CountDownTimer: React.FC<CountDownTimerProps> = ({
   startTime,
@@ -54,9 +12,16 @@ const CountDownTimer: React.FC<CountDownTimerProps> = ({
   minutes = 5,
   format = "without-names",
   descriptionClassName = "",
+  theme = "auto",
   onExpired,
 }) => {
   const [timeLeft, setTimeLeft] = useState("")
+
+  const hookTheme = useTheme()
+  const themeClass = useMemo(
+    () => (theme === "auto" ? hookTheme : theme === "dark" ? "dark" : ""),
+    [theme],
+  )
 
   useEffect(() => {
     const startDate = new Date(startTime)
@@ -99,14 +64,13 @@ const CountDownTimer: React.FC<CountDownTimerProps> = ({
   }, [startTime])
 
   return description ? (
-    <span className={cn("text-red-500", className)}>
-      {timeLeft}{" "}
-      <span className={cn("text-white", descriptionClassName)}>
-        {description}
-      </span>
+    <span className={cn(themeClass, "count-down-text", className)}>
+      {timeLeft} <span className={cn(descriptionClassName)}>{description}</span>
     </span>
   ) : (
-    <span className={cn("text-red-500", className)}>{`${timeLeft}`}</span>
+    <span
+      className={cn(themeClass, "count-down-text", className)}
+    >{`${timeLeft}`}</span>
   )
 }
 

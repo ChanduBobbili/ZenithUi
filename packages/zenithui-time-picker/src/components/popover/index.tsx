@@ -1,14 +1,16 @@
-"use client"
-
 import * as React from "react"
 import * as PopoverPrimitive from "@radix-ui/react-popover"
-import { cn } from "../../utils"
+import { cn } from "../utils"
 
 const Popover: typeof PopoverPrimitive.Root = PopoverPrimitive.Root
 
-const PopoverTrigger: React.FC<React.ComponentPropsWithoutRef<typeof PopoverPrimitive.Trigger>> = PopoverPrimitive.Trigger
+const PopoverTrigger: React.FC<
+  React.ComponentPropsWithoutRef<typeof PopoverPrimitive.Trigger>
+> = PopoverPrimitive.Trigger
 
-const PopoverAnchor: React.FC<React.ComponentPropsWithoutRef<typeof PopoverPrimitive.Anchor>> = PopoverPrimitive.Anchor
+const PopoverAnchor: React.FC<
+  React.ComponentPropsWithoutRef<typeof PopoverPrimitive.Anchor>
+> = PopoverPrimitive.Anchor
 
 interface PopoverContentProps
   extends React.ComponentPropsWithoutRef<typeof PopoverPrimitive.Content> {
