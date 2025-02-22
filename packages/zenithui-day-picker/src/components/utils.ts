@@ -1,5 +1,5 @@
-import { DateRange } from "./components/day-picker/index"
 import { isAfter, isBefore, isWithinInterval } from "date-fns"
+import { DateRange } from "./types"
 
 /**
  * Merges class names using clsx and twMerge.
@@ -30,25 +30,6 @@ export function cn(
       return cls
     })
     .join(" ")
-}
-
-/**
- * The function `getTheme` returns the theme based on the input theme value.
- * @param theme @type {"auto" | "light" | "dark"}
- * @returns
- */
-export function getTheme(theme: "auto" | "light" | "dark") {
-  switch (theme) {
-    case "dark":
-      return "dark"
-    case "auto":
-      return window.matchMedia("(prefers-color-scheme: dark)").matches
-        ? "dark"
-        : "light"
-    case "light":
-    default:
-      return
-  }
 }
 
 /**

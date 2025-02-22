@@ -5,13 +5,15 @@ import * as DialogPrimitive from "@radix-ui/react-dialog"
 import { Cross2Icon } from "@radix-ui/react-icons"
 import { cn } from "../utils"
 
-const Dialog = DialogPrimitive.Root
+const Dialog: typeof DialogPrimitive.Root = DialogPrimitive.Root
 
-const DialogTrigger = DialogPrimitive.Trigger
+const DialogTrigger: typeof DialogPrimitive.Trigger = DialogPrimitive.Trigger
 
-const DialogPortal = DialogPrimitive.Portal
+const DialogPortal: React.FC<React.ComponentProps<typeof DialogPrimitive.Portal>> = DialogPrimitive.Portal
 
-const DialogClose = React.forwardRef<
+const DialogClose: React.ForwardRefExoticComponent<
+  React.ComponentPropsWithoutRef<typeof DialogPrimitive.Close> & React.RefAttributes<React.ElementRef<typeof DialogPrimitive.Close>>
+> = React.forwardRef<
   React.ElementRef<typeof DialogPrimitive.Close>,
   React.ComponentPropsWithoutRef<typeof DialogPrimitive.Close>
 >(({ className, ...props }, ref) => (
@@ -27,7 +29,9 @@ const DialogClose = React.forwardRef<
   </DialogPrimitive.Close>
 ))
 
-const DialogOverlay = React.forwardRef<
+const DialogOverlay: React.ForwardRefExoticComponent<
+  React.ComponentPropsWithoutRef<typeof DialogPrimitive.Overlay> & React.RefAttributes<React.ElementRef<typeof DialogPrimitive.Overlay>>
+> = React.forwardRef<
   React.ElementRef<typeof DialogPrimitive.Overlay>,
   React.ComponentPropsWithoutRef<typeof DialogPrimitive.Overlay>
 >(({ className, ...props }, ref) => (
@@ -118,7 +122,9 @@ const DialogFooter = ({
 )
 DialogFooter.displayName = "DialogFooter"
 
-const DialogTitle = React.forwardRef<
+const DialogTitle: React.ForwardRefExoticComponent<
+  React.ComponentPropsWithoutRef<typeof DialogPrimitive.Title> & React.RefAttributes<React.ElementRef<typeof DialogPrimitive.Title>>
+> = React.forwardRef<
   React.ElementRef<typeof DialogPrimitive.Title>,
   React.ComponentPropsWithoutRef<typeof DialogPrimitive.Title>
 >(({ className, ...props }, ref) => {
@@ -136,7 +142,9 @@ const DialogTitle = React.forwardRef<
 })
 DialogTitle.displayName = DialogPrimitive.Title.displayName
 
-const DialogDescription = React.forwardRef<
+const DialogDescription: React.ForwardRefExoticComponent<
+  React.ComponentPropsWithoutRef<typeof DialogPrimitive.Description> & React.RefAttributes<React.ElementRef<typeof DialogPrimitive.Description>>
+> = React.forwardRef<
   React.ElementRef<typeof DialogPrimitive.Description>,
   React.ComponentPropsWithoutRef<typeof DialogPrimitive.Description>
 >(({ className, ...props }, ref) => (

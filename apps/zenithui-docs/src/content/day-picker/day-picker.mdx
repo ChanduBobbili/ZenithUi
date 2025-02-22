@@ -1,18 +1,21 @@
+import SingleDayPicker from "@/components/day-picker/single"
+import RangeDayPicker from "@/components/day-picker/range"
+
 # Day Picker
 
-```tsx
-import React, { useState } from "react";
-import { DayPicker } from "zenithui-day-picker";
+## Single Selection
 
-const App = () => {
-  const [selectedDate, setSelectedDate] = useState(new Date());
+Allows users to select a specific date from the calendar. Ideal for scenarios like booking an appointment, setting a reminder, or choosing a deadline.
 
-  return (
-    <div>
-      <DayPicker selected={selectedDate} onSelect={setSelectedDate} />
-    </div>
-  );
-};
+---
 
-export default App;
-```
+<SingleDayPicker />
+
+
+## Range Selection
+
+Enables users to select a start and end date to define a range. Useful for tasks like planning vacations, filtering reports by date, or scheduling events across multiple days.
+
+---
+
+<RangeDayPicker />

@@ -38,7 +38,7 @@ export function cn(
 
 /**
  * The function `getTheme` returns the theme based on the input theme value.
- * @param theme @type {"auto" | "light" | "dark"}
+ * @param theme @type {"system" | "light" | "dark"}
  * @returns
  */
 export function getTheme(theme: "auto" | "light" | "dark") {
@@ -48,7 +48,7 @@ export function getTheme(theme: "auto" | "light" | "dark") {
     case "auto":
       return window.matchMedia("(prefers-color-scheme: dark)").matches
         ? "dark"
-        : "light"
+        : ""
     case "light":
     default:
       return

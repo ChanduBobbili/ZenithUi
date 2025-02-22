@@ -1,50 +1,49 @@
 /* Light & Dark Theme Variables */
 :root {
-  --zenithui-bg-color: white;
-  --zenithui-text-color: black;
-  --zenithui-selected-text-color: white;
-  --zenithui-shadow-color: rgba(0, 0, 0, 0.1);
-  --zenithui-hover-bg: #f3f4f6;
-  --zenithui-selected-bg: rgba(59, 130, 246, 1);
-  --zenithui-selected-bg-hover: rgba(59, 130, 246, 0.75);
-  --zenithui-range-bg: rgba(59, 130, 246, 0.5);
-  --zenithui-outline-color: rgba(59, 130, 246, 1);
+  --zenithui-day-picker-bg-color: white;
+  --zenithui-day-picker-text-color: black;
+  --zenithui-day-picker-selected-text-color: white;
+  --zenithui-day-picker-shadow-color: rgba(0, 0, 0, 0.1);
+  --zenithui-day-picker-hover-bg: #f3f4f6;
+  --zenithui-day-picker-selected-bg: rgba(59, 130, 246, 1);
+  --zenithui-day-picker-selected-bg-hover: rgba(59, 130, 246, 0.75);
+  --zenithui-day-picker-range-bg: rgba(59, 130, 246, 0.5);
+  --zenithui-day-picker-outline-color: rgba(59, 130, 246, 0.5);
 }
 /* 
 @media (prefers-color-scheme: dark) {
   :root {
-    --zenithui-bg-color: #1e1e1e;
-    --zenithui-text-color: white;
-    --zenithui-shadow-color: rgba(255, 255, 255, 0.2);
-    --zenithui-hover-bg: #374151;
-    --zenithui-selected-bg: rgba(255, 255, 255, 1);
-    --zenithui-selected-bg-hover: rgba(255, 255, 255, 0.75);
-    --zenithui-range-bg: rgba(255, 255, 255, 0.5);
-    --zenithui-outline-color: rgba(255, 255, 255, 1);
+    --zenithui-day-picker-bg-color: #1e1e1e;
+    --zenithui-day-picker-text-color: white;
+    --zenithui-day-picker-shadow-color: rgba(255, 255, 255, 0.2);
+    --zenithui-day-picker-hover-bg: #374151;
+    --zenithui-day-picker-selected-bg: rgba(255, 255, 255, 1);
+    --zenithui-day-picker-selected-bg-hover: rgba(255, 255, 255, 0.75);
+    --zenithui-day-picker-range-bg: rgba(255, 255, 255, 0.5);
+    --zenithui-day-picker-outline-color: rgba(255, 255, 255, 1);
   }
 } */
 
 .dark {
-  --zenithui-bg-color: #1e1e1e;
-  --zenithui-text-color: white;
-  --zenithui-selected-text-color: black;
-  --zenithui-shadow-color: rgba(255, 255, 255, 0.2);
-  --zenithui-hover-bg: #374151;
-  --zenithui-selected-bg: rgba(255, 255, 255, 1);
-  --zenithui-selected-bg-hover: rgba(255, 255, 255, 0.75);
-  --zenithui-range-bg: rgba(255, 255, 255, 0.5);
-  --zenithui-outline-color: rgba(255, 255, 255, 1);
+  --zenithui-day-picker-bg-color: #1e1e1e;
+  --zenithui-day-picker-text-color: white;
+  --zenithui-day-picker-selected-text-color: black;
+  --zenithui-day-picker-shadow-color: rgba(255, 255, 255, 0.2);
+  --zenithui-day-picker-hover-bg: #374151;
+  --zenithui-day-picker-selected-bg: rgba(255, 255, 255, 1);
+  --zenithui-day-picker-selected-bg-hover: rgba(255, 255, 255, 0.75);
+  --zenithui-day-picker-range-bg: rgba(255, 255, 255, 0.25);
+  --zenithui-day-picker-outline-color: rgba(255, 255, 255, 0.5);
 }
 
 .zenithui-calendar {
   width: 100%;
   min-width: 300px;
   max-width: 320px;
-  background-color: var(--zenithui-bg-color);
-  color: var(--zenithui-text-color);
+  background-color: var(--zenithui-day-picker-bg-color);
+  color: var(--zenithui-day-picker-text-color);
   padding: 16px;
   border-radius: 8px;
-  box-shadow: 0px 4px 6px var(--zenithui-shadow-color);
 }
 
 .zenithui-calendar-header {
@@ -69,11 +68,11 @@
 }
 
 .zenithui-nav-button:hover {
-  background-color: var(--zenithui-hover-bg);
+  background-color: var(--zenithui-day-picker-hover-bg);
 }
 
 .zenithui-nav-button:focus {
-  outline: 2px solid var(--zenithui-hover-bg);
+  outline: 2px solid var(--zenithui-day-picker-hover-bg);
 }
 
 .zenithui-nav-button:disabled {
@@ -111,11 +110,11 @@
 }
 
 .zenithui-month-caption:hover {
-  border: 2px solid var(--zenithui-hover-bg);
+  border: 2px solid var(--zenithui-day-picker-hover-bg);
 }
 
 .zenithui-month-caption:focus {
-  outline: 2px solid var(--zenithui-hover-bg);
+  outline: 2px solid var(--zenithui-day-picker-hover-bg);
 }
 
 .zenithui-month-caption:disabled {
@@ -163,12 +162,12 @@
   font-weight: 500;
   cursor: pointer;
   transition: background 0.3s ease-in-out;
-  background-color: var(--zenithui-bg-color);
-  color: var(--zenithui-text-color);
+  background-color: var(--zenithui-day-picker-bg-color);
+  color: var(--zenithui-day-picker-text-color);
 }
 
 .zenithui-day:hover {
-  background-color: var(--zenithui-hover-bg);
+  background-color: var(--zenithui-day-picker-hover-bg);
 }
 
 .zenithui-day:disabled {
@@ -178,38 +177,38 @@
 
 /* Selected Day */
 .zenithui-day[data-selected="true"]:not([data-selected-custom="true"]) {
-  background-color: var(--zenithui-selected-bg);
-  color: var(--zenithui-selected-text-color);
+  background-color: var(--zenithui-day-picker-selected-bg);
+  color: var(--zenithui-day-picker-selected-text-color);
 }
 
 .zenithui-day[data-selected="true"]:not([data-selected-custom="true"]):hover {
-  background-color: var(--zenithui-selected-bg-hover);
-  color: var(--zenithui-selected-text-color);
+  background-color: var(--zenithui-day-picker-selected-bg-hover);
+  color: var(--zenithui-day-picker-selected-text-color);
 }
 
 /* Range Start */
 .zenithui-day[data-range-start="true"]:not([data-range-start-custom="true"]) {
-  background-color: var(--zenithui-selected-bg);
-  color: var(--zenithui-selected-text-color);
+  background-color: var(--zenithui-day-picker-selected-bg);
+  color: var(--zenithui-day-picker-selected-text-color);
   border-radius: 6px 0 0 6px;
 }
 
 .zenithui-day[data-range-end="true"]:not([data-range-end-custom="true"]) {
-  background-color: var(--zenithui-selected-bg);
-  color: var(--zenithui-selected-text-color);
+  background-color: var(--zenithui-day-picker-selected-bg);
+  color: var(--zenithui-day-picker-selected-text-color);
   border-radius: 0 6px 6px 0;
 }
 
 /* In-Range Dates */
 .zenithui-day[data-range-dates="true"]:not([data-range-dates-custom="true"]) {
-  background-color: var(--zenithui-range-bg);
-  color: var(--zenithui-selected-text-color);
+  background-color: var(--zenithui-day-picker-range-bg);
+  color: var(--zenithui-day-picker-selected-text-color);
   border-radius: 0px;
 }
 
 /* Today */
 .zenithui-day[data-today="true"]:not([data-today-custom="true"]) {
-  border: 2px solid var(--zenithui-outline-color);
+  border: 1.5px solid var(--zenithui-day-picker-outline-color);
 }
 
 /* Outside Date */

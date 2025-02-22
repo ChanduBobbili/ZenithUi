@@ -1,5 +1,10 @@
 import { Table } from "nextra/components"
 import { Callout } from "nextra/components"
+import {
+  BasicCountDown,
+  CountDownWithDescription,
+  CountDownWithLabel,
+} from "@/components/time-picker/count-down"
 
 # Count Down
 
@@ -7,37 +12,15 @@ The `CountDownTimer` component provides a customizable countdown timer with opti
 
 ## 📌 Basic Countdown
 
-```tsx
-import { CountDownTimer } from "zenithui-time-picker";
-
-<CountDownTimer
-  startTime={new Date().toISOString()}
-  onExpired={(isExpire) => console.log("Timer expired:", isExpire)}
-/>
-```
+<BasicCountDown />
 
 ## ⏳ Countdown with Description
 
-```tsx
-import { CountDownTimer } from "zenithui-time-picker";
-
-<CountDownTimer
-  startTime={new Date().toISOString()}
-  description="until the event starts"
-  descriptionClassName="text-gray-500"
-/>
-```
+<CountDownWithDescription />
 
 ## 🔢 Countdown with Labels
 
-```tsx
-import { CountDownTimer } from "zenithui-time-picker";
-
-<CountDownTimer
-  startTime={new Date().toISOString()}
-  format="with-names"
-/>
-```
+<CountDownWithLabel />
 
 ---
 
@@ -62,7 +45,7 @@ import { CountDownTimer } from "zenithui-time-picker";
 
     <Table.Tr>
       <Table.Td>**format**</Table.Td>
-      <Table.Td>`"with-names" \| "without-names"` | `"without-names"`</Table.Td>
+      <Table.Td>`"with-names" | "without-names"`</Table.Td>
       <Table.Td>
        Format of the countdown display. Includes labels (`with-names`) or plain (`without-names`).
       </Table.Td>

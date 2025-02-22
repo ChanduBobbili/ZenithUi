@@ -1,26 +1,14 @@
 import { Table } from "nextra/components"
 import { Callout } from "nextra/components"
+import TimePickerDemo from "@/components/time-picker/time-picker"
 
 # Time Picker
 
 Once installed, you can use the `TimePicker` component in your React application as follows:
 
-```tsx
-import { TimePicker } from "zenithui-time-picker";
-
-const App = () => {
-  const [selectedTime, setSelectedTime] = useState("12:00");
-
-  return (
-    <div>
-      <h1>Selected Time: {selectedTime}</h1>
-      <TimePicker time={selectedTime} onTimeChange={setSelectedTime} />
-    </div>
-  );
-};
-```
-
 ---
+
+<TimePickerDemo />
 
 ## 🛠 TimePicker Props
 
