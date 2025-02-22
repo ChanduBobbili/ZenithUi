@@ -1,5 +1,11 @@
 # zenithui-day-picker
 
+## 2.4.0
+
+### Minor Changes
+
+- Refactor the day picker with the implement of Day picker context && improved theme management
+
 ## 2.3.0
 
 ### Minor Changes

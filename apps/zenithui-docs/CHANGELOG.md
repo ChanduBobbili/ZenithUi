@@ -1,5 +1,18 @@
 # zenithui-docs
 
+## 0.2.0
+
+### Minor Changes
+
+- Updated the docs for day picker && time picker. setup the prod v1 ready version
+
+### Patch Changes
+
+- Updated dependencies
+- Updated dependencies
+  - zenithui-day-picker@2.4.0
+  - zenithui-time-picker@1.5.0
+
 ## 0.1.2
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # zenithui-time-picker
 
+## 1.5.0
+
+### Minor Changes
+
+- Refactor the time picker with the implement responsive device detection and theme management hooks, and theme, css fixes in count down
+
 ## 1.4.0
 
 ### Minor Changes
