@@ -54,8 +54,11 @@ export default function Hero() {
     <div
       className={cn(
         "relative flex flex-col items-center justify-center gap-2",
-        "mx-auto h-[850px] w-[99%] overflow-hidden rounded-sm bg-gradient-to-t from-sky-500 to-cyan-300",
+        "mx-auto w-[99%] overflow-hidden rounded-sm bg-gradient-to-t from-sky-500 to-cyan-300",
       )}
+      style={{
+        height: "calc(100vh - var(--nextra-navbar-height))",
+      }}
     >
       {/* <div className="absolute left-1/2 top-1/2 h-[1080px] w-3/4 -translate-x-1/2 rounded-full bg-slate-50/10"></div> */}
       <TypewriterEffect
