@@ -4,14 +4,20 @@ import MdxPage from "./mdx-page"
 export const generateStaticParams = generateStaticParamsFor("mdxPath")
 
 export async function generateMetadata(props: {
-  params: { mdxPath: string[] }
+  params: Promise<{
+    mdxPath: string[]
+  }>
 }) {
   const params = await props.params
   const { metadata } = await importPage(params.mdxPath)
   return metadata
 }
 
-export default async function Page(props: { params: { mdxPath: string[] } }) {
+export default async function Page(props: {
+  params: Promise<{
+    mdxPath: string[]
+  }>
+}) {
   const params = await props.params
   const paths = params.mdxPath
   const { toc, metadata } = await importPage(paths)
