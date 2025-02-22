@@ -1,25 +1,18 @@
 import { useEffect, useState } from "react"
 
-export function useTheme(): string {
+export function useTheme() {
   const getTheme = () => {
     const storedTheme = localStorage.getItem("theme")
-
-    // Check if body or #root has the "dark" class
-    const hasDarkClass =
-      document.body.classList.contains("dark") ||
-      document.getElementById("root")?.classList.contains("dark")
-
     if (storedTheme === "system" || !storedTheme) {
       const systemDark = window.matchMedia(
         "(prefers-color-scheme: dark)",
       ).matches
-      return hasDarkClass || systemDark ? "dark" : ""
+      return systemDark ? "dark" : "light"
     }
 
-    return storedTheme === "dark" || hasDarkClass ? "dark" : ""
+    return storedTheme === "dark" ? "dark" : "light"
   }
-
-  const [theme, setTheme] = useState<string>(getTheme)
+  const [theme, setTheme] = useState<"dark" | "light">(getTheme())
 
   useEffect(() => {
     const handleStorageChange = () => {
@@ -31,18 +24,18 @@ export function useTheme(): string {
         localStorage.getItem("theme") === "system" ||
         !localStorage.getItem("theme")
       ) {
-        setTheme(e.matches ? "dark" : "")
+        setTheme(e.matches ? "dark" : "light")
       }
     }
 
-    // Listen for storage changes
+    // Listen for changes to the "theme" key in localStorage
     window.addEventListener("storage", handleStorageChange)
 
     // Observe system preference changes
     const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)")
     mediaQuery.addEventListener("change", handleSystemThemeChange)
 
-    // Override localStorage.setItem
+    // Also observe direct changes to localStorage within the app
     const originalSetItem = localStorage.setItem
     localStorage.setItem = (key, value) => {
       originalSetItem.call(localStorage, key, value)
@@ -54,7 +47,7 @@ export function useTheme(): string {
     return () => {
       window.removeEventListener("storage", handleStorageChange)
       mediaQuery.removeEventListener("change", handleSystemThemeChange)
-      localStorage.setItem = originalSetItem
+      localStorage.setItem = originalSetItem // Clean up override
     }
   }, [])
 

@@ -1,0 +1,48 @@
+import { Callout } from "nextra/components"
+
+# Theme
+
+## Light & Dark
+
+Choosing either `light` or `dark` explicitly applies the selected theme to the component, overriding any system preferences.
+
+## 🌗 How "auto" Theme Works
+
+When the user selects `Auto` for the theme, the following factors determine whether the app uses the light or dark theme:
+
+1. Local Storage:
+
+- We first check if the `theme` key in `localStorage` is set to `system` (auto mode).
+
+2. System Preference:
+
+- If the theme is set to auto, we check the system's preferred color scheme using:
+
+```js
+window.matchMedia("(prefers-color-scheme: dark)").matches
+```
+
+- If the system prefers dark mode, the theme will be `dark`. Otherwise, it will be `light`.
+
+3. Dark Class on Body or Root:
+
+- We also check if the `body` or `#root` element has the `dark` class.
+- If either has the `dark` class, the app switches to dark mode, regardless of system preference.
+
+4. Real-Time Updates:
+
+- If the system theme changes while the app is open, the theme automatically updates.
+- Similarly, changes to the `dark` class on the `body` or `#root` element will reflect instantly.
+
+## 📝 Example Flow
+
+- If localStorage.theme is `system` and system prefers dark → Theme is `dark`.
+- If localStorage.theme is `system` and system prefers light → Theme is `light`.
+- If system preference is `light`, but the body has dark class → Theme is `dark`.
+
+---
+
+<Callout type="info">
+  This ensures the app always reflects the user’s environment while allowing
+  manual overrides.
+</Callout>

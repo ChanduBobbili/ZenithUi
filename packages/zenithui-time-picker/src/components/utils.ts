@@ -30,25 +30,6 @@ export function cn(
 }
 
 /**
- * The function `getTheme` returns the theme based on the input theme value.
- * @param theme @type {"system" | "light" | "dark"}
- * @returns
- */
-export function getTheme(theme: "system" | "light" | "dark") {
-  switch (theme) {
-    case "dark":
-      return "dark"
-    case "system":
-      return window.matchMedia("(prefers-color-scheme: dark)").matches
-        ? "dark"
-        : ""
-    case "light":
-    default:
-      return
-  }
-}
-
-/**
  * Gets the initial hour from a time string.
  *
  * @param time - The time string to get the initial hour from.

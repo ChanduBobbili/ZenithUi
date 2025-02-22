@@ -24,4 +24,9 @@ export default {
       timestamp: false, // Hide timestamp on this page
     },
   },
+  theme: {
+    theme: {
+      timestamp: false, // Hide timestamp on this page
+    },
+  },
 }

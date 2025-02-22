@@ -100,9 +100,9 @@ export type DayPickerProps = {
   hideOutsideDates?: boolean
   /**
    * Enables the theme customization of the calendar.
-   * @type{"light"} explicitly enables the light theme
-   * @type{"dark"} explicitly enables the dark theme
-   * @type{"auto"} automatically enables the theme based on the system preference
+   * @description{"light"} explicitly enables the light theme
+   * @description{"dark"} explicitly enables the dark theme
+   * @description{"auto"} automatically enables the theme based on the system preference
    */
   theme?: "light" | "dark" | "auto"
 }

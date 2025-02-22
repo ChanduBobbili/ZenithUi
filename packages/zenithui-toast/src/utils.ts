@@ -41,11 +41,11 @@ export function cn(
  * @param theme @type {"system" | "light" | "dark"}
  * @returns
  */
-export function getTheme(theme: "system" | "light" | "dark") {
+export function getTheme(theme: "auto" | "light" | "dark") {
   switch (theme) {
     case "dark":
       return "dark"
-    case "system":
+    case "auto":
       return window.matchMedia("(prefers-color-scheme: dark)").matches
         ? "dark"
         : ""
