@@ -1,11 +1,4 @@
-import { useMemo } from "react"
-import {
-  DatePickerMode,
-  DateRange,
-  DayPickerclassNames,
-  InternalRange,
-} from "."
-import { cn, getInitialDate, isBetweenRange } from "../../utils"
+import { useCallback, useMemo } from "react"
 import {
   eachDayOfInterval,
   endOfMonth,
@@ -19,40 +12,85 @@ import {
   startOfMonth,
   startOfWeek,
 } from "date-fns"
+import { useDayPicker } from "../../hooks/use-day-picker"
+import { cn, getInitialDate, isBetweenRange } from "../utils"
 
-interface DayPickerDaysProps {
-  hideWeekdays: boolean
-  mode: DatePickerMode
-  currentMonth: Date
-  hideOutsideDates: boolean
-  selected: Date | DateRange
-  focus: Date | null
-  range: InternalRange
-  handleSelectDate: (date: Date) => void
-  handleRangeSelect: (date: Date) => void
-  handleMouseEnter: (date: Date) => void
-  classNames?: Partial<DayPickerclassNames>
-}
+export function DayPickerDays() {
+  const {
+    selected,
+    mode,
+    range,
+    focus,
+    currentMonth,
+    hideWeekdays,
+    hideOutsideDates,
+    onSelect,
+    setCurrentMonth,
+    setFocus,
+    setRange,
+    classNames,
+  } = useDayPicker()
 
-export function DayPickerDays({
-  hideWeekdays,
-  mode,
-  currentMonth,
-  hideOutsideDates,
-  focus,
-  range,
-  selected,
-  handleMouseEnter,
-  handleRangeSelect,
-  handleSelectDate,
-  classNames,
-}: DayPickerDaysProps) {
   const days = useMemo(() => {
     return eachDayOfInterval({
       start: startOfWeek(startOfMonth(currentMonth)),
       end: endOfWeek(endOfMonth(currentMonth)),
     })
   }, [currentMonth])
+
+  const handleSelectDate = (date: Date) => {
+    if (!isSameMonth(date, currentMonth)) {
+      setCurrentMonth(startOfMonth(date))
+    }
+    onSelect(date)
+  }
+
+  const handleMouseEnter = useCallback(
+    (day: Date) => {
+      if (
+        mode === "range" &&
+        (Array.isArray(range) ? range[1] === null : range.to === null)
+      ) {
+        setFocus(day)
+      }
+    },
+    [range],
+  )
+
+  const handleRangeSelect = useCallback(
+    (date: Date) => {
+      if (Array.isArray(range)) {
+        if (range[0] && range[1]) {
+          setRange([date, null])
+        } else if (isAfter(date, range[0])) {
+          setFocus(null)
+          setRange([range[0], date])
+        } else {
+          setFocus(null)
+          setRange([date, range[0]])
+        }
+      } else {
+        if (range.from && range.to) {
+          setRange({ from: date, to: null })
+        } else if (isAfter(date, range.from)) {
+          setFocus(null)
+          setRange({ from: range.from, to: date })
+        } else {
+          setFocus(null)
+          setRange({ from: date, to: range.from })
+        }
+      }
+    },
+    [range, setRange],
+  )
+
+  const handleMouseEnterDebounced = useCallback(
+    (date: Date) => {
+      const timeout = setTimeout(() => handleMouseEnter(date), 100)
+      return () => clearTimeout(timeout)
+    },
+    [handleMouseEnter],
+  )
 
   return (
     <>
@@ -61,7 +99,7 @@ export function DayPickerDays({
         <div className={cn("zenithui-weekdays", classNames?.weekdays)}>
           {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map((day) => (
             <div
-              key={day}
+              key={`zenithui-week-${day}`}
               className={cn("zenithui-weekday", classNames?.weekday)}
             >
               {day}
@@ -79,7 +117,7 @@ export function DayPickerDays({
         )}
       >
         {days.map((day) => {
-          const date = getInitialDate(selected)
+          const date = selected ? getInitialDate(selected) : new Date()
           const today = isToday(day)
 
           const isSelected = isSameDay(date, day)
@@ -115,6 +153,7 @@ export function DayPickerDays({
 
           return (
             <button
+              key={`zenithui-day-${day}-${Math.random}`}
               data-today={today}
               data-today-custom={classNames?.today ? true : false}
               data-selected={isSelected}
@@ -149,7 +188,7 @@ export function DayPickerDays({
                   handleRangeSelect(day)
                 }
               }}
-              onMouseEnter={() => handleMouseEnter(day)}
+              onMouseEnter={() => handleMouseEnterDebounced(day)}
               className={cn("zenithui-day", classNames?.day, {
                 // Outside date
                 [classNames?.outsideDate ?? ""]: !isSameMonth(

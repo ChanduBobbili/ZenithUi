@@ -1,18 +1,10 @@
 import { setMonth, format } from "date-fns"
 import { useMemo } from "react"
-import { DayPickerState } from "./index"
+import { useDayPicker } from "../../hooks/use-day-picker"
 
-interface DayPickerMonthsProps {
-  currentMonth: Date
-  setCurrentMonth: (date: Date) => void
-  setState: (state: DayPickerState) => void
-}
+export function DayPickerMonths() {
+  const { currentMonth, setState, setCurrentMonth } = useDayPicker()
 
-export function DayPickerMonths({
-  currentMonth,
-  setCurrentMonth,
-  setState,
-}: DayPickerMonthsProps) {
   const months = useMemo(() => {
     return Array.from({ length: 12 }, (_, i) => setMonth(currentMonth, i))
   }, [currentMonth])
@@ -21,7 +13,7 @@ export function DayPickerMonths({
     <div className="zenithui-months">
       {months.map((month) => (
         <div
-          key={format(month, "M")}
+          key={`zenithui-month-${month}`}
           data-month={format(month, "M")}
           className="zenithui-day"
           onClick={() => {

@@ -1,6 +1,2 @@
+export { default as DayPicker } from "./components/day-picker"
 import "./index.css"
-export {
-  DayPicker,
-  type DayPickerProps,
-  type DateRange,
-} from "./components/day-picker"

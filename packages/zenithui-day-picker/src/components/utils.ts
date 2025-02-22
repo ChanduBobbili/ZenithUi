@@ -1,5 +1,5 @@
-import { DateRange } from "./components/day-picker/index"
 import { isAfter, isBefore, isWithinInterval } from "date-fns"
+import { DateRange } from "./types"
 
 /**
  * Merges class names using clsx and twMerge.

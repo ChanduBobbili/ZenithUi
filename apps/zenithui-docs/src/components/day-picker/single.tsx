@@ -35,7 +35,6 @@ export default App;
     >
       <DayPicker
         mode="single"
-        theme="system"
         selected={selectedDate}
         onSelect={setSelectedDate}
       />

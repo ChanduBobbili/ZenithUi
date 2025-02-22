@@ -1,27 +1,17 @@
 import { addMonths, addYears, format, subMonths, subYears } from "date-fns"
-import { cn } from "../../utils"
 import Arrow from "../../assets/arrow.svg?react"
-import { DayPickerclassNames, DayPickerState } from "."
+import { useDayPicker } from "../../hooks/use-day-picker"
+import { cn } from "../utils"
 
-interface DayPickerHeaderProps {
-  currentMonth: Date
-  setCurrentMonth: (date: Date) => void
-  state: DayPickerState
-  setState: (state: DayPickerState) => void
-  classNames?: Partial<DayPickerclassNames>
-}
+export function DayPickerHeader() {
+  const { state, currentMonth, setState, setCurrentMonth, classNames } =
+    useDayPicker()
 
-export function DayPickerHeader({
-  currentMonth,
-  state,
-  setCurrentMonth,
-  setState,
-  classNames,
-}: DayPickerHeaderProps) {
   const handlePrev = () => {
     if (state === "day") setCurrentMonth(subMonths(currentMonth, 1))
     else if (state === "year") setCurrentMonth(subYears(currentMonth, 12))
   }
+
   const handleNext = () => {
     if (state === "day") setCurrentMonth(addMonths(currentMonth, 1))
     else if (state === "year") setCurrentMonth(addYears(currentMonth, 12))
