@@ -1,4 +1,4 @@
-import MyCodeBlock from "./ui/code-block-ui"
+import MyCodeBlock from "./ui/code-block"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "./ui/tabs"
 
 interface CodePreviewProps {
