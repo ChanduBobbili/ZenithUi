@@ -3,7 +3,13 @@ import { CodeBlock } from "react-code-block"
 import { themes } from "prism-react-renderer"
 import { useTheme } from "@/hooks/use-theme"
 
-function MyCodeBlock({ code, language }: { code: string; language: string }) {
+interface MyCodeBlockProps {
+  code: string
+  language: string
+  showLines?: boolean
+}
+
+function MyCodeBlock({ code, language, showLines = false }: MyCodeBlockProps) {
   const theme = useTheme()
 
   return (
@@ -12,9 +18,11 @@ function MyCodeBlock({ code, language }: { code: string; language: string }) {
       language={language}
       theme={theme === "light" ? themes.github : themes.nightOwl}
     >
-      <CodeBlock.Code className="rounded-xl bg-slate-100 p-6 text-gray-500 shadow-lg dark:bg-slate-800">
+      <CodeBlock.Code className="rounded-xl bg-slate-100 p-6 text-gray-500 shadow-lg dark:bg-slate-900">
         <div className="table-row">
-          <CodeBlock.LineNumber className="table-cell select-none pr-4 text-right text-sm text-gray-800" />
+          {showLines && (
+            <CodeBlock.LineNumber className="table-cell pr-4 text-right text-gray-400" />
+          )}
           <CodeBlock.LineContent className="table-cell">
             <CodeBlock.Token />
           </CodeBlock.LineContent>

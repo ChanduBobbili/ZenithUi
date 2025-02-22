@@ -195,6 +195,9 @@ importers:
       zenithui-time-picker:
         specifier: ^1.4.0
         version: 1.4.0(@types/react-dom@19.0.4(@types/react@19.0.10))(@types/react@19.0.10)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+      zenithui-toast:
+        specifier: ^1.1.0
+        version: 1.1.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
     devDependencies:
       '@eslint/eslintrc':
         specifier: ^3.2.0
@@ -5864,6 +5867,13 @@ packages:
 
   zenithui-time-picker@1.4.0:
     resolution: {integrity: sha512-Oh/QlpXeC+9IzyMMbIxkA/G0uWfOYTSgSmBB3m6SXANRYumlA4w0oJi4KG/kQ35yCSdoRyoOvowbh+t7McK2RA==}
+    engines: {node: '>=20', pnpm: '>=9'}
+    peerDependencies:
+      react: ^18.0.0 || ^17.0.0
+      react-dom: ^18.0.0 || ^17.0.0
+
+  zenithui-toast@1.1.0:
+    resolution: {integrity: sha512-gqDrXEI6mBpzqUse/cLBIaRz7siN36rxAW6zvs7cudUaxLFIq2CfW974/Q/bvDgO6NPklOFwCQgV9/UdSvk+7A==}
     engines: {node: '>=20', pnpm: '>=9'}
     peerDependencies:
       react: ^18.0.0 || ^17.0.0
@@ -12559,6 +12569,11 @@ snapshots:
     transitivePeerDependencies:
       - '@types/react'
       - '@types/react-dom'
+
+  zenithui-toast@1.1.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0):
+    dependencies:
+      react: 19.0.0
+      react-dom: 19.0.0(react@19.0.0)
 
   zod-validation-error@3.4.0(zod@3.24.2):
     dependencies:

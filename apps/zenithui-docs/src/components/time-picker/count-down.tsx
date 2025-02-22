@@ -1,42 +1,78 @@
 "use client"
 
 import { CountDownTimer } from "zenithui-time-picker"
+import { toast } from "zenithui-toast"
+import CodePreview from "../code-preview"
 
-export default function CountDownDemo() {
+const BasicCountDown = () => {
   return (
-    <div className="flex flex-col gap-4 p-4">
-      <div className="flex flex-col gap-2">
-        <h4>Basic Countdown</h4>
-        <CountDownTimer
-          startTime={new Date().toISOString()}
-          onExpired={(isExpire) => console.log("Timer expired:", isExpire)}
-        />
-      </div>
+    <CodePreview
+      code={{
+        code: `
+import { CountDownTimer } from "zenithui-time-picker";
 
-      <div className="flex flex-col gap-2">
-        <h4>Countdown with Description</h4>
-        <CountDownTimer
-          startTime={new Date().toISOString()}
-          description="until the event starts"
-          descriptionClassName="text-gray-500"
-        />
-      </div>
-
-      <div className="flex flex-col gap-2">
-        <h4>Countdown with Labels</h4>
-        <CountDownTimer
-          startTime={new Date().toISOString()}
-          format="with-names"
-        />
-      </div>
-
-      <div className="flex flex-col gap-2">
-        <h4>Custom Styling</h4>
-        <CountDownTimer
-          startTime={new Date().toISOString()}
-          className="font-bold text-blue-500"
-        />
-      </div>
-    </div>
+<CountDownTimer
+  startTime={new Date().toISOString()}
+  onExpired={(isExpire) => console.log("Timer expired:", isExpire)}
+/>
+        `,
+        language: "jsx",
+      }}
+    >
+      <CountDownTimer
+        startTime={new Date().toISOString()}
+        onExpired={() => toast.info("The time is expired")}
+      />
+    </CodePreview>
   )
 }
+
+const CountDownWithDescription = () => {
+  return (
+    <CodePreview
+      code={{
+        code: `
+import { CountDownTimer } from "zenithui-time-picker";
+
+<CountDownTimer
+  startTime={new Date().toISOString()}
+  description="until the event starts"
+  descriptionClassName="text-gray-500"
+/>
+        `,
+        language: "jsx",
+      }}
+    >
+      <CountDownTimer
+        startTime={new Date().toISOString()}
+        description="until the event starts"
+        descriptionClassName="!text-gray-500"
+      />
+    </CodePreview>
+  )
+}
+
+const CountDownWithLabel = () => {
+  return (
+    <CodePreview
+      code={{
+        code: `
+import { CountDownTimer } from "zenithui-time-picker";
+
+<CountDownTimer
+  startTime={new Date().toISOString()}
+  format="with-names"
+/>
+        `,
+        language: "jsx",
+      }}
+    >
+      <CountDownTimer
+        startTime={new Date().toISOString()}
+        format="with-names"
+      />
+    </CodePreview>
+  )
+}
+
+export { BasicCountDown, CountDownWithDescription, CountDownWithLabel }

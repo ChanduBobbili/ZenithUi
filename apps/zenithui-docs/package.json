@@ -45,7 +45,8 @@
     "react-dom": "^19.0.0",
     "tailwind-merge": "^3.0.1",
     "tailwindcss-animate": "^1.0.7",
-    "zenithui-time-picker": "^1.4.0"
+    "zenithui-time-picker": "^1.4.0",
+    "zenithui-toast": "^1.1.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.2.0",

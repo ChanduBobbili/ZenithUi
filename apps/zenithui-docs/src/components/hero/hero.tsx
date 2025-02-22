@@ -6,7 +6,7 @@ import { TypewriterEffect } from "../ui/typewriter-effect"
 const words = [
   {
     text: "ZenithUi",
-    className: "text-blue-500 dark:text-blue-500",
+    className: "text-sky-800 dark:text-sky-800",
   },
   {
     text: "is",
@@ -57,7 +57,7 @@ export default function Hero() {
         "mx-auto h-[850px] w-[99%] overflow-hidden rounded-sm bg-gradient-to-t from-sky-500 to-cyan-300",
       )}
     >
-      <div className="absolute left-1/2 top-1/2 h-[1080px] w-3/4 -translate-x-1/2 rounded-full bg-slate-50/10"></div>
+      <div className="absolute left-1/2 top-1/2 h-[1080px] w-3/4 -translate-x-1/2 rounded-full bg-slate-50/10 "></div>
       <TypewriterEffect
         words={words}
         className="max-w-3/4"
