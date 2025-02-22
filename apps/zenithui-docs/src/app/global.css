@@ -4,6 +4,8 @@
 
 @custom-variant dark (&:is(.dark *));
 
+@config "../../tailwind.config.ts";
+
 :root {
   --scrollbar: #464646;
   --x-color-nextra-bg: #ffffff;

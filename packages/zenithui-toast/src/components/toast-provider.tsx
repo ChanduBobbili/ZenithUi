@@ -6,7 +6,7 @@ import { ToastContainer } from "./toast-container/toast-container"
 import { cn, getTheme } from "../utils"
 
 export type ToastType = "success" | "info" | "error" | "warning"
-export type Theme = "auto" | "light" | "dark"
+export type Theme = "system" | "light" | "dark"
 export type ToastPosition =
   | "top-left"
   | "top-right"

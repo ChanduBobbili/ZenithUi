@@ -54,7 +54,7 @@ interface TimePickerProps {
   /**
    * Enables the dark theme of the Time Picker.
    */
-  theme?: "light" | "dark" | "auto"
+  theme?: "light" | "dark" | "system"
   /**
    * Custom formatter for time display.
    * @param time - The time in "HH:MM" format (24-hour clock).
@@ -92,7 +92,7 @@ const TimePicker: React.FC<TimePickerProps> = ({
   time,
   align = "center",
   side = "bottom",
-  theme = "light",
+  theme = "system",
   alignOffset = 10,
   sideOffset = 10,
   classNames,

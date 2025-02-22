@@ -4,11 +4,15 @@ import * as React from "react"
 import * as PopoverPrimitive from "@radix-ui/react-popover"
 import { cn } from "../utils"
 
-const Popover = PopoverPrimitive.Root
+const Popover: typeof PopoverPrimitive.Root = PopoverPrimitive.Root
 
-const PopoverTrigger = PopoverPrimitive.Trigger
+const PopoverTrigger: React.FC<
+  React.ComponentPropsWithoutRef<typeof PopoverPrimitive.Trigger>
+> = PopoverPrimitive.Trigger
 
-const PopoverAnchor = PopoverPrimitive.Anchor
+const PopoverAnchor: React.FC<
+  React.ComponentPropsWithoutRef<typeof PopoverPrimitive.Anchor>
+> = PopoverPrimitive.Anchor
 
 const animationClassMap = {
   fade: {

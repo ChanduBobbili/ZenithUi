@@ -112,7 +112,7 @@ interface DayPickerProps {
   /**
    * Enables the dark theme of the calendar.
    */
-  theme?: "light" | "dark" | "auto"
+  theme?: "light" | "dark" | "system"
 }
 
 const DayPicker = React.forwardRef<HTMLDivElement, DayPickerProps>(
@@ -125,7 +125,7 @@ const DayPicker = React.forwardRef<HTMLDivElement, DayPickerProps>(
       hideNavigation = false,
       hideWeekdays = false,
       hideOutsideDates = false,
-      theme = "auto",
+      theme = "system",
     },
     ref,
   ) => {
