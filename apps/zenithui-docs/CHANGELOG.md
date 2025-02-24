@@ -1,5 +1,11 @@
 # zenithui-docs
 
+## 0.2.2
+
+### Patch Changes
+
+- Enhance 404
+
 ## 0.2.1
 
 ### Patch Changes
