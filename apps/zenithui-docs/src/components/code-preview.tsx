@@ -34,7 +34,7 @@ export default function CodePreview({ code, children }: CodePreviewProps) {
       </TabsContent>
       <TabsContent
         value="code"
-        className="h-[600px] overflow-hidden overflow-y-auto"
+        className="h-[600px] overflow-auto"
       >
         <MyCodeBlock
           code={code.code}

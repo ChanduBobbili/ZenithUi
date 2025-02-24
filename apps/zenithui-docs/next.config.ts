@@ -13,7 +13,7 @@ const withNextra = nextra({
 export default withNextra({
   reactStrictMode: true,
   // ... Other Next.js config options
-  output: "export",
+  // output: "export",
   images: {
     unoptimized: true, // mandatory, otherwise won't export
   },
