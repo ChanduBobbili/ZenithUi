@@ -65,9 +65,7 @@ export type DatePickerMode = "single" | "range"
 export type DayPickerState = "day" | "month" | "year"
 export type DateRange = [Date, Date] | { from: Date; to: Date }
 
-export type InternalRange =
-  | [Date, Date | null]
-  | { from: Date; to: Date | null }
+export type InternalRange = { from: Date; to: Date | null }
 
 export type DayPickerProps = {
   /**

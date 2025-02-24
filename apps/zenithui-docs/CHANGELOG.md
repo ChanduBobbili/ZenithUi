@@ -1,5 +1,12 @@
 # zenithui-docs
 
+## 0.2.1
+
+### Patch Changes
+
+- Updated dependencies
+  - zenithui-day-picker@2.4.1
+
 ## 0.2.0
 
 ### Minor Changes

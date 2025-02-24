@@ -14,6 +14,7 @@ import {
 } from "date-fns"
 import { useDayPicker } from "../../hooks/use-day-picker"
 import { cn, getInitialDate, isBetweenRange } from "../utils"
+import { useDeviceType } from "../../hooks/use-device"
 
 export function DayPickerDays() {
   const {
@@ -31,6 +32,8 @@ export function DayPickerDays() {
     classNames,
   } = useDayPicker()
 
+  const device = useDeviceType()
+
   const days = useMemo(() => {
     return eachDayOfInterval({
       start: startOfWeek(startOfMonth(currentMonth)),
@@ -47,10 +50,7 @@ export function DayPickerDays() {
 
   const handleMouseEnter = useCallback(
     (day: Date) => {
-      if (
-        mode === "range" &&
-        (Array.isArray(range) ? range[1] === null : range.to === null)
-      ) {
+      if (mode === "range" && range.to === null) {
         setFocus(day)
       }
     },
@@ -59,26 +59,13 @@ export function DayPickerDays() {
 
   const handleRangeSelect = useCallback(
     (date: Date) => {
-      if (Array.isArray(range)) {
-        if (range[0] && range[1]) {
-          setRange([date, null])
-        } else if (isAfter(date, range[0])) {
-          setFocus(null)
-          setRange([range[0], date])
-        } else {
-          setFocus(null)
-          setRange([date, range[0]])
-        }
+      setFocus(null)
+      if (range.from && range.to) {
+        setRange({ from: date, to: null })
+      } else if (isAfter(date, range.from)) {
+        setRange({ from: range.from, to: date })
       } else {
-        if (range.from && range.to) {
-          setRange({ from: date, to: null })
-        } else if (isAfter(date, range.from)) {
-          setFocus(null)
-          setRange({ from: range.from, to: date })
-        } else {
-          setFocus(null)
-          setRange({ from: date, to: range.from })
-        }
+        setRange({ from: date, to: range.from })
       }
     },
     [range, setRange],
@@ -117,38 +104,26 @@ export function DayPickerDays() {
         )}
       >
         {days.map((day) => {
-          const date = selected ? getInitialDate(selected) : new Date()
           const today = isToday(day)
 
-          const isSelected = isSameDay(date, day)
+          const isSelected =
+            mode === "single"
+              ? isSameDay(selected ? getInitialDate(selected) : new Date(), day)
+              : false
 
           const isRangeStart =
-            mode === "range"
-              ? Array.isArray(range)
-                ? isSameDay(range[0], day)
-                : isSameDay(range.from, day)
-              : false
+            mode === "range" ? isSameDay(range.from, day) : false
 
           const isRangeEnd =
-            mode === "range"
-              ? Array.isArray(range)
-                ? range[1] && isSameDay(range[1], day)
-                : range.to && isSameDay(range.to, day)
-              : false
+            mode === "range" ? range.to && isSameDay(range.to, day) : false
 
           const isInRange =
             mode === "range"
-              ? Array.isArray(range)
-                ? focus
-                  ? isBetweenRange(day, { from: range[0], to: range[1] }, focus)
-                  : range[1] &&
-                    isBefore(day, range[1]) &&
-                    isAfter(day, range[0])
-                : focus
-                  ? isBetweenRange(day, range, focus)
-                  : range.to &&
-                    isBefore(day, range.to) &&
-                    isAfter(day, range.from)
+              ? focus
+                ? isBetweenRange(day, range, focus)
+                : range.to &&
+                  isBefore(day, range.to) &&
+                  isAfter(day, range.from)
               : false
 
           return (
@@ -188,7 +163,11 @@ export function DayPickerDays() {
                   handleRangeSelect(day)
                 }
               }}
-              onMouseEnter={() => handleMouseEnterDebounced(day)}
+              onMouseEnter={() => {
+                if (device === "desktop") {
+                  handleMouseEnterDebounced(day)
+                }
+              }}
               className={cn("zenithui-day", classNames?.day, {
                 // Outside date
                 [classNames?.outsideDate ?? ""]: !isSameMonth(

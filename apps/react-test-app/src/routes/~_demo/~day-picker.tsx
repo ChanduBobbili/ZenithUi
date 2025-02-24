@@ -13,23 +13,37 @@ function RouteComponent() {
     from: new Date(),
     to: after7Days,
   })
+  const [date, setDate] = useState<Date>(new Date())
   return (
-    <DayPicker
-      mode="single"
-      selected={selectedDate}
-      onSelect={setSelectedDate}
-      hideNavigation={false}
-      hideOutsideDates={false}
-      hideWeekdays={false}
-      theme="light"
-      // classNames={{
-      //   calendar: "bg-slate-50",
-      //   day: "bg-slate-50",
-      //   rangeDates: "bg-sky-50",
-      //   rangeStart: "bg-blue-500",
-      //   rangeEnd: "bg-red-500",
-      //   outsideDate: "bg-red-100",
-      // }}
-    />
+    <div className="flex gap-4">
+      <DayPicker
+        mode="range"
+        selected={selectedDate}
+        onSelect={setSelectedDate}
+        theme="light"
+        // classNames={{
+        //   calendar: "bg-slate-50",
+        //   day: "bg-slate-50",
+        //   rangeDates: "bg-sky-50",
+        //   rangeStart: "bg-blue-500",
+        //   rangeEnd: "bg-red-500",
+        //   outsideDate: "bg-red-100",
+        // }}
+      />
+      <DayPicker
+        mode="single"
+        selected={date}
+        onSelect={setDate}
+        theme="light"
+        // classNames={{
+        //   calendar: "bg-slate-50",
+        //   day: "bg-slate-50",
+        //   rangeDates: "bg-sky-50",
+        //   rangeStart: "bg-blue-500",
+        //   rangeEnd: "bg-red-500",
+        //   outsideDate: "bg-red-100",
+        // }}
+      />
+    </div>
   )
 }

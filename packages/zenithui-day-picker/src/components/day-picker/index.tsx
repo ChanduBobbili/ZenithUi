@@ -43,11 +43,7 @@ const DayPicker = forwardRef<HTMLDivElement, DayPickerProps>(
 
     useEffect(() => {
       if (mode === "range") {
-        if (Array.isArray(range)) {
-          if (range[0] && range[1]) onSelect(range)
-        } else {
-          if (range.from && range.to) onSelect(range)
-        }
+        if (range.from && range.to) onSelect(range)
       }
     }, [range])
 

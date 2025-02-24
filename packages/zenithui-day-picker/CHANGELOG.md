@@ -1,5 +1,11 @@
 # zenithui-day-picker
 
+## 2.4.1
+
+### Patch Changes
+
+- omit mouse event listners for not desktop in day-picker
+
 ## 2.4.0
 
 ### Minor Changes

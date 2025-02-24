@@ -1,5 +1,5 @@
 import { isAfter, isBefore, isWithinInterval } from "date-fns"
-import { DateRange } from "./types"
+import { DateRange, InternalRange } from "./types"
 
 /**
  * Merges class names using clsx and twMerge.
@@ -54,10 +54,12 @@ export function getInitialDate(selected: Date | DateRange): Date {
  * @param selected
  * @returns
  */
-export function getInitialRange(selected: Date | DateRange): DateRange {
+export function getInitialRange(selected: Date | DateRange): InternalRange {
   return selected instanceof Date
     ? { from: new Date(), to: new Date() }
-    : selected
+    : Array.isArray(selected)
+      ? { from: selected[0], to: selected[1] }
+      : selected
 }
 
 /**
