@@ -13,7 +13,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0 # Ensures full Git history
+          fetch-depth: 2 # Ensures full Git history
           ref: main # Ensure you check out a named branch
 
       - name: Setup Node.js
@@ -24,6 +24,9 @@ jobs:
 
       - name: Install pnpm
         run: npm install -g pnpm
+
+      - name: Install Vercel CLI
+        run: npm install --global vercel@latest && vercel link --repo --yes --token ${{ secrets.VERCEL_TOKEN }}
 
       - name: Install Dependencies
         run: pnpm install
