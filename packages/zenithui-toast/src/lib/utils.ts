@@ -1,9 +1,4 @@
-import {
-  Toast,
-  ToastAnimation,
-  ToastPosition,
-  ToastType,
-} from "./components/toast-provider"
+import { Toast, ToastAnimation, ToastPosition, ToastType } from "./types"
 
 /**
  * Merges class names using clsx and twMerge.
@@ -34,25 +29,6 @@ export function cn(
       return cls
     })
     .join(" ")
-}
-
-/**
- * The function `getTheme` returns the theme based on the input theme value.
- * @param theme @type {"system" | "light" | "dark"}
- * @returns
- */
-export function getTheme(theme: "auto" | "light" | "dark") {
-  switch (theme) {
-    case "dark":
-      return "dark"
-    case "auto":
-      return window.matchMedia("(prefers-color-scheme: dark)").matches
-        ? "dark"
-        : ""
-    case "light":
-    default:
-      return
-  }
 }
 
 /**

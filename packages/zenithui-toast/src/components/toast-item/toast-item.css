@@ -41,26 +41,26 @@
   --box-shadow: rgba(0, 0, 0, 0.3);
 
   /* Success colors */
-  --success-text: #ffffff;
-  --success-bg: #065f46;
+  --success-text: #047857;
+  --success-bg: #edfdf9;
   --success-border: #10b981;
   --success-shadow: #7fffd4;
 
   /* Error colors */
-  --error-text: #ffffff;
-  --error-bg: #be123c;
+  --error-text: #be123c;
+  --error-bg: #ffeff3;
   --error-border: #f43f5e;
   --error-shadow: #ff8196;
 
   /* Info colors */
-  --info-text: #ffffff;
-  --info-bg: #0369a1;
+  --info-text: #0369a1;
+  --info-bg: #f0f9ff;
   --info-border: #0ea5e9;
   --info-shadow: #84d8ff;
 
   /* Warning colors */
-  --warning-text: #ffffff;
-  --warning-bg: #b45309;
+  --warning-text: #b45309;
+  --warning-bg: #fffbf1;
   --warning-border: #f59e0b;
   --warning-shadow: #ffd284;
 

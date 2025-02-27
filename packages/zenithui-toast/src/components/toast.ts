@@ -1,4 +1,4 @@
-import { ToastOptions, ToastType } from "./toast-provider"
+import { ToastOptions, ToastType } from "../lib/types"
 
 /**
  * ToastSingleton class to manage the toast

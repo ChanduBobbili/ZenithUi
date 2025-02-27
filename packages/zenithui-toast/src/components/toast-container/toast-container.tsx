@@ -1,9 +1,10 @@
 import "./toast-container.css"
 import { createPortal } from "react-dom"
-import { Toast, ToastPosition, useToast } from "../toast-provider"
-import { ToastItem } from "../toast-item/toast-item"
-import { cn, getPositionClass, reverseToasts } from "../../utils"
 import { useMemo } from "react"
+import { Toast, ToastPosition } from "../../lib/types"
+import { useToast } from "../../hooks/use-toast"
+import { cn, getPositionClass, reverseToasts } from "../../lib/utils"
+import { ToastItem } from "../toast-item/toast-item"
 
 interface ToastContainerProps extends React.HTMLAttributes<HTMLDivElement> {
   /**

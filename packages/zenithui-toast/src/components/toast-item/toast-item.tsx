@@ -1,12 +1,9 @@
-import "./toast-item.css"
-import { Toast, useToast } from "../toast-provider"
-import {
-  cn,
-  getToastAnimation,
-  getToastTheme,
-} from "../../utils"
 import { CloseIcon, ToastAsset } from "../toast-asset"
 import { useEffect, useRef } from "react"
+import { Toast } from "../../lib/types"
+import { useToast } from "../../hooks/use-toast"
+import "./toast-item.css"
+import { cn, getToastAnimation, getToastTheme } from "../../lib/utils"
 
 interface ToastItemProps extends React.HTMLAttributes<HTMLDivElement> {
   /**
