@@ -1,0 +1,30 @@
+{
+  "name": "zenithui-cli",
+  "version": "0.0.0",
+  "description": "ZenithUI CLI - A tool for managing ZenithUI components",
+  "private": false,
+  "bin": {
+    "zenithui-cli": "./bin/index.js"
+  },
+  "scripts": {
+    "start": "node bin/index.js"
+  },
+  "dependencies": {
+    "commander": "^11.1.0",
+    "inquirer": "^9.2.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ChanduBobbili/ZenithUi.git#main"
+  },
+  "homepage": "https://zenithui-docs.vercel.app/",
+  "bugs": {
+    "url": "https://github.com/ChanduBobbili/ZenithUi/issues"
+  },
+  "author": {
+    "name": "Chandu Bobbili",
+    "email": "chandubobbili12@gmail.com",
+    "url": "https://github.com/ChanduBobbili"
+  },
+  "license": "MIT"
+}
