@@ -133,6 +133,16 @@ export interface ToastContextProps {
    * @type {number}
    */
   duration: number
+  /**
+   * The X Offset of the toast.
+   * @type {number}
+   */
+  X_Offset: number
+  /**
+   * The Y Offset of the toast.
+   * @type {number}
+   */
+  Y_Offset: number
 }
 
 export interface ToastProviderProps {
@@ -195,6 +205,16 @@ export interface ToastProviderProps {
    * @default "light"
    */
   theme?: Theme
+  /**
+   * The X Offset of the toast.
+   * @type {number}
+   */
+  X_Offset?: number
+  /**
+   * The Y Offset of the toast.
+   * @type {number}
+   */
+  Y_Offset?: number
   // /**
   //  * The style of the toast.
   //  * @type {React.CSSProperties}

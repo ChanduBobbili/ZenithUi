@@ -17,6 +17,8 @@ export const ToastProvider: React.FC<ToastProviderProps> = ({
   theme = "auto",
   duration = 5000,
   maxToasts = 3,
+  X_Offset = 0,
+  Y_Offset = 0,
   richColors = false,
   disableAutoDismiss = false,
   enableQueueSystem = false,
@@ -79,6 +81,8 @@ export const ToastProvider: React.FC<ToastProviderProps> = ({
         showCloseButton,
         disableAutoDismiss,
         duration,
+        X_Offset,
+        Y_Offset,
       }}
     >
       {children}

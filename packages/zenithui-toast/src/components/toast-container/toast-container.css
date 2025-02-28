@@ -1,3 +1,8 @@
+:root {
+  --x-offset: 12px;
+  --y-offset: 12px;
+}
+
 .zenithui-toast-container {
   position: fixed;
   z-index: 999;
@@ -9,33 +14,33 @@
 }
 
 .zenithui-top-left {
-  top: 12px;
-  left: 12px;
+  top: var(--y-offset);
+  left: var(--x-offset);
 }
 
 .zenithui-top-right {
-  top: 12px;
-  right: 12px;
+  top: var(--y-offset);
+  right: var(--x-offset);
 }
 
 .zenithui-bottom-left {
-  bottom: 12px;
-  left: 12px;
+  bottom: var(--y-offset);
+  left: var(--x-offset);
 }
 
 .zenithui-bottom-right {
-  bottom: 12px;
-  right: 12px;
+  bottom: var(--y-offset);
+  right: var(--x-offset);
 }
 
 .zenithui-top-center {
-  top: 12px;
-  left: 50%;
+  top: var(--y-offset);
+  left: calc(50% - var(--x-offset));
   transform: translateX(-50%);
 }
 
 .zenithui-bottom-center {
-  bottom: 12px;
-  left: 50%;
+  bottom: var(--y-offset);
+  left: calc(50% - var(--y-offset));
   transform: translateX(-50%);
 }
