@@ -1,5 +1,15 @@
 # zenithui-toast
 
+## 1.2.0
+
+### Minor Changes
+
+- New features
+
+  - Refactor the toast.
+  - theming with the use-theme hook
+  - offset customization
+
 ## 1.1.0
 
 ### Minor Changes

@@ -1,5 +1,11 @@
 # zenithui-time-picker
 
+## 1.5.1
+
+### Patch Changes
+
+- updated use-theme to handle the server side rendering
+
 ## 1.5.0
 
 ### Minor Changes
