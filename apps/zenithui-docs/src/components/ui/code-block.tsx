@@ -18,7 +18,7 @@ function MyCodeBlock({ code, language, showLines = false }: MyCodeBlockProps) {
       language={language}
       theme={theme === "light" ? themes.github : themes.nightOwl}
     >
-      <CodeBlock.Code className="rounded-xl bg-slate-100 p-6 text-gray-500 shadow-lg dark:bg-zinc-900 w-fit">
+      <CodeBlock.Code className="w-fit rounded-xl bg-slate-100 p-6 text-gray-500 shadow-lg dark:bg-zinc-900 md:w-full">
         <div className="table-row">
           {showLines && (
             <CodeBlock.LineNumber className="table-cell pr-4 text-right text-gray-400" />
