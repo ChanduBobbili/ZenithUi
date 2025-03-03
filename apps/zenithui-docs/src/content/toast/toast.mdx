@@ -1,34 +1,54 @@
-import ToasterPosition from "@/components/toast/toaster/position"
-import ToasterRichColors from "@/components/toast/toaster/rich-color"
-import ToasterAnimation from "@/components/toast/toaster/animation"
-import ToasterQueue from "@/components/toast/toaster/queue-system"
+import BasicToast from "@/components/toast/toast/render-toast"
+import ToastsExample from "@/components/toast/toast/toasts"
 import { Table } from "nextra/components"
 
-# Toaster
+# Toast
 
-## Position
+## Rendering the toast
 
-<ToasterPosition />
+You can call it with just a string, that will become the title.
 
----
-
-## Rich Colors
-
-<ToasterRichColors />
+<BasicToast />
 
 ---
 
-## Animation
+## Success
 
-<ToasterAnimation />
+Renders a checkmark icon in front of the message.
+
+<ToastsExample type="s" />
 
 ---
 
-## Queue System
+## Error
 
-When the number of active toasts exceeds `maxCount`, any additional toasts are placed in a queue. As soon as an active toast is dismissed, the next toast in the queue takes its place. By default, `maxCount` is set to 5.
+Renders an error icon in front of the message.
 
-<ToasterQueue />
+<ToastsExample type="e" />
+
+---
+
+## Warning
+
+Renders a warning icon in front of the message.
+
+<ToastsExample type="w" />
+
+---
+
+## Info
+
+Renders a checkmark info in front of the message.
+
+<ToastsExample type="i" />
+
+---
+
+## showCloseButton
+
+Renders a close button to dismiss the toast.
+
+<ToastsExample type="w-c" />
 
 ## 🛠 API Reference
 
@@ -86,37 +106,12 @@ When the number of active toasts exceeds `maxCount`, any additional toasts are p
     </Table.Tr>
 
     <Table.Tr>
-        <Table.Td>**enableQueueSystem**</Table.Td>
-        <Table.Td>`boolean`</Table.Td>
-        <Table.Td>
-           If too many toasts appear at once, we should queue them instead of overwhelming the user.
-        </Table.Td>
-        <Table.Td>`false`</Table.Td>
-    </Table.Tr>
-
-    <Table.Tr>
-        <Table.Td>**maxToasts**</Table.Td>
-        <Table.Td>`number`</Table.Td>
-        <Table.Td>
-           The maximum no of toasts to show when queue system is enabled.
-        </Table.Td>
-        <Table.Td>`3`</Table.Td>
-    </Table.Tr>
-
-    <Table.Tr>
         <Table.Td>**showCloseButton**</Table.Td>
         <Table.Td>`boolean`</Table.Td>
         <Table.Td>
             Whether to show the close button for the toast.
         </Table.Td>
         <Table.Td>`false`</Table.Td>
-    </Table.Tr>
-
-    <Table.Tr>
-      <Table.Td>**theme**</Table.Td>
-      <Table.Td>`"light" | "dark" | "auto"`</Table.Td>
-      <Table.Td>Theme of the toast.</Table.Td>
-      <Table.Td>`"auto"`</Table.Td>
     </Table.Tr>
 
   </tbody>

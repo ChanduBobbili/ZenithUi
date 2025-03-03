@@ -12,20 +12,19 @@ export default function ToasterPosition() {
     <CodePreview
       code={{
         code: `
-import { Button } from "@/components/ui/button"
 import { toast, ToastProvider } from "zenithui-toast"
 
 const App = () => {
 
   return (
    <ToastProvider position="${position}">
-      <Button
+      <button
         onClick={() => {
           toast.success("${getFormattedPosition(position)} Toast")
         }}
       >
       ${getFormattedPosition(position)}
-    </Button>
+    </button>
   </ToastProvider>
   );
 };
