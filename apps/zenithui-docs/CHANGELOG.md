@@ -1,5 +1,19 @@
 # zenithui-docs
 
+## 0.3.0
+
+### Minor Changes
+
+- added the documenation for toast
+
+### Patch Changes
+
+- Updated dependencies
+- Updated dependencies
+  - zenithui-time-picker@1.5.1
+  - zenithui-day-picker@2.4.2
+  - zenithui-toast@1.2.0
+
 ## 0.2.2
 
 ### Patch Changes

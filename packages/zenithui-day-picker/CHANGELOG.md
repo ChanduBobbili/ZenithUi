@@ -1,5 +1,11 @@
 # zenithui-day-picker
 
+## 2.4.2
+
+### Patch Changes
+
+- updated use-theme to handle the server side rendering
+
 ## 2.4.1
 
 ### Patch Changes

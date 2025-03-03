@@ -1,9 +1,10 @@
 import "./toast-container.css"
 import { createPortal } from "react-dom"
-import { Toast, ToastPosition, useToast } from "../toast-provider"
-import { ToastItem } from "../toast-item/toast-item"
-import { cn, getPositionClass, reverseToasts } from "../../utils"
 import { useMemo } from "react"
+import { Toast, ToastPosition } from "../../lib/types"
+import { useToast } from "../../hooks/use-toast"
+import { cn, getPositionClass, reverseToasts } from "../../lib/utils"
+import { ToastItem } from "../toast-item/toast-item"
 
 interface ToastContainerProps extends React.HTMLAttributes<HTMLDivElement> {
   /**
@@ -17,7 +18,7 @@ export const ToastContainer: React.FC<ToastContainerProps> = ({
   className,
   ...props
 }) => {
-  const { position: globalPosition } = useToast()
+  const { position: globalPosition, X_Offset, Y_Offset } = useToast()
 
   // Group toasts by child position (toast position > global position)
   const groupedToasts = useMemo(() => {
@@ -55,6 +56,12 @@ export const ToastContainer: React.FC<ToastContainerProps> = ({
     return createPortal(
       <div
         key={position}
+        style={
+          {
+            "--x-offset": `${X_Offset + 12}px`,
+            "--y-offset": `${Y_Offset + 12}px`,
+          } as React.CSSProperties
+        }
         className={cn(
           "zenithui-toast-container",
           className,

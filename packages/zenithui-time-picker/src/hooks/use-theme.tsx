@@ -2,17 +2,26 @@ import { useEffect, useState } from "react"
 
 export function useTheme() {
   const getTheme = () => {
-    const storedTheme = localStorage.getItem("theme")
+    let storedTheme: string
+    if (typeof window !== "undefined") {
+      storedTheme = localStorage.getItem("theme") ?? ""
+    } else {
+      storedTheme = "system"
+    }
 
     // Check if body or #root has the "dark" class
-    const hasDarkClass =
-      document.body.classList.contains("dark") ||
-      document.getElementById("root")?.classList.contains("dark")
-
+    let hasDarkClass: boolean = false
+    if (typeof document !== "undefined") {
+      hasDarkClass =
+        document.body.classList.contains("dark") ||
+        document.getElementById("root")?.classList.contains("dark") ||
+        false
+    }
+    let systemDark: boolean = false
     if (storedTheme === "system" || !storedTheme) {
-      const systemDark = window.matchMedia(
-        "(prefers-color-scheme: dark)",
-      ).matches
+      if (typeof window !== "undefined") {
+        systemDark = window.matchMedia("(prefers-color-scheme: dark)").matches
+      }
       return hasDarkClass || systemDark ? "dark" : ""
     }
 

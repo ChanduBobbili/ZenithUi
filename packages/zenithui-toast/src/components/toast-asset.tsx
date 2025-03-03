@@ -1,4 +1,4 @@
-import { ToastType } from "./toast-provider"
+import { ToastType } from "../lib/types"
 
 export const ToastAsset: React.FC<{ type: ToastType }> = ({ type }) => {
   switch (type) {
