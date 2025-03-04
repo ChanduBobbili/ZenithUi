@@ -64,16 +64,17 @@ const App = () => {
 
 #### `ToastProvider` Props
 
-| Prop Name            | Type             | Description                                                                               | Default        |
-| -------------------- | ---------------- | ----------------------------------------------------------------------------------------- | -------------- |
-| `position`           | `ToastPosition`  | The position of the toast.                                                                | `bottom-right` |
-| `richColors`         | `boolean`        | Whether to use rich colors for the toast.                                                 | `false`        |
-| `animation`          | `ToastAnimation` | The animation of the toast.                                                               | `fade`         |
-| `duration`           | `number`         | The duration of the toast to display.                                                     | `5 seconds`    |
-| `disableAutoDismiss` | `boolean`        | Whether to enable auto dismiss for the toast.                                             | `true`         |
-| `enableQueueSystem`  | `boolean`        | If too many toasts appear at once, we should queue them instead of overwhelming the user. | `false`        |
-| `maxToasts`          | `number`         | The maximum no of toasts to show when queue system is enabled.                            | `3`            |
-| `showCloseButton`    | `boolean`        | Whether to show the close button for the toast.                                           | `false`        |
+| Prop Name            | Type                          | Description                                                                               | Default        |
+| -------------------- | ----------------------------- | ----------------------------------------------------------------------------------------- | -------------- |
+| `position`           | `ToastPosition`               | The position of the toast.                                                                | `bottom-right` |
+| `richColors`         | `boolean`                     | Whether to use rich colors for the toast.                                                 | `false`        |
+| `animation`          | `ToastAnimation`              | The animation of the toast.                                                               | `fade`         |
+| `duration`           | `number`                      | The duration of the toast to display.                                                     | `5 seconds`    |
+| `disableAutoDismiss` | `boolean`                     | Whether to enable auto dismiss for the toast.                                             | `true`         |
+| `enableQueueSystem`  | `boolean`                     | If too many toasts appear at once, we should queue them instead of overwhelming the user. | `false`        |
+| `maxToasts`          | `number`                      | The maximum no of toasts to show when queue system is enabled.                            | `5`            |
+| `showCloseButton`    | `boolean`                     | Whether to show the close button for the toast.                                           | `false`        |
+| `theme`              | `"light" \| "dark" \| "auto"` | The theme of the toast.                                                                   | `auto`         |
 
 ### `Types`
 
