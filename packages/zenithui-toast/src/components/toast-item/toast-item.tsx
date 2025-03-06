@@ -1,5 +1,5 @@
 import { ToastAsset } from "../toast-asset"
-import { useEffect, useRef } from "react"
+import { useCallback, useEffect, useRef } from "react"
 import { Toast } from "../../lib/types"
 import { useToast } from "../../hooks/use-toast"
 import { cn, getToastAnimation, getToastTheme } from "../../lib/utils"
@@ -31,8 +31,7 @@ export const ToastItem: React.FC<ToastItemProps> = ({ toast, ...props }) => {
   // useRef to store timeout reference
   const timeoutRef = useRef<NodeJS.Timeout | null>(null)
 
-  // Auto-dismiss toast after duration
-  useEffect(() => {
+  const setTimer = useCallback(() => {
     if (
       !(options?.disableAutoDismiss
         ? options.disableAutoDismiss
@@ -47,7 +46,11 @@ export const ToastItem: React.FC<ToastItemProps> = ({ toast, ...props }) => {
         options?.duration ? options?.duration : duration,
       )
     }
+  }, [])
 
+  // Auto-dismiss toast after duration
+  useEffect(() => {
+    // Clear timeout on unmount
     return () => {
       if (timeoutRef.current) {
         clearTimeout(timeoutRef.current)
@@ -83,7 +86,12 @@ export const ToastItem: React.FC<ToastItemProps> = ({ toast, ...props }) => {
             : (options?.classNames?.className ?? "")
           : (globalClassNames?.className ?? ""),
       )}
-      onAnimationEnd={() => toast.remove && removeToast(toast.id)}
+      onAnimationEnd={() => {
+        setTimer()
+        if (toast.remove) {
+          removeToast(toast.id)
+        }
+      }}
     >
       <div className="zenithui-toast">
         <div data-icon="">
