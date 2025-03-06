@@ -13,7 +13,7 @@ import {
   startOfWeek,
 } from "date-fns"
 import { useDayPicker } from "../../hooks/use-day-picker"
-import { cn, getInitialDate, isBetweenRange } from "../utils"
+import { cn, getDisabled, getInitialDate, isBetweenRange } from "../utils"
 import { useDeviceType } from "../../hooks/use-device"
 
 export function DayPickerDays() {
@@ -25,6 +25,7 @@ export function DayPickerDays() {
     currentMonth,
     hideWeekdays,
     hideOutsideDates,
+    disabled,
     onSelect,
     setCurrentMonth,
     setFocus,
@@ -126,6 +127,8 @@ export function DayPickerDays() {
                   isAfter(day, range.from)
               : false
 
+          const isDisabled = getDisabled(day, disabled)
+
           return (
             <button
               key={`zenithui-day-${day}-${Math.random}`}
@@ -156,6 +159,7 @@ export function DayPickerDays() {
                 !isSameMonth(day, currentMonth) && hideOutsideDates
               }
               data-day={format(day, "d")}
+              disabled={isDisabled}
               onClick={() => {
                 if (mode === "single") {
                   handleSelectDate(day)

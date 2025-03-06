@@ -19,6 +19,7 @@ const DayPicker = forwardRef<HTMLDivElement, DayPickerProps>(
       hideWeekdays = false,
       hideOutsideDates = false,
       theme = "auto",
+      disabled,
     },
     ref,
   ) => {
@@ -59,6 +60,7 @@ const DayPicker = forwardRef<HTMLDivElement, DayPickerProps>(
           hideWeekdays,
           selected,
           classNames,
+          disabled,
           onSelect,
           setCurrentMonth,
           setFocus,
