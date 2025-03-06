@@ -1,5 +1,16 @@
 # zenithui-docs
 
+## 0.4.0
+
+### Minor Changes
+
+- Added the disable feature as prop in the DayPicker
+
+### Patch Changes
+
+- Updated dependencies
+  - zenithui-day-picker@2.5.0
+
 ## 0.3.0
 
 ### Minor Changes
