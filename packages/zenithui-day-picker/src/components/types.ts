@@ -134,7 +134,7 @@ export type DayPickerProps = {
    */
   theme?: "light" | "dark" | "auto"
   /**
-   * Whether to the date.
+   * Whether to disable the date.
    */
   disabled?: Partial<Disabled>
 }

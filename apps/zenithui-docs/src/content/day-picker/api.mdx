@@ -72,5 +72,80 @@ The props of the `DayPicker` component
       <Table.Td>`"auto"`</Table.Td>
     </Table.Tr>
 
+    <Table.Tr>
+      <Table.Td>**disabled**</Table.Td>
+      <Table.Td>`disable props`</Table.Td>
+      <Table.Td>Whether to disable the date.</Table.Td>
+      <Table.Td>`optional`</Table.Td>
+    </Table.Tr>
+
   </tbody>
+</Table>
+
+## Disabled Options
+
+The `disabled` prop provides flexible options for disabling dates in the date picker. You can use it to restrict date selection based on various criteria, including specific dates, date ranges, days of the week, or custom logic.
+
+```tsx
+<DatePicker
+  disable={{
+    before: new Date(), // Disable past dates
+    days: ["sunday"], // Disable Sundays
+    dates: ["2025-04-01"], // Disable April Fools' Day
+    modifier: (date) => {
+      return date.getDate() % 2 === 0; // Disable every other day
+    },
+  }}
+/>
+```
+
+---
+
+<Table>
+  <thead>
+    <Table.Tr>
+      <Table.Th>Prop Name</Table.Th>
+      <Table.Th>Type</Table.Th>
+      <Table.Th>Description</Table.Th>
+    </Table.Tr>
+  </thead>
+  <tbody>
+    <Table.Tr>
+      <Table.Td>**before**</Table.Td>
+      <Table.Td>`Date | string`</Table.Td>
+      <Table.Td>Disables all dates before the specified date.</Table.Td>
+    </Table.Tr>
+
+    <Table.Tr>
+      <Table.Td>**after**</Table.Td>
+      <Table.Td>`Date | string`</Table.Td>
+      <Table.Td>Disables all dates after the specified date.</Table.Td>
+    </Table.Tr>
+
+     <Table.Tr>
+      <Table.Td>**date**</Table.Td>
+      <Table.Td>`Date | string`</Table.Td>
+      <Table.Td>Disables a specific date.</Table.Td>
+    </Table.Tr>
+
+    <Table.Tr>
+      <Table.Td>**dates**</Table.Td>
+      <Table.Td>`Array<Date | string>`</Table.Td>
+      <Table.Td>Disables multiple specific dates.</Table.Td>
+    </Table.Tr>
+
+    <Table.Tr>
+      <Table.Td>**days**</Table.Td>
+      <Table.Td>`Array<DayOfWeek>`</Table.Td>
+      <Table.Td>Disables specific days of the week.</Table.Td>
+    </Table.Tr>
+
+    <Table.Tr>
+      <Table.Td>**modifier**</Table.Td>
+      <Table.Td>`(date: Date) => boolean`</Table.Td>
+      <Table.Td>Custom function that returns true for dates that should be disabled.</Table.Td>
+    </Table.Tr>
+
+  </tbody>
+
 </Table>

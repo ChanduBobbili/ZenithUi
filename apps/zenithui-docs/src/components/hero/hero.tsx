@@ -2,6 +2,7 @@
 
 import { cn } from "@/lib/utils"
 import { TypewriterEffect } from "../ui/typewriter-effect"
+import Link from "next/link"
 
 const words = [
   {
@@ -53,7 +54,7 @@ export default function Hero() {
   return (
     <div
       className={cn(
-        "relative flex flex-col items-center justify-center gap-2",
+        "relative flex flex-col items-center justify-center gap-10",
         "mx-auto w-[99%] overflow-hidden rounded-sm bg-gradient-to-t from-sky-500 to-cyan-300",
       )}
       style={{
@@ -65,6 +66,16 @@ export default function Hero() {
         words={words}
         className="max-w-3/4"
       />
+      <Link
+        href="/docs"
+        className={cn(
+          "rounded-md border-2 px-10 py-3 shadow-lg transition-all duration-500 ease-in-out hover:scale-105 active:animate-ping",
+          "border-sky-600/50 shadow-sky-500 hover:bg-sky-800 hover:text-white hover:shadow-2xl",
+          "dark:border-sky-600/50 dark:bg-sky-950 dark:shadow-sky-500 dark:hover:bg-sky-200 dark:hover:text-sky-800 dark:hover:shadow-2xl",
+        )}
+      >
+        Get Started
+      </Link>
     </div>
   )
 }
