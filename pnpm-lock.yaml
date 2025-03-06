@@ -193,8 +193,8 @@ importers:
         specifier: ^1.0.7
         version: 1.0.7(tailwindcss@4.0.7)
       zenithui-day-picker:
-        specifier: ^2.4.2
-        version: 2.4.2(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+        specifier: ^2.5.0
+        version: 2.5.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       zenithui-light-box:
         specifier: ^2.0.2
         version: 2.0.2(@types/react-dom@19.0.4(@types/react@19.0.10))(@types/react@19.0.10)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
@@ -5874,8 +5874,8 @@ packages:
     resolution: {integrity: sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==}
     engines: {node: '>=10'}
 
-  zenithui-day-picker@2.4.2:
-    resolution: {integrity: sha512-iSJoO11HaVsgDhgawzAdtSMaOFtwSapmvoAVJ8DfxhvSHKiV89odA8TwJGVl67GiW2eeSPmS6l1cj+SmILy8EA==}
+  zenithui-day-picker@2.5.0:
+    resolution: {integrity: sha512-xhgA2ETBQa63dgHHC2QJioArXALyRcqYesaPVfBitYx1iaYBFpVEaZ0hW2LficsnZt57b52X1pFA2WQ2eurINA==}
     engines: {node: '>=20', pnpm: '>=9'}
     peerDependencies:
       react: ^18.0.0 || ^17.0.0
@@ -12637,7 +12637,7 @@ snapshots:
 
   yocto-queue@0.1.0: {}
 
-  zenithui-day-picker@2.4.2(react-dom@19.0.0(react@19.0.0))(react@19.0.0):
+  zenithui-day-picker@2.5.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0):
     dependencies:
       date-fns: 4.1.0
       react: 19.0.0
