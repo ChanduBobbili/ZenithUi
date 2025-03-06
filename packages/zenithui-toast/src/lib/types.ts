@@ -12,6 +12,37 @@ export type ToastPosition =
 
 export type ToastAnimation = "slide" | "fade"
 
+export type ClassNames = {
+  /**
+   * The class name of the toast container.
+   */
+  className: string
+  /**
+   * The class name of the toast icon.
+   */
+  icon: string
+  /**
+   * The class name of the toast message.
+   */
+  title: string
+  /**
+   * The class name of the toast description.
+   */
+  description: string
+  /**
+   * The class name of the toast close button.
+   */
+  closeButton: string
+  /**
+   * The class name of the toast action button.
+   */
+  actionButton: string
+  /**
+   * The class name of the toast cancel button.
+   */
+  cancelButton: string
+}
+
 export type ToastOptions = {
   /**
    * Whether to use rich colors for the toast.
@@ -50,6 +81,23 @@ export type ToastOptions = {
    * @description This is used to position the toast.
    */
   position?: ToastPosition
+  /**
+   * The title of the toast.
+   * @type {string}
+   * @description This is used to display the title of the toast.
+   */
+  title?: string
+  /**
+   * The description of the toast.
+   * @type {string}
+   * @description This is used to display the description of the toast.
+   */
+  description?: string
+  /**
+   * The classNames to customise the toast.
+   * @type {Partial<ClassNames>}
+   */
+  classNames?: Partial<ClassNames> | string
 }
 
 export type Toast = {
@@ -143,6 +191,11 @@ export interface ToastContextProps {
    * @type {number}
    */
   Y_Offset: number
+  /**
+   * The classNames to customise the toast.
+   * @type {Partial<ClassNames>}
+   */
+  classNames?: Partial<ClassNames>
 }
 
 export interface ToastProviderProps {
@@ -215,39 +268,9 @@ export interface ToastProviderProps {
    * @type {number}
    */
   Y_Offset?: number
-  // /**
-  //  * The style of the toast.
-  //  * @type {React.CSSProperties}
-  //  */
-  // style?: React.CSSProperties
-  // /**
-  //  * The class name of the toast.
-  //  * @type {string}
-  //  */
-  // className?: string
-  // /**
-  //  * The class name of the toast container.
-  //  * @type {string}
-  //  */
-  // containerClassName?: string
-  // /**
-  //  * The class name of the toast item.
-  //  * @type {string}
-  //  */
-  // itemClassName?: string
-  // /**
-  //  * The class name of the toast item close button.
-  //  * @type {string}
-  //  */
-  // itemCloseClassName?: string
-  // /**
-  //  * The class name of the toast item icon.
-  //  * @type {string}
-  //  */
-  // itemIconClassName?: string
-  // /**
-  //  * The class name of the toast item message.
-  //  * @type {string}
-  //  */
-  // itemMessageClassName?: string
+  /**
+   * The classNames to customise the toast.
+   * @type {Partial<ClassNames>}
+   */
+  classNames?: Partial<ClassNames>
 }

@@ -23,6 +23,7 @@ export const ToastProvider: React.FC<ToastProviderProps> = ({
   disableAutoDismiss = false,
   enableQueueSystem = false,
   showCloseButton = false,
+  classNames,
   children,
 }) => {
   const [toasts, setToasts] = useState<Toast[]>([])
@@ -83,6 +84,7 @@ export const ToastProvider: React.FC<ToastProviderProps> = ({
         duration,
         X_Offset,
         Y_Offset,
+        classNames,
       }}
     >
       {children}

@@ -15,9 +15,9 @@ function RouteComponent() {
           toast.success("Success Toast", {
             animation: "slide",
             duration: 2000,
-            disableAutoDismiss: true,
             showCloseButton: true,
             richColors: true,
+            description: "Success Description",
           })
         }
       >
@@ -27,7 +27,17 @@ function RouteComponent() {
       <button
         onClick={() =>
           toast.error("Error Toast", {
-            richColors: true,
+            title: "Error Title",
+            description: "Error Description",
+            showCloseButton: true,
+            // richColors: true,
+            position: "top-right",
+            classNames: {
+              className: "text-red-500",
+              icon: "text-blue-500",
+              closeButton: "text-black bg-blue-500",
+              description: "text-sky-500",
+            },
           })
         }
       >
@@ -37,6 +47,9 @@ function RouteComponent() {
         onClick={() =>
           toast.warning("Warning Toast", {
             position: "top-left",
+            showCloseButton: true,
+            description: "Warning Description",
+            classNames: { description: "text-red-500" },
           })
         }
       >

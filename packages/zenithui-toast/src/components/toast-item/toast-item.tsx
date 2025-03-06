@@ -1,9 +1,10 @@
-import { CloseIcon, ToastAsset } from "../toast-asset"
+import { ToastAsset } from "../toast-asset"
 import { useEffect, useRef } from "react"
 import { Toast } from "../../lib/types"
 import { useToast } from "../../hooks/use-toast"
-import "./toast-item.css"
 import { cn, getToastAnimation, getToastTheme } from "../../lib/utils"
+import CloseIcon from "@/assets/close.svg?react"
+import "./toast-item.css"
 
 interface ToastItemProps extends React.HTMLAttributes<HTMLDivElement> {
   /**
@@ -12,11 +13,7 @@ interface ToastItemProps extends React.HTMLAttributes<HTMLDivElement> {
   toast: Toast
 }
 
-export const ToastItem: React.FC<ToastItemProps> = ({
-  toast,
-  className,
-  ...props
-}) => {
+export const ToastItem: React.FC<ToastItemProps> = ({ toast, ...props }) => {
   const {
     richColors,
     animation,
@@ -24,6 +21,7 @@ export const ToastItem: React.FC<ToastItemProps> = ({
     showCloseButton,
     disableAutoDismiss,
     duration,
+    classNames: globalClassNames,
     removeToast,
     setToasts,
   } = useToast()
@@ -79,15 +77,56 @@ export const ToastItem: React.FC<ToastItemProps> = ({
           position,
           !toast.remove,
         ),
-        className,
+        options?.classNames
+          ? typeof options.classNames === "string"
+            ? options?.classNames
+            : (options?.classNames?.className ?? "")
+          : (globalClassNames?.className ?? ""),
       )}
       onAnimationEnd={() => toast.remove && removeToast(toast.id)}
     >
       <div className="zenithui-toast">
         <div data-icon="">
-          <ToastAsset type={toast.type} />
+          <ToastAsset
+            type={toast.type}
+            className={cn(
+              options?.classNames
+                ? typeof options.classNames !== "string"
+                  ? (options?.classNames?.icon ?? "")
+                  : ""
+                : (globalClassNames?.icon ?? ""),
+            )}
+          />
         </div>
-        <span>{toast.message}</span>
+        <div
+          data-content={true}
+          style={{ width: "100%", display: "flex", flexDirection: "column" }}
+        >
+          <span
+            className={cn(
+              options?.classNames
+                ? typeof options.classNames !== "string"
+                  ? (options?.classNames?.title ?? "")
+                  : ""
+                : (globalClassNames?.title ?? ""),
+            )}
+          >
+            {toast?.options?.title || toast.message}
+          </span>
+          {toast?.options?.description ? (
+            <span
+              className={cn(
+                options?.classNames
+                  ? typeof options.classNames !== "string"
+                    ? (options?.classNames?.description ?? "")
+                    : ""
+                  : (globalClassNames?.description ?? ""),
+              )}
+            >
+              {toast.options.description}
+            </span>
+          ) : null}
+        </div>
       </div>
       {(
         options?.showCloseButton ? options.showCloseButton : showCloseButton
@@ -102,6 +141,11 @@ export const ToastItem: React.FC<ToastItemProps> = ({
               : richColors
                 ? `${getToastTheme(toast.type)} zenithui-toast-close-rich`
                 : "",
+            options?.classNames
+              ? typeof options.classNames !== "string"
+                ? (options?.classNames?.closeButton ?? "")
+                : ""
+              : (globalClassNames?.closeButton ?? ""),
           )}
           onClick={() => {
             if (timeoutRef.current) {
