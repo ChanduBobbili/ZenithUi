@@ -1,5 +1,5 @@
-import { isAfter, isBefore, isWithinInterval } from "date-fns"
-import { DateRange, InternalRange } from "./types"
+import { isAfter, isBefore, isSameDay, isWithinInterval } from "date-fns"
+import { DateRange, Disabled, InternalRange } from "./types"
 
 /**
  * Merges class names using clsx and twMerge.
@@ -84,5 +84,61 @@ export function isBetweenRange(
     // Case 2: focus is before range.from
     return isWithinInterval(day, { start: focus, end: range.from })
   }
+  return false
+}
+
+export function getDisabled(
+  current: Date,
+  disable: Partial<Disabled> | undefined,
+): boolean {
+  if (!disable) return false
+
+  // Parse string dates to Date objects
+  const parseDate = (date: Date | string): Date => {
+    return typeof date === "string" ? new Date(date) : date
+  }
+
+  // Handle before/after constraints
+  if (disable.before && isBefore(current, parseDate(disable.before)))
+    return true
+  if (disable.after && isAfter(current, parseDate(disable.after))) return true
+
+  // Check specific date
+  if (disable.date && isSameDay(current, parseDate(disable.date))) return true
+
+  // Check array of dates
+  if (
+    disable.dates &&
+    disable.dates.some((date) => isSameDay(current, parseDate(date)))
+  )
+    return true
+
+  // Check days of week
+  if (disable.days) {
+    const currentDay = current.getDay()
+    const dayNames = [
+      "sunday",
+      "monday",
+      "tuesday",
+      "wednesday",
+      "thursday",
+      "friday",
+      "saturday",
+    ]
+
+    // Check if the current day is in the disabled days list
+    if (
+      disable.days.some((day) => {
+        if (typeof day === "number") return currentDay === day
+        return dayNames.indexOf(day.toLowerCase()) === currentDay
+      })
+    )
+      return true
+  }
+
+  // Check custom modifier function
+  if (disable.modifier && disable.modifier(current)) return true
+
+  // If none of the conditions matched, the date is not disabled
   return false
 }

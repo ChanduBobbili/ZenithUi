@@ -1,6 +1,6 @@
 {
   "name": "zenithui-docs",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "Zenithui Documentation",
   "private": false,
   "engines": {
@@ -45,7 +45,7 @@
     "react-dom": "^19.0.0",
     "tailwind-merge": "^3.0.1",
     "tailwindcss-animate": "^1.0.7",
-    "zenithui-day-picker": "^2.4.2",
+    "zenithui-day-picker": "^2.5.0",
     "zenithui-light-box": "^2.0.2",
     "zenithui-primitive": "^1.0.5",
     "zenithui-time-picker": "^1.5.1",

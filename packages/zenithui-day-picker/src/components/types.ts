@@ -64,6 +64,36 @@ export type DayPickerclassNames = {
 export type DatePickerMode = "single" | "range"
 export type DayPickerState = "day" | "month" | "year"
 export type DateRange = [Date, Date] | { from: Date; to: Date }
+/**
+ * The day of the week.
+ * @example
+ * 0: Sunday...
+ * 6: Saturday
+ */
+type DayOfWeek =
+  | 0
+  | 1
+  | 2
+  | 3
+  | 4
+  | 5
+  | 6
+  | "sunday"
+  | "monday"
+  | "tuesday"
+  | "wednesday"
+  | "thursday"
+  | "friday"
+  | "saturday"
+
+export type Disabled = {
+  before: Date | string
+  after: Date | string
+  date: Date | string
+  dates: Date[] | string[]
+  days: DayOfWeek[]
+  modifier: (date: Date) => boolean
+}
 
 export type InternalRange = { from: Date; to: Date | null }
 
@@ -103,6 +133,10 @@ export type DayPickerProps = {
    * @description{"auto"} automatically enables the theme based on the system preference
    */
   theme?: "light" | "dark" | "auto"
+  /**
+   * Whether to disable the date.
+   */
+  disabled?: Partial<Disabled>
 }
 
 export type DayPickerContextProps = {
@@ -120,4 +154,5 @@ export type DayPickerContextProps = {
   hideWeekdays: boolean
   hideOutsideDates: boolean
   classNames?: Partial<DayPickerclassNames>
+  disabled?: Partial<Disabled>
 }

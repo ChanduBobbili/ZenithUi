@@ -35,6 +35,11 @@ function RouteComponent() {
         selected={date}
         onSelect={setDate}
         theme="light"
+        disabled={{
+          modifier: (date) => {
+            return date.getDay() === 5
+          },
+        }}
         // classNames={{
         //   calendar: "bg-slate-50",
         //   day: "bg-slate-50",
