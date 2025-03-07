@@ -37,7 +37,11 @@ export const ToastProvider: React.FC<ToastProviderProps> = ({
   )
 
   const addToast = useCallback(
-    (message: string, type: ToastType, options?: ToastOptions) => {
+    (
+      message: string | Promise<any>,
+      type: ToastType,
+      options?: ToastOptions,
+    ) => {
       const id = Math.random().toString(36).substring(2, 11)
       const newToast: Toast = { id, type, message, remove: false, options }
 

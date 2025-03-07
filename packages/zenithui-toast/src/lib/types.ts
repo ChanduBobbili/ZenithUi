@@ -1,4 +1,10 @@
-export type ToastType = "success" | "info" | "error" | "warning" | "loading"
+export type ToastType =
+  | "success"
+  | "info"
+  | "error"
+  | "warning"
+  | "loading"
+  | "promise"
 
 export type Theme = "auto" | "light" | "dark"
 
@@ -148,15 +154,15 @@ export type Toast = {
   type: ToastType
   /**
    * The Message to display in the toast.
-   * @type {string}
+   * @type {string | Promise<any>}
    */
-  message: string
+  message: string | Promise<any>
   /**
    * The options to customize the toast.
    * @type {ToastOptions}
    * @description This is used to customize the toast.
    */
-  options?: Partial<ToastOptions>
+  options?: Partial<ToastOptions & PromiseToast>
   /**
    * Whether to remove the toast from the toast container.
    * @type {boolean}
@@ -233,6 +239,9 @@ export interface ToastContextProps {
   classNames?: Partial<ClassNames>
 }
 
+/**
+ * Props for the ToastProvider component.
+ */
 export interface ToastProviderProps {
   /**
    * The children of the ToastProvider.
@@ -252,32 +261,34 @@ export interface ToastProviderProps {
    */
   position?: ToastPosition
   /**
-   * The duration of the toast to display.
+   * The duration of the toast to display in milliseconds.
    * @type {number}
    * @default 5000
    */
   duration?: number
   /**
-   * Whether to enable auto dismiss for the toast.
+   * Whether to disable auto dismiss for the toast.
+   * If true, the toast will not automatically disappear.
    * @type {boolean}
    * @default true
    */
   disableAutoDismiss?: boolean
   /**
-   * If too many toasts appear at once, we should queue them instead of overwhelming the user.
+   * Whether to enable a queue system for toasts.
+   * If true, toasts will be queued if too many appear at once.
    * @type {boolean}
    * @default false
    */
   enableQueueSystem?: boolean
   /**
-   * The maximum no of toasts to show when queue system is enabled.
+   * The maximum number of toasts to show when the queue system is enabled.
    * @type {number}
    * @default 3
    */
   maxToasts?: number
   /**
-   * The animation of the toast.
-   * @type {string}
+   * The animation type for the toast.
+   * @type {ToastAnimation}
    * @default "fade"
    */
   animation?: ToastAnimation
@@ -294,25 +305,51 @@ export interface ToastProviderProps {
    */
   theme?: Theme
   /**
-   * The X Offset of the toast.
+   * The X Offset of the toast in pixels.
    * @type {number}
    */
   X_Offset?: number
   /**
-   * The Y Offset of the toast.
+   * The Y Offset of the toast in pixels.
    * @type {number}
    */
   Y_Offset?: number
   /**
-   * The classNames to customise the toast.
+   * The classNames to customize the toast.
    * @type {Partial<ClassNames>}
    */
   classNames?: Partial<ClassNames>
 }
 
 /**
- * The Button component props.
+ * Interface representing the properties for a Button component.
+ * Extends the standard HTML button attributes provided by React.
+ *
+ * @interface ButtonProps
+ * @extends {React.HTMLAttributes<HTMLButtonElement>}
+ *
+ * @property {("action" | "cancel" | "close")} [btntype] -
+ * Optional property to specify the type of button.
+ * Can be one of the following values:
+ * - "action": Represents a primary action button.
+ * - "cancel": Represents a cancel button.
+ * - "close": Represents a close button.
  */
 export interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
   btntype?: "action" | "cancel" | "close"
+}
+
+/**
+ * Interface representing the structure of a toast notification for different states of a promise.
+ *
+ * @interface PromiseToast
+ *
+ * @property {string} [loading] - The message to be displayed when the promise is in the loading state.
+ * @property {string} [success] - The message to be displayed when the promise is successfully resolved.
+ * @property {string} [error] - The message to be displayed when the promise is rejected or encounters an error.
+ */
+export interface PromiseToast {
+  loading?: string
+  success?: string | ((data: any) => string)
+  error?: string | ((data: any) => string)
 }

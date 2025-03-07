@@ -1,22 +1,26 @@
-import { ToastOptions, ToastType } from "../lib/types"
+import { PromiseToast, ToastOptions, ToastType } from "../lib/types"
 
 /**
  * ToastSingleton class to manage the toast
  */
 class ToastSingleton {
   private addToast:
-    | ((message: string, type: ToastType, options?: ToastOptions) => void)
+    | ((
+        message: string | Promise<any>,
+        type: ToastType,
+        options?: ToastOptions,
+      ) => void)
     | null = null
   // Queue for early calls
   private pendingToasts: {
-    message: string
+    message: string | Promise<any>
     type: ToastType
     options?: ToastOptions
   }[] = []
 
   register(
     addToast: (
-      message: string,
+      message: string | Promise<any>,
       type: ToastType,
       options?: ToastOptions,
     ) => void,
@@ -32,7 +36,7 @@ class ToastSingleton {
   }
 
   private showToast = (
-    message: string,
+    message: string | Promise<any>,
     type: ToastType,
     options?: ToastOptions,
   ) => {
@@ -58,6 +62,11 @@ class ToastSingleton {
 
   loading = (message: string, options?: ToastOptions) =>
     this.showToast(message, "loading", options)
+
+  promise = (
+    message: string | Promise<any>,
+    options?: ToastOptions & PromiseToast,
+  ) => this.showToast(message, "promise", options)
 }
 
 // Private instance
@@ -70,11 +79,16 @@ export const toast = {
   error: toastInstance.error,
   warning: toastInstance.warning,
   loading: toastInstance.loading,
+  promise: toastInstance.promise,
 }
 
 // Internal function to register `addToast`
 export const registerToast = (
-  addToast: (message: string, type: ToastType, options?: ToastOptions) => void,
+  addToast: (
+    message: string | Promise<any>,
+    type: ToastType,
+    options?: ToastOptions,
+  ) => void,
 ) => {
   toastInstance.register(addToast)
 }

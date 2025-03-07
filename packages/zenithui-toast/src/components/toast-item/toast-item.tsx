@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef } from "react"
+import { useCallback, useEffect, useRef, useState } from "react"
 import { Toast } from "../../lib/types"
 import { useToast } from "../../hooks/use-toast"
 import { cn, getToastAnimation, getToastTheme } from "../../lib/utils"
@@ -29,6 +29,13 @@ export const ToastItem: React.FC<ToastItemProps> = ({ toast, ...props }) => {
 
   const { options } = toast
 
+  const [status, setStatus] = useState<"loading" | "success" | "error">(
+    "loading",
+  )
+  const [message, setMessage] = useState<string>(
+    options?.loading ?? "Loading...",
+  )
+
   // useRef to store timeout reference
   const timeoutRef = useRef<NodeJS.Timeout | null>(null)
 
@@ -49,8 +56,32 @@ export const ToastItem: React.FC<ToastItemProps> = ({ toast, ...props }) => {
     }
   }, [])
 
+  const trackPromise = useCallback(async () => {
+    try {
+      const promiseData = await toast.message
+      setStatus("success")
+      setMessage(
+        typeof options?.success === "function"
+          ? options.success(promiseData)
+          : (options?.success ?? "Success !!"),
+      )
+    } catch (error) {
+      setStatus("error")
+      setMessage(
+        typeof options?.error === "function"
+          ? options.error(error)
+          : (options?.error ?? "Error !!"),
+      )
+    } finally {
+      setTimer()
+    }
+  }, [])
+
   // Auto-dismiss toast after duration
   useEffect(() => {
+    if (toast.type === "promise" && typeof toast.message !== "string") {
+      trackPromise()
+    }
     // Clear timeout on unmount
     return () => {
       if (timeoutRef.current) {
@@ -88,27 +119,22 @@ export const ToastItem: React.FC<ToastItemProps> = ({ toast, ...props }) => {
           : (globalClassNames?.className ?? ""),
       )}
       onAnimationEnd={() => {
-        setTimer()
+        if (toast.type !== "promise" && typeof toast.message !== "string") {
+          setTimer()
+        }
         if (toast.remove) {
           removeToast(toast.id)
         }
       }}
     >
       <div className="zenithui-toast">
-        <div style={{ display: "flex", gap: "8px", alignItems: "center" }}>
-          <div
-            data-icon={toast.type}
-            style={
-              toast.type === "loading"
-                ? { position: "relative", width: "16px", height: "16px" }
-                : {}
-            }
-          >
+        <div data-wrapper-zenithui>
+          <div data-icon={toast.type}>
             {options?.icon ? (
               options.icon
             ) : (
               <ToastAsset
-                type={toast.type}
+                type={toast.type !== "promise" ? toast.type : status}
                 className={cn(
                   options?.classNames
                     ? typeof options.classNames !== "string"
@@ -132,7 +158,9 @@ export const ToastItem: React.FC<ToastItemProps> = ({ toast, ...props }) => {
                   : (globalClassNames?.title ?? ""),
               )}
             >
-              {toast?.options?.title || toast.message}
+              {toast.type === "promise"
+                ? message || ""
+                : toast?.options?.title || toast.message}
             </span>
             {toast?.options?.description ? (
               <span
@@ -149,7 +177,7 @@ export const ToastItem: React.FC<ToastItemProps> = ({ toast, ...props }) => {
             ) : null}
           </div>
         </div>
-        <div style={{ display: "flex", gap: "12px", alignItems: "center" }}>
+        <div data-wrapper-zenithui>
           {/* action btn */}
           {options?.action ? (
             <options.action

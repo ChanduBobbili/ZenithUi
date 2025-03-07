@@ -19,6 +19,17 @@ function RouteComponent() {
     toast.info("Cancel btn is clicked !!")
   }
 
+  const customPromise = new Promise((resolve, reject) => {
+    setTimeout(() => {
+      const check = true
+      if (check) {
+        resolve({ a: " asdsa", b: "dmfgl" })
+      } else {
+        reject("Promise rejected")
+      }
+    }, 10000)
+  })
+
   return (
     <div className="flex flex-col gap-4">
       <button
@@ -91,10 +102,24 @@ function RouteComponent() {
 
       <button
         onClick={() => {
-          toast.loading("Please Wait !!", {})
+          toast.loading("Please Wait !!")
         }}
       >
         Loading
+      </button>
+
+      <button
+        onClick={() => {
+          toast.promise(customPromise, {
+            loading: "Please Wait !!",
+            success: (data) => {
+              return JSON.stringify(data)
+            },
+            error: "Promise Error !!",
+          })
+        }}
+      >
+        Promise
       </button>
 
       <div className="relative size-80 bg-slate-100">

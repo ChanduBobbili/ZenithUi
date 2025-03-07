@@ -95,6 +95,19 @@
   width: 100%;
 }
 
+[data-icon="loading"],
+[data-icon="promise"] {
+  position: relative;
+  width: 16px;
+  height: 16px;
+}
+
+[data-wrapper-zenithui] {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
 .zenithui-toast-close {
   position: absolute;
   top: 4px;
