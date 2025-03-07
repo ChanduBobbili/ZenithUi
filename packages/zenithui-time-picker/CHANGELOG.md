@@ -4,76 +4,76 @@
 
 ### Patch Changes
 
-- updated use-theme to handle the server side rendering
+- Enhanced `use-theme` to support server-side rendering.
 
 ## 1.5.0
 
 ### Minor Changes
 
-- Refactor the time picker with the implement responsive device detection and theme management hooks, and theme, css fixes in count down
+- Refactored the time picker to include responsive device detection and theme management hooks. Additionally, fixed theme and CSS issues in the countdown.
 
 ## 1.4.0
 
 ### Minor Changes
 
-- Added the Count Down component
+- Introduced the Countdown component.
 
 ## 1.3.1
 
 ### Patch Changes
 
-- Removed the dependency on the radix-ui for toggle-group
+- Removed the dependency on `radix-ui` for the toggle group.
 
 ## 1.3.0
 
 ### Minor Changes
 
-- Migrate tailwind css to raw css
+- Transitioned from Tailwind CSS to raw CSS.
 
 ## 1.2.1
 
 ### Patch Changes
 
-- migrate to tailwind css v4.0.5 and update PostCSS configuration
+- Upgraded to Tailwind CSS v4.0.5 and updated the PostCSS configuration.
 
 ## 1.2.0
 
 ### Minor Changes
 
-- Removed dependency and reused bundle size and refactored the ui
+- Removed unnecessary dependencies, reduced bundle size, and refactored the UI.
 
 ## 1.1.2
 
 ### Patch Changes
 
-- Refactored the builds to enable support for both ESM and Commonjs
-- Updated dependencies
-  - zenithui-primitive@1.0.1
+- Refactored the builds to support both ESM and CommonJS.
+- Updated dependencies:
+  - `zenithui-primitive@1.0.1`
 
 ## 1.1.1
 
 ### Patch Changes
 
-- Updated dependencies
-  - zenithui-primitive@1.0.0
+- Updated dependencies:
+  - `zenithui-primitive@1.0.0`
 
 ## 1.1.0
 
 ### Minor Changes
 
-- Added the classNames and formatter for the props
-  - classNames enables to customize the styles of the component.
-  - formatter enables the user to show custom format of the selected time.
+- Added `classNames` and `formatter` props:
+  - `classNames` allows for customization of component styles.
+  - `formatter` enables custom formatting of the selected time.
 
 ## 1.0.0
 
 ### Major Changes
 
-- Added the initial version of the Time Picker component
+- Released the initial version of the Time Picker component.
 
 ## 0.0.1
 
 ### Patch Changes
 
-- Updated dependencies
-  - zenithui-primitive@0.5.0
+- Updated dependencies:
+  - `zenithui-primitive@0.5.0`

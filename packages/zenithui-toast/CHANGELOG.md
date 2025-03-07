@@ -4,37 +4,37 @@
 
 ### Minor Changes
 
-- New features
+- New Features
 
-  - Refactor the toast.
-  - theming with the use-theme hook
-  - offset customization
+  - Refactored the toast component.
+  - Added theming support with the `use-theme` hook.
+  - Enabled offset customization.
 
 ## 1.1.0
 
 ### Minor Changes
 
-- Theme Provider and Options for toast instance to customize.
-  - Theme support (light, dark, auto).
-  - Options for toast to customize single toast also.
-    - RichColor, duration, disableAutoDismiss, animation, showCloseButton.
+- Theme Provider and customization options for toast instances.
+  - Added theme support (light, dark, auto).
+  - Provided options to customize individual toasts.
+    - Rich color, duration, disable auto-dismiss, animation, show close button.
 
 ## 1.0.1
 
 ### Patch Changes
 
-- Fixed Auto Dismiss and z-index of toasts container
+- Fixed auto-dismiss and z-index issues of the toasts container.
 
 ## 1.0.0
 
 ### Major Changes
 
-- Introducing the toast library for the react
-  - various types of toasts. ie; success, error, info, warning.
+- Introduced the toast library for React.
+  - Various types of toasts: success, error, info, warning.
   - Position customization.
-  - animations like fade, slide.
-  - disable auto dismiss.
-  - custom duration for dismissing the toast.
-  - rich colors support.
-  - queue system, only max number of toasts are shown at once. remaining will wait in the queue.
-  - show close button with a flag.
+  - Animations like fade and slide.
+  - Option to disable auto-dismiss.
+  - Custom duration for dismissing the toast.
+  - Rich color support.
+  - Queue system: only a maximum number of toasts are shown at once, with the rest waiting in the queue.
+  - Show close button with a flag.
