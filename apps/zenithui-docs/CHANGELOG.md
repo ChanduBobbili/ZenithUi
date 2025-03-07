@@ -1,5 +1,11 @@
 # zenithui-docs
 
+## 1.0.1
+
+### Patch Changes
+
+- Changed the ZenithUi logo
+
 ## 1.0.0
 
 ### Major Changes
