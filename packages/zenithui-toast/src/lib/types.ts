@@ -1,4 +1,4 @@
-export type ToastType = "success" | "info" | "error" | "warning"
+export type ToastType = "success" | "info" | "error" | "warning" | "loading"
 
 export type Theme = "auto" | "light" | "dark"
 

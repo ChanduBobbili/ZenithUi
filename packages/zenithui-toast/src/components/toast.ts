@@ -55,6 +55,9 @@ class ToastSingleton {
 
   warning = (message: string, options?: ToastOptions) =>
     this.showToast(message, "warning", options)
+
+  loading = (message: string, options?: ToastOptions) =>
+    this.showToast(message, "loading", options)
 }
 
 // Private instance
@@ -66,6 +69,7 @@ export const toast = {
   info: toastInstance.info,
   error: toastInstance.error,
   warning: toastInstance.warning,
+  loading: toastInstance.loading,
 }
 
 // Internal function to register `addToast`

@@ -89,6 +89,14 @@ function RouteComponent() {
         Custom
       </button>
 
+      <button
+        onClick={() => {
+          toast.loading("Please Wait !!", {})
+        }}
+      >
+        Loading
+      </button>
+
       <div className="relative size-80 bg-slate-100">
         <button
           onClick={() =>
