@@ -1,9 +1,11 @@
-import { CloseIcon, ToastAsset } from "../toast-asset"
-import { useEffect, useRef } from "react"
+import { useCallback, useEffect, useRef, useState } from "react"
 import { Toast } from "../../lib/types"
 import { useToast } from "../../hooks/use-toast"
-import "./toast-item.css"
 import { cn, getToastAnimation, getToastTheme } from "../../lib/utils"
+import CloseIcon from "@/assets/close.svg?react"
+import "./toast-item.css"
+import Button from "../button/button"
+import { ToastAsset } from "../toast-asset/toast-asset"
 
 interface ToastItemProps extends React.HTMLAttributes<HTMLDivElement> {
   /**
@@ -12,11 +14,7 @@ interface ToastItemProps extends React.HTMLAttributes<HTMLDivElement> {
   toast: Toast
 }
 
-export const ToastItem: React.FC<ToastItemProps> = ({
-  toast,
-  className,
-  ...props
-}) => {
+export const ToastItem: React.FC<ToastItemProps> = ({ toast, ...props }) => {
   const {
     richColors,
     animation,
@@ -24,17 +22,24 @@ export const ToastItem: React.FC<ToastItemProps> = ({
     showCloseButton,
     disableAutoDismiss,
     duration,
+    classNames: globalClassNames,
     removeToast,
     setToasts,
   } = useToast()
 
   const { options } = toast
 
+  const [status, setStatus] = useState<"loading" | "success" | "error">(
+    "loading",
+  )
+  const [message, setMessage] = useState<string>(
+    options?.loading ?? "Loading...",
+  )
+
   // useRef to store timeout reference
   const timeoutRef = useRef<NodeJS.Timeout | null>(null)
 
-  // Auto-dismiss toast after duration
-  useEffect(() => {
+  const setTimer = useCallback(() => {
     if (
       !(options?.disableAutoDismiss
         ? options.disableAutoDismiss
@@ -49,7 +54,35 @@ export const ToastItem: React.FC<ToastItemProps> = ({
         options?.duration ? options?.duration : duration,
       )
     }
+  }, [])
 
+  const trackPromise = useCallback(async () => {
+    try {
+      const promiseData = await toast.message
+      setStatus("success")
+      setMessage(
+        typeof options?.success === "function"
+          ? options.success(promiseData)
+          : (options?.success ?? "Success !!"),
+      )
+    } catch (error) {
+      setStatus("error")
+      setMessage(
+        typeof options?.error === "function"
+          ? options.error(error)
+          : (options?.error ?? "Error !!"),
+      )
+    } finally {
+      setTimer()
+    }
+  }, [])
+
+  // Auto-dismiss toast after duration
+  useEffect(() => {
+    if (toast.type === "promise" && typeof toast.message !== "string") {
+      trackPromise()
+    }
+    // Clear timeout on unmount
     return () => {
       if (timeoutRef.current) {
         clearTimeout(timeoutRef.current)
@@ -79,41 +112,171 @@ export const ToastItem: React.FC<ToastItemProps> = ({
           position,
           !toast.remove,
         ),
-        className,
+        options?.classNames
+          ? typeof options.classNames === "string"
+            ? options?.classNames
+            : (options?.classNames?.className ?? "")
+          : (globalClassNames?.className ?? ""),
       )}
-      onAnimationEnd={() => toast.remove && removeToast(toast.id)}
+      onAnimationEnd={() => {
+        if (toast.type !== "promise" && typeof toast.message === "string") {
+          setTimer()
+        }
+        if (toast.remove) {
+          removeToast(toast.id)
+        }
+      }}
     >
       <div className="zenithui-toast">
-        <div data-icon="">
-          <ToastAsset type={toast.type} />
+        <div data-wrapper-zenithui>
+          <div data-icon={toast.type}>
+            {options?.icon ? (
+              options.icon
+            ) : (
+              <ToastAsset
+                type={toast.type !== "promise" ? toast.type : status}
+                className={cn(
+                  options?.classNames
+                    ? typeof options.classNames !== "string"
+                      ? (options?.classNames?.icon ?? "")
+                      : ""
+                    : (globalClassNames?.icon ?? ""),
+                )}
+              />
+            )}
+          </div>
+          <div
+            data-content={true}
+            style={{ width: "100%", display: "flex", flexDirection: "column" }}
+          >
+            <span
+              className={cn(
+                options?.classNames
+                  ? typeof options.classNames !== "string"
+                    ? (options?.classNames?.title ?? "")
+                    : ""
+                  : (globalClassNames?.title ?? ""),
+              )}
+            >
+              {toast.type === "promise"
+                ? message || ""
+                : toast?.options?.title || toast.message}
+            </span>
+            {toast?.options?.description ? (
+              <span
+                className={cn(
+                  options?.classNames
+                    ? typeof options.classNames !== "string"
+                      ? (options?.classNames?.description ?? "")
+                      : ""
+                    : (globalClassNames?.description ?? ""),
+                )}
+              >
+                {toast.options.description}
+              </span>
+            ) : null}
+          </div>
         </div>
-        <span>{toast.message}</span>
-      </div>
-      {(
-        options?.showCloseButton ? options.showCloseButton : showCloseButton
-      ) ? (
-        <button
-          className={cn(
-            "zenithui-toast-close",
-            options?.richColors
-              ? options.richColors
-                ? `${getToastTheme(toast.type)} zenithui-toast-close-rich`
-                : ""
-              : richColors
-                ? `${getToastTheme(toast.type)} zenithui-toast-close-rich`
-                : "",
+        <div data-wrapper-zenithui>
+          {/* action btn */}
+          {options?.action ? (
+            <options.action
+              {...options.action}
+              btntype="action"
+            />
+          ) : (
+            <>
+              {options?.onAction ? (
+                <Button
+                  btntype="action"
+                  className={cn(
+                    options?.classNames
+                      ? typeof options.classNames !== "string"
+                        ? (options?.classNames?.actionButton ?? "")
+                        : ""
+                      : (globalClassNames?.actionButton ?? ""),
+                  )}
+                  onClick={options.onAction}
+                >
+                  Action
+                </Button>
+              ) : null}
+            </>
           )}
-          onClick={() => {
-            if (timeoutRef.current) {
-              // Clear timeout on manual close
-              clearTimeout(timeoutRef.current)
-            }
-            removeToast(toast.id)
-          }}
-        >
-          <CloseIcon />
-        </button>
-      ) : null}
+          {/* cancel btn */}
+          {options?.cancel ? (
+            <options.cancel
+              {...options.action}
+              btntype="action"
+            />
+          ) : (
+            <>
+              {options?.onCancel ? (
+                <Button
+                  btntype="cancel"
+                  className={cn(
+                    "cancel",
+                    options?.classNames
+                      ? typeof options.classNames !== "string"
+                        ? (options?.classNames?.cancelButton ?? "")
+                        : ""
+                      : (globalClassNames?.cancelButton ?? ""),
+                  )}
+                  onClick={(e) => {
+                    options?.onCancel?.(e)
+                    setToasts((prev) =>
+                      prev.map((t) =>
+                        t.id === toast.id ? { ...t, remove: true } : t,
+                      ),
+                    )
+                  }}
+                >
+                  Cancel
+                </Button>
+              ) : null}
+            </>
+          )}
+        </div>
+      </div>
+      {/* close btn */}
+      {options?.close ? (
+        <options.close
+          {...options.action}
+          btntype="close"
+        />
+      ) : (
+        <>
+          {options?.showCloseButton || showCloseButton ? (
+            <button
+              className={cn(
+                "zenithui-toast-close",
+                options?.richColors
+                  ? options.richColors
+                    ? `${getToastTheme(toast.type)} zenithui-toast-close-rich`
+                    : ""
+                  : richColors
+                    ? `${getToastTheme(toast.type)} zenithui-toast-close-rich`
+                    : "",
+                options?.classNames
+                  ? typeof options.classNames !== "string"
+                    ? (options?.classNames?.closeButton ?? "")
+                    : ""
+                  : (globalClassNames?.closeButton ?? ""),
+              )}
+              onClick={(e) => {
+                options?.onClose?.(e)
+                if (timeoutRef.current) {
+                  // Clear timeout on manual close
+                  clearTimeout(timeoutRef.current)
+                }
+                removeToast(toast.id)
+              }}
+            >
+              <CloseIcon />
+            </button>
+          ) : null}
+        </>
+      )}
     </div>
   )
 }

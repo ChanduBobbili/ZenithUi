@@ -1,6 +1,6 @@
 {
   "name": "zenithui-docs",
-  "version": "0.4.0",
+  "version": "1.0.0",
   "description": "Zenithui Documentation",
   "private": false,
   "engines": {
@@ -23,7 +23,7 @@
     "lint": "next lint",
     "clean": "cd public && rm -rf _pagefind && pnpm next:clean",
     "next:clean": "rm -rf .next && rm -rf build",
-    "postbuild": "pagefind --site .next/server/app --output-path public/_pagefind"
+    "postbuild": "pagefind --site .next/server/app --output-path public/_pagefind && next-sitemap"
   },
   "dependencies": {
     "@radix-ui/react-popover": "^1.1.6",
@@ -36,6 +36,7 @@
     "lucide-react": "^0.475.0",
     "motion": "^12.4.5",
     "next": "^15.0.2",
+    "next-sitemap": "^4.2.3",
     "nextra": "^4.2.13",
     "nextra-theme-docs": "^4.2.13",
     "prism-react-renderer": "^2.4.1",
@@ -45,11 +46,11 @@
     "react-dom": "^19.0.0",
     "tailwind-merge": "^3.0.1",
     "tailwindcss-animate": "^1.0.7",
-    "zenithui-day-picker": "^2.5.0",
-    "zenithui-light-box": "^2.0.2",
-    "zenithui-primitive": "^1.0.5",
-    "zenithui-time-picker": "^1.5.1",
-    "zenithui-toast": "^1.2.0"
+    "zenithui-day-picker": "workspace:*",
+    "zenithui-light-box": "workspace:*",
+    "zenithui-primitive": "workspace:*",
+    "zenithui-time-picker": "workspace:*",
+    "zenithui-toast": "workspace:*"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.2.0",

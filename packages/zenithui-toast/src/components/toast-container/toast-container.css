@@ -1,8 +1,3 @@
-:root {
-  --x-offset: 12px;
-  --y-offset: 12px;
-}
-
 .zenithui-toast-container {
   position: fixed;
   z-index: 999;

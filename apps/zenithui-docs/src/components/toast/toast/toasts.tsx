@@ -7,7 +7,7 @@ import { toast } from "zenithui-toast"
 export default function ToastsExample({
   type,
 }: {
-  type: "s" | "i" | "w" | "e" | "w-c"
+  type: "s" | "i" | "w" | "e" | "w-c" | "l"
 }) {
   return (
     <CodePreview
@@ -50,6 +50,8 @@ export default function BasicToast() {
               toast.success("This is a success toast", {
                 showCloseButton: true,
               })
+            case "l":
+              toast.loading("This is a loading toast")
             default:
               break
           }
@@ -61,7 +63,7 @@ export default function BasicToast() {
   )
 }
 
-const getToastCode = (type: "s" | "i" | "w" | "e" | "w-c") => {
+const getToastCode = (type: "s" | "i" | "w" | "e" | "w-c" | "l") => {
   switch (type) {
     case "s":
       return `toast.success("This is a success toast")`
@@ -73,6 +75,8 @@ const getToastCode = (type: "s" | "i" | "w" | "e" | "w-c") => {
       return `toast.error("This is a error toast")`
     case "w-c":
       return `toast.warning("This is a warning toast", { showCloseButton: true })`
+    case "l":
+      return `toast.loading("This is a loading toast")`
     default:
       return `toast.success("This is a success toast")`
   }

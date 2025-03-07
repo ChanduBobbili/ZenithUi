@@ -10,6 +10,8 @@ import {
 import { useCallback, useEffect, useMemo, useState } from "react"
 import { ToastContext } from "../hooks/use-toast"
 import { useTheme } from "../hooks/use-theme"
+import "./../index.css"
+
 
 export const ToastProvider: React.FC<ToastProviderProps> = ({
   position = "bottom-right",
@@ -23,6 +25,7 @@ export const ToastProvider: React.FC<ToastProviderProps> = ({
   disableAutoDismiss = false,
   enableQueueSystem = false,
   showCloseButton = false,
+  classNames,
   children,
 }) => {
   const [toasts, setToasts] = useState<Toast[]>([])
@@ -36,7 +39,11 @@ export const ToastProvider: React.FC<ToastProviderProps> = ({
   )
 
   const addToast = useCallback(
-    (message: string, type: ToastType, options?: ToastOptions) => {
+    (
+      message: string | Promise<any>,
+      type: ToastType,
+      options?: ToastOptions,
+    ) => {
       const id = Math.random().toString(36).substring(2, 11)
       const newToast: Toast = { id, type, message, remove: false, options }
 
@@ -83,6 +90,7 @@ export const ToastProvider: React.FC<ToastProviderProps> = ({
         duration,
         X_Offset,
         Y_Offset,
+        classNames,
       }}
     >
       {children}

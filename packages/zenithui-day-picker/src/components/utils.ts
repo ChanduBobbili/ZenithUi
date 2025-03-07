@@ -63,11 +63,20 @@ export function getInitialRange(selected: Date | DateRange): InternalRange {
 }
 
 /**
- * Whether the day is between the range and focus
- * @param day The day to check
- * @param range The range to check against
- * @param focus The focus date
- * @returns @type {boolean}
+ * Checks if a given day is within a specified range, considering a focus date.
+ *
+ * @param day - The date to check if it falls within the range.
+ * @param range - An object containing the start (`from`) and end (`to`) dates of the range.
+ *                 Both `from` and `to` can be `null`.
+ * @param focus - A date that serves as a reference point to determine the interval.
+ *                It can be `null`.
+ * @returns `true` if the day is within the range considering the focus date, otherwise `false`.
+ *
+ * The function works as follows:
+ * - If `range.from` or `focus` is `null`, it returns `false`.
+ * - If `focus` is after `range.from`, it checks if the day is within the interval from `range.from` to `focus`.
+ * - If `focus` is before `range.from`, it checks if the day is within the interval from `focus` to `range.from`.
+ * - If none of the above conditions are met, it returns `false`.
  */
 export function isBetweenRange(
   day: Date,
@@ -87,16 +96,44 @@ export function isBetweenRange(
   return false
 }
 
+/**
+ * Parses a given date input and returns a Date object.
+ *
+ * @param date - The date input which can be either a Date object or a string representing a date.
+ * @returns A Date object parsed from the input.
+ *
+ * @example
+ * ```typescript
+ * const date1 = parseDate("2023-10-05");
+ * const date2 = parseDate(new Date());
+ * ```
+ */
+export function parseDate(date: Date | string): Date {
+  return typeof date === "string" ? new Date(date) : date
+}
+
+/**
+ * Determines if a given date should be disabled based on various constraints.
+ *
+ * @param current - The date to check for disabling.
+ * @param disable - An object containing various disabling constraints.
+ *   - `before` (Date | string): Disables dates before this date.
+ *   - `after` (Date | string): Disables dates after this date.
+ *   - `date` (Date | string): Disables a specific date.
+ *   - `dates` (Array<Date | string>): Disables an array of specific dates.
+ *   - `days` (Array<number | string>): Disables specific days of the week. 
+ *     Days can be specified as numbers (0 for Sunday, 1 for Monday, etc.) or 
+ *     as strings ("sunday", "monday", etc.).
+ *   - `modifier` (function): A custom function that takes a date and returns 
+ *     a boolean indicating whether the date should be disabled.
+ *
+ * @returns `true` if the date should be disabled, `false` otherwise.
+ */
 export function getDisabled(
   current: Date,
   disable: Partial<Disabled> | undefined,
 ): boolean {
   if (!disable) return false
-
-  // Parse string dates to Date objects
-  const parseDate = (date: Date | string): Date => {
-    return typeof date === "string" ? new Date(date) : date
-  }
 
   // Handle before/after constraints
   if (disable.before && isBefore(current, parseDate(disable.before)))

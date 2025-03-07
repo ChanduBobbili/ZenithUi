@@ -4,91 +4,91 @@
 
 ### Minor Changes
 
-- Added the disable feature as prop in the DayPicker
+- Added the disable feature as a prop in the DayPicker.
 
 ## 2.4.2
 
 ### Patch Changes
 
-- updated use-theme to handle the server side rendering
+- Updated use-theme to handle server-side rendering.
 
 ## 2.4.1
 
 ### Patch Changes
 
-- omit mouse event listners for not desktop in day-picker
+- Omitted mouse event listeners for non-desktop devices in the day-picker.
 
 ## 2.4.0
 
 ### Minor Changes
 
-- Refactor the day picker with the implement of Day picker context && improved theme management
+- Refactored the day picker by implementing DayPicker context and improved theme management.
 
 ## 2.3.0
 
 ### Minor Changes
 
-- Added support to change the month and year not the day
+- Added support to change the month and year, but not the day.
 
 ## 2.2.1
 
 ### Patch Changes
 
-- refactored the theme setting
+- Refactored the theme settings.
 
 ## 2.2.0
 
 ### Minor Changes
 
-- Reduced the dependency on the clsx and tailwind-merge
+- Reduced dependency on clsx and tailwind-merge.
 
 ## 2.1.0
 
 ### Minor Changes
 
-- Implemented the light and dark theme
+- Implemented light and dark themes.
 
 ## 2.0.3
 
 ### Patch Changes
 
-- changed approach for styling and enabling custom style in day-picker
+- Changed the approach for styling and enabled custom styles in the day-picker.
 
 ## 2.0.2
 
 ### Patch Changes
 
-- Fixed the selection of date Range
+- Fixed the selection of date ranges.
 
 ## 2.0.1
 
 ### Patch Changes
 
-- Changed the active and focus state's styles
+- Changed the styles for active and focus states.
 
 ## 2.0.0
 
 ### Major Changes
 
-- Introduced the mode for the day-picker which enables to select single date or range of date
+- Introduced a mode for the day-picker to enable the selection of a single date or a date range.
 
 ## 1.1.0
 
 ### Minor Changes
 
-- Migrate tailwind css to raw css
+- Migrated from Tailwind CSS to raw CSS.
 
 ## 1.0.1
 
 ### Patch Changes
 
-- migrate to tailwind css v4.0.5 and update PostCSS configuration
+- Migrated to Tailwind CSS v4.0.5 and updated PostCSS configuration.
 
 ## 1.0.0
 
 ### Major Changes
 
-- Initial version of component
-  - Added DayPicker component
-  - Added DayPickerProps interface
-  - Added ClassNames interface
+- Initial version of the component:
+  - Added DayPicker component.
+  - Added DayPickerProps interface.
+  - Added ClassNames interface.

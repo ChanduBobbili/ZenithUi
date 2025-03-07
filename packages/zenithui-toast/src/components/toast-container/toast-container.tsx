@@ -1,6 +1,6 @@
 import "./toast-container.css"
 import { createPortal } from "react-dom"
-import { useMemo } from "react"
+import { memo, useMemo } from "react"
 import { Toast, ToastPosition } from "../../lib/types"
 import { useToast } from "../../hooks/use-toast"
 import { cn, getPositionClass, reverseToasts } from "../../lib/utils"
@@ -54,6 +54,33 @@ export const ToastContainer: React.FC<ToastContainerProps> = ({
 
   return Object.entries(memoizedGroupedToasts).map(([position, toasts]) => {
     return createPortal(
+      <MemoToastContainer
+        position={position}
+        X_Offset={X_Offset}
+        Y_Offset={Y_Offset}
+        toasts={toasts}
+        className={className}
+        {...props}
+      />,
+      document.body,
+    )
+  })
+}
+
+const MemoToastContainer = memo(
+  ({
+    position,
+    X_Offset,
+    Y_Offset,
+    toasts,
+    className,
+    ...props
+  }: ToastContainerProps & {
+    X_Offset: number
+    Y_Offset: number
+    position: string
+  }) => {
+    return (
       <div
         key={position}
         style={
@@ -75,8 +102,7 @@ export const ToastContainer: React.FC<ToastContainerProps> = ({
             toast={toast}
           />
         ))}
-      </div>,
-      document.body,
+      </div>
     )
-  })
-}
+  },
+)

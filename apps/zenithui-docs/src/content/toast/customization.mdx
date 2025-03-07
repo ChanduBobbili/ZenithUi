@@ -1,0 +1,118 @@
+import { Callout } from "nextra/components"
+import { Table } from "nextra/components"
+
+# Customization
+
+You can customize the toast in the way, either you can give `classNames` to the `ToasterProvider` or in `toastOptions` .
+
+## class names to the ToasterProvider
+
+```jsx
+createRoot(document.getElementById("root")!).render(
+  <StrictMode>
+    <ToastProvider
+      theme="auto"
+      classNames={{
+        title: "text-white",
+        description: "text-white",
+        icon: "text-white size-5",
+        actionButton: "bg-white text-black hover:bg-gray-200",
+        closeButton: "bg-white text-black hover:bg-gray-200",
+        cancelButton: "bg-white text-black hover:bg-gray-200",
+      }}
+    >
+      <App />
+    </ToastProvider>
+  </StrictMode>,
+)
+```
+
+---
+
+## class names in the toast options
+
+```jsx
+<button
+  onClick={() =>
+    toast.warning("Warning Toast", {
+      position: "top-left",
+      showCloseButton: true,
+      description: "Warning Description",
+      classNames: {
+        title: "text-white",
+        description: "text-white",
+        icon: "text-white size-5",
+        actionButton: "bg-white text-black hover:bg-gray-200",
+        closeButton: "bg-white text-black hover:bg-gray-200",
+        cancelButton: "bg-white text-black hover:bg-gray-200",
+      },
+    })
+  }
+>
+  Show Toast
+</button>
+```
+
+---
+
+## class names
+
+---
+
+<Table>
+  <thead>
+    <Table.Tr>
+      <Table.Th>Key</Table.Th>
+      <Table.Th>Description</Table.Th>
+    </Table.Tr>
+  </thead>
+  <tbody>
+    <Table.Tr>
+      <Table.Td>**className**</Table.Td>
+      <Table.Td>The class name of the toast container.</Table.Td>
+    </Table.Tr>
+
+    <Table.Tr>
+      <Table.Td>**icon**</Table.Td>
+      <Table.Td>The class name of the toast icon.</Table.Td>
+    </Table.Tr>
+
+    <Table.Tr>
+      <Table.Td>**title**</Table.Td>
+      <Table.Td>The class name of the toast message.</Table.Td>
+    </Table.Tr>
+
+    <Table.Tr>
+      <Table.Td>**description**</Table.Td>
+      <Table.Td>The class name of the toast description.</Table.Td>
+    </Table.Tr>
+
+    <Table.Tr>
+      <Table.Td>**closeButton**</Table.Td>
+      <Table.Td>The class name of the toast close button.</Table.Td>
+    </Table.Tr>
+
+    <Table.Tr>
+      <Table.Td>**actionButton**</Table.Td>
+      <Table.Td>The class name of the toast action button.</Table.Td>
+    </Table.Tr>
+
+    <Table.Tr>
+      <Table.Td>**cancelButton**</Table.Td>
+      <Table.Td>The class name of the toast cancel button.</Table.Td>
+    </Table.Tr>
+
+</tbody>
+</Table>
+
+---
+
+<Callout type="info">
+  Import your styles.css/global.css after the `app.jsx`, Hence your styles will
+  have higher specificity
+</Callout>
+
+```jsx {2}
+import { ToasterProvider } from "zenithui-toast"
+import "./styles.css"
+```
