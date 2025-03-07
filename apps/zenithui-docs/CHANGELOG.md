@@ -1,5 +1,14 @@
 # zenithui-docs
 
+## 1.0.0
+
+### Major Changes
+
+- Initial release version with docs of
+  - zenithui-day-picker
+  - zenithui-time-picker
+  - zenithi-toast
+
 ## 0.4.0
 
 ### Minor Changes
