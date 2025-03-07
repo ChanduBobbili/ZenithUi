@@ -118,6 +118,11 @@ export type ToastOptions = {
    * @type {React.FC<ButtonProps>}
    */
   cancel?: React.FC<ButtonProps>
+  /**
+   * The icon to display in the toast.
+   * @type {React.ReactNode}
+   */
+  icon?: React.ReactNode
 }
 
 export type Toast = {

@@ -97,16 +97,20 @@ export const ToastItem: React.FC<ToastItemProps> = ({ toast, ...props }) => {
       <div className="zenithui-toast">
         <div style={{ display: "flex", gap: "8px", alignItems: "center" }}>
           <div data-icon={toast.type}>
-            <ToastAsset
-              type={toast.type}
-              className={cn(
-                options?.classNames
-                  ? typeof options.classNames !== "string"
-                    ? (options?.classNames?.icon ?? "")
-                    : ""
-                  : (globalClassNames?.icon ?? ""),
-              )}
-            />
+            {options?.icon ? (
+              options.icon
+            ) : (
+              <ToastAsset
+                type={toast.type}
+                className={cn(
+                  options?.classNames
+                    ? typeof options.classNames !== "string"
+                      ? (options?.classNames?.icon ?? "")
+                      : ""
+                    : (globalClassNames?.icon ?? ""),
+                )}
+              />
+            )}
           </div>
           <div
             data-content={true}
