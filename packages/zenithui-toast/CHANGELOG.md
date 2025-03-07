@@ -1,5 +1,14 @@
 # zenithui-toast
 
+## 1.3.0
+
+### Minor Changes
+
+- New types of toasts && Custom styling, components
+  - Loading, Promise toasts
+  - classnames for custom styling
+  - action, cancel button with custom component && click handler
+
 ## 1.2.0
 
 ### Minor Changes
