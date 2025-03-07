@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://zenithui-docs.vercel.app/
+
+# Sitemaps
+Sitemap: https://zenithui-docs.vercel.app/sitemap.xml

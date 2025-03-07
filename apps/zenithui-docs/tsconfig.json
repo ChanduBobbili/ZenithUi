@@ -29,6 +29,6 @@
     "mdx-components.ts",
     "next-env.d.ts",
     "build/types/**/*.ts"
-  ],
+, "next-sitemap.config.js"  ],
   "exclude": ["node_modules"]
 }

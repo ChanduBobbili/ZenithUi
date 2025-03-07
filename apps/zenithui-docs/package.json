@@ -23,7 +23,7 @@
     "lint": "next lint",
     "clean": "cd public && rm -rf _pagefind && pnpm next:clean",
     "next:clean": "rm -rf .next && rm -rf build",
-    "postbuild": "pagefind --site .next/server/app --output-path public/_pagefind"
+    "postbuild": "pagefind --site .next/server/app --output-path public/_pagefind && next-sitemap"
   },
   "dependencies": {
     "@radix-ui/react-popover": "^1.1.6",
@@ -36,6 +36,7 @@
     "lucide-react": "^0.475.0",
     "motion": "^12.4.5",
     "next": "^15.0.2",
+    "next-sitemap": "^4.2.3",
     "nextra": "^4.2.13",
     "nextra-theme-docs": "^4.2.13",
     "prism-react-renderer": "^2.4.1",
