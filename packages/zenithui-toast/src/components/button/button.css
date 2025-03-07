@@ -1,12 +1,12 @@
 :root {
   --zenithui-toast-action-bg-color: #075985;
-  --zenithui-toast-action-text-color: #fff;
+  --zenithui-toast-action-text-color: #000000;
   --zenithui-toast-cancel-bg-color: #64748b;
 }
 
 .dark {
   --zenithui-toast-action-bg-color: #0284c7;
-  --zenithui-toast-action-text-color: #fff;
+  --zenithui-toast-action-text-color: #ffffff;
   --zenithui-toast-cancel-bg-color: #475569;
 }
 

@@ -246,9 +246,7 @@ export const ToastItem: React.FC<ToastItemProps> = ({ toast, ...props }) => {
         />
       ) : (
         <>
-          {options?.showCloseButton ? (
-            options.showCloseButton
-          ) : showCloseButton ? (
+          {options?.showCloseButton || showCloseButton ? (
             <button
               className={cn(
                 "zenithui-toast-close",
@@ -266,7 +264,7 @@ export const ToastItem: React.FC<ToastItemProps> = ({ toast, ...props }) => {
                   : (globalClassNames?.closeButton ?? ""),
               )}
               onClick={(e) => {
-                options?.onCancel?.(e)
+                options?.onClose?.(e)
                 if (timeoutRef.current) {
                   // Clear timeout on manual close
                   clearTimeout(timeoutRef.current)
