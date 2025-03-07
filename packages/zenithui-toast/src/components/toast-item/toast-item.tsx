@@ -203,36 +203,47 @@ export const ToastItem: React.FC<ToastItemProps> = ({ toast, ...props }) => {
           )}
         </div>
       </div>
-      {(
-        options?.showCloseButton ? options.showCloseButton : showCloseButton
-      ) ? (
-        <button
-          className={cn(
-            "zenithui-toast-close",
-            options?.richColors
-              ? options.richColors
-                ? `${getToastTheme(toast.type)} zenithui-toast-close-rich`
-                : ""
-              : richColors
-                ? `${getToastTheme(toast.type)} zenithui-toast-close-rich`
-                : "",
-            options?.classNames
-              ? typeof options.classNames !== "string"
-                ? (options?.classNames?.closeButton ?? "")
-                : ""
-              : (globalClassNames?.closeButton ?? ""),
-          )}
-          onClick={() => {
-            if (timeoutRef.current) {
-              // Clear timeout on manual close
-              clearTimeout(timeoutRef.current)
-            }
-            removeToast(toast.id)
-          }}
-        >
-          <CloseIcon />
-        </button>
-      ) : null}
+      {/* close btn */}
+      {options?.close ? (
+        <options.close
+          {...options.action}
+          btntype="close"
+        />
+      ) : (
+        <>
+          {options?.showCloseButton ? (
+            options.showCloseButton
+          ) : showCloseButton ? (
+            <button
+              className={cn(
+                "zenithui-toast-close",
+                options?.richColors
+                  ? options.richColors
+                    ? `${getToastTheme(toast.type)} zenithui-toast-close-rich`
+                    : ""
+                  : richColors
+                    ? `${getToastTheme(toast.type)} zenithui-toast-close-rich`
+                    : "",
+                options?.classNames
+                  ? typeof options.classNames !== "string"
+                    ? (options?.classNames?.closeButton ?? "")
+                    : ""
+                  : (globalClassNames?.closeButton ?? ""),
+              )}
+              onClick={(e) => {
+                options?.onCancel?.(e)
+                if (timeoutRef.current) {
+                  // Clear timeout on manual close
+                  clearTimeout(timeoutRef.current)
+                }
+                removeToast(toast.id)
+              }}
+            >
+              <CloseIcon />
+            </button>
+          ) : null}
+        </>
+      )}
     </div>
   )
 }

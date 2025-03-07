@@ -109,6 +109,11 @@ export type ToastOptions = {
    */
   onCancel?: React.MouseEventHandler<HTMLButtonElement>
   /**
+   * The callback function to execute when the toast is closed.
+   * @type {React.MouseEventHandler<HTMLButtonElement>}
+   */
+  onClose?: React.MouseEventHandler<HTMLButtonElement>
+  /**
    * The custom action button.
    * @type {React.FC<ButtonProps>}
    */
@@ -118,6 +123,11 @@ export type ToastOptions = {
    * @type {React.FC<ButtonProps>}
    */
   cancel?: React.FC<ButtonProps>
+  /**
+   * The custom close button.
+   * @type {React.FC<ButtonProps>}
+   */
+  close?: React.FC<ButtonProps>
   /**
    * The icon to display in the toast.
    * @type {React.ReactNode}
@@ -304,5 +314,5 @@ export interface ToastProviderProps {
  * The Button component props.
  */
 export interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
-  btntype?: "action" | "cancel"
+  btntype?: "action" | "cancel" | "close"
 }
