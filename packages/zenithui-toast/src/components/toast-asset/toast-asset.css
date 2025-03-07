@@ -22,7 +22,7 @@
 
 .zenithui-loading-bar {
   animation: zenithui-spin 1.2s linear infinite;
-  background: #fff;
+  background: var(--zenithui-loader-bg);
   border-radius: 6px;
   height: 8%;
   left: -10%;

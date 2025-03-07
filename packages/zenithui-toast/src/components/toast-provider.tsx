@@ -10,6 +10,8 @@ import {
 import { useCallback, useEffect, useMemo, useState } from "react"
 import { ToastContext } from "../hooks/use-toast"
 import { useTheme } from "../hooks/use-theme"
+import "./../index.css"
+
 
 export const ToastProvider: React.FC<ToastProviderProps> = ({
   position = "bottom-right",

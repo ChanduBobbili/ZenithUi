@@ -119,7 +119,7 @@ export const ToastItem: React.FC<ToastItemProps> = ({ toast, ...props }) => {
           : (globalClassNames?.className ?? ""),
       )}
       onAnimationEnd={() => {
-        if (toast.type !== "promise" && typeof toast.message !== "string") {
+        if (toast.type !== "promise" && typeof toast.message === "string") {
           setTimer()
         }
         if (toast.remove) {
