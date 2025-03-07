@@ -1,5 +1,6 @@
 export default {
   "getting-started": "",
-  toaster: "",
+  "toaster-provider": "",
   toast: "",
+  customization: "",
 }

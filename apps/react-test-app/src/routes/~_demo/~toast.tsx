@@ -21,9 +21,9 @@ function RouteComponent() {
 
   const customPromise = new Promise((resolve, reject) => {
     setTimeout(() => {
-      const check = true
+      const check = Math.random() > 0.5
       if (check) {
-        resolve({ a: " asdsa", b: "dmfgl" })
+        resolve("Promise resolved")
       } else {
         reject("Promise rejected")
       }

@@ -1,5 +1,7 @@
 import BasicToast from "@/components/toast/toast/render-toast"
 import ToastsExample from "@/components/toast/toast/toasts"
+import PromiseToast from "@/components/toast/toast/promise-toast"
+import ActionToast from "@/components/toast/toast/action-toast"
 import { Table } from "nextra/components"
 
 # Toast
@@ -41,6 +43,40 @@ Renders a warning icon in front of the message.
 Renders a checkmark info in front of the message.
 
 <ToastsExample type="i" />
+
+---
+
+## Loading
+
+Renders a loading icon in front of the message.
+
+<ToastsExample type="l" />
+
+---
+
+## Promise
+
+You can provide promise to the toast. customize the text based the promise state `loading` , `success`, `error`.
+
+<PromiseToast />
+
+---
+
+## Actioned Toast
+
+You provide the callback for when `action-btn`, `cancel-btn` and `close-btn` is clicked.
+
+### onAction
+
+<ActionToast type="action" />
+
+### onCancel
+
+<ActionToast type="cancel" />
+
+### onClose
+
+<ActionToast type="close" />
 
 ---
 
