@@ -98,6 +98,26 @@ export type ToastOptions = {
    * @type {Partial<ClassNames>}
    */
   classNames?: Partial<ClassNames> | string
+  /**
+   * The callback function to execute when the action button is clicked.
+   * @type {React.MouseEventHandler<HTMLButtonElement>}
+   */
+  onAction?: React.MouseEventHandler<HTMLButtonElement>
+  /**
+   * The callback function to execute when the cancel button is clicked.
+   * @type {React.MouseEventHandler<HTMLButtonElement>}
+   */
+  onCancel?: React.MouseEventHandler<HTMLButtonElement>
+  /**
+   * The custom action button.
+   * @type {React.FC<ButtonProps>}
+   */
+  action?: React.FC<ButtonProps>
+  /**
+   * The custom cancel button.
+   * @type {React.FC<ButtonProps>}
+   */
+  cancel?: React.FC<ButtonProps>
 }
 
 export type Toast = {
@@ -273,4 +293,11 @@ export interface ToastProviderProps {
    * @type {Partial<ClassNames>}
    */
   classNames?: Partial<ClassNames>
+}
+
+/**
+ * The Button component props.
+ */
+export interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
+  btntype?: "action" | "cancel"
 }

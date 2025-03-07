@@ -5,6 +5,7 @@ import { useToast } from "../../hooks/use-toast"
 import { cn, getToastAnimation, getToastTheme } from "../../lib/utils"
 import CloseIcon from "@/assets/close.svg?react"
 import "./toast-item.css"
+import Button from "../button/button"
 
 interface ToastItemProps extends React.HTMLAttributes<HTMLDivElement> {
   /**
@@ -94,46 +95,108 @@ export const ToastItem: React.FC<ToastItemProps> = ({ toast, ...props }) => {
       }}
     >
       <div className="zenithui-toast">
-        <div data-icon="">
-          <ToastAsset
-            type={toast.type}
-            className={cn(
-              options?.classNames
-                ? typeof options.classNames !== "string"
-                  ? (options?.classNames?.icon ?? "")
-                  : ""
-                : (globalClassNames?.icon ?? ""),
-            )}
-          />
-        </div>
-        <div
-          data-content={true}
-          style={{ width: "100%", display: "flex", flexDirection: "column" }}
-        >
-          <span
-            className={cn(
-              options?.classNames
-                ? typeof options.classNames !== "string"
-                  ? (options?.classNames?.title ?? "")
-                  : ""
-                : (globalClassNames?.title ?? ""),
-            )}
+        <div style={{ display: "flex", gap: "8px", alignItems: "center" }}>
+          <div data-icon={toast.type}>
+            <ToastAsset
+              type={toast.type}
+              className={cn(
+                options?.classNames
+                  ? typeof options.classNames !== "string"
+                    ? (options?.classNames?.icon ?? "")
+                    : ""
+                  : (globalClassNames?.icon ?? ""),
+              )}
+            />
+          </div>
+          <div
+            data-content={true}
+            style={{ width: "100%", display: "flex", flexDirection: "column" }}
           >
-            {toast?.options?.title || toast.message}
-          </span>
-          {toast?.options?.description ? (
             <span
               className={cn(
                 options?.classNames
                   ? typeof options.classNames !== "string"
-                    ? (options?.classNames?.description ?? "")
+                    ? (options?.classNames?.title ?? "")
                     : ""
-                  : (globalClassNames?.description ?? ""),
+                  : (globalClassNames?.title ?? ""),
               )}
             >
-              {toast.options.description}
+              {toast?.options?.title || toast.message}
             </span>
-          ) : null}
+            {toast?.options?.description ? (
+              <span
+                className={cn(
+                  options?.classNames
+                    ? typeof options.classNames !== "string"
+                      ? (options?.classNames?.description ?? "")
+                      : ""
+                    : (globalClassNames?.description ?? ""),
+                )}
+              >
+                {toast.options.description}
+              </span>
+            ) : null}
+          </div>
+        </div>
+        <div style={{ display: "flex", gap: "12px", alignItems: "center" }}>
+          {/* action btn */}
+          {options?.action ? (
+            <options.action
+              {...options.action}
+              btntype="action"
+            />
+          ) : (
+            <>
+              {options?.onAction ? (
+                <Button
+                  btntype="action"
+                  className={cn(
+                    options?.classNames
+                      ? typeof options.classNames !== "string"
+                        ? (options?.classNames?.actionButton ?? "")
+                        : ""
+                      : (globalClassNames?.actionButton ?? ""),
+                  )}
+                  onClick={options.onAction}
+                >
+                  Action
+                </Button>
+              ) : null}
+            </>
+          )}
+          {/* cancel btn */}
+          {options?.cancel ? (
+            <options.cancel
+              {...options.action}
+              btntype="action"
+            />
+          ) : (
+            <>
+              {options?.onCancel ? (
+                <Button
+                  btntype="cancel"
+                  className={cn(
+                    "cancel",
+                    options?.classNames
+                      ? typeof options.classNames !== "string"
+                        ? (options?.classNames?.cancelButton ?? "")
+                        : ""
+                      : (globalClassNames?.cancelButton ?? ""),
+                  )}
+                  onClick={(e) => {
+                    options?.onCancel?.(e)
+                    setToasts((prev) =>
+                      prev.map((t) =>
+                        t.id === toast.id ? { ...t, remove: true } : t,
+                      ),
+                    )
+                  }}
+                >
+                  Cancel
+                </Button>
+              ) : null}
+            </>
+          )}
         </div>
       </div>
       {(

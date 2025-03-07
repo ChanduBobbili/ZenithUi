@@ -6,15 +6,7 @@ import "./index.css"
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <ToastProvider
-      theme="auto"
-      classNames={{
-        className: "text-white bg-black",
-        icon: "text-white",
-        closeButton: "text-white bg-black",
-        description: "text-gray-500",
-      }}
-    >
+    <ToastProvider theme="auto">
       <App />
     </ToastProvider>
   </StrictMode>,

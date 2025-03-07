@@ -8,6 +8,17 @@ export const Route = createFileRoute("/_demo/toast")({
 
 function RouteComponent() {
   const [items, setItems] = useState<number[]>([])
+
+  const handleAction = () => {
+    console.log("Custom Toast Action Triggered")
+    toast.info("Action btn is clicked !!")
+  }
+
+  const handleCancel = () => {
+    console.log("Custom Toast Cancel Triggered")
+    toast.info("Cancel btn is clicked !!")
+  }
+
   return (
     <div className="flex flex-col gap-4">
       <button
@@ -50,10 +61,32 @@ function RouteComponent() {
             showCloseButton: true,
             description: "Warning Description",
             classNames: { description: "text-red-500" },
+            action: (props) => (
+              <button
+                {...props}
+                onClick={() => console.log("custom component")}
+              >
+                Action
+              </button>
+            ),
           })
         }
       >
         Toast Warning
+      </button>
+      <button
+        onClick={() => {
+          toast.success("Custom Toast", {
+            position: "top-center",
+            showCloseButton: true,
+            description: "Custom Description",
+            disableAutoDismiss: true,
+            onAction: handleAction,
+            onCancel: handleCancel,
+          })
+        }}
+      >
+        Custom
       </button>
 
       <div className="relative size-80 bg-slate-100">
