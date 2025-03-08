@@ -1,5 +1,11 @@
 # zenithui-docs
 
+## 1.0.2
+
+### Patch Changes
+
+- fix: add break statement to toast switch case for proper flow
+
 ## 1.0.1
 
 ### Patch Changes

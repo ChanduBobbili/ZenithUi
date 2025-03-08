@@ -50,6 +50,7 @@ export default function BasicToast() {
               toast.success("This is a success toast", {
                 showCloseButton: true,
               })
+              break
             case "l":
               toast.loading("This is a loading toast")
             default:
