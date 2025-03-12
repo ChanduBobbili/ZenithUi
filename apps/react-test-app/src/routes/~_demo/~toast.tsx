@@ -102,7 +102,11 @@ function RouteComponent() {
 
       <button
         onClick={() => {
-          toast.loading("Please Wait !!")
+          toast.loading("Please Wait !!", {
+            animation: "enter-with-icon",
+            disableAutoDismiss: true,
+            position: "top-center",
+          })
         }}
       >
         Loading

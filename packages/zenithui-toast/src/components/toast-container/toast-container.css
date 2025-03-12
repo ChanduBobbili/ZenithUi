@@ -9,32 +9,38 @@
 }
 
 .zenithui-top-left {
+  align-items: flex-start;
   top: var(--y-offset);
   left: var(--x-offset);
 }
 
 .zenithui-top-right {
+  align-items: flex-end;
   top: var(--y-offset);
   right: var(--x-offset);
 }
 
 .zenithui-bottom-left {
+  align-items: flex-start;
   bottom: var(--y-offset);
   left: var(--x-offset);
 }
 
 .zenithui-bottom-right {
+  align-items: flex-end;
   bottom: var(--y-offset);
   right: var(--x-offset);
 }
 
 .zenithui-top-center {
+  align-items: center;
   top: var(--y-offset);
   left: calc(50% - var(--x-offset));
   transform: translateX(-50%);
 }
 
 .zenithui-bottom-center {
+  align-items: center;
   bottom: var(--y-offset);
   left: calc(50% - var(--y-offset));
   transform: translateX(-50%);

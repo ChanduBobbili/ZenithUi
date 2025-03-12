@@ -16,7 +16,7 @@ export type ToastPosition =
   | "top-center"
   | "bottom-center"
 
-export type ToastAnimation = "slide" | "fade"
+export type ToastAnimation = "slide" | "fade" | "enter-with-icon"
 
 export type ClassNames = {
   /**

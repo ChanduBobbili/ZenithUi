@@ -3,6 +3,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 8px;
   min-width: 300px;
   width: 350px;
   max-width: 350px;
@@ -15,12 +16,17 @@
   box-shadow: 0px 4px 6px var(--box-shadow);
 }
 
+[data-animation="enter-with-icon"] {
+  width: max-content;
+  min-width: max-content;
+}
+
 .zenithui-toast {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 8px;
-  width: 100%;
+  width: max-content;
 }
 
 [data-icon="loading"],
@@ -33,7 +39,19 @@
 [data-wrapper-zenithui] {
   display: flex;
   gap: 12px;
+  width: 100%;
   align-items: center;
+}
+
+[data-expand="true"] {
+  width: 0px;
+  height: 0px;
+  opacity: 0;
+  animation-name: zenithui-expand-content;
+  animation-duration: 800ms;
+  animation-timing-function: ease-in-out;
+  animation-fill-mode: forwards;
+  animation-delay: 200ms;
 }
 
 .zenithui-toast-close {
@@ -260,5 +278,22 @@
   }
   to {
     transform: translateX(-150px);
+  }
+}
+
+/* key frame for the expand width */
+@keyframes zenithui-expand-content {
+  0% {
+    width: 0px;
+    height: 0px;
+    opacity: 0;
+  }
+  90%{
+    opacity: 0;
+  }
+  100% {
+    width: 300px;
+    height: auto;
+    opacity: 1;
   }
 }

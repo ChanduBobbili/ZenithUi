@@ -105,6 +105,7 @@ export function getToastAnimation(
   isEnter: boolean,
 ) {
   switch (animation) {
+    case "enter-with-icon":
     case "fade":
       return getFadeAnimation(position, isEnter)
     case "slide":

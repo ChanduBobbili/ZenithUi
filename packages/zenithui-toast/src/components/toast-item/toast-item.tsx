@@ -97,6 +97,7 @@ export const ToastItem: React.FC<ToastItemProps> = ({ toast, ...props }) => {
       aria-live="assertive"
       tabIndex={0}
       data-type={toast.type}
+      data-animation={options?.animation ? options.animation : animation}
       data-rich-colors={options?.richColors ? options.richColors : richColors}
       className={cn(
         "zenithui-toast-wrapper",
@@ -109,7 +110,7 @@ export const ToastItem: React.FC<ToastItemProps> = ({ toast, ...props }) => {
             : "",
         getToastAnimation(
           options?.animation ? options.animation : animation,
-          position,
+          options?.position ? options.position : position,
           !toast.remove,
         ),
         options?.classNames
@@ -127,116 +128,118 @@ export const ToastItem: React.FC<ToastItemProps> = ({ toast, ...props }) => {
         }
       }}
     >
-      <div className="zenithui-toast">
-        <div data-wrapper-zenithui>
-          <div data-icon={toast.type}>
-            {options?.icon ? (
-              options.icon
-            ) : (
-              <ToastAsset
-                type={toast.type !== "promise" ? toast.type : status}
-                className={cn(
-                  options?.classNames
-                    ? typeof options.classNames !== "string"
-                      ? (options?.classNames?.icon ?? "")
-                      : ""
-                    : (globalClassNames?.icon ?? ""),
-                )}
-              />
+      <div data-icon={toast.type}>
+        {options?.icon ? (
+          options.icon
+        ) : (
+          <ToastAsset
+            type={toast.type !== "promise" ? toast.type : status}
+            className={cn(
+              options?.classNames
+                ? typeof options.classNames !== "string"
+                  ? (options?.classNames?.icon ?? "")
+                  : ""
+                : (globalClassNames?.icon ?? ""),
             )}
-          </div>
-          <div
-            data-content={true}
-            style={{ width: "100%", display: "flex", flexDirection: "column" }}
+          />
+        )}
+      </div>
+      <div
+        data-wrapper-zenithui
+        data-expand={
+          (options?.animation ? options.animation : animation) ===
+          "enter-with-icon"
+        }
+      >
+        <div
+          data-content={true}
+          style={{ width: "100%", display: "flex", flexDirection: "column" }}
+        >
+          <span
+            className={cn(
+              options?.classNames
+                ? typeof options.classNames !== "string"
+                  ? (options?.classNames?.title ?? "")
+                  : ""
+                : (globalClassNames?.title ?? ""),
+            )}
           >
+            {toast.type === "promise"
+              ? message || ""
+              : toast?.options?.title || toast.message}
+          </span>
+          {toast?.options?.description ? (
             <span
               className={cn(
                 options?.classNames
                   ? typeof options.classNames !== "string"
-                    ? (options?.classNames?.title ?? "")
+                    ? (options?.classNames?.description ?? "")
                     : ""
-                  : (globalClassNames?.title ?? ""),
+                  : (globalClassNames?.description ?? ""),
               )}
             >
-              {toast.type === "promise"
-                ? message || ""
-                : toast?.options?.title || toast.message}
+              {toast.options.description}
             </span>
-            {toast?.options?.description ? (
-              <span
+          ) : null}
+        </div>
+        {/* action btn */}
+        {options?.action ? (
+          <options.action
+            {...options.action}
+            btntype="action"
+          />
+        ) : (
+          <>
+            {options?.onAction ? (
+              <Button
+                btntype="action"
                 className={cn(
                   options?.classNames
                     ? typeof options.classNames !== "string"
-                      ? (options?.classNames?.description ?? "")
+                      ? (options?.classNames?.actionButton ?? "")
                       : ""
-                    : (globalClassNames?.description ?? ""),
+                    : (globalClassNames?.actionButton ?? ""),
                 )}
+                onClick={options.onAction}
               >
-                {toast.options.description}
-              </span>
+                Action
+              </Button>
             ) : null}
-          </div>
-        </div>
-        <div data-wrapper-zenithui>
-          {/* action btn */}
-          {options?.action ? (
-            <options.action
-              {...options.action}
-              btntype="action"
-            />
-          ) : (
-            <>
-              {options?.onAction ? (
-                <Button
-                  btntype="action"
-                  className={cn(
-                    options?.classNames
-                      ? typeof options.classNames !== "string"
-                        ? (options?.classNames?.actionButton ?? "")
-                        : ""
-                      : (globalClassNames?.actionButton ?? ""),
-                  )}
-                  onClick={options.onAction}
-                >
-                  Action
-                </Button>
-              ) : null}
-            </>
-          )}
-          {/* cancel btn */}
-          {options?.cancel ? (
-            <options.cancel
-              {...options.action}
-              btntype="action"
-            />
-          ) : (
-            <>
-              {options?.onCancel ? (
-                <Button
-                  btntype="cancel"
-                  className={cn(
-                    "cancel",
-                    options?.classNames
-                      ? typeof options.classNames !== "string"
-                        ? (options?.classNames?.cancelButton ?? "")
-                        : ""
-                      : (globalClassNames?.cancelButton ?? ""),
-                  )}
-                  onClick={(e) => {
-                    options?.onCancel?.(e)
-                    setToasts((prev) =>
-                      prev.map((t) =>
-                        t.id === toast.id ? { ...t, remove: true } : t,
-                      ),
-                    )
-                  }}
-                >
-                  Cancel
-                </Button>
-              ) : null}
-            </>
-          )}
-        </div>
+          </>
+        )}
+        {/* cancel btn */}
+        {options?.cancel ? (
+          <options.cancel
+            {...options.action}
+            btntype="action"
+          />
+        ) : (
+          <>
+            {options?.onCancel ? (
+              <Button
+                btntype="cancel"
+                className={cn(
+                  "cancel",
+                  options?.classNames
+                    ? typeof options.classNames !== "string"
+                      ? (options?.classNames?.cancelButton ?? "")
+                      : ""
+                    : (globalClassNames?.cancelButton ?? ""),
+                )}
+                onClick={(e) => {
+                  options?.onCancel?.(e)
+                  setToasts((prev) =>
+                    prev.map((t) =>
+                      t.id === toast.id ? { ...t, remove: true } : t,
+                    ),
+                  )
+                }}
+              >
+                Cancel
+              </Button>
+            ) : null}
+          </>
+        )}
       </div>
       {/* close btn */}
       {options?.close ? (
