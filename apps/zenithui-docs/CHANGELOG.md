@@ -1,5 +1,16 @@
 # zenithui-docs
 
+## 1.1.0
+
+### Minor Changes
+
+- Added new animation "enter with icon" in the toast
+
+### Patch Changes
+
+- Updated dependencies
+  - zenithui-toast@1.4.0
+
 ## 1.0.2
 
 ### Patch Changes
