@@ -1,5 +1,11 @@
 # zenithui-toast
 
+## 1.4.0
+
+### Minor Changes
+
+- Added new animation "enter with icon" in the toast
+
 ## 1.3.0
 
 ### Minor Changes

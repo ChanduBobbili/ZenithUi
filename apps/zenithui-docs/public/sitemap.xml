@@ -1,4 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-<sitemap><loc>https://zenithui-docs.vercel.app/sitemap-0.xml</loc></sitemap>
-</sitemapindex>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:mobile="http://www.google.com/schemas/sitemap-mobile/1.0" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
+<url><loc>https://zenithui-docs.vercel.app/docs</loc><lastmod>2025-03-13T09:39:58.658Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://zenithui-docs.vercel.app/docs/day-picker/api</loc><lastmod>2025-03-13T09:39:58.658Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://zenithui-docs.vercel.app/docs/day-picker/customization</loc><lastmod>2025-03-13T09:39:58.658Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://zenithui-docs.vercel.app/docs/day-picker/day-picker</loc><lastmod>2025-03-13T09:39:58.658Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://zenithui-docs.vercel.app/docs/day-picker/getting-started</loc><lastmod>2025-03-13T09:39:58.658Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://zenithui-docs.vercel.app/docs/light-box/getting-started</loc><lastmod>2025-03-13T09:39:58.658Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://zenithui-docs.vercel.app/docs/theme</loc><lastmod>2025-03-13T09:39:58.658Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://zenithui-docs.vercel.app/docs/time-picker/count-down</loc><lastmod>2025-03-13T09:39:58.658Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://zenithui-docs.vercel.app/docs/time-picker/getting-started</loc><lastmod>2025-03-13T09:39:58.658Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://zenithui-docs.vercel.app/docs/time-picker/time-picker</loc><lastmod>2025-03-13T09:39:58.658Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://zenithui-docs.vercel.app/docs/toast/customization</loc><lastmod>2025-03-13T09:39:58.658Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://zenithui-docs.vercel.app/docs/toast/getting-started</loc><lastmod>2025-03-13T09:39:58.658Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://zenithui-docs.vercel.app/docs/toast/toast</loc><lastmod>2025-03-13T09:39:58.658Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://zenithui-docs.vercel.app/docs/toast/toaster-provider</loc><lastmod>2025-03-13T09:39:58.658Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://zenithui-docs.vercel.app</loc><lastmod>2025-03-13T09:39:58.658Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+</urlset>

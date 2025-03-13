@@ -20,10 +20,10 @@ const App = () => {
    <ToastProvider animation="${animation}">
       <button
         onClick={() => {
-          toast.success("Toast with ${animation[0].toUpperCase()} ${animation.slice(1)}")
+          toast.success("Toast with ${animation[0].toUpperCase()}${animation.slice(1)}")
         }}
       >
-      ${animation[0].toUpperCase()} ${animation.slice(1)}
+      ${animation[0].toUpperCase()}${animation.slice(1)}
     </button>
   </ToastProvider>
   );
@@ -52,6 +52,17 @@ export default App;
           }}
         >
           Slide
+        </Button>
+        {/* enter with icon */}
+        <Button
+          onClick={() => {
+            setAnimation("enter-with-icon")
+            toast.success("Toast with enter with icon animation", {
+              animation: "enter-with-icon",
+            })
+          }}
+        >
+          Enter with Icon
         </Button>
       </div>
     </CodePreview>
