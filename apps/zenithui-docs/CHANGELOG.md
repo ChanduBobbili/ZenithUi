@@ -1,5 +1,11 @@
 # zenithui-docs
 
+## 1.1.1
+
+### Patch Changes
+
+- added the 404 page
+
 ## 1.1.0
 
 ### Minor Changes
