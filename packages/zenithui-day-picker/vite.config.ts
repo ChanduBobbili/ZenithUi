@@ -8,8 +8,11 @@ import svgr from "vite-plugin-svgr"
 export default defineConfig({
   build: {
     lib: {
-      entry: path.resolve(__dirname, "src/index.ts"),
-      name: "ZenithUI-Light-Box",
+      entry: {
+        index: path.resolve(__dirname, "src/index.ts"),
+        cli: path.resolve(__dirname, "src/cli.js"),
+      },
+      name: "zenithui-day-picker",
     },
     rollupOptions: {
       external: ["react", "react-dom", "react/jsx-runtime"],

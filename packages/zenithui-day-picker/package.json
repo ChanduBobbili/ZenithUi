@@ -39,6 +39,9 @@
   "main": "./dist/cjs/index.cjs",
   "module": "./dist/esm/index.js",
   "types": "./dist/index.d.ts",
+  "bin": {
+    "zenithui-day-picker": "node /cli.js"
+  },
   "exports": {
     ".": {
       "import": {
@@ -53,7 +56,8 @@
     "./styles.css": "./dist/esm/styles.css"
   },
   "files": [
-    "dist"
+    "dist",
+    "bin"
   ],
   "scripts": {
     "build": "vite build && tsc",
