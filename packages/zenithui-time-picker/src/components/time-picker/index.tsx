@@ -41,8 +41,11 @@ const TimePicker: React.FC<TimePickerProps> = ({
 
   // Update time whenever hour, minute, or period changes
   useEffect(() => {
-    onTimeChange(`${convertTo24Hour(hour, period)}:${minute}`)
-  }, [hour, minute, period, onTimeChange])
+    const newTime = `${convertTo24Hour(hour, period)}:${minute}`
+    if (newTime !== time) {
+      onTimeChange(newTime)
+    }
+  }, [hour, minute, period, time, onTimeChange])
 
   return (
     <Popover>
