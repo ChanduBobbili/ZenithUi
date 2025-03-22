@@ -1,5 +1,11 @@
 # zenithui-time-picker
 
+## 1.5.2
+
+### Patch Changes
+
+- fix: prevent unnecessary time updates in TimePicker component
+
 ## 1.5.1
 
 ### Patch Changes
