@@ -18,4 +18,13 @@ export default defineConfig({
     target: 'web',
   },
   plugins: [pluginReact()],
+  tools: {
+    webpackChain(chain) {
+      chain.module
+        .rule('svg')
+        .test(/\.svg$/)
+        .use('svgr')
+        .loader('@svgr/webpack');
+    },
+  },
 });

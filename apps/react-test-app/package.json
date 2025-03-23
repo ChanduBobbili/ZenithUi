@@ -21,7 +21,8 @@
     "zenithui-light-box": "workspace:*",
     "zenithui-primitive": "workspace:*",
     "zenithui-time-picker": "workspace:*",
-    "zenithui-toast": "workspace:*"
+    "zenithui-toast": "workspace:*",
+    "@zenithui/toast": "workspace:*"
   },
   "devDependencies": {
     "@tanstack/router-devtools": "^1.106.0",

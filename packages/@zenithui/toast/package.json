@@ -1,15 +1,21 @@
 {
-  "name": "toast",
-  "version": "1.0.0",
+  "name": "@zenithui/toast",
+  "version": "0.0.0",
   "type": "module",
+  "private": false,
+  "publishConfig": {
+    "access": "public"
+  },
+  "license": "MIT",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "./dist/src/index.d.ts",
   "exports": {
     ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.js"
+      "import": "./dist/index.js",
+      "types": "./dist/src/index.d.ts"
     }
   },
-  "module": "./dist/index.js",
-  "types": "./dist/index.d.ts",
   "files": [
     "dist"
   ],
@@ -19,9 +25,23 @@
     "check": "biome check --write",
     "dev": "rslib build --watch",
     "format": "prettier --write .",
+    "clean": "rm -rf dist && rm -rf storybook-static",
     "lint": "eslint .",
     "storybook": "storybook dev"
   },
+  "peerDependencies": {
+    "react": "^18.0.0 || ^17.0.0",
+    "react-dom": "^18.0.0 || ^17.0.0"
+  },
+  "peerDependenciesMeta": {
+    "react": {
+      "optional": false
+    },
+    "react-dom": {
+      "optional": false
+    }
+  },
+  "dependencies": {},
   "devDependencies": {
     "@biomejs/biome": "^1.9.4",
     "@eslint/js": "^9.21.0",
@@ -35,6 +55,7 @@
     "@storybook/blocks": "^8.6.7",
     "@storybook/react": "^8.6.7",
     "@storybook/test": "^8.6.7",
+    "@types/node": "^22.13.11",
     "@types/react": "^19.0.12",
     "eslint": "^9.21.0",
     "globals": "^16.0.0",
@@ -46,9 +67,30 @@
     "typescript": "^5.8.2",
     "typescript-eslint": "^8.25.0"
   },
-  "peerDependencies": {
-    "react": ">=16.9.0",
-    "react-dom": ">=16.9.0"
+  "author": {
+    "name": "Chandu Bobbili",
+    "email": "chandubobbili12@gmail.com",
+    "url": "https://github.com/ChanduBobbili"
   },
-  "private": true
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ChanduBobbili/ZenithUi.git#main"
+  },
+  "homepage": "https://zenithui-docs.vercel.app/",
+  "bugs": {
+    "url": "https://github.com/ChanduBobbili/ZenithUi/issues"
+  },
+  "keywords": [
+    "react",
+    "components",
+    "ui",
+    "zenithui",
+    "accessible",
+    "design-system",
+    "styled-components",
+    "styled-system",
+    "typescript",
+    "toast"
+  ],
+  "packageManager": "pnpm@9.5.0"
 }
