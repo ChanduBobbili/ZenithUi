@@ -1,0 +1,71 @@
+{
+  "name": "@zenithui/day-picker",
+  "version": "0.0.0",
+  "description": "A ZenithUi Time Picker is React component enables users to select a date or date range from calendar.",
+  "private": false,
+  "publishConfig": {
+    "access": "public"
+  },
+  "license": "MIT",
+  "type": "module",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "./dist/src/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/src/index.d.ts"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "vite build && tsc",
+    "clean": "rm -rf dist",
+    "lint": "eslint .",
+    "lint:fix": "eslint \"**/*.{js,jsx,ts,tsx}\" --max-warnings 0 --fix",
+    "format": "prettier --write ."
+  },
+  "peerDependencies": {
+    "react": "^18.0.0 || ^17.0.0",
+    "react-dom": "^18.0.0 || ^17.0.0"
+  },
+  "peerDependenciesMeta": {
+    "react": {
+      "optional": false
+    },
+    "react-dom": {
+      "optional": false
+    }
+  },
+  "dependencies": {
+    "date-fns": "^4.1.0"
+  },
+  "author": {
+    "name": "Chandu Bobbili",
+    "email": "chandubobbili12@gmail.com",
+    "url": "https://github.com/ChanduBobbili"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ChanduBobbili/ZenithUi.git#main"
+  },
+  "homepage": "https://zenithui-docs.vercel.app/",
+  "bugs": {
+    "url": "https://github.com/ChanduBobbili/ZenithUi/issues"
+  },
+  "keywords": [
+    "react",
+    "components",
+    "ui",
+    "zenithui",
+    "accessible",
+    "design-system",
+    "styled-components",
+    "styled-system",
+    "typescript",
+    "day-picker"
+  ],
+  "packageManager": "pnpm@9.5.0"
+}

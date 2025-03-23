@@ -1,0 +1,11 @@
+{
+  "extends": "tsconfig/react-library.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"]
+    }
+  },
+  "include": ["src", "vite.config.ts", "vite-env.d.ts"],
+  "exclude": ["node_modules", "build", "dist"]
+}
