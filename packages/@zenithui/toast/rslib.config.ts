@@ -1,5 +1,6 @@
 import { pluginReact } from '@rsbuild/plugin-react';
 import { defineConfig } from '@rslib/core';
+import { pluginSvgr } from '@rsbuild/plugin-svgr';
 
 export default defineConfig({
   source: {
@@ -17,14 +18,18 @@ export default defineConfig({
   output: {
     target: 'web',
   },
-  plugins: [pluginReact()],
-  tools: {
-    webpackChain(chain) {
-      chain.module
-        .rule('svg')
-        .test(/\.svg$/)
-        .use('svgr')
-        .loader('@svgr/webpack');
+  resolve: {
+    alias: {
+      '@': './src',
     },
   },
+  plugins: [
+    pluginReact(),
+    pluginSvgr({
+      svgrOptions: {
+        icon: true,
+        typescript: true,
+      },
+    }),
+  ],
 });

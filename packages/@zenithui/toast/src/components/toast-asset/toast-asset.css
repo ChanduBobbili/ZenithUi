@@ -7,7 +7,7 @@
   z-index: 10;
 }
 
-.zenithui-loading-wrapper[data-visible="false"] {
+.zenithui-loading-wrapper[data-visible='false'] {
   transform-origin: center;
   animation: zenithui-fade-out 0.2s ease forwards;
 }
@@ -131,7 +131,7 @@
     transform 200ms;
 }
 
-.zenithui-loader[data-visible="false"] {
+.zenithui-loader[data-visible='false'] {
   opacity: 0;
   transform: scale(0.8) translate(-50%, -50%);
 }

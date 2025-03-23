@@ -15,7 +15,7 @@
   box-shadow: 0px 4px 6px var(--box-shadow);
 }
 
-[data-animation="enter-with-icon"] {
+[data-animation='enter-with-icon'] {
   width: max-content;
 }
 
@@ -27,8 +27,8 @@
   width: max-content;
 }
 
-[data-icon="loading"],
-[data-icon="promise"] {
+[data-icon='loading'],
+[data-icon='promise'] {
   position: relative;
   width: 16px;
   height: 16px;
@@ -41,7 +41,7 @@
   align-items: center;
 }
 
-[data-expand="true"] {
+[data-expand='true'] {
   width: 0px;
   height: 0px;
   opacity: 0;
@@ -165,11 +165,11 @@
 /* Key frame for the fade in from top */
 @keyframes zenithui-fade-in-top {
   from {
-    opacity: "0";
+    opacity: '0';
     transform: translateY(-20px);
   }
   to {
-    opacity: "1";
+    opacity: '1';
     transform: translateY(0px);
   }
 }
@@ -177,11 +177,11 @@
 /* Key frame for the fade out to top */
 @keyframes zenithui-fade-out-top {
   from {
-    opacity: "1";
+    opacity: '1';
     transform: translateY(0px);
   }
   to {
-    opacity: "0";
+    opacity: '0';
     transform: translateY(-20px);
   }
 }
@@ -189,11 +189,11 @@
 /* Key frame for the fade in from bottom */
 @keyframes zenithui-fade-in-bottom {
   from {
-    opacity: "0";
+    opacity: '0';
     transform: translateY(20px);
   }
   to {
-    opacity: "1";
+    opacity: '1';
     transform: translateY(0px);
   }
 }
@@ -201,11 +201,11 @@
 /* Key frame for the fade out to bottom */
 @keyframes zenithui-fade-out-bottom {
   from {
-    opacity: "1";
+    opacity: '1';
     transform: translateY(0px);
   }
   to {
-    opacity: "0";
+    opacity: '0';
     transform: translateY(20px);
   }
 }

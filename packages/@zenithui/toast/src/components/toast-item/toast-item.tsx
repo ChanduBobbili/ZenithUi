@@ -1,17 +1,17 @@
-import { useCallback, useEffect, useRef, useState } from "react"
-import { Toast } from "../../lib/types"
-import { useToast } from "../../hooks/use-toast"
-import { cn, getToastAnimation, getToastTheme } from "../../lib/utils"
-import CloseIcon from "@/assets/close.svg"
-import "./toast-item.css"
-import Button from "../button/button"
-import { ToastAsset } from "../toast-asset/toast-asset"
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { Toast } from '../../lib/types';
+import { useToast } from '../../hooks/use-toast';
+import { cn, getToastAnimation, getToastTheme } from '../../lib/utils';
+import CloseIcon from '@/assets/close.svg?react';
+import './toast-item.css';
+import Button from '../button/button';
+import { ToastAsset } from '../toast-asset/toast-asset';
 
 interface ToastItemProps extends React.HTMLAttributes<HTMLDivElement> {
   /**
    * The Instance Item of Toast.
    */
-  toast: Toast
+  toast: Toast;
 }
 
 export const ToastItem: React.FC<ToastItemProps> = ({ toast, ...props }) => {
@@ -25,19 +25,19 @@ export const ToastItem: React.FC<ToastItemProps> = ({ toast, ...props }) => {
     classNames: globalClassNames,
     removeToast,
     setToasts,
-  } = useToast()
+  } = useToast();
 
-  const { options } = toast
+  const { options } = toast;
 
-  const [status, setStatus] = useState<"loading" | "success" | "error">(
-    "loading",
-  )
+  const [status, setStatus] = useState<'loading' | 'success' | 'error'>(
+    'loading',
+  );
   const [message, setMessage] = useState<string>(
-    options?.loading ?? "Loading...",
-  )
+    options?.loading ?? 'Loading...',
+  );
 
   // useRef to store timeout reference
-  const timeoutRef = useRef<NodeJS.Timeout | null>(null)
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   const setTimer = useCallback(() => {
     if (
@@ -49,46 +49,46 @@ export const ToastItem: React.FC<ToastItemProps> = ({ toast, ...props }) => {
         () => {
           setToasts((prev) =>
             prev.map((t) => (t.id === toast.id ? { ...t, remove: true } : t)),
-          )
+          );
         },
         options?.duration ? options?.duration : duration,
-      )
+      );
     }
-  }, [])
+  }, []);
 
   const trackPromise = useCallback(async () => {
     try {
-      const promiseData = await toast.message
-      setStatus("success")
+      const promiseData = await toast.message;
+      setStatus('success');
       setMessage(
-        typeof options?.success === "function"
+        typeof options?.success === 'function'
           ? options.success(promiseData)
-          : (options?.success ?? "Success !!"),
-      )
+          : (options?.success ?? 'Success !!'),
+      );
     } catch (error) {
-      setStatus("error")
+      setStatus('error');
       setMessage(
-        typeof options?.error === "function"
+        typeof options?.error === 'function'
           ? options.error(error)
-          : (options?.error ?? "Error !!"),
-      )
+          : (options?.error ?? 'Error !!'),
+      );
     } finally {
-      setTimer()
+      setTimer();
     }
-  }, [])
+  }, []);
 
   // Auto-dismiss toast after duration
   useEffect(() => {
-    if (toast.type === "promise" && typeof toast.message !== "string") {
-      trackPromise()
+    if (toast.type === 'promise' && typeof toast.message !== 'string') {
+      trackPromise();
     }
     // Clear timeout on unmount
     return () => {
       if (timeoutRef.current) {
-        clearTimeout(timeoutRef.current)
+        clearTimeout(timeoutRef.current);
       }
-    }
-  }, [])
+    };
+  }, []);
 
   return (
     <div
@@ -100,31 +100,31 @@ export const ToastItem: React.FC<ToastItemProps> = ({ toast, ...props }) => {
       data-animation={options?.animation ? options.animation : animation}
       data-rich-colors={options?.richColors ? options.richColors : richColors}
       className={cn(
-        "zenithui-toast-wrapper",
+        'zenithui-toast-wrapper',
         options?.richColors
           ? options.richColors
             ? getToastTheme(toast.type)
-            : ""
+            : ''
           : richColors
             ? getToastTheme(toast.type)
-            : "",
+            : '',
         getToastAnimation(
           options?.animation ? options.animation : animation,
           options?.position ? options.position : position,
           !toast.remove,
         ),
         options?.classNames
-          ? typeof options.classNames === "string"
+          ? typeof options.classNames === 'string'
             ? options?.classNames
-            : (options?.classNames?.className ?? "")
-          : (globalClassNames?.className ?? ""),
+            : (options?.classNames?.className ?? '')
+          : (globalClassNames?.className ?? ''),
       )}
       onAnimationEnd={() => {
-        if (toast.type !== "promise" && typeof toast.message === "string") {
-          setTimer()
+        if (toast.type !== 'promise' && typeof toast.message === 'string') {
+          setTimer();
         }
         if (toast.remove) {
-          removeToast(toast.id)
+          removeToast(toast.id);
         }
       }}
     >
@@ -133,13 +133,13 @@ export const ToastItem: React.FC<ToastItemProps> = ({ toast, ...props }) => {
           options.icon
         ) : (
           <ToastAsset
-            type={toast.type !== "promise" ? toast.type : status}
+            type={toast.type !== 'promise' ? toast.type : status}
             className={cn(
               options?.classNames
-                ? typeof options.classNames !== "string"
-                  ? (options?.classNames?.icon ?? "")
-                  : ""
-                : (globalClassNames?.icon ?? ""),
+                ? typeof options.classNames !== 'string'
+                  ? (options?.classNames?.icon ?? '')
+                  : ''
+                : (globalClassNames?.icon ?? ''),
             )}
           />
         )}
@@ -148,34 +148,34 @@ export const ToastItem: React.FC<ToastItemProps> = ({ toast, ...props }) => {
         data-wrapper-zenithui
         data-expand={
           (options?.animation ? options.animation : animation) ===
-          "enter-with-icon"
+          'enter-with-icon'
         }
       >
         <div
           data-content={true}
-          style={{ width: "100%", display: "flex", flexDirection: "column" }}
+          style={{ width: '100%', display: 'flex', flexDirection: 'column' }}
         >
           <span
             className={cn(
               options?.classNames
-                ? typeof options.classNames !== "string"
-                  ? (options?.classNames?.title ?? "")
-                  : ""
-                : (globalClassNames?.title ?? ""),
+                ? typeof options.classNames !== 'string'
+                  ? (options?.classNames?.title ?? '')
+                  : ''
+                : (globalClassNames?.title ?? ''),
             )}
           >
-            {toast.type === "promise"
-              ? message || ""
+            {toast.type === 'promise'
+              ? message || ''
               : toast?.options?.title || toast.message}
           </span>
           {toast?.options?.description ? (
             <span
               className={cn(
                 options?.classNames
-                  ? typeof options.classNames !== "string"
-                    ? (options?.classNames?.description ?? "")
-                    : ""
-                  : (globalClassNames?.description ?? ""),
+                  ? typeof options.classNames !== 'string'
+                    ? (options?.classNames?.description ?? '')
+                    : ''
+                  : (globalClassNames?.description ?? ''),
               )}
             >
               {toast.options.description}
@@ -184,10 +184,7 @@ export const ToastItem: React.FC<ToastItemProps> = ({ toast, ...props }) => {
         </div>
         {/* action btn */}
         {options?.action ? (
-          <options.action
-            {...options.action}
-            btntype="action"
-          />
+          <options.action {...options.action} btntype="action" />
         ) : (
           <>
             {options?.onAction ? (
@@ -195,10 +192,10 @@ export const ToastItem: React.FC<ToastItemProps> = ({ toast, ...props }) => {
                 btntype="action"
                 className={cn(
                   options?.classNames
-                    ? typeof options.classNames !== "string"
-                      ? (options?.classNames?.actionButton ?? "")
-                      : ""
-                    : (globalClassNames?.actionButton ?? ""),
+                    ? typeof options.classNames !== 'string'
+                      ? (options?.classNames?.actionButton ?? '')
+                      : ''
+                    : (globalClassNames?.actionButton ?? ''),
                 )}
                 onClick={options.onAction}
               >
@@ -209,30 +206,27 @@ export const ToastItem: React.FC<ToastItemProps> = ({ toast, ...props }) => {
         )}
         {/* cancel btn */}
         {options?.cancel ? (
-          <options.cancel
-            {...options.action}
-            btntype="action"
-          />
+          <options.cancel {...options.action} btntype="action" />
         ) : (
           <>
             {options?.onCancel ? (
               <Button
                 btntype="cancel"
                 className={cn(
-                  "cancel",
+                  'cancel',
                   options?.classNames
-                    ? typeof options.classNames !== "string"
-                      ? (options?.classNames?.cancelButton ?? "")
-                      : ""
-                    : (globalClassNames?.cancelButton ?? ""),
+                    ? typeof options.classNames !== 'string'
+                      ? (options?.classNames?.cancelButton ?? '')
+                      : ''
+                    : (globalClassNames?.cancelButton ?? ''),
                 )}
                 onClick={(e) => {
-                  options?.onCancel?.(e)
+                  options?.onCancel?.(e);
                   setToasts((prev) =>
                     prev.map((t) =>
                       t.id === toast.id ? { ...t, remove: true } : t,
                     ),
-                  )
+                  );
                 }}
               >
                 Cancel
@@ -243,36 +237,33 @@ export const ToastItem: React.FC<ToastItemProps> = ({ toast, ...props }) => {
       </div>
       {/* close btn */}
       {options?.close ? (
-        <options.close
-          {...options.action}
-          btntype="close"
-        />
+        <options.close {...options.action} btntype="close" />
       ) : (
         <>
           {options?.showCloseButton || showCloseButton ? (
             <button
               className={cn(
-                "zenithui-toast-close",
+                'zenithui-toast-close',
                 options?.richColors
                   ? options.richColors
                     ? `${getToastTheme(toast.type)} zenithui-toast-close-rich`
-                    : ""
+                    : ''
                   : richColors
                     ? `${getToastTheme(toast.type)} zenithui-toast-close-rich`
-                    : "",
+                    : '',
                 options?.classNames
-                  ? typeof options.classNames !== "string"
-                    ? (options?.classNames?.closeButton ?? "")
-                    : ""
-                  : (globalClassNames?.closeButton ?? ""),
+                  ? typeof options.classNames !== 'string'
+                    ? (options?.classNames?.closeButton ?? '')
+                    : ''
+                  : (globalClassNames?.closeButton ?? ''),
               )}
               onClick={(e) => {
-                options?.onClose?.(e)
+                options?.onClose?.(e);
                 if (timeoutRef.current) {
                   // Clear timeout on manual close
-                  clearTimeout(timeoutRef.current)
+                  clearTimeout(timeoutRef.current);
                 }
-                removeToast(toast.id)
+                removeToast(toast.id);
               }}
             >
               <CloseIcon />
@@ -281,5 +272,5 @@ export const ToastItem: React.FC<ToastItemProps> = ({ toast, ...props }) => {
         </>
       )}
     </div>
-  )
-}
+  );
+};

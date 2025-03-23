@@ -14,6 +14,9 @@ importers:
       '@eslint/js':
         specifier: ^9.20.0
         version: 9.20.0
+      '@rsbuild/plugin-svgr':
+        specifier: ^1.0.7
+        version: 1.0.7(@rsbuild/core@1.2.19)(typescript@5.8.2)
       '@svgr/webpack':
         specifier: ^8.1.0
         version: 8.1.0(typescript@5.8.2)
@@ -153,6 +156,9 @@ importers:
       '@vercel/speed-insights':
         specifier: ^1.2.0
         version: 1.2.0(next@15.1.7(@babel/core@7.26.8)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react@19.0.0)
+      '@zenithui/toast':
+        specifier: workspace:*
+        version: link:../../packages/@zenithui/toast
       class-variance-authority:
         specifier: ^0.7.1
         version: 0.7.1
@@ -308,7 +314,7 @@ importers:
     dependencies:
       react-dom:
         specifier: ^18.0.0 || ^17.0.0
-        version: 18.3.1(react@19.0.0)
+        version: 19.0.0(react@19.0.0)
     devDependencies:
       '@biomejs/biome':
         specifier: ^1.9.4
@@ -322,6 +328,9 @@ importers:
       '@rsbuild/plugin-react':
         specifier: ^1.1.1
         version: 1.1.1(@rsbuild/core@1.2.19)
+      '@rsbuild/plugin-svgr':
+        specifier: ^1.0.7
+        version: 1.0.7(@rsbuild/core@1.2.19)(typescript@5.8.2)
       '@rslib/core':
         specifier: ^0.5.5
         version: 0.5.5(@microsoft/api-extractor@7.49.2(@types/node@22.13.11))(typescript@5.8.2)
@@ -339,10 +348,10 @@ importers:
         version: 8.6.8(storybook@8.6.8(prettier@3.5.3))
       '@storybook/blocks':
         specifier: ^8.6.7
-        version: 8.6.8(react-dom@18.3.1(react@19.0.0))(react@19.0.0)(storybook@8.6.8(prettier@3.5.3))
+        version: 8.6.8(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(storybook@8.6.8(prettier@3.5.3))
       '@storybook/react':
         specifier: ^8.6.7
-        version: 8.6.8(@storybook/test@8.6.8(storybook@8.6.8(prettier@3.5.3)))(react-dom@18.3.1(react@19.0.0))(react@19.0.0)(storybook@8.6.8(prettier@3.5.3))(typescript@5.8.2)
+        version: 8.6.8(@storybook/test@8.6.8(storybook@8.6.8(prettier@3.5.3)))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(storybook@8.6.8(prettier@3.5.3))(typescript@5.8.2)
       '@storybook/test':
         specifier: ^8.6.7
         version: 8.6.8(storybook@8.6.8(prettier@3.5.3))
@@ -372,7 +381,7 @@ importers:
         version: 1.0.0(@rsbuild/core@1.2.19)(@rslib/core@0.5.5(@microsoft/api-extractor@7.49.2(@types/node@22.13.11))(typescript@5.8.2))(storybook-builder-rsbuild@1.0.0(@rsbuild/core@1.2.19)(@rspack/core@1.2.8(@swc/helpers@0.5.15))(@types/react@19.0.12)(storybook@8.6.8(prettier@3.5.3))(typescript@5.8.2))(typescript@5.8.2)
       storybook-react-rsbuild:
         specifier: ^1.0.0
-        version: 1.0.0(@rsbuild/core@1.2.19)(@rspack/core@1.2.8(@swc/helpers@0.5.15))(@storybook/test@8.6.8(storybook@8.6.8(prettier@3.5.3)))(@types/react@19.0.12)(react-dom@18.3.1(react@19.0.0))(react@19.0.0)(rollup@4.34.6)(storybook@8.6.8(prettier@3.5.3))(typescript@5.8.2)(webpack@5.98.0(esbuild@0.25.0))
+        version: 1.0.0(@rsbuild/core@1.2.19)(@rspack/core@1.2.8(@swc/helpers@0.5.15))(@storybook/test@8.6.8(storybook@8.6.8(prettier@3.5.3)))(@types/react@19.0.12)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(rollup@4.34.6)(storybook@8.6.8(prettier@3.5.3))(typescript@5.8.2)(webpack@5.98.0(esbuild@0.25.0))
       typescript:
         specifier: ^5.8.2
         version: 5.8.2
@@ -2636,6 +2645,11 @@ packages:
     peerDependencies:
       '@rsbuild/core': 1.x
 
+  '@rsbuild/plugin-svgr@1.0.7':
+    resolution: {integrity: sha512-+hCaG78P0nt8nrMvdWJ720c0WNj9ogNBL7ib8+UfyYezqliMRR++Zx6QIPXYBfTP+pCa/TKPph/ZQvAdPJq+Ig==}
+    peerDependencies:
+      '@rsbuild/core': 1.x
+
   '@rsbuild/plugin-type-check@1.2.1':
     resolution: {integrity: sha512-PtbjeMqDQy8IiPDTuaj8ZmvR42b0AsRq6RUF6wxa8dDsOzD0Dl1GcvemVGCto+/Dh8frLUmnlWF+T8riBw5rtA==}
     peerDependencies:
@@ -4125,6 +4139,9 @@ packages:
     peerDependencies:
       react: '>=16.8'
 
+  big.js@5.2.2:
+    resolution: {integrity: sha512-vyL2OymJxmarO8gxMr0mhChsO9QGwhynfuu4+MHTAW6czfq9humCB7rKpUjDd9YUiDPU4mzpyupFSvOClAwbmQ==}
+
   binary-extensions@2.3.0:
     resolution: {integrity: sha512-Ceh+7ox5qe7LJuLHoY0feh3pHuUDHAcRUeyL2VYghZwfpkNIy/+8Ocg0a3UuSoYzavmylwuLWQOf3hl0jjMMIw==}
     engines: {node: '>=8'}
@@ -4738,6 +4755,10 @@ packages:
 
   emoji-regex@9.2.2:
     resolution: {integrity: sha512-L18DaJsXSUk2+42pv8mLs5jJT2hqFkFE4j21wOmgbUqsZ2hL72NsUU785g9RXgo3s0ZNgVl42TiHp3ZtOv/Vyg==}
+
+  emojis-list@3.0.0:
+    resolution: {integrity: sha512-/kyM18EfinwXZbno9FyUGeFh87KC8HRQBQGildHZbEuRyWFOmv1U10o9BBp8XVZDVNNuQKyIGIu5ZYAAXJ0V2Q==}
+    engines: {node: '>= 4'}
 
   endent@2.1.0:
     resolution: {integrity: sha512-r8VyPX7XL8U01Xgnb1CjZ3XV+z90cXIJ9JPE/R9SEC9vpw2P6CfsRPJmp20DppC5N7ZAMCmjYkJIa744Iyg96w==}
@@ -5868,6 +5889,10 @@ packages:
   loader-runner@4.3.0:
     resolution: {integrity: sha512-3R/1M+yS3j5ou80Me59j7F9IMs4PXs3VqRrm0TU3AbKPxlmpoY1TNscJV/oGJXo8qCatFGTfDbY6W6ipGOYXfg==}
     engines: {node: '>=6.11.5'}
+
+  loader-utils@2.0.4:
+    resolution: {integrity: sha512-xXqpXoINfFhgua9xiqD8fPFHgkoq1mmmpE92WlDbm9rNRd/EbRb+Gqf908T2DMfuHjjJlksiK2RbHVOdD/MqSw==}
+    engines: {node: '>=8.9.0'}
 
   local-pkg@0.5.1:
     resolution: {integrity: sha512-9rrA30MRRP3gBD3HTGnC6cDFpaE1kVDWxWgqWJUN0RvDNAo+Nz/9GxB+nHOH0ifbVFy0hSA1V6vFDvnx54lTEQ==}
@@ -8212,7 +8237,7 @@ snapshots:
   '@babel/helper-member-expression-to-functions@7.25.9':
     dependencies:
       '@babel/traverse': 7.26.10
-      '@babel/types': 7.26.8
+      '@babel/types': 7.26.10
     transitivePeerDependencies:
       - supports-color
 
@@ -8234,7 +8259,7 @@ snapshots:
 
   '@babel/helper-optimise-call-expression@7.25.9':
     dependencies:
-      '@babel/types': 7.26.8
+      '@babel/types': 7.26.10
 
   '@babel/helper-plugin-utils@7.26.5': {}
 
@@ -8273,7 +8298,7 @@ snapshots:
     dependencies:
       '@babel/template': 7.26.8
       '@babel/traverse': 7.26.8
-      '@babel/types': 7.26.8
+      '@babel/types': 7.26.10
     transitivePeerDependencies:
       - supports-color
 
@@ -10407,6 +10432,19 @@ snapshots:
       '@rspack/plugin-react-refresh': 1.0.1(react-refresh@0.16.0)
       react-refresh: 0.16.0
 
+  '@rsbuild/plugin-svgr@1.0.7(@rsbuild/core@1.2.19)(typescript@5.8.2)':
+    dependencies:
+      '@rsbuild/core': 1.2.19
+      '@rsbuild/plugin-react': 1.1.1(@rsbuild/core@1.2.19)
+      '@svgr/core': 8.1.0(typescript@5.8.2)
+      '@svgr/plugin-jsx': 8.1.0(@svgr/core@8.1.0(typescript@5.8.2))
+      '@svgr/plugin-svgo': 8.1.0(@svgr/core@8.1.0(typescript@5.8.2))(typescript@5.8.2)
+      deepmerge: 4.3.1
+      loader-utils: 2.0.4
+    transitivePeerDependencies:
+      - supports-color
+      - typescript
+
   '@rsbuild/plugin-type-check@1.2.1(@rsbuild/core@1.2.19)(@rspack/core@1.2.8(@swc/helpers@0.5.15))(typescript@5.8.2)':
     dependencies:
       deepmerge: 4.3.1
@@ -10700,15 +10738,6 @@ snapshots:
       memoizerific: 1.11.3
       storybook: 8.6.8(prettier@3.5.3)
 
-  '@storybook/blocks@8.6.8(react-dom@18.3.1(react@19.0.0))(react@19.0.0)(storybook@8.6.8(prettier@3.5.3))':
-    dependencies:
-      '@storybook/icons': 1.4.0(react-dom@18.3.1(react@19.0.0))(react@19.0.0)
-      storybook: 8.6.8(prettier@3.5.3)
-      ts-dedent: 2.2.0
-    optionalDependencies:
-      react: 19.0.0
-      react-dom: 18.3.1(react@19.0.0)
-
   '@storybook/blocks@8.6.8(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(storybook@8.6.8(prettier@3.5.3))':
     dependencies:
       '@storybook/icons': 1.4.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
@@ -10759,11 +10788,6 @@ snapshots:
 
   '@storybook/global@5.0.0': {}
 
-  '@storybook/icons@1.4.0(react-dom@18.3.1(react@19.0.0))(react@19.0.0)':
-    dependencies:
-      react: 19.0.0
-      react-dom: 18.3.1(react@19.0.0)
-
   '@storybook/icons@1.4.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0)':
     dependencies:
       react: 19.0.0
@@ -10797,28 +10821,22 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@storybook/react-dom-shim@8.6.8(react-dom@18.3.1(react@19.0.0))(react@19.0.0)(storybook@8.6.8(prettier@3.5.3))':
-    dependencies:
-      react: 19.0.0
-      react-dom: 18.3.1(react@19.0.0)
-      storybook: 8.6.8(prettier@3.5.3)
-
   '@storybook/react-dom-shim@8.6.8(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(storybook@8.6.8(prettier@3.5.3))':
     dependencies:
       react: 19.0.0
       react-dom: 19.0.0(react@19.0.0)
       storybook: 8.6.8(prettier@3.5.3)
 
-  '@storybook/react@8.6.8(@storybook/test@8.6.8(storybook@8.6.8(prettier@3.5.3)))(react-dom@18.3.1(react@19.0.0))(react@19.0.0)(storybook@8.6.8(prettier@3.5.3))(typescript@5.8.2)':
+  '@storybook/react@8.6.8(@storybook/test@8.6.8(storybook@8.6.8(prettier@3.5.3)))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(storybook@8.6.8(prettier@3.5.3))(typescript@5.8.2)':
     dependencies:
       '@storybook/components': 8.6.8(storybook@8.6.8(prettier@3.5.3))
       '@storybook/global': 5.0.0
       '@storybook/manager-api': 8.6.8(storybook@8.6.8(prettier@3.5.3))
       '@storybook/preview-api': 8.6.8(storybook@8.6.8(prettier@3.5.3))
-      '@storybook/react-dom-shim': 8.6.8(react-dom@18.3.1(react@19.0.0))(react@19.0.0)(storybook@8.6.8(prettier@3.5.3))
+      '@storybook/react-dom-shim': 8.6.8(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(storybook@8.6.8(prettier@3.5.3))
       '@storybook/theming': 8.6.8(storybook@8.6.8(prettier@3.5.3))
       react: 19.0.0
-      react-dom: 18.3.1(react@19.0.0)
+      react-dom: 19.0.0(react@19.0.0)
       storybook: 8.6.8(prettier@3.5.3)
     optionalDependencies:
       '@storybook/test': 8.6.8(storybook@8.6.8(prettier@3.5.3))
@@ -10896,7 +10914,7 @@ snapshots:
 
   '@svgr/hast-util-to-babel-ast@8.0.0':
     dependencies:
-      '@babel/types': 7.26.8
+      '@babel/types': 7.26.10
       entities: 4.5.0
 
   '@svgr/plugin-jsx@8.1.0(@svgr/core@8.1.0(typescript@5.8.2))':
@@ -12258,6 +12276,8 @@ snapshots:
       mathjax-full: 3.2.2
       react: 19.0.0
 
+  big.js@5.2.2: {}
+
   binary-extensions@2.3.0: {}
 
   boolbase@1.0.0: {}
@@ -12864,6 +12884,8 @@ snapshots:
   emoji-regex@8.0.0: {}
 
   emoji-regex@9.2.2: {}
+
+  emojis-list@3.0.0: {}
 
   endent@2.1.0:
     dependencies:
@@ -14386,6 +14408,12 @@ snapshots:
 
   loader-runner@4.3.0: {}
 
+  loader-utils@2.0.4:
+    dependencies:
+      big.js: 5.2.2
+      emojis-list: 3.0.0
+      json5: 2.2.3
+
   local-pkg@0.5.1:
     dependencies:
       mlly: 1.7.4
@@ -15603,12 +15631,6 @@ snapshots:
       react: 18.3.1
       scheduler: 0.23.2
 
-  react-dom@18.3.1(react@19.0.0):
-    dependencies:
-      loose-envify: 1.4.0
-      react: 19.0.0
-      scheduler: 0.23.2
-
   react-dom@19.0.0(react@19.0.0):
     dependencies:
       react: 19.0.0
@@ -16290,11 +16312,11 @@ snapshots:
       - '@rspack/core'
       - '@types/react'
 
-  storybook-react-rsbuild@1.0.0(@rsbuild/core@1.2.19)(@rspack/core@1.2.8(@swc/helpers@0.5.15))(@storybook/test@8.6.8(storybook@8.6.8(prettier@3.5.3)))(@types/react@19.0.12)(react-dom@18.3.1(react@19.0.0))(react@19.0.0)(rollup@4.34.6)(storybook@8.6.8(prettier@3.5.3))(typescript@5.8.2)(webpack@5.98.0(esbuild@0.25.0)):
+  storybook-react-rsbuild@1.0.0(@rsbuild/core@1.2.19)(@rspack/core@1.2.8(@swc/helpers@0.5.15))(@storybook/test@8.6.8(storybook@8.6.8(prettier@3.5.3)))(@types/react@19.0.12)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(rollup@4.34.6)(storybook@8.6.8(prettier@3.5.3))(typescript@5.8.2)(webpack@5.98.0(esbuild@0.25.0)):
     dependencies:
       '@rollup/pluginutils': 5.1.4(rollup@4.34.6)
       '@rsbuild/core': 1.2.19
-      '@storybook/react': 8.6.8(@storybook/test@8.6.8(storybook@8.6.8(prettier@3.5.3)))(react-dom@18.3.1(react@19.0.0))(react@19.0.0)(storybook@8.6.8(prettier@3.5.3))(typescript@5.8.2)
+      '@storybook/react': 8.6.8(@storybook/test@8.6.8(storybook@8.6.8(prettier@3.5.3)))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(storybook@8.6.8(prettier@3.5.3))(typescript@5.8.2)
       '@storybook/react-docgen-typescript-plugin': 1.0.1(typescript@5.8.2)(webpack@5.98.0(esbuild@0.25.0))
       '@types/node': 18.19.81
       find-up: 5.0.0
@@ -16302,7 +16324,7 @@ snapshots:
       react: 19.0.0
       react-docgen: 7.1.1
       react-docgen-typescript: 2.2.2(typescript@5.8.2)
-      react-dom: 18.3.1(react@19.0.0)
+      react-dom: 19.0.0(react@19.0.0)
       resolve: 1.22.10
       storybook: 8.6.8(prettier@3.5.3)
       storybook-builder-rsbuild: 1.0.0(@rsbuild/core@1.2.19)(@rspack/core@1.2.8(@swc/helpers@0.5.15))(@types/react@19.0.12)(storybook@8.6.8(prettier@3.5.3))(typescript@5.8.2)
