@@ -42,14 +42,6 @@
     "react": ">=18.0.0",
     "react-dom": ">=18.0.0"
   },
-  "peerDependenciesMeta": {
-    "react": {
-      "optional": false
-    },
-    "react-dom": {
-      "optional": false
-    }
-  },
   "engines": {
     "pnpm": ">=9",
     "node": ">=20"
