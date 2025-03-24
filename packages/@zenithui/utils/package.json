@@ -19,6 +19,7 @@
     "dist"
   ],
   "scripts": {
+    "prepublishOnly": "npm run build",
     "build": "rslib build",
     "dev": "rslib build --watch",
     "format": "prettier --write .",
