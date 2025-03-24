@@ -2,10 +2,9 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { Toast } from '../../lib/types';
 import { useToast } from '../../hooks/use-toast';
 import { cn, getToastAnimation, getToastTheme } from '../../lib/utils';
-import CloseIcon from '@/assets/close.svg?react';
 import './toast-item.css';
 import Button from '../button/button';
-import { ToastAsset } from '../toast-asset/toast-asset';
+import { ICONS, ToastAsset } from '../toast-asset/toast-asset';
 
 interface ToastItemProps extends React.HTMLAttributes<HTMLDivElement> {
   /**
@@ -266,7 +265,7 @@ export const ToastItem: React.FC<ToastItemProps> = ({ toast, ...props }) => {
                 removeToast(toast.id);
               }}
             >
-              <CloseIcon />
+              <ICONS.CloseIcon />
             </button>
           ) : null}
         </>
