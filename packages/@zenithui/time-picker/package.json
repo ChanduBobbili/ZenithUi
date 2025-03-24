@@ -29,8 +29,8 @@
     "storybook": "storybook dev"
   },
   "dependencies": {
-    "@zenithui/utils": "^0.0.1",
-    "@radix-ui/react-popover": "^1.1.6"
+    "@radix-ui/react-popover": "^1.1.6",
+    "@zenithui/utils": "^0.0.5"
   },
   "devDependencies": {
     "@biomejs/biome": "^1.9.4",
@@ -46,14 +46,15 @@
     "@storybook/test": "^8.6.7",
     "@types/react": "^19.0.12",
     "react": "^19.0.0",
+    "rsbuild-plugin-dts": "^0.5.5",
     "storybook": "^8.6.7",
     "storybook-addon-rslib": "^1.0.0",
     "storybook-react-rsbuild": "^1.0.0",
     "typescript": "^5.8.2"
   },
   "peerDependencies": {
-    "react": "^18.0.0 || ^17.0.0",
-    "react-dom": "^18.0.0 || ^17.0.0"
+    "react": ">=16.9.0",
+    "react-dom": ">=16.9.0"
   },
   "peerDependenciesMeta": {
     "react": {

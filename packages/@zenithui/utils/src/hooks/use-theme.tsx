@@ -28,9 +28,10 @@ export default function useTheme() {
     return storedTheme === 'dark' || hasDarkClass ? 'dark' : '';
   };
 
-  const [theme, setTheme] = useState<'dark' | ''>(getTheme);
+  const [theme, setTheme] = useState<'dark' | ''>('');
 
   useEffect(() => {
+    useState(getTheme());
     const handleStorageChange = () => {
       setTheme(getTheme());
     };

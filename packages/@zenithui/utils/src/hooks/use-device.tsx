@@ -12,9 +12,10 @@ export default function useDeviceType(): DeviceType {
     return 'desktop';
   };
 
-  const [deviceType, setDeviceType] = useState<DeviceType>(getDeviceType);
+  const [deviceType, setDeviceType] = useState<DeviceType>('smallMobile');
 
   useEffect(() => {
+    setDeviceType(getDeviceType);
     const handleResize = () => setDeviceType(getDeviceType);
     window.addEventListener('resize', handleResize);
 

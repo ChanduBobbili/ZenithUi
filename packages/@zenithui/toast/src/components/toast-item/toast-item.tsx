@@ -14,7 +14,7 @@ interface ToastItemProps extends React.HTMLAttributes<HTMLDivElement> {
   toast: Toast;
 }
 
-export const ToastItem: React.FC<ToastItemProps> = ({ toast, ...props }) => {
+export default function ToastItem({ toast, ...props }: ToastItemProps) {
   const {
     richColors,
     animation,
@@ -273,4 +273,4 @@ export const ToastItem: React.FC<ToastItemProps> = ({ toast, ...props }) => {
       )}
     </div>
   );
-};
+}

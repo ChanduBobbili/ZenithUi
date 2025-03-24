@@ -3,7 +3,7 @@
 import CodePreview from "@/components/code-preview"
 import { Button } from "@/components/ui/button"
 import { useState } from "react"
-import { toast } from "zenithui-toast"
+import { toast } from "@zenithui/toast"
 
 export default function ToasterPosition() {
   const [position, setPosition] = useState<string>("bottom-left")

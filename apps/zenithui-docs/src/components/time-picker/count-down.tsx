@@ -1,7 +1,7 @@
 "use client"
 
-import { CountDownTimer } from "zenithui-time-picker"
-import { toast } from "zenithui-toast"
+import { CountDownTimer } from "@zenithui/time-picker"
+import { toast } from "@zenithui/toast"
 import CodePreview from "../code-preview"
 
 const BasicCountDown = () => {

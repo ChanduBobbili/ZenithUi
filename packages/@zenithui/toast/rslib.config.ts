@@ -1,6 +1,7 @@
 import { pluginReact } from '@rsbuild/plugin-react';
 import { defineConfig } from '@rslib/core';
 import { pluginSvgr } from '@rsbuild/plugin-svgr';
+import { pluginDts } from 'rsbuild-plugin-dts';
 
 export default defineConfig({
   source: {
@@ -17,6 +18,11 @@ export default defineConfig({
   ],
   output: {
     target: 'web',
+    externals: {
+      react: 'react',
+      'react-dom': 'react-dom',
+      'react/jsx-runtime': 'react/jsx-runtime',
+    },
   },
   resolve: {
     alias: {
@@ -29,6 +35,13 @@ export default defineConfig({
       svgrOptions: {
         icon: true,
         typescript: true,
+      },
+    }),
+    pluginDts({
+      autoExternal: {
+        dependencies: true,
+        peerDependencies: true,
+        devDependencies: false,
       },
     }),
   ],

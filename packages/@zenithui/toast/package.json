@@ -31,11 +31,11 @@
     "storybook": "storybook dev"
   },
   "dependencies": {
-    "@zenithui/utils": "^0.0.1"
+    "@zenithui/utils": "workspace:*"
   },
   "devDependencies": {
     "@biomejs/biome": "^1.9.4",
-    "@eslint/js": "^9.21.0",
+    "@eslint/js": "^9.23.0",
     "@rsbuild/core": "~1.2.19",
     "@rsbuild/plugin-react": "^1.1.1",
     "@rsbuild/plugin-svgr": "^1.0.7",
@@ -48,11 +48,10 @@
     "@storybook/react": "^8.6.7",
     "@storybook/test": "^8.6.7",
     "@types/node": "^22.13.11",
-    "@types/react": "^19.0.12",
-    "eslint": "^9.21.0",
+    "eslint": "^9.23.0",
     "globals": "^16.0.0",
     "prettier": "^3.5.2",
-    "react": "^19.0.0",
+    "rsbuild-plugin-dts": "^0.5.5",
     "storybook": "^8.6.7",
     "storybook-addon-rslib": "^1.0.0",
     "storybook-react-rsbuild": "^1.0.0",
@@ -60,8 +59,8 @@
     "typescript-eslint": "^8.25.0"
   },
   "peerDependencies": {
-    "react": "^18.0.0 || ^17.0.0",
-    "react-dom": "^18.0.0 || ^17.0.0"
+    "react": ">=18.0.0",
+    "react-dom": ">=18.0.0"
   },
   "peerDependenciesMeta": {
     "react": {

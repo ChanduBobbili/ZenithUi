@@ -1,12 +1,11 @@
 import './toast-container.css';
 import { createPortal } from 'react-dom';
-import { memo, useMemo } from 'react';
+import { lazy, memo, useMemo } from 'react';
 import { Toast, ToastPosition } from '../../lib/types';
 import { useToast } from '../../hooks/use-toast';
 import { getPositionClass, reverseToasts } from '../../lib/utils';
-import { ToastItem } from '../toast-item/toast-item';
 import { cn } from '@zenithui/utils';
-
+const ToastItem = lazy(() => import('../toast-item/toast-item'));
 interface ToastContainerProps extends React.HTMLAttributes<HTMLDivElement> {
   /**
    * The List of Item of Toast Instance.
@@ -14,11 +13,11 @@ interface ToastContainerProps extends React.HTMLAttributes<HTMLDivElement> {
   toasts: Toast[];
 }
 
-export const ToastContainer: React.FC<ToastContainerProps> = ({
+export default function ToastContainer({
   toasts,
   className,
   ...props
-}) => {
+}: ToastContainerProps) {
   const { position: globalPosition, X_Offset, Y_Offset } = useToast();
 
   // Group toasts by child position (toast position > global position)
@@ -66,7 +65,7 @@ export const ToastContainer: React.FC<ToastContainerProps> = ({
       document.body,
     );
   });
-};
+}
 
 const MemoToastContainer = memo(
   ({
