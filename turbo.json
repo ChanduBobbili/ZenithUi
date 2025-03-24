@@ -9,6 +9,7 @@
     "lint": {},
     "lint:fix": {},
     "next:clean": {},
+    "check": {},
     "start": {
       "cache": false,
       "persistent": true
