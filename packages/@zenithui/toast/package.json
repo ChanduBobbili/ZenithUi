@@ -1,25 +1,26 @@
 {
   "name": "@zenithui/toast",
   "version": "1.0.0",
-  "type": "module",
   "private": false,
+  "description": "A modern, lightweight toast notification system for React applications. ZenithUI Toast provides a simple and customizable way to display notifications, alerts, and messages to users with smooth animations and flexible styling options.",
   "publishConfig": {
     "access": "public"
   },
-  "license": "MIT",
-  "main": "dist/index.js",
-  "module": "dist/index.js",
+  "type": "module",
+  "module": "./dist/index.js",
+  "main": "./dist/index.js",
   "types": "./dist/src/index.d.ts",
   "exports": {
     ".": {
       "import": "./dist/index.js",
-      "types": "./dist/src/index.d.ts"
+      "types": "./dist/index.d.ts"
     }
   },
   "files": [
     "dist"
   ],
   "scripts": {
+    "prepublishOnly": "npm run build",
     "build": "rslib build",
     "build:storybook": "storybook build",
     "check": "biome check --write",
@@ -29,18 +30,7 @@
     "lint": "eslint .",
     "storybook": "storybook dev"
   },
-  "peerDependencies": {
-    "react": "^18.0.0 || ^17.0.0",
-    "react-dom": "^18.0.0 || ^17.0.0"
-  },
-  "peerDependenciesMeta": {
-    "react": {
-      "optional": false
-    },
-    "react-dom": {
-      "optional": false
-    }
-  },
+  "dependencies": {},
   "devDependencies": {
     "@biomejs/biome": "^1.9.4",
     "@eslint/js": "^9.21.0",
@@ -67,18 +57,21 @@
     "typescript": "^5.8.2",
     "typescript-eslint": "^8.25.0"
   },
-  "author": {
-    "name": "Chandu Bobbili",
-    "email": "chandubobbili12@gmail.com",
-    "url": "https://github.com/ChanduBobbili"
+  "peerDependencies": {
+    "react": "^18.0.0 || ^17.0.0",
+    "react-dom": "^18.0.0 || ^17.0.0"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/ChanduBobbili/ZenithUi.git#main"
+  "peerDependenciesMeta": {
+    "react": {
+      "optional": false
+    },
+    "react-dom": {
+      "optional": false
+    }
   },
-  "homepage": "https://zenithui-docs.vercel.app/",
-  "bugs": {
-    "url": "https://github.com/ChanduBobbili/ZenithUi/issues"
+  "engines": {
+    "node": ">=18.0.0",
+    "pnpm": ">=9.0.0"
   },
   "keywords": [
     "react",
@@ -92,5 +85,15 @@
     "typescript",
     "toast"
   ],
+  "homepage": "https://zenithui-docs.vercel.app/",
+  "bugs": {
+    "url": "https://github.com/ChanduBobbili/ZenithUi/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ChanduBobbili/ZenithUi.git#main"
+  },
+  "license": "MIT",
+  "author": "Chandu Bobbili <chandubobbili12@gmail.com> (https://github.com/ChanduBobbili)",
   "packageManager": "pnpm@9.5.0"
 }
