@@ -1,16 +1,17 @@
-import "./toast-container.css"
-import { createPortal } from "react-dom"
-import { memo, useMemo } from "react"
-import { Toast, ToastPosition } from "../../lib/types"
-import { useToast } from "../../hooks/use-toast"
-import { cn, getPositionClass, reverseToasts } from "../../lib/utils"
-import { ToastItem } from "../toast-item/toast-item"
+import './toast-container.css';
+import { createPortal } from 'react-dom';
+import { memo, useMemo } from 'react';
+import { Toast, ToastPosition } from '../../lib/types';
+import { useToast } from '../../hooks/use-toast';
+import { getPositionClass, reverseToasts } from '../../lib/utils';
+import { ToastItem } from '../toast-item/toast-item';
+import { cn } from '@zenithui/utils';
 
 interface ToastContainerProps extends React.HTMLAttributes<HTMLDivElement> {
   /**
    * The List of Item of Toast Instance.
    */
-  toasts: Toast[]
+  toasts: Toast[];
 }
 
 export const ToastContainer: React.FC<ToastContainerProps> = ({
@@ -18,39 +19,39 @@ export const ToastContainer: React.FC<ToastContainerProps> = ({
   className,
   ...props
 }) => {
-  const { position: globalPosition, X_Offset, Y_Offset } = useToast()
+  const { position: globalPosition, X_Offset, Y_Offset } = useToast();
 
   // Group toasts by child position (toast position > global position)
   const groupedToasts = useMemo(() => {
     return toasts.reduce(
       (acc, toast) => {
-        const childPosition = toast?.options?.position ?? globalPosition
+        const childPosition = toast?.options?.position ?? globalPosition;
 
-        if (!acc[childPosition]) acc[childPosition] = []
+        if (!acc[childPosition]) acc[childPosition] = [];
 
-        acc[childPosition].push(toast)
-        return acc
+        acc[childPosition].push(toast);
+        return acc;
       },
       {} as Record<string, Toast[]>,
-    )
-  }, [toasts])
+    );
+  }, [toasts]);
 
   // Memoize each group's toasts outside the map
   const memoizedGroupedToasts = useMemo(() => {
     return Object.entries(groupedToasts).reduce(
       (acc, [position, positionToasts]) => {
         acc[position] = [
-          "bottom-left",
-          "bottom-center",
-          "bottom-right",
+          'bottom-left',
+          'bottom-center',
+          'bottom-right',
         ].includes(position)
           ? reverseToasts(positionToasts)
-          : positionToasts
-        return acc
+          : positionToasts;
+        return acc;
       },
       {} as Record<string, Toast[]>,
-    )
-  }, [groupedToasts])
+    );
+  }, [groupedToasts]);
 
   return Object.entries(memoizedGroupedToasts).map(([position, toasts]) => {
     return createPortal(
@@ -63,9 +64,9 @@ export const ToastContainer: React.FC<ToastContainerProps> = ({
         {...props}
       />,
       document.body,
-    )
-  })
-}
+    );
+  });
+};
 
 const MemoToastContainer = memo(
   ({
@@ -76,33 +77,30 @@ const MemoToastContainer = memo(
     className,
     ...props
   }: ToastContainerProps & {
-    X_Offset: number
-    Y_Offset: number
-    position: string
+    X_Offset: number;
+    Y_Offset: number;
+    position: string;
   }) => {
     return (
       <div
         key={position}
         style={
           {
-            "--x-offset": `${X_Offset + 12}px`,
-            "--y-offset": `${Y_Offset + 12}px`,
+            '--x-offset': `${X_Offset + 12}px`,
+            '--y-offset': `${Y_Offset + 12}px`,
           } as React.CSSProperties
         }
         className={cn(
-          "zenithui-toast-container",
+          'zenithui-toast-container',
           className,
           getPositionClass(position as ToastPosition),
         )}
         {...props}
       >
         {toasts.map((toast) => (
-          <ToastItem
-            key={toast.id}
-            toast={toast}
-          />
+          <ToastItem key={toast.id} toast={toast} />
         ))}
       </div>
-    )
+    );
   },
-)
+);

@@ -1,10 +1,11 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { Toast } from '../../lib/types';
 import { useToast } from '../../hooks/use-toast';
-import { cn, getToastAnimation, getToastTheme } from '../../lib/utils';
+import { getToastAnimation, getToastTheme } from '../../lib/utils';
 import './toast-item.css';
 import Button from '../button/button';
 import { ICONS, ToastAsset } from '../toast-asset/toast-asset';
+import { cn } from '@zenithui/utils';
 
 interface ToastItemProps extends React.HTMLAttributes<HTMLDivElement> {
   /**

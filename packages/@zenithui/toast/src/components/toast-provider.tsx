@@ -1,6 +1,5 @@
 import { registerToast } from './toast';
 import { ToastContainer } from './toast-container/toast-container';
-import { cn } from '../lib/utils';
 import {
   Toast,
   ToastOptions,
@@ -9,7 +8,7 @@ import {
 } from '../lib/types';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { ToastContext } from '../hooks/use-toast';
-import { useTheme } from '../hooks/use-theme';
+import { useTheme, cn } from '@zenithui/utils';
 import './../index.css';
 
 export const ToastProvider: React.FC<ToastProviderProps> = ({

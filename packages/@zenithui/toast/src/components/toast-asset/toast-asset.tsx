@@ -1,5 +1,5 @@
+import { cn } from '@zenithui/utils';
 import { ToastType } from '../../lib/types';
-import { cn } from '../../lib/utils';
 import './toast-asset.css';
 
 export const ICONS = {
