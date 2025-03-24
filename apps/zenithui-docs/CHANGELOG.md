@@ -1,5 +1,12 @@
 # zenithui-docs
 
+## 1.1.3
+
+### Patch Changes
+
+- Updated dependencies
+  - @zenithui/toast@1.0.0
+
 ## 1.1.2
 
 ### Patch Changes
