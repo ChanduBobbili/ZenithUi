@@ -16,8 +16,11 @@
   "module": "./dist/index.js",
   "main": "./dist/index.js",
   "types": "./dist/src/index.d.ts",
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "scripts": {
+    "prepublishOnly": "npm run build",
     "build": "rslib build",
     "build:storybook": "storybook build",
     "check": "biome check --write",
@@ -26,7 +29,8 @@
     "storybook": "storybook dev"
   },
   "dependencies": {
-    "@zenithui/utils": "^0.0.1"
+    "@zenithui/utils": "^0.0.1",
+    "@radix-ui/react-popover": "^1.1.6"
   },
   "devDependencies": {
     "@biomejs/biome": "^1.9.4",
