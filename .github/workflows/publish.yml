@@ -3,11 +3,11 @@ name: Publish Package to NPM
 on:
   push:
     tags:
-      - "zenithui-day-picker@*"
-      - "zenithui-time-picker@*"
-      - "zenithui-primitive@*"
-      - "zenithui-toast@*"
-      - "zenithui-light-box@*"
+      - "@zenithui/day-picker@*"
+      - "@zenithui/time-picker@*"
+      - "@zenithui/toast@*"
+      - "@zenithui/utils@*"
+      - "@zenithui/light-box@*"
 
 jobs:
   publish:
@@ -32,8 +32,8 @@ jobs:
         id: extract
         run: |
           TAG_NAME=${{ github.ref_name }}
-          PACKAGE_NAME=$(echo "$TAG_NAME" | cut -d'@' -f1)
-          PACKAGE_VERSION=$(echo "$TAG_NAME" | cut -d'@' -f2)
+          PACKAGE_NAME=$(echo "$TAG_NAME" | cut -d'@' -f2)
+          PACKAGE_VERSION=$(echo "$TAG_NAME" | cut -d'@' -f3)
           echo "PACKAGE_NAME=$PACKAGE_NAME" >> $GITHUB_ENV
           echo "PACKAGE_VERSION=$PACKAGE_VERSION" >> $GITHUB_ENV
           echo "PACKAGE_NAME=$PACKAGE_NAME"
