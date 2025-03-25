@@ -24,18 +24,47 @@ jobs:
           node-version: "lts/*" # Use the latest LTS version of Node.js
           registry-url: "https://registry.npmjs.org/"
 
-      - name: Install dependencies
+      - name: Install pnpm
+        run: npm install -g pnpm
+
+      - name: Extract package and version from tag
+        id: extract
         run: |
-          npm install -g pnpm
+          set -e
+          TAG_NAME=${{ github.ref_name }}
+          PACKAGE_SCOPE=$(echo "$TAG_NAME" | cut -d'@' -f2) # Extracts "zenithui/utils@0.1.0"
+          PACKAGE_NAME=$(echo "$PACKAGE_SCOPE" | cut -d'/' -f2 | cut -d'@' -f1) # Extracts "utils"
+          PACKAGE_VERSION=$(echo "$PACKAGE_SCOPE" | cut -d'@' -f2) # Extracts "0.1.0"
+
+          echo "PACKAGE_NAME=$PACKAGE_NAME" >> $GITHUB_ENV
+          echo "PACKAGE_VERSION=$PACKAGE_VERSION" >> $GITHUB_ENV
+
+          echo "Extracted package name: $PACKAGE_NAME"
+          echo "Extracted version: $PACKAGE_VERSION"
+
+      - name: Navigate to package directory and install dependencies
+        run: |
+          set -e
+          cd packages/@zenithui/$PACKAGE_NAME
           pnpm install
 
       - name: Lint package
-        run: pnpm lint
+        run: |
+          set -e
+          cd packages/@zenithui/$PACKAGE_NAME
+          pnpm lint
 
-      - name: Build all packages
-        run: pnpm run build
-
-      - name: Publish with Changesets
-        run: pnpm changeset publish --tag
+      - name: Publish package with building
+        run: |
+          set -e
+          cd packages/@zenithui/$PACKAGE_NAME
+          npm publish --access public --no-git-checks
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Clear build artifacts
+        run: |
+          rm -rf packages/@zenithui/$PACKAGE_NAME/dist
+
+      - name: Cleanup node_modules
+        run: rm -rf node_modules
