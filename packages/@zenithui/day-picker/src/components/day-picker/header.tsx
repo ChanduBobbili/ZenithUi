@@ -1,7 +1,7 @@
 import { addMonths, addYears, format, subMonths, subYears } from "date-fns"
 import Arrow from "../../assets/arrow.svg?react"
 import { useDayPicker } from "../../hooks/use-day-picker"
-import { cn } from "../utils"
+import { cn } from "@zenithui/utils"
 
 export function DayPickerHeader() {
   const { state, currentMonth, setState, setCurrentMonth, classNames } =

@@ -1,6 +1,6 @@
 "use client"
 import { useState } from "react"
-import { DayPicker } from "zenithui-day-picker"
+import { DayPicker } from "@zenithui/day-picker"
 import CodePreview from "../code-preview"
 
 export default function RangeDayPicker() {
@@ -15,7 +15,7 @@ export default function RangeDayPicker() {
       code={{
         code: `
 import { useState } from "react";
-import { DayPicker } from "zenithui-day-picker";
+import { DayPicker } from "@zenithui/day-picker";
 
 const App = () => {
   const after7Days = new Date()

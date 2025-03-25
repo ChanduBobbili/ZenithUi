@@ -46,7 +46,7 @@
     "react-dom": "^19.0.0",
     "tailwind-merge": "^3.0.1",
     "tailwindcss-animate": "^1.0.7",
-    "zenithui-day-picker": "workspace:*",
+    "@zenithui/day-picker": "workspace:*",
     "@zenithui/toast": "workspace:*",
     "@zenithui/time-picker": "workspace:*"
   },

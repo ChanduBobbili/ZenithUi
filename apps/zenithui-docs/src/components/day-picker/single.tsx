@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { DayPicker } from "zenithui-day-picker"
+import { DayPicker } from "@zenithui/day-picker"
 import CodePreview from "../code-preview"
 
 export default function SingleDayPicker() {
@@ -12,7 +12,7 @@ export default function SingleDayPicker() {
       code={{
         code: `
 import { useState } from "react";
-import { DayPicker } from "zenithui-day-picker";
+import { DayPicker } from "@zenithui/day-picker";
 
 const App = () => {
   const [selectedDate, setSelectedDate] = useState(new Date());

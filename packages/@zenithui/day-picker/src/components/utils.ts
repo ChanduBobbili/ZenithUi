@@ -2,37 +2,6 @@ import { isAfter, isBefore, isSameDay, isWithinInterval } from "date-fns"
 import { DateRange, Disabled, InternalRange } from "./types"
 
 /**
- * Merges class names using clsx and twMerge.
- *
- * @param classes - Class names to merge.
- * @returns Merged class names.
- */
-export function cn(
-  ...classes: (
-    | string
-    | undefined
-    | null
-    | false
-    | Record<string, boolean | null | undefined>
-    | string[]
-  )[]
-): string {
-  return classes
-    .flat(Infinity) // Flatten nested arrays
-    .filter(Boolean) // Remove falsy values (false, null, undefined, "")
-    .map((cls) => {
-      if (typeof cls === "object" && cls !== null && !Array.isArray(cls)) {
-        return Object.entries(cls)
-          .filter(([key, value]) => Boolean(key) && Boolean(value)) // Ensure key is a valid string and value is truthy
-          .map(([key]) => key) // Extract only the valid class names
-          .join(" ")
-      }
-      return cls
-    })
-    .join(" ")
-}
-
-/**
  * Gets the initial date from the selected date or range.
  * If the selected date is a Date, it returns the date.
  * If the selected date is an array, it returns the first element of the array.
@@ -121,10 +90,10 @@ export function parseDate(date: Date | string): Date {
  *   - `after` (Date | string): Disables dates after this date.
  *   - `date` (Date | string): Disables a specific date.
  *   - `dates` (Array<Date | string>): Disables an array of specific dates.
- *   - `days` (Array<number | string>): Disables specific days of the week. 
- *     Days can be specified as numbers (0 for Sunday, 1 for Monday, etc.) or 
+ *   - `days` (Array<number | string>): Disables specific days of the week.
+ *     Days can be specified as numbers (0 for Sunday, 1 for Monday, etc.) or
  *     as strings ("sunday", "monday", etc.).
- *   - `modifier` (function): A custom function that takes a date and returns 
+ *   - `modifier` (function): A custom function that takes a date and returns
  *     a boolean indicating whether the date should be disabled.
  *
  * @returns `true` if the date should be disabled, `false` otherwise.

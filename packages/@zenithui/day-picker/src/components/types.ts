@@ -123,6 +123,7 @@ export type DayPickerProps = {
    * The function that is called when a date is selected.
    * @param date - The selected date or date range.
    */
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onSelect: (date: any) => void
 
   /**
