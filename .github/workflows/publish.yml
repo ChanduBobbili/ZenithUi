@@ -3,11 +3,10 @@ name: Publish Package to NPM
 on:
   push:
     tags:
-      - "@zenithui/day-picker@*"
-      - "@zenithui/time-picker@*"
-      - "@zenithui/toast@*"
       - "@zenithui/utils@*"
-      - "@zenithui/light-box@*"
+      - "@zenithui/toast@*"
+      - "@zenithui/time-picker@*"
+      - "@zenithui/day-picker@*"
 
 jobs:
   publish:
@@ -31,46 +30,41 @@ jobs:
       - name: Extract package and version from tag
         id: extract
         run: |
+          set -e
           TAG_NAME=${{ github.ref_name }}
-          PACKAGE_NAME=$(echo "$TAG_NAME" | cut -d'@' -f2)
-          PACKAGE_VERSION=$(echo "$TAG_NAME" | cut -d'@' -f3)
+          PACKAGE_SCOPE=$(echo "$TAG_NAME" | cut -d'@' -f2) # Extracts "zenithui/utils@0.1.0"
+          PACKAGE_NAME=$(echo "$PACKAGE_SCOPE" | cut -d'@' -f1) # Extracts "zenithui/utils"
+          PACKAGE_VERSION=$(echo "$PACKAGE_SCOPE" | cut -d'@' -f2) # Extracts "0.1.0"
+
           echo "PACKAGE_NAME=$PACKAGE_NAME" >> $GITHUB_ENV
           echo "PACKAGE_VERSION=$PACKAGE_VERSION" >> $GITHUB_ENV
-          echo "PACKAGE_NAME=$PACKAGE_NAME"
-          echo "PACKAGE_VERSION=$PACKAGE_VERSION"
 
-      - name: Skip publishing for zenithui-docs
-        if: env.PACKAGE_NAME == 'zenithui-docs'
-        run: echo "Skipping publish for zenithui-docs"
+          echo "Extracted package: $PACKAGE_NAME"
+          echo "Extracted version: $PACKAGE_VERSION"
 
       - name: Navigate to package directory and install dependencies
-        if: env.PACKAGE_NAME != 'zenithui-docs'
         run: |
-          cd packages/$PACKAGE_NAME
+          set -e
+          cd packages/@zenithui/$PACKAGE_NAME
           pnpm install
 
       - name: Lint package
-        if: env.PACKAGE_NAME != 'zenithui-docs'
         run: |
-          cd packages/$PACKAGE_NAME
+          set -e
+          cd packages/@zenithui/$PACKAGE_NAME
           pnpm lint
 
-      - name: Build package
-        if: env.PACKAGE_NAME != 'zenithui-docs'
+      - name: Publish package with building
         run: |
-          cd packages/$PACKAGE_NAME
-          pnpm build
-
-      - name: Publish package
-        if: env.PACKAGE_NAME != 'zenithui-docs'
-        run: |
-          cd packages/$PACKAGE_NAME
+          set -e
+          cd packages/@zenithui/$PACKAGE_NAME
           npm publish --access public --no-git-checks
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Clear build artifacts
-        run: rm -rf dist
+        run: |
+          rm -rf packages/@zenithui/$PACKAGE_NAME/dist
 
-      - name: Remove node_modules
+      - name: Cleanup node_modules
         run: rm -rf node_modules
