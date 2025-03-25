@@ -168,3 +168,7 @@
 .count-down-text {
   color: var(--zenithui-time-picker-text);
 }
+
+div[data-radix-popper-content-wrapper] {
+  z-index: 9999 !important;
+}
