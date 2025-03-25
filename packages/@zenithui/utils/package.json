@@ -1,7 +1,7 @@
 {
   "name": "@zenithui/utils",
-  "version": "0.0.5",
-  "description": "The utils package which provides the utils.",
+  "version": "0.0.6",
+  "description": "A collection of utility functions and hooks to simplify development in the ZenithUI ecosystem.",
   "private": false,
   "publishConfig": {
     "access": "public"
