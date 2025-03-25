@@ -9,7 +9,7 @@ export default function BasicToast() {
     <CodePreview
       code={{
         code: `
-import { toast } from "zenithui-toast"
+import { toast } from "@zenithui/toast"
 
 export default function BasicToast() {
   return (

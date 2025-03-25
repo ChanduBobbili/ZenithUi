@@ -12,7 +12,7 @@ export default function ToasterPosition() {
     <CodePreview
       code={{
         code: `
-import { toast, ToastProvider } from "zenithui-toast"
+import { toast, ToastProvider } from "@zenithui/toast"
 
 const App = () => {
 
