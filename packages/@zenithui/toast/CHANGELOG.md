@@ -1,5 +1,11 @@
 # @zenithui/toast
 
+## 1.0.4
+
+### Patch Changes
+
+- publish script fix
+
 ## 1.0.3
 
 ### Patch Changes

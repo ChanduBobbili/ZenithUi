@@ -1,5 +1,11 @@
 # @zenithui/time-picker
 
+## 1.0.1
+
+### Patch Changes
+
+- publish script fix
+
 ## 1.0.0
 
 ### Major Changes
