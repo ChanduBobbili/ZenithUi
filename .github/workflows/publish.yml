@@ -33,13 +33,13 @@ jobs:
           set -e
           TAG_NAME=${{ github.ref_name }}
           PACKAGE_SCOPE=$(echo "$TAG_NAME" | cut -d'@' -f2) # Extracts "zenithui/utils@0.1.0"
-          PACKAGE_NAME=$(echo "$PACKAGE_SCOPE" | cut -d'@' -f1) # Extracts "zenithui/utils"
+          PACKAGE_NAME=$(echo "$PACKAGE_SCOPE" | cut -d'/' -f2 | cut -d'@' -f1) # Extracts "utils"
           PACKAGE_VERSION=$(echo "$PACKAGE_SCOPE" | cut -d'@' -f2) # Extracts "0.1.0"
 
           echo "PACKAGE_NAME=$PACKAGE_NAME" >> $GITHUB_ENV
           echo "PACKAGE_VERSION=$PACKAGE_VERSION" >> $GITHUB_ENV
 
-          echo "Extracted package: $PACKAGE_NAME"
+          echo "Extracted package name: $PACKAGE_NAME"
           echo "Extracted version: $PACKAGE_VERSION"
 
       - name: Navigate to package directory and install dependencies
