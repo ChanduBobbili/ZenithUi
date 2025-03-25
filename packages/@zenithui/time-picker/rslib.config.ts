@@ -1,15 +1,16 @@
 import { pluginReact } from "@rsbuild/plugin-react"
 import { defineConfig } from "@rslib/core"
+import { pluginCssMinimizer } from "@rsbuild/plugin-css-minimizer"
 
 export default defineConfig({
   source: {
     entry: {
-      index: ["./src/index.tsx"],
+      index: ["./src/**"],
     },
   },
   lib: [
     {
-      bundle: true,
+      bundle: false,
       dts: true,
       format: "esm",
     },
@@ -27,5 +28,5 @@ export default defineConfig({
       "@": "./src",
     },
   },
-  plugins: [pluginReact()],
+  plugins: [pluginReact(), pluginCssMinimizer()],
 })

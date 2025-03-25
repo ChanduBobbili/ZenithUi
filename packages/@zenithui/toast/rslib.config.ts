@@ -2,6 +2,7 @@ import { pluginReact } from "@rsbuild/plugin-react"
 import { defineConfig } from "@rslib/core"
 import { pluginSvgr } from "@rsbuild/plugin-svgr"
 import { pluginDts } from "rsbuild-plugin-dts"
+import { pluginCssMinimizer } from "@rsbuild/plugin-css-minimizer"
 
 export default defineConfig({
   source: {
@@ -11,7 +12,7 @@ export default defineConfig({
   },
   lib: [
     {
-      bundle: true,
+      bundle: false,
       dts: true,
       format: "esm",
     },
@@ -31,6 +32,7 @@ export default defineConfig({
   },
   plugins: [
     pluginReact(),
+    pluginCssMinimizer(),
     pluginSvgr({
       svgrOptions: {
         icon: true,

@@ -1,5 +1,3 @@
-"use client"
-
 import { useEffect, useRef } from "react"
 import { TimeScrollListProps } from "../types"
 import { ToggleGroupItem, ToggleGroupRoot } from "../toggle-group"

@@ -1,5 +1,3 @@
-"use client"
-
 import { useEffect, useMemo, useState } from "react"
 import { useTheme, cn } from "@zenithui/utils"
 import { CountDownTimerProps } from "./types"

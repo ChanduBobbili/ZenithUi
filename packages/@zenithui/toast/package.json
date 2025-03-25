@@ -9,7 +9,7 @@
   "type": "module",
   "module": "./dist/index.js",
   "main": "./dist/index.js",
-  "types": "./dist/src/index.d.ts",
+  "types": "./dist/index.d.ts",
   "exports": {
     ".": {
       "import": "./dist/index.js",
@@ -38,6 +38,7 @@
   "devDependencies": {
     "@biomejs/biome": "^1.9.4",
     "@rsbuild/core": "~1.2.19",
+    "@rsbuild/plugin-css-minimizer": "^1.0.2",
     "@rsbuild/plugin-react": "^1.1.1",
     "@rslib/core": "^0.5.5",
     "@storybook/addon-essentials": "^8.6.7",

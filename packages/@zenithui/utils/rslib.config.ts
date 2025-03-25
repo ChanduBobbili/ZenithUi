@@ -5,12 +5,12 @@ import { pluginDts } from "rsbuild-plugin-dts"
 export default defineConfig({
   source: {
     entry: {
-      index: ["./src/index.tsx"],
+      index: ["./src/**"],
     },
   },
   lib: [
     {
-      bundle: true,
+      bundle: false,
       dts: true,
       format: "esm",
     },
