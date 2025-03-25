@@ -10,9 +10,6 @@
   "ignore": [
     "react-test-app",
     "zenithui-primitive",
-    "zenithui-toast",
-    "zenithui-time-picker",
-    "zenithui-day-picker",
     "zenithui-light-box"
   ]
 }
