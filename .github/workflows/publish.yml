@@ -3,10 +3,10 @@ name: Publish Package to NPM
 on:
   push:
     tags:
-      - "@zenithui/utils@*"
-      - "@zenithui/toast@*"
-      - "@zenithui/time-picker@*"
-      - "@zenithui/day-picker@*"
+      - '@zenithui/utils@*'
+      - '@zenithui/toast@*'
+      - '@zenithui/time-picker@*'
+      - '@zenithui/day-picker@*'
 
 jobs:
   publish:
