@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { TimePicker } from "zenithui-time-picker"
+import { TimePicker } from "@zenithui/time-picker"
 import CodePreview from "../code-preview"
 
 export default function TimePickerDemo() {
@@ -11,7 +11,7 @@ export default function TimePickerDemo() {
     <CodePreview
       code={{
         code: `
-import { TimePicker } from "zenithui-time-picker"
+import { TimePicker } from "@zenithui/time-picker"
 
 const [time, setTime] = useState<string>("${time}")
 

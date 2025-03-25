@@ -1,0 +1,96 @@
+{
+  "name": "@zenithui/time-picker",
+  "version": "1.0.0",
+  "private": false,
+  "description": "A ZenithUi Time Picker is React component enables users to select a time from a predefined list of options.",
+  "publishConfig": {
+    "access": "public"
+  },
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "module": "./dist/index.js",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "prepack": "node update-deps.js",
+    "postpublish": "node reset-deps.js",
+    "prepublishOnly": "npm pack && npm run build",
+    "build": "rslib build",
+    "build:storybook": "storybook build",
+    "check": "biome check --write",
+    "dev": "rslib build --watch",
+    "format": "biome format --write",
+    "storybook": "storybook dev"
+  },
+  "dependencies": {
+    "@radix-ui/react-popover": "^1.1.6",
+    "@zenithui/utils": "workspace:*"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^1.9.4",
+    "@rsbuild/core": "~1.2.19",
+    "@rsbuild/plugin-css-minimizer": "^1.0.2",
+    "@rsbuild/plugin-react": "^1.1.1",
+    "@rslib/core": "^0.5.5",
+    "@storybook/addon-essentials": "^8.6.7",
+    "@storybook/addon-interactions": "^8.6.7",
+    "@storybook/addon-links": "^8.6.7",
+    "@storybook/addon-onboarding": "^8.6.7",
+    "@storybook/blocks": "^8.6.7",
+    "@storybook/react": "^8.6.7",
+    "@storybook/test": "^8.6.7",
+    "rsbuild-plugin-dts": "^0.5.5",
+    "storybook": "^8.6.7",
+    "storybook-addon-rslib": "^1.0.0",
+    "storybook-react-rsbuild": "^1.0.0"
+  },
+  "peerDependencies": {
+    "react": ">=16.9.0",
+    "react-dom": ">=16.9.0"
+  },
+  "peerDependenciesMeta": {
+    "react": {
+      "optional": false
+    },
+    "react-dom": {
+      "optional": false
+    }
+  },
+  "engines": {
+    "pnpm": ">=9",
+    "node": ">=20"
+  },
+  "keywords": [
+    "react",
+    "components",
+    "ui",
+    "zenithui",
+    "accessible",
+    "design-system",
+    "styled-components",
+    "styled-system",
+    "typescript",
+    "time",
+    "time-picker",
+    "count-down"
+  ],
+  "homepage": "https://zenithui-docs.vercel.app/",
+  "bugs": {
+    "url": "https://github.com/ChanduBobbili/ZenithUi/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ChanduBobbili/ZenithUi.git#main"
+  },
+  "license": "MIT",
+  "author": "Chandu Bobbili <chandubobbili12@gmail.com> (https://github.com/ChanduBobbili)",
+  "packageManager": "pnpm@9.5.0"
+}

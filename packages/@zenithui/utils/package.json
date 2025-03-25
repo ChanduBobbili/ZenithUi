@@ -1,0 +1,54 @@
+{
+  "name": "@zenithui/utils",
+  "version": "0.1.0",
+  "description": "A collection of utility functions and hooks to simplify development in the ZenithUI ecosystem.",
+  "private": false,
+  "publishConfig": {
+    "access": "public"
+  },
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "module": "./dist/index.js",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "prepublishOnly": "npm run build",
+    "build": "rslib build",
+    "dev": "rslib build --watch",
+    "format": "prettier --write .",
+    "lint": "eslint .",
+    "clean": "rm -rf dist"
+  },
+  "devDependencies": {
+    "@rsbuild/plugin-react": "^1.1.1",
+    "@rslib/core": "^0.5.5",
+    "rsbuild-plugin-dts": "^0.5.5"
+  },
+  "peerDependencies": {
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0"
+  },
+  "engines": {
+    "pnpm": ">=9",
+    "node": ">=20"
+  },
+  "homepage": "https://zenithui-docs.vercel.app/",
+  "bugs": {
+    "url": "https://github.com/ChanduBobbili/ZenithUi/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ChanduBobbili/ZenithUi.git#main"
+  },
+  "license": "MIT",
+  "author": "Chandu Bobbili <chandubobbili12@gmail.com> (https://github.com/ChanduBobbili)",
+  "packageManager": "pnpm@9.5.0"
+}

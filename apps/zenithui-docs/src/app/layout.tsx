@@ -6,8 +6,8 @@ import { SpeedInsights } from "@vercel/speed-insights/next"
 import { Metadata, Viewport } from "next"
 import Providers from "./providers"
 import "nextra-theme-docs/style.css"
-import "./global.css"
 import Image from "next/image"
+import "./global.css"
 
 export const viewport: Viewport = {
   width: "device-width",

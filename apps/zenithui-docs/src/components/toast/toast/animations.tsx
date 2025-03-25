@@ -3,7 +3,7 @@
 import CodePreview from "@/components/code-preview"
 import { Button } from "@/components/ui/button"
 import { useState } from "react"
-import { toast } from "zenithui-toast"
+import { toast } from "@zenithui/toast"
 
 export default function ToastAnimations() {
   const [select, setSelect] = useState<"fade" | "slide" | "enter-with-icon">(
@@ -14,7 +14,7 @@ export default function ToastAnimations() {
     <CodePreview
       code={{
         code: `
-import { toast } from "zenithui-toast"
+import { toast } from "@zenithui/toast"
 
 export default function BasicToast() {
   return (

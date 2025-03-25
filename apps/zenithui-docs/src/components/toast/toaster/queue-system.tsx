@@ -3,7 +3,7 @@
 import PreviewComponent from "@/components/preview-component"
 import { Button } from "@/components/ui/button"
 import { useState } from "react"
-import { toast } from "zenithui-toast"
+import { toast } from "@zenithui/toast"
 
 export default function ToasterQueue() {
   const [count, setCount] = useState<number>(0)

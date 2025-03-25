@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router"
-import { TimePicker } from "zenithui-time-picker"
+import { TimePicker } from "@zenithui/time-picker"
 
 export const Route = createFileRoute("/_demo/time-picker")({
   component: RouteComponent,

@@ -2,7 +2,7 @@
 
 import PreviewComponent from "@/components/preview-component"
 import { Button } from "@/components/ui/button"
-import { toast } from "zenithui-toast"
+import { toast } from "@zenithui/toast"
 
 export default function ToasterRichColors() {
   return (

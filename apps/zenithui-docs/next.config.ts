@@ -19,6 +19,14 @@ export default withNextra({
   },
   // Optional: Change the output directory `out` -> `dist`
   // distDir: "build",
-  // Configure `pageExtensions` to include markdown and MDX files
+  webpack(config: { module: { rules: { test: RegExp; issuer: RegExp; use: string[] }[] } }) {
+    config.module.rules.push({
+      test: /\.svg$/i,
+      issuer: /\.[jt]sx?$/,
+      use: ["@svgr/webpack"],
+    })
+    return config
+  },
+  // ... Other Next.js config options
   pageExtensions: ["js", "jsx", "md", "mdx", "ts", "tsx"],
 })

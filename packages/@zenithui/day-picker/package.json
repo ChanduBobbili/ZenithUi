@@ -1,0 +1,90 @@
+{
+  "name": "@zenithui/day-picker",
+  "version": "1.0.0",
+  "private": false,
+  "description": "A ZenithUi Time Picker is React component enables users to select a date or date range from calendar.",
+  "publishConfig": {
+    "access": "public"
+  },
+  "type": "module",
+  "module": "./dist/index.js",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "prepack": "node update-deps.js",
+    "postpublish": "node reset-deps.js",
+    "prepublishOnly": "npm pack && npm run build",
+    "build": "rslib build",
+    "build:storybook": "storybook build",
+    "check": "biome check --write",
+    "dev": "rslib build --watch",
+    "format": "prettier --write .",
+    "clean": "rm -rf dist && rm -rf storybook-static",
+    "lint": "eslint .",
+    "storybook": "storybook dev"
+  },
+  "dependencies": {
+    "@zenithui/utils": "workspace:*",
+    "date-fns": "^4.1.0"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^1.9.4",
+    "@rsbuild/core": "~1.2.19",
+    "@rsbuild/plugin-css-minimizer": "^1.0.2",
+    "@rsbuild/plugin-react": "^1.1.1",
+    "@rsbuild/plugin-svgr": "^1.0.7",
+    "@rslib/core": "^0.5.5",
+    "@storybook/addon-essentials": "^8.6.7",
+    "@storybook/addon-interactions": "^8.6.7",
+    "@storybook/addon-links": "^8.6.7",
+    "@storybook/addon-onboarding": "^8.6.7",
+    "@storybook/blocks": "^8.6.7",
+    "@storybook/react": "^8.6.7",
+    "@storybook/test": "^8.6.7",
+    "@types/node": "^22.13.13",
+    "rsbuild-plugin-dts": "^0.5.5",
+    "storybook": "^8.6.7",
+    "storybook-addon-rslib": "^1.0.0",
+    "storybook-react-rsbuild": "^1.0.0"
+  },
+  "peerDependencies": {
+    "react": ">=17.0.0",
+    "react-dom": ">=17.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "pnpm": ">=9.0.0"
+  },
+  "keywords": [
+    "react",
+    "components",
+    "ui",
+    "zenithui",
+    "accessible",
+    "design-system",
+    "styled-components",
+    "styled-system",
+    "typescript",
+    "day-picker"
+  ],
+  "homepage": "https://zenithui-docs.vercel.app/",
+  "bugs": {
+    "url": "https://github.com/ChanduBobbili/ZenithUi/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ChanduBobbili/ZenithUi.git#main"
+  },
+  "license": "MIT",
+  "author": "Chandu Bobbili <chandubobbili12@gmail.com> (https://github.com/ChanduBobbili)",
+  "packageManager": "pnpm@9.5.0"
+}

@@ -2,7 +2,7 @@
 
 import CodePreview from "@/components/code-preview"
 import { Button } from "@/components/ui/button"
-import { toast } from "zenithui-toast"
+import { toast } from "@zenithui/toast"
 
 export default function ToastsExample({
   type,
@@ -13,7 +13,7 @@ export default function ToastsExample({
     <CodePreview
       code={{
         code: `
-import { toast } from "zenithui-toast"
+import { toast } from "@zenithui/toast"
 
 export default function BasicToast() {
   return (
