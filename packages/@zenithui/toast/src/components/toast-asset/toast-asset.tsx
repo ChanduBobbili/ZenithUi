@@ -1,6 +1,6 @@
-import { cn } from '@zenithui/utils';
-import { ToastType } from '../../lib/types';
-import './toast-asset.css';
+import { cn } from "@zenithui/utils"
+import { ToastType } from "../../lib/types"
+import "./toast-asset.css"
 
 export const ICONS = {
   SuccessIcon: () => (
@@ -75,25 +75,35 @@ export const ICONS = {
       strokeLinecap="round"
       strokeLinejoin="round"
     >
-      <line x1="18" y1="6" x2="6" y2="18"></line>
-      <line x1="6" y1="6" x2="18" y2="18"></line>
+      <line
+        x1="18"
+        y1="6"
+        x2="6"
+        y2="18"
+      ></line>
+      <line
+        x1="6"
+        y1="6"
+        x2="18"
+        y2="18"
+      ></line>
     </svg>
   ),
-};
+}
 
 const Loader = ({
   visible,
   className,
 }: {
-  visible: boolean;
-  className?: string;
+  visible: boolean
+  className?: string
 }) => {
-  const bars = Array(12).fill(0);
+  const bars = Array(12).fill(0)
   return (
     <div
-      className={['zenithui-loading-wrapper', className]
+      className={["zenithui-loading-wrapper", className]
         .filter(Boolean)
-        .join(' ')}
+        .join(" ")}
       data-visible={visible}
     >
       <div className="zenithui-spinner">
@@ -105,25 +115,30 @@ const Loader = ({
         ))}
       </div>
     </div>
-  );
-};
+  )
+}
 
 export const ToastAsset: React.FC<{ type: ToastType; className: string }> = ({
   type,
   className,
 }) => {
   switch (type) {
-    case 'success':
-      return <ICONS.SuccessIcon />;
-    case 'info':
-      return <ICONS.InfoIcon />;
-    case 'error':
-      return <ICONS.ErrorIcon />;
-    case 'warning':
-      return <ICONS.WarningIcon />;
-    case 'loading':
-      return <Loader visible={true} className={cn(className)} />;
+    case "success":
+      return <ICONS.SuccessIcon />
+    case "info":
+      return <ICONS.InfoIcon />
+    case "error":
+      return <ICONS.ErrorIcon />
+    case "warning":
+      return <ICONS.WarningIcon />
+    case "loading":
+      return (
+        <Loader
+          visible={true}
+          className={cn(className)}
+        />
+      )
     default:
-      return <ICONS.SuccessIcon />;
+      return <ICONS.SuccessIcon />
   }
-};
+}

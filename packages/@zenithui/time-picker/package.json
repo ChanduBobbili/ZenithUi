@@ -46,13 +46,10 @@
     "@storybook/blocks": "^8.6.7",
     "@storybook/react": "^8.6.7",
     "@storybook/test": "^8.6.7",
-    "@types/react": "^19.0.12",
-    "react": "^19.0.0",
     "rsbuild-plugin-dts": "^0.5.5",
     "storybook": "^8.6.7",
     "storybook-addon-rslib": "^1.0.0",
-    "storybook-react-rsbuild": "^1.0.0",
-    "typescript": "^5.8.2"
+    "storybook-react-rsbuild": "^1.0.0"
   },
   "peerDependencies": {
     "react": ">=16.9.0",

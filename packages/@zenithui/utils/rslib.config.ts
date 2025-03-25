@@ -1,31 +1,31 @@
-import { pluginReact } from '@rsbuild/plugin-react';
-import { defineConfig } from '@rslib/core';
-import { pluginDts } from 'rsbuild-plugin-dts';
+import { pluginReact } from "@rsbuild/plugin-react"
+import { defineConfig } from "@rslib/core"
+import { pluginDts } from "rsbuild-plugin-dts"
 
 export default defineConfig({
   source: {
     entry: {
-      index: ['./src/index.tsx'],
+      index: ["./src/index.tsx"],
     },
   },
   lib: [
     {
       bundle: true,
       dts: true,
-      format: 'esm',
+      format: "esm",
     },
   ],
   output: {
-    target: 'web',
+    target: "web",
     externals: {
-      react: 'react',
-      'react-dom': 'react-dom',
-      'react/jsx-runtime': 'react/jsx-runtime',
+      react: "react",
+      "react-dom": "react-dom",
+      "react/jsx-runtime": "react/jsx-runtime",
     },
   },
   resolve: {
     alias: {
-      '@': './src',
+      "@": "./src",
     },
   },
   plugins: [
@@ -38,4 +38,4 @@ export default defineConfig({
       },
     }),
   ],
-});
+})

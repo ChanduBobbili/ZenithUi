@@ -1,5 +1,5 @@
-import { createContext, useContext } from 'react';
-import { ToastContextProps } from '../lib/types';
+import { createContext, useContext } from "react"
+import { ToastContextProps } from "../lib/types"
 
 /**
  * The Context of the toast which is created using createContext from React.
@@ -7,7 +7,7 @@ import { ToastContextProps } from '../lib/types';
  * @type {React.Context<ToastContextProps | undefined>}
  */
 export const ToastContext: React.Context<ToastContextProps | undefined> =
-  createContext<ToastContextProps | undefined>(undefined);
+  createContext<ToastContextProps | undefined>(undefined)
 
 /**
  * The custom hook to use the toast in the application.
@@ -15,9 +15,9 @@ export const ToastContext: React.Context<ToastContextProps | undefined> =
  * @returns {ToastContextProps}
  */
 export const useToast = (): ToastContextProps => {
-  const context = useContext(ToastContext);
+  const context = useContext(ToastContext)
   if (!context) {
-    throw new Error('Toast must be used within a ToastProvider');
+    throw new Error("Toast must be used within a ToastProvider")
   }
-  return context;
-};
+  return context
+}

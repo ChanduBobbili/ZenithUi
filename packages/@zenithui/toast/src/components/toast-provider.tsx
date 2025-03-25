@@ -1,22 +1,22 @@
-import { lazy, useCallback, useEffect, useMemo, useState } from 'react';
-import { registerToast } from './toast';
+import { lazy, useCallback, useEffect, useMemo, useState } from "react"
+import { registerToast } from "./toast"
 import {
   Toast,
   ToastOptions,
   ToastProviderProps,
   ToastType,
-} from '../lib/types';
-import { ToastContext } from '../hooks/use-toast';
-import { useTheme, cn } from '@zenithui/utils';
-import './../index.css';
+} from "../lib/types"
+import { ToastContext } from "../hooks/use-toast"
+import { useTheme, cn } from "@zenithui/utils"
+import "./../index.css"
 
 // Lazy load the ToastContainer
-const ToastContainer = lazy(() => import('./toast-container/toast-container'));
+const ToastContainer = lazy(() => import("./toast-container/toast-container"))
 
 export default function ToastProvider({
-  position = 'bottom-right',
-  animation = 'fade',
-  theme = 'auto',
+  position = "bottom-right",
+  animation = "fade",
+  theme = "auto",
   duration = 5000,
   maxToasts = 5,
   X_Offset = 0,
@@ -28,16 +28,16 @@ export default function ToastProvider({
   classNames,
   children,
 }: ToastProviderProps) {
-  const [toasts, setToasts] = useState<Toast[]>([]);
-  const [queue, setQueue] = useState<Toast[]>([]);
+  const [toasts, setToasts] = useState<Toast[]>([])
+  const [queue, setQueue] = useState<Toast[]>([])
 
-  const hookTheme = useTheme();
+  const hookTheme = useTheme()
 
   // Memoized theme class
   const themeClass = useMemo(() => {
-    if (theme === 'auto') return hookTheme;
-    return theme === 'dark' ? 'dark' : '';
-  }, [theme, hookTheme]);
+    if (theme === "auto") return hookTheme
+    return theme === "dark" ? "dark" : ""
+  }, [theme, hookTheme])
 
   // Add toast function
   const addToast = useCallback(
@@ -47,32 +47,32 @@ export default function ToastProvider({
       type: ToastType,
       options?: ToastOptions,
     ) => {
-      const id = Math.random().toString(36).substring(2, 11);
-      const newToast: Toast = { id, type, message, remove: false, options };
+      const id = Math.random().toString(36).substring(2, 11)
+      const newToast: Toast = { id, type, message, remove: false, options }
 
-      setQueue((prev) => (enableQueueSystem ? [...prev, newToast] : prev));
-      setToasts((prev) => (!enableQueueSystem ? [...prev, newToast] : prev));
+      setQueue((prev) => (enableQueueSystem ? [...prev, newToast] : prev))
+      setToasts((prev) => (!enableQueueSystem ? [...prev, newToast] : prev))
     },
     [enableQueueSystem],
-  );
+  )
 
   // Remove toast function
   const removeToast = useCallback((id: string) => {
-    setToasts((prev) => prev.filter((toast) => toast.id !== id));
-  }, []);
+    setToasts((prev) => prev.filter((toast) => toast.id !== id))
+  }, [])
 
   // Manage toast queue processing
   useEffect(() => {
     if (enableQueueSystem && queue.length > 0 && toasts.length < maxToasts) {
-      setQueue((prev) => prev.slice(1));
-      setToasts((prev) => [...prev, queue[0]]);
+      setQueue((prev) => prev.slice(1))
+      setToasts((prev) => [...prev, queue[0]])
     }
-  }, [queue, enableQueueSystem, maxToasts, toasts]);
+  }, [queue, enableQueueSystem, maxToasts, toasts])
 
   // Register toast callback
   useEffect(() => {
-    registerToast(addToast);
-  }, [addToast]);
+    registerToast(addToast)
+  }, [addToast])
 
   // Memoized context value to prevent unnecessary re-renders
   const contextValue = useMemo(
@@ -103,12 +103,15 @@ export default function ToastProvider({
       Y_Offset,
       classNames,
     ],
-  );
+  )
 
   return (
     <ToastContext.Provider value={contextValue}>
       {children}
-      <ToastContainer toasts={toasts} className={cn(themeClass)} />
+      <ToastContainer
+        toasts={toasts}
+        className={cn(themeClass)}
+      />
     </ToastContext.Provider>
-  );
+  )
 }

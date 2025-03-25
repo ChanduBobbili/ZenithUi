@@ -18,13 +18,13 @@ export function cn(
     .flat(Infinity) // Flatten nested arrays
     .filter(Boolean) // Remove falsy values (false, null, undefined, "")
     .map((cls) => {
-      if (typeof cls === 'object' && cls !== null && !Array.isArray(cls)) {
+      if (typeof cls === "object" && cls !== null && !Array.isArray(cls)) {
         return Object.entries(cls)
           .filter(([key, value]) => Boolean(key) && Boolean(value)) // Ensure key is a valid string and value is truthy
           .map(([key]) => key) // Extract only the valid class names
-          .join(' ');
+          .join(" ")
       }
-      return cls;
+      return cls
     })
-    .join(' ');
+    .join(" ")
 }
