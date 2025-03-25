@@ -20,7 +20,9 @@
     "dist"
   ],
   "scripts": {
-    "prepublishOnly": "npm run build",
+    "prepack": "node update-deps.js",
+    "postpublish": "node reset-deps.js",
+    "prepublishOnly": "npm pack && npm run build",
     "build": "rslib build",
     "build:storybook": "storybook build",
     "check": "biome check --write",

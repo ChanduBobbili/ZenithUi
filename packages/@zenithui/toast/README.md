@@ -94,8 +94,8 @@ ZenithUi components are designed to be flexible and styled easily. Combine them 
 
 ## 📦 Other Components
 
-- [ZenithUi Time Picker](https://npmjs.com/package/zenithui-time-picker)
-- [ZenithUi Day Picker](https://npmjs.com/package/zenithui-day-picker)
+- [@zenithui/time-picker](https://npmjs.com/package/@zenithui/time-picker)
+- [@zenithui/day-picker](https://npmjs.com/package/@zenithui/day-picker)
 - [ZenithUi Light Box](https://npmjs.com/package/zenithui-light-box)
 
 ---
