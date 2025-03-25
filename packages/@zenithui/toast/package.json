@@ -35,10 +35,8 @@
   },
   "devDependencies": {
     "@biomejs/biome": "^1.9.4",
-    "@eslint/js": "^9.23.0",
     "@rsbuild/core": "~1.2.19",
     "@rsbuild/plugin-react": "^1.1.1",
-    "@rsbuild/plugin-svgr": "^1.0.7",
     "@rslib/core": "^0.5.5",
     "@storybook/addon-essentials": "^8.6.7",
     "@storybook/addon-interactions": "^8.6.7",
@@ -47,16 +45,11 @@
     "@storybook/blocks": "^8.6.7",
     "@storybook/react": "^8.6.7",
     "@storybook/test": "^8.6.7",
-    "@types/node": "^22.13.11",
-    "eslint": "^9.23.0",
-    "globals": "^16.0.0",
-    "prettier": "^3.5.2",
+    "@types/node": "^22.13.13",
     "rsbuild-plugin-dts": "^0.5.5",
     "storybook": "^8.6.7",
     "storybook-addon-rslib": "^1.0.0",
-    "storybook-react-rsbuild": "^1.0.0",
-    "typescript": "^5.8.2",
-    "typescript-eslint": "^8.25.0"
+    "storybook-react-rsbuild": "^1.0.0"
   },
   "peerDependencies": {
     "react": ">=18.0.0",

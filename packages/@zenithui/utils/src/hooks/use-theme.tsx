@@ -31,7 +31,6 @@ export default function useTheme() {
   const [theme, setTheme] = useState<'dark' | ''>('');
 
   useEffect(() => {
-    useState(getTheme());
     const handleStorageChange = () => {
       setTheme(getTheme());
     };
@@ -61,6 +60,7 @@ export default function useTheme() {
       }
     };
 
+    handleStorageChange();
     return () => {
       window.removeEventListener('storage', handleStorageChange);
       mediaQuery.removeEventListener('change', handleSystemThemeChange);

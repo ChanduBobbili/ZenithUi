@@ -30,7 +30,7 @@
   },
   "dependencies": {
     "@radix-ui/react-popover": "^1.1.6",
-    "@zenithui/utils": "^0.0.5"
+    "@zenithui/utils": "workspace:*"
   },
   "devDependencies": {
     "@biomejs/biome": "^1.9.4",
