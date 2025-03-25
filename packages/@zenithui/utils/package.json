@@ -1,6 +1,6 @@
 {
   "name": "@zenithui/utils",
-  "version": "0.0.6",
+  "version": "0.1.0",
   "description": "A collection of utility functions and hooks to simplify development in the ZenithUI ecosystem.",
   "private": false,
   "publishConfig": {
