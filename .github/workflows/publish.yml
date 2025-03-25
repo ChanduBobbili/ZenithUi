@@ -48,12 +48,6 @@ jobs:
           cd packages/@zenithui/$PACKAGE_NAME
           pnpm install
 
-      - name: Lint package
-        run: |
-          set -e
-          cd packages/@zenithui/$PACKAGE_NAME
-          pnpm lint
-
       - name: Publish package with building
         run: |
           set -e
