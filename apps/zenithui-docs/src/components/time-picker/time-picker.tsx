@@ -11,7 +11,7 @@ export default function TimePickerDemo() {
     <CodePreview
       code={{
         code: `
-import { TimePicker } from "zenithui-time-picker"
+import { TimePicker } from "@zenithui/time-picker"
 
 const [time, setTime] = useState<string>("${time}")
 

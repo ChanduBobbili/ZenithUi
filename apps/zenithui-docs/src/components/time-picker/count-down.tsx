@@ -9,7 +9,7 @@ const BasicCountDown = () => {
     <CodePreview
       code={{
         code: `
-import { CountDownTimer } from "zenithui-time-picker";
+import { CountDownTimer } from "@zenithui/time-picker";
 
 <CountDownTimer
   startTime={new Date().toISOString()}
@@ -32,7 +32,7 @@ const CountDownWithDescription = () => {
     <CodePreview
       code={{
         code: `
-import { CountDownTimer } from "zenithui-time-picker";
+import { CountDownTimer } from "@zenithui/time-picker";
 
 <CountDownTimer
   startTime={new Date().toISOString()}
@@ -57,7 +57,7 @@ const CountDownWithLabel = () => {
     <CodePreview
       code={{
         code: `
-import { CountDownTimer } from "zenithui-time-picker";
+import { CountDownTimer } from "@zenithui/time-picker";
 
 <CountDownTimer
   startTime={new Date().toISOString()}
