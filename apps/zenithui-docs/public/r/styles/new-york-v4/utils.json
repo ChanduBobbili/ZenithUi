@@ -9,7 +9,7 @@
   "files": [
     {
       "path": "registry/new-york-v4/lib/utils.ts",
-      "content": "import { clsx, type ClassValue } from \"clsx\"\nimport { twMerge } from \"tailwind-merge\"\n\nexport function cn(...inputs: ClassValue[]) {\n  return twMerge(clsx(inputs))\n}\n\nexport function formatTime(time: string) {\n  const [hours, minutes] = time.split(\":\").map(Number)\n  const period = hours >= 12 ? \"PM\" : \"AM\"\n  // Convert 0 -> 12 for AM and 12 -> 12 for PM\n  const formattedHours = hours % 12 || 12\n  // Ensure two-digit minutes\n  const formattedMinutes = String(minutes).padStart(2, \"0\")\n\n  return `${formattedHours}:${formattedMinutes} ${period}`\n}\n",
+      "content": "import { clsx, type ClassValue } from \"clsx\"\nimport { twMerge } from \"tailwind-merge\"\n\nexport function cn(...inputs: ClassValue[]) {\n  return twMerge(clsx(inputs))\n}\n",
       "type": "registry:lib"
     }
   ]

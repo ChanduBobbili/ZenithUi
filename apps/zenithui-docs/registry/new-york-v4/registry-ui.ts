@@ -4,7 +4,7 @@ export const ui: Registry["items"] = [
   {
     name: "time-picker",
     type: "registry:ui",
-    dependencies: ["@zenithui/time-picker"],
+    dependencies: ["@zenithui/time-picker", "lucide-react"],
     registryDependencies: ["popover", "scroll-area", "toggle-group"],
     files: [
       {

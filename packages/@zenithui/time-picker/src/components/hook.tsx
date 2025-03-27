@@ -54,6 +54,5 @@ export const useTimePicker = ({
     hours,
     minutes,
     periods,
-    format,
   }
 }

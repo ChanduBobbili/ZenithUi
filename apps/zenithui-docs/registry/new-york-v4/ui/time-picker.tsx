@@ -6,10 +6,20 @@ import {
 } from "@/components/ui/popover"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group"
-import { cn, formatTimeto24 } from "@/lib/utils"
+import { cn } from "@/lib/utils"
 import { useTimePicker } from "@zenithui/time-picker"
 import { useEffect, useRef } from "react"
 import { Clock } from "lucide-react"
+
+function formatTimeto24(time: string) {
+  const [hours, minutes] = time.split(":").map(Number)
+  const period = hours >= 12 ? "PM" : "AM"
+  // Convert 0 -> 12 for AM and 12 -> 12 for PM
+  const formattedHours = hours % 12 || 12
+  // Ensure two-digit minutes
+  const formattedMinutes = String(minutes).padStart(2, "0")
+  return `${formattedHours}:${formattedMinutes} ${period}`
+}
 
 export default function TimePicker({
   time,

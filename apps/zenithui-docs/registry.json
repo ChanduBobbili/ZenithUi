@@ -20,7 +20,8 @@
       "name": "time-picker",
       "type": "registry:ui",
       "dependencies": [
-        "@zenithui/time-picker"
+        "@zenithui/time-picker",
+        "lucide-react"
       ],
       "registryDependencies": [
         "popover",
