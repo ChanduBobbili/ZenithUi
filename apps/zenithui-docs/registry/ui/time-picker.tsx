@@ -21,6 +21,18 @@ function formatTimeto24(time: string) {
   return `${formattedHours}:${formattedMinutes} ${period}`
 }
 
+interface TimePickerProps {
+  time: string // HH:MM
+  onTimeChange: (time: string) => void // HH:MM
+  className?: string
+  format?: "12-hours" | "24-hours"
+  align?: "center" | "end" | "start"
+  side?: "top" | "right" | "bottom" | "left"
+  alignOffset?: number
+  sideOffset?: number
+  formatter?: (time: string) => string
+}
+
 export default function TimePicker({
   time,
   onTimeChange,
@@ -30,18 +42,8 @@ export default function TimePicker({
   side = "bottom",
   alignOffset = 0,
   sideOffset = 0,
-  formatTime = formatTimeto24,
-}: {
-  time: string // HH:MM
-  onTimeChange: (time: string) => void // HH:MM
-  className?: string
-  format: "12-hours" | "24-hours"
-  align?: "center" | "end" | "start"
-  side?: "top" | "right" | "bottom" | "left"
-  alignOffset?: number
-  sideOffset?: number
-  formatTime?: (time: string) => string
-}) {
+  formatter = formatTimeto24,
+}: TimePickerProps) {
   const {
     hours,
     minutes,
@@ -68,7 +70,7 @@ export default function TimePicker({
             className,
           )}
         >
-          <span className="text-sky-950">{`${formatTime(time)}`}</span>
+          <span className="text-sky-950">{`${formatter(time)}`}</span>
           <Clock className="size-5 cursor-pointer self-center text-slate-500" />
         </Button>
       </PopoverTrigger>
