@@ -1,6 +1,6 @@
 {
   "name": "zenithui-docs",
-  "version": "1.1.6",
+  "version": "1.1.7",
   "description": "Zenithui Documentation",
   "private": false,
   "engines": {
@@ -23,7 +23,7 @@
     "lint": "next lint",
     "clean": "cd public && rm -rf _pagefind && pnpm next:clean",
     "next:clean": "rm -rf .next && rm -rf build",
-    "registry:build": "tsx --tsconfig ./tsconfig.scripts.json ./scripts/build-registry.mts && prettier --log-level silent --write \"registry/**/*.{ts,tsx,json,mdx}\" --cache",
+    "build:registry": "tsx --tsconfig ./tsconfig.scripts.json ./scripts/build-registry.mts && prettier --log-level silent --write \"registry/**/*.{ts,tsx,json,mdx}\" --cache",
     "postbuild": "pagefind --site .next/server/app --output-path public/_pagefind && next-sitemap"
   },
   "dependencies": {

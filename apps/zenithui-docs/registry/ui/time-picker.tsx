@@ -21,25 +21,29 @@ function formatTimeto24(time: string) {
   return `${formattedHours}:${formattedMinutes} ${period}`
 }
 
-export default function TimePicker({
-  time,
-  onTimeChange,
-  className,
-  align = "center",
-  side = "bottom",
-  alignOffset = 0,
-  sideOffset = 0,
-  formatTime = formatTimeto24,
-}: {
+interface TimePickerProps {
   time: string // HH:MM
   onTimeChange: (time: string) => void // HH:MM
   className?: string
+  format?: "12-hours" | "24-hours"
   align?: "center" | "end" | "start"
   side?: "top" | "right" | "bottom" | "left"
   alignOffset?: number
   sideOffset?: number
-  formatTime?: (time: string) => string
-}) {
+  formatter?: (time: string) => string
+}
+
+export default function TimePicker({
+  time,
+  onTimeChange,
+  className,
+  format = "24-hours",
+  align = "center",
+  side = "bottom",
+  alignOffset = 0,
+  sideOffset = 0,
+  formatter = formatTimeto24,
+}: TimePickerProps) {
   const {
     hours,
     minutes,
@@ -66,8 +70,8 @@ export default function TimePicker({
             className,
           )}
         >
-          <span className="text-sky-950">{`${formatTime(time)}`}</span>
-          <Clock className="size-6 cursor-pointer self-center text-slate-500" />
+          <span className="text-sky-950">{`${formatter(time)}`}</span>
+          <Clock className="size-5 cursor-pointer self-center text-slate-500" />
         </Button>
       </PopoverTrigger>
       <PopoverContent
@@ -75,7 +79,10 @@ export default function TimePicker({
         side={side}
         alignOffset={alignOffset}
         sideOffset={sideOffset}
-        className="grid h-fit w-60 grid-cols-3 gap-1 overflow-hidden rounded-sm px-0 py-3"
+        className={cn(
+          "grid h-fit gap-1 overflow-hidden rounded-sm px-0 py-3",
+          format === "12-hours" ? "w-60 grid-cols-3" : "w-40 grid-cols-2",
+        )}
         onWheel={(e) => {
           e.stopPropagation()
         }}
@@ -90,11 +97,13 @@ export default function TimePicker({
           value={minute}
           onChange={setMinute}
         />
-        <TimeScrollList
-          options={periods}
-          value={period}
-          onChange={setPeriod}
-        />
+        {format === "12-hours" ? (
+          <TimeScrollList
+            options={periods}
+            value={period}
+            onChange={setPeriod}
+          />
+        ) : null}
       </PopoverContent>
     </Popover>
   )
