@@ -30,7 +30,7 @@
       ],
       "files": [
         {
-          "path": "registry/new-york-v4/ui/time-picker.tsx",
+          "path": "registry/ui/time-picker.tsx",
           "type": "registry:ui"
         }
       ]
@@ -44,7 +44,7 @@
       ],
       "files": [
         {
-          "path": "registry/new-york-v4/lib/utils.ts",
+          "path": "registry/lib/utils.ts",
           "type": "registry:lib"
         }
       ]

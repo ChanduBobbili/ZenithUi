@@ -8,8 +8,8 @@ import { z } from "zod"
 
 // import { blocks } from "@/www/registry/registry-blocks"
 // import { charts } from "@/www/registry/registry-charts"
-import { lib } from "./../registry/new-york-v4/registry-lib"
-import { ui } from "./../registry/new-york-v4/registry-ui"
+import { lib } from "./../registry/registry-lib"
+import { ui } from "./../registry/registry-ui"
 
 const DEPRECATED_ITEMS = ["toast"]
 
@@ -70,24 +70,16 @@ const registry = {
       //       },
       //     ],
       //   },
-    ]
-      .filter((item) => {
-        return !DEPRECATED_ITEMS.includes(item.name)
-      })
-      .map((item) => {
-        // Temporary fix for dashboard-01.
-        if (item.name === "dashboard-01") {
-          item.dependencies?.push("@tabler/icons-react")
-        }
-        return item
-      }),
+    ].filter((item) => {
+      return !DEPRECATED_ITEMS.includes(item.name)
+    }),
   ),
 } satisfies Registry
 
 async function ensureRegistryDir() {
-  const registryPath =
-    "/home/chandubobbili/Documents/personal-repos/ZenithUi/apps/zenithui-docs/__registry__"
-  await mkdir(registryPath, { recursive: true }) // Ensure directory exists
+  const registryPath = "./__registry__"
+  // Ensure directory exists
+  await mkdir(registryPath, { recursive: true })
 }
 
 async function buildRegistryIndex() {
@@ -100,15 +92,13 @@ import * as React from "react"
 
 export const Index: Record<string, any> = {`
   for (const item of registry.items) {
-    const resolveFiles = item.files?.map(
-      (file) => `registry/new-york-v4/${file.path}`,
-    )
+    const resolveFiles = item.files?.map((file) => `registry/${file.path}`)
     if (!resolveFiles) {
       continue
     }
 
     const componentPath = item.files?.[0]?.path
-      ? `@/registry/new-york-v4/${item.files[0].path}`
+      ? `@/registry/${item.files[0].path}`
       : ""
 
     index += `
@@ -157,7 +147,7 @@ async function buildRegistryJsonFile() {
       const files = item.files?.map((file) => {
         return {
           ...file,
-          path: `registry/new-york-v4/${file.path}`,
+          path: `registry/${file.path}`,
         }
       })
 
@@ -179,7 +169,7 @@ async function buildRegistryJsonFile() {
 async function buildRegistry() {
   return new Promise((resolve, reject) => {
     const process = exec(
-      `pnpm dlx shadcn build registry.json --output ./public/r/styles/new-york-v4`,
+      `pnpm dlx shadcn build registry.json --output ./public/r/`,
     )
 
     process.on("exit", (code) => {
