@@ -39,7 +39,7 @@ export default function NPMTab({ path }: { path: string }) {
         <TabsContent
           key={tab.value}
           value={tab.value}
-          className="flex items-center overflow-hidden rounded-sm border bg-slate-100 p-4 dark:border-white/20 dark:bg-black"
+          className="flex items-center overflow-hidden rounded-sm border bg-white p-4 dark:border-white/20 dark:bg-black"
         >
           {tab.content}
         </TabsContent>
