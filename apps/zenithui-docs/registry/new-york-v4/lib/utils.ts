@@ -5,7 +5,7 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 
-export function formatTimeto24(time: string) {
+export function formatTime(time: string) {
   const [hours, minutes] = time.split(":").map(Number)
   const period = hours >= 12 ? "PM" : "AM"
   // Convert 0 -> 12 for AM and 12 -> 12 for PM

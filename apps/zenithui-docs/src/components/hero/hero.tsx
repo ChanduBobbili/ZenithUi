@@ -70,8 +70,8 @@ export default function Hero() {
         href="/docs"
         className={cn(
           "rounded-md border-2 px-10 py-3 shadow-lg transition-transform duration-500 ease-in-out hover:scale-105 active:animate-ping",
-          "border-sky-600/50 shadow-sky-500 hover:bg-sky-800 hover:text-white hover:shadow-3xl",
-          "dark:border-sky-600/50 dark:bg-sky-950 dark:shadow-sky-500 dark:hover:bg-sky-200 dark:hover:text-sky-800 dark:hover:shadow-3xl",
+          "hover:shadow-3xl border-sky-600/50 shadow-sky-500 hover:bg-sky-800 hover:text-white",
+          "dark:hover:shadow-3xl dark:border-sky-600/50 dark:bg-sky-950 dark:shadow-sky-500 dark:hover:bg-sky-200 dark:hover:text-sky-800",
         )}
       >
         Get Started
