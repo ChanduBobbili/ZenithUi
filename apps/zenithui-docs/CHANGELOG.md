@@ -1,5 +1,11 @@
 # zenithui-docs
 
+## 1.1.7
+
+### Patch Changes
+
+- Added time-picker in the docs and updated the registry paths
+
 ## 1.1.6
 
 ### Patch Changes
