@@ -40,6 +40,19 @@ export function convertTo24Hour(hour: string, period: string) {
 }
 
 /**
+ * Converts a time string to 12-hour format.
+ * @param hour - The hour to convert.
+ * @returns The object with the converted hour and period.
+ */
+export function convertTo12Hour(hour: string) {
+  const intHour = parseInt(hour)
+  const period = intHour >= 12 ? "PM" : "AM"
+  const formattedHour =
+    intHour === 0 ? 12 : intHour > 12 ? intHour - 12 : intHour
+  return { hour: formattedHour.toString(), period }
+}
+
+/**
  * Formats a 24-hour time string to 12-hour format.
  *
  * @param time24 - The 24-hour time string to format.

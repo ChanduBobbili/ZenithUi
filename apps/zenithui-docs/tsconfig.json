@@ -18,7 +18,9 @@
         "name": "next"
       }
     ],
+    "baseUrl": ".",
     "paths": {
+      "@/www/*": ["../www/*"],
       "@/*": ["./src/*"]
     }
   },
@@ -28,7 +30,9 @@
     ".next/types/**/*.ts",
     "mdx-components.ts",
     "next-env.d.ts",
-    "build/types/**/*.ts"
-, "next-sitemap.config.js"  ],
+    "build/types/**/*.ts",
+    "next-sitemap.config.js",
+    "scripts/build-registry.mts"
+  ],
   "exclude": ["node_modules"]
 }

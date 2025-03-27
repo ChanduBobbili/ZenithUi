@@ -1,5 +1,13 @@
 # zenithui-docs
 
+## 1.1.6
+
+### Patch Changes
+
+- Added the registry files
+- Updated dependencies
+  - @zenithui/time-picker@1.1.0
+
 ## 1.1.5
 
 ### Patch Changes

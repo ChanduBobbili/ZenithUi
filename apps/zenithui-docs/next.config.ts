@@ -19,7 +19,9 @@ export default withNextra({
   },
   // Optional: Change the output directory `out` -> `dist`
   // distDir: "build",
-  webpack(config: { module: { rules: { test: RegExp; issuer: RegExp; use: string[] }[] } }) {
+  webpack(config: {
+    module: { rules: { test: RegExp; issuer: RegExp; use: string[] }[] }
+  }) {
     config.module.rules.push({
       test: /\.svg$/i,
       issuer: /\.[jt]sx?$/,
@@ -29,4 +31,7 @@ export default withNextra({
   },
   // ... Other Next.js config options
   pageExtensions: ["js", "jsx", "md", "mdx", "ts", "tsx"],
+  outputFileTracingIncludes: {
+    "/*": ["./registry/**/*"],
+  },
 })

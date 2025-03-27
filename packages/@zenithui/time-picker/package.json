@@ -1,6 +1,6 @@
 {
   "name": "@zenithui/time-picker",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "private": false,
   "description": "A ZenithUi Time Picker is React component enables users to select a time from a predefined list of options.",
   "publishConfig": {
@@ -22,7 +22,7 @@
   "scripts": {
     "prepack": "node update-deps.js",
     "postpublish": "node reset-deps.js",
-    "prepublishOnly": "npm pack && npm run build",
+    "prepublishOnly": "npm pack && pnpm install && npm run build",
     "build": "rslib build",
     "build:storybook": "storybook build",
     "check": "biome check --write",
@@ -47,10 +47,12 @@
     "@storybook/blocks": "^8.6.7",
     "@storybook/react": "^8.6.7",
     "@storybook/test": "^8.6.7",
+    "@tailwindcss/postcss": "^4.0.7",
     "rsbuild-plugin-dts": "^0.5.5",
     "storybook": "^8.6.7",
     "storybook-addon-rslib": "^1.0.0",
-    "storybook-react-rsbuild": "^1.0.0"
+    "storybook-react-rsbuild": "^1.0.0",
+    "tailwindcss": "^4.0.17"
   },
   "peerDependencies": {
     "react": ">=16.9.0",

@@ -1,5 +1,11 @@
 # @zenithui/time-picker
 
+## 1.1.0
+
+### Minor Changes
+
+- Added the useTimePicker hook to implement the headless component
+
 ## 1.0.1
 
 ### Patch Changes
