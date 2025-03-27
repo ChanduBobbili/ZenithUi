@@ -1,5 +1,11 @@
 # zenithui-docs
 
+## 1.1.8
+
+### Patch Changes
+
+- style change
+
 ## 1.1.7
 
 ### Patch Changes
