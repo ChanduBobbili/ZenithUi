@@ -143,3 +143,19 @@ export type CountDownTimerProps = {
    */
   onExpired?: (isExpire: boolean) => void
 }
+
+export type UseTimePickerProps = {
+  /**
+   * The format of the time display.
+   * Can be "12-hours" or "24-hours".
+   */
+  format: "12-hours" | "24-hours"
+  /**
+   * The initial time value in "HH:MM" format.
+   */
+  initialTime: string
+  /**
+   * Callback function to handle time changes, receives updated time in "HH:MM" format (24-hour clock).
+   */
+  onTimeChange: (time: string) => void
+}
