@@ -25,6 +25,7 @@ export default function TimePicker({
   time,
   onTimeChange,
   className,
+  format = "24-hours",
   align = "center",
   side = "bottom",
   alignOffset = 0,
@@ -34,6 +35,7 @@ export default function TimePicker({
   time: string // HH:MM
   onTimeChange: (time: string) => void // HH:MM
   className?: string
+  format: "12-hours" | "24-hours"
   align?: "center" | "end" | "start"
   side?: "top" | "right" | "bottom" | "left"
   alignOffset?: number
@@ -67,7 +69,7 @@ export default function TimePicker({
           )}
         >
           <span className="text-sky-950">{`${formatTime(time)}`}</span>
-          <Clock className="size-6 cursor-pointer self-center text-slate-500" />
+          <Clock className="size-5 cursor-pointer self-center text-slate-500" />
         </Button>
       </PopoverTrigger>
       <PopoverContent
@@ -75,7 +77,10 @@ export default function TimePicker({
         side={side}
         alignOffset={alignOffset}
         sideOffset={sideOffset}
-        className="grid h-fit w-60 grid-cols-3 gap-1 overflow-hidden rounded-sm px-0 py-3"
+        className={cn(
+          "grid h-fit gap-1 overflow-hidden rounded-sm px-0 py-3",
+          format === "12-hours" ? "w-60 grid-cols-3" : "w-40 grid-cols-2",
+        )}
         onWheel={(e) => {
           e.stopPropagation()
         }}
@@ -90,11 +95,13 @@ export default function TimePicker({
           value={minute}
           onChange={setMinute}
         />
-        <TimeScrollList
-          options={periods}
-          value={period}
-          onChange={setPeriod}
-        />
+        {format === "12-hours" ? (
+          <TimeScrollList
+            options={periods}
+            value={period}
+            onChange={setPeriod}
+          />
+        ) : null}
       </PopoverContent>
     </Popover>
   )
