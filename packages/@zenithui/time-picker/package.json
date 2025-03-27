@@ -1,6 +1,6 @@
 {
   "name": "@zenithui/time-picker",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "private": false,
   "description": "A ZenithUi Time Picker is React component enables users to select a time from a predefined list of options.",
   "publishConfig": {
