@@ -1,3 +1,6 @@
+@import "tailwindcss";
+@config "../tailwind.config.ts";
+
 /* Light & Dark Theme Variables */
 :root {
   --zenithui-day-picker-bg-color: white;
