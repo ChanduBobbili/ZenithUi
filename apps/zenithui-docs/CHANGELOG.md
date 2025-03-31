@@ -1,5 +1,14 @@
 # zenithui-docs
 
+## 1.1.9
+
+### Patch Changes
+
+- Added the docs of utils package
+  - @zenithui/day-picker@1.0.2
+  - @zenithui/time-picker@1.1.1
+  - @zenithui/toast@1.0.5
+
 ## 1.1.8
 
 ### Patch Changes
