@@ -3,7 +3,8 @@ import { resolve } from "path"
 import { fileURLToPath } from "url"
 
 const __dirname = fileURLToPath(new URL(".", import.meta.url))
-const packageJsonPath = resolve(__dirname, "package.json")
+// Locate package.json inside @zenithui/day-picker
+const packageJsonPath = resolve(__dirname, "./../package.json")
 const packageJson = JSON.parse(readFileSync(packageJsonPath, "utf-8"))
 
 // Fetch latest version of @zenithui/utils
