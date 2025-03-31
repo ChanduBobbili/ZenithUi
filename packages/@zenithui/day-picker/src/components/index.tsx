@@ -1,5 +1,5 @@
 import { forwardRef, useEffect, useMemo, useState } from "react"
-import { DayPickerProps, DayPickerState, InternalRange } from "./../types"
+import { DateRange, DayPickerProps, DayPickerState, InternalRange } from "./../types"
 import { getInitialDate, getInitialRange } from "./../utils"
 import { DayPickerHeader } from "./header"
 import { DayPickerContext } from "./../hooks/use-day-picker"

@@ -63,7 +63,7 @@ export type DayPickerclassNames = {
 
 export type DatePickerMode = "single" | "range"
 export type DayPickerState = "day" | "month" | "year"
-export type DateRange = [Date, Date] | { from: Date; to: Date }
+export type DateRange = { from: Date; to: Date }
 /**
  * The day of the week.
  * @example
@@ -109,29 +109,7 @@ export type Disabled = {
 
 export type InternalRange = { from: Date; to: Date | null }
 
-/**
- * Props for the DayPicker component.
- */
-export type DayPickerProps = {
-  /**
-   * The date that is currently selected.
-   * Can be a single date or a range of dates.
-   */
-  selected: Date | DateRange
-
-  /**
-   * The function that is called when a date is selected.
-   * @param date - The selected date or date range.
-   */
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  onSelect: (date: any) => void
-
-  /**
-   * The selection mode for the date picker.
-   * Can be either "single" for single date selection or "range" for date range selection.
-   */
-  mode: DatePickerMode
-
+interface baseDayPickerProps {
   /**
    * The class names to apply to the day picker.
    * Allows partial customization of the day picker class names.
@@ -170,6 +148,47 @@ export type DayPickerProps = {
    */
   disabled?: Partial<Disabled>
 }
+
+interface singleDayPickerProps extends baseDayPickerProps {
+  /**
+   * The date that is currently selected.
+   * Can be a single date or a range of dates.
+   */
+  selected: Date
+  /**
+   * The function that is called when a date is selected.
+   * @param date - The selected date or date range.
+   */
+  onSelect: (date: Date) => void
+  /**
+   * The selection mode for the date picker.
+   * Can be either "single" for single date selection or "range" for date range selection.
+   */
+  mode: "single"
+}
+
+interface rangeDayPickerProps extends baseDayPickerProps {
+  /**
+   * The date that is currently selected.
+   * Can be a single date or a range of dates.
+   */
+  selected: DateRange
+  /**
+   * The function that is called when a date is selected.
+   * @param date - The selected date or date range.
+   */
+  onSelect: (date: DateRange) => void
+  /**
+   * The selection mode for the date picker.
+   * Can be either "single" for single date selection or "range" for date range selection.
+   */
+  mode: "range"
+}
+
+/**
+ * Props for the DayPicker component.
+ */
+export type DayPickerProps = singleDayPickerProps | rangeDayPickerProps
 
 export type DayPickerContextProps = {
   selected: Date | DateRange | null
