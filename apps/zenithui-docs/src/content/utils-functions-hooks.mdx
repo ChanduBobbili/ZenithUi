@@ -1,0 +1,184 @@
+# Utility Functions & Hooks
+
+This package provides a set of utility functions and hooks to simplify common operations in JavaScript and TypeScript projects.
+
+## 📦 Installation
+
+Install the library using your preferred package manager:
+
+```sh npm2yarn copy
+npm install @zenithui/utils
+```
+
+---
+
+## Utility Functions
+
+### cn
+
+A utility function for conditionally joining class names.
+
+```ts
+cn("text-xl", isActive && "font-bold", isError ? "text-red-500" : "text-green-500");
+```
+
+### uuid
+
+Generates a random UUID (v4).
+
+```ts
+const id = uuid();
+console.log(id); // "550e8400-e29b-41d4-a716-446655440000"
+```
+
+### randomInt
+
+Returns a random integer within a given range.
+
+```ts
+const number = randomInt(1, 100);
+console.log(number); // Random number between 1 and 100
+```
+
+### capitalize
+
+Capitalizes the first letter of a string.
+
+```ts
+capitalize("hello world"); // "Hello world"
+```
+
+### sortByKey
+
+Sorts an array of objects by a specified key.
+
+```ts
+sortByKey(users, "name", "asc");
+```
+
+### groupBy
+
+Groups an array of objects by a given key.
+
+```ts
+groupBy(users, "role");
+```
+
+### uniqueByKey
+
+Removes duplicate objects from an array based on a specified key.
+
+```ts
+uniqueByKey(products, "id");
+```
+
+### pick
+
+Returns a new object with only the specified keys.
+
+```ts
+pick(user, ["name", "email"]);
+```
+
+### omit
+
+Returns a new object excluding the specified keys.
+
+```ts
+omit(user, ["password"]);
+```
+
+### deepEqual
+
+Performs a deep comparison to check if two objects are equal.
+
+```ts
+deepEqual(obj1, obj2);
+```
+
+### cloneDeep
+
+Creates a deep copy of an object.
+
+```ts
+const copy = cloneDeep(originalObj);
+```
+
+### debounce
+
+Delays execution of a function until after a specified delay.
+
+```ts
+const debouncedFn = debounce(() => console.log("Called!"), 300);
+```
+
+### throttle
+
+Ensures a function is called at most once in a given time interval.
+
+```ts
+const throttledFn = throttle(() => console.log("Called!"), 1000);
+```
+
+### sleep
+
+Creates a delay for a specified number of milliseconds.
+
+```ts
+await sleep(1000); // Delays execution for 1 second
+```
+
+### formatBytes
+
+Converts a byte value into a human-readable format (e.g., KB, MB, GB).
+
+```ts
+formatBytes(1024); // "1 KB"
+```
+
+---
+
+## Hooks
+
+### useDeviceType
+
+Detects the current device type (mobile, tablet, desktop).
+
+- `smallMobile` (< 480px)
+- `largeMobile` (480px - 767px)
+- `tablet` (768px - 1023px)
+- `desktop` (>= 1024px)
+
+```tsx
+import useDeviceType from '@zenithui/utils/hooks/use-device';
+
+const device = useDeviceType();
+console.log(device); // e.g., "desktop"
+```
+
+### useTheme
+
+Detects and tracks the user's theme preference, either via system settings or manually stored preferences.
+
+```tsx
+import useTheme from '@zenithui/utils/hooks/use-theme';
+
+const theme = useTheme();
+console.log(theme); // "dark" or ""
+```
+
+### useDebounce
+
+Delays updating a value until after a specified delay.
+
+```ts
+const debouncedValue = useDebounce(value, 500);
+```
+
+### usePrevious
+
+Stores and returns the previous value of a state or prop.
+
+```ts
+const prevValue = usePrevious(currentValue);
+```

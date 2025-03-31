@@ -35,6 +35,23 @@ const buttonClass = cn('btn', 'btn-primary', { 'btn-disabled': false }, [
 console.log(buttonClass); // Output: "btn btn-primary rounded shadow"
 ```
 
+### Other utilities
+
+- **`uuid`** – Generates a random UUID (v4).
+- **`randomInt`** – Returns a random integer within a given range.
+- **`capitalize`** – Capitalizes the first letter of a string.
+- **`sortByKey`** – Sorts an array of objects by a specified key.
+- **`groupBy`** – Groups an array of objects by a given key.
+- **`uniqueByKey`** – Removes duplicate objects from an array based on a specified key.
+- **`pick`** – Returns a new object with only the specified keys from the original object.
+- **`omit`** – Returns a new object excluding the specified keys from the original object.
+- **`deepEqual`** – Performs a deep comparison to check if two objects are equal.
+- **`cloneDeep`** – Creates a deep copy of an object.
+- **`debounce`** – Delays the execution of a function until a specified time has passed since the last invocation.
+- **`throttle`** – Ensures a function is called at most once in a given time interval.
+- **`sleep`** – Creates a delay for a specified number of milliseconds.
+- **`formatBytes`** – Converts a byte value into a human-readable string (e.g., KB, MB, GB).
+
 ## Hooks
 
 ### `useDeviceType(): DeviceType`
@@ -69,6 +86,11 @@ import useTheme from '@zenithui/utils/hooks/use-theme';
 const theme = useTheme();
 console.log(theme); // "dark" or ""
 ```
+
+### Other Hooks:
+
+- **`useDebounce`** - Delays updating a value until after a specified delay, preventing excessive updates.
+- **`usePrevious`** - Stores and returns the previous value of a state or prop across renders.
 
 ---
 
