@@ -12,8 +12,8 @@ import {
   startOfMonth,
   startOfWeek,
 } from "date-fns"
-import { useDayPicker } from "../../hooks/use-day-picker"
-import { getDisabled, getInitialDate, isBetweenRange } from "../utils"
+import { useDayPicker } from "./../hooks/use-day-picker"
+import { getDisabled, getInitialDate, isBetweenRange } from "./../utils"
 import { cn, useDeviceType } from "@zenithui/utils"
 
 export function DayPickerDays() {

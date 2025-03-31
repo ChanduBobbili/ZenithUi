@@ -1,5 +1,5 @@
 import { addMonths, addYears, format, subMonths, subYears } from "date-fns"
-import { useDayPicker } from "../../hooks/use-day-picker"
+import { useDayPicker } from "./../hooks/use-day-picker"
 import { cn } from "@zenithui/utils"
 
 const Arrow = ({ className }: { className: string }) => (

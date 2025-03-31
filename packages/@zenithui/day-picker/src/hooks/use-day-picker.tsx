@@ -1,5 +1,5 @@
 import { createContext, useContext } from "react"
-import { DayPickerContextProps } from "../components/types"
+import { DayPickerContextProps } from "../types"
 
 export const DayPickerContext = createContext<
   DayPickerContextProps | undefined
