@@ -1,5 +1,11 @@
 # zenithui-docs
 
+## 1.1.9
+
+### Patch Changes
+
+- fixed the format in timepicker of registry
+
 ## 1.1.8
 
 ### Patch Changes

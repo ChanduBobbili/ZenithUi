@@ -37,7 +37,7 @@ export default function TimePicker({
   time,
   onTimeChange,
   className,
-  format = "24-hours",
+  format = "12-hours",
   align = "center",
   side = "bottom",
   alignOffset = 0,
@@ -55,7 +55,7 @@ export default function TimePicker({
     setMinute,
     setPeriod,
   } = useTimePicker({
-    format: "12-hours",
+    format: format,
     initialTime: time,
     onTimeChange: onTimeChange,
   })
@@ -80,7 +80,7 @@ export default function TimePicker({
         alignOffset={alignOffset}
         sideOffset={sideOffset}
         className={cn(
-          "grid h-fit gap-1 overflow-hidden rounded-sm px-0 py-3",
+          "grid h-fit gap-1 overflow-hidden rounded-sm px-0 py-4",
           format === "12-hours" ? "w-60 grid-cols-3" : "w-40 grid-cols-2",
         )}
         onWheel={(e) => {
@@ -147,7 +147,7 @@ function TimeScrollList({
             value={option}
             aria-label={option}
             className={cn(
-              "h-12 w-12 data-[state='on']:!bg-primary data-[state='on']:!text-white",
+              "h-12 w-12 border data-[state='on']:!bg-primary data-[state='on']:!text-white",
             )}
           >
             {option}
