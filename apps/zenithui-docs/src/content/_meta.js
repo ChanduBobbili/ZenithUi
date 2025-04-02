@@ -29,4 +29,9 @@ export default {
       timestamp: false, // Hide timestamp on this page
     },
   },
+  "utils-functions-hooks": {
+    theme: {
+      timestamp: false, // Hide timestamp on this page
+    },
+  },
 }

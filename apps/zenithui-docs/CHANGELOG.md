@@ -1,10 +1,30 @@
 # zenithui-docs
 
+## 1.1.11
+
+### Patch Changes
+
+- Added docs for useGeolocation, useDefault, useDocumentTitle, useFavicon
+- Updated dependencies
+  - @zenithui/utils@0.2.1
+  - @zenithui/day-picker@1.0.3
+  - @zenithui/time-picker@1.1.2
+  - @zenithui/toast@1.0.6
+
+## 1.1.10
+
+### Patch Changes
+
+- Fixed the format in the timepicker of registry
+
 ## 1.1.9
 
 ### Patch Changes
 
-- fixed the format in timepicker of registry
+- Added the docs of utils package
+  - @zenithui/day-picker@1.0.2
+  - @zenithui/time-picker@1.1.1
+  - @zenithui/toast@1.0.5
 
 ## 1.1.8
 
