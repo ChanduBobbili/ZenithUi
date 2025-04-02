@@ -91,6 +91,10 @@ console.log(theme); // "dark" or ""
 
 - **`useDebounce`** - Delays updating a value until after a specified delay, preventing excessive updates.
 - **`usePrevious`** - Stores and returns the previous value of a state or prop across renders.
+- **`useGeolocation`** - The useGeolocation hook provides real-time geolocation data for a user's device.
+- **`useDefault`** - A custom React hook that manages a state with a default fallback value.
+- **`useDocumentTitle`** - A custom React hook that sets the document's title to the specified value.
+- **`useFavicon`** - A custom React hook to dynamically update the favicon of the document.
 
 ---
 

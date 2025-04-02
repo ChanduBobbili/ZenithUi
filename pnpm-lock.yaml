@@ -171,6 +171,9 @@ importers:
       '@zenithui/toast':
         specifier: workspace:*
         version: link:../../packages/@zenithui/toast
+      '@zenithui/utils':
+        specifier: workspace:*
+        version: link:../../packages/@zenithui/utils
       class-variance-authority:
         specifier: ^0.7.1
         version: 0.7.1

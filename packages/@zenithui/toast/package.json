@@ -1,6 +1,6 @@
 {
   "name": "@zenithui/toast",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "private": false,
   "description": "A modern, lightweight toast notification system for React applications. ZenithUI Toast provides a simple and customizable way to display notifications, alerts, and messages to users with smooth animations and flexible styling options.",
   "publishConfig": {

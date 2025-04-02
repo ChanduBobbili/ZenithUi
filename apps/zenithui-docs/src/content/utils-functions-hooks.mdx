@@ -182,3 +182,96 @@ Stores and returns the previous value of a state or prop.
 ```ts
 const prevValue = usePrevious(currentValue);
 ```
+
+### useGeolocation
+
+The useGeolocation hook provides real-time geolocation data for a user's device. It leverages the browser's Geolocation API to fetch and track location changes, returning useful details such as latitude, longitude, altitude, speed, accuracy, and heading.
+
+```tsx
+import useGeolocation from "@zenithui/utils"
+
+function LocationComponent() {
+  const {
+    loading,
+    latitude,
+    longitude,
+    accuracy,
+    altitude,
+    altitudeAccuracy,
+    heading,
+    speed,
+    timestamp,
+    error,
+  } = useGeolocation({ enableHighAccuracy: true, timeout: 5000, maximumAge: 0 })
+
+  if (loading) return <p>Loading location...</p>
+  if (error) return <p>Error: {error.message}</p>
+
+  return (
+    <div>
+      <p>Latitude: {latitude}</p>
+      <p>Longitude: {longitude}</p>
+      <p>Accuracy: {accuracy} meters</p>
+      <p>Altitude: {altitude}</p>
+      <p>Heading: {heading}</p>
+      <p>Speed: {speed}</p>
+      <p>Last Updated: {new Date(timestamp).toLocaleTimeString()}</p>
+    </div>
+  )
+}
+```
+
+#### Parameters
+
+| Parameter | Type     | Default | Description                                                                                                                                     |
+| --------- | -------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------- |
+| `options` | `Object` | `{}`    | Optional configuration for `getCurrentPosition` and `watchPosition`. Accepts properties like `enableHighAccuracy`, `timeout`, and `maximumAge`. |
+
+#### Returned State
+
+The hook returns an object with the following properties:
+
+| Property           | Type                                        | Description                                            |
+| ------------------ | ------------------------------------------- | ------------------------------------------------------ |
+| `loading`          | `boolean`                                   | Indicates whether geolocation data is being retrieved. |
+| `latitude`         | `number \| null`                            | The current latitude of the device.                    |
+| `longitude`        | `number \| null`                            | The current longitude of the device.                   |
+| `accuracy`         | `number \| null`                            | The accuracy of the location data in meters.           |
+| `altitude`         | `number \| null`                            | The altitude of the device (if available).             |
+| `altitudeAccuracy` | `number \| null`                            | Accuracy of the altitude measurement.                  |
+| `heading`          | `number \| null`                            | The direction the device is moving, in degrees.        |
+| `speed`            | `number \| null`                            | The current speed of the device in meters per second.  |
+| `timestamp`        | `number \| null`                            | The timestamp when the data was last updated.          |
+| `error`            | `Error \| GeolocationPositionError \| null` | Any error encountered while retrieving location data.  |
+
+#### Notes
+
+- Ensure the application has permission to access the user's location.
+- Location accuracy depends on device hardware and browser settings.
+- The `getCurrentPosition` function is called once initially, and `watchPosition` keeps tracking changes.
+
+This hook is a powerful tool for integrating geolocation into web applications, enabling a seamless user experience for location-based services.
+
+### useDefault
+
+The useDefault hook provides a managed state that falls back to a default value when the current state is null or undefined. This ensures a reliable state value at all times.
+
+```tsx
+const [value, setValue] = useDefault<string>(undefined, "Default Value")
+```
+
+### useDocumentTitle
+
+The useDocumentTitle hook dynamically updates the document's title based on the provided value. This is useful for improving user experience and SEO.
+
+```tsx
+useDocumentTitle("My App - Home")
+```
+
+### useFavicon
+
+The useFavicon hook updates the document's favicon dynamically, allowing for branding updates or status indicators.
+
+```tsx
+useFavicon("/favicon.ico")
+```

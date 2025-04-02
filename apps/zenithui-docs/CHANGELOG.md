@@ -1,5 +1,16 @@
 # zenithui-docs
 
+## 1.1.11
+
+### Patch Changes
+
+- Added docs for useGeolocation, useDefault, useDocumentTitle, useFavicon
+- Updated dependencies
+  - @zenithui/utils@0.2.1
+  - @zenithui/day-picker@1.0.3
+  - @zenithui/time-picker@1.1.2
+  - @zenithui/toast@1.0.6
+
 ## 1.1.10
 
 ### Patch Changes

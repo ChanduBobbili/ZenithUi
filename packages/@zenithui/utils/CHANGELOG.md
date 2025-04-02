@@ -1,5 +1,11 @@
 # @zenithui/utils
 
+## 0.2.1
+
+### Patch Changes
+
+- Added useGeolocation, useDefault, useDocumentTitle, useFavicon
+
 ## 0.2.0
 
 ### Minor Changes
