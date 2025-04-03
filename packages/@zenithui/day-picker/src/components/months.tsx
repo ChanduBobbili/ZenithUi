@@ -1,7 +1,7 @@
 import { setMonth, format } from "date-fns"
 import { useMemo } from "react"
 import { useDayPicker } from "./../hooks/use-day-picker"
-import { cn } from "../utils"
+import { cn } from "@zenithui/utils"
 
 export function DayPickerMonths() {
   const { currentMonth, classNames, setState, setCurrentMonth } = useDayPicker()
