@@ -1,5 +1,5 @@
 import { addMonths, addYears, format, subMonths, subYears } from "date-fns"
-import { useDayPicker } from "../../hooks/use-day-picker"
+import { useDayPicker } from "./../hooks/use-day-picker"
 import { cn } from "@zenithui/utils"
 
 const Arrow = ({ className }: { className: string }) => (
@@ -18,8 +18,14 @@ const Arrow = ({ className }: { className: string }) => (
   </svg>
 )
 export function DayPickerHeader() {
-  const { state, currentMonth, setState, setCurrentMonth, classNames } =
-    useDayPicker()
+  const {
+    state,
+    currentMonth,
+    setState,
+    setCurrentMonth,
+    disableNavigation,
+    classNames,
+  } = useDayPicker()
 
   const handlePrev = () => {
     if (state === "day") setCurrentMonth(subMonths(currentMonth, 1))
@@ -44,22 +50,44 @@ export function DayPickerHeader() {
       <div
         style={{
           display: "flex",
-          justifyContent: "center",
+          justifyContent: "space-between",
           alignItems: "center",
         }}
       >
-        <button
-          className={cn("zenithui-month-caption", classNames?.monthCaption)}
-          onClick={() => setState("month")}
-        >
-          {format(currentMonth, "MMMM")}
-        </button>
-        <button
-          className={cn("zenithui-month-caption", classNames?.monthCaption)}
-          onClick={() => setState("year")}
-        >
-          {format(currentMonth, "yyyy")}
-        </button>
+        {disableNavigation ? (
+          <span
+            style={{
+              cursor: "text",
+            }}
+            className={cn("zenithui-month-caption", classNames?.monthCaption)}
+          >
+            {format(currentMonth, "MMMM")}
+          </span>
+        ) : (
+          <button
+            className={cn("zenithui-month-caption", classNames?.monthCaption)}
+            onClick={() => setState("month")}
+          >
+            {format(currentMonth, "MMMM")}
+          </button>
+        )}
+        {disableNavigation ? (
+          <span
+            style={{
+              cursor: "text",
+            }}
+            className={cn("zenithui-month-caption", classNames?.monthCaption)}
+          >
+            {format(currentMonth, "yyyy")}
+          </span>
+        ) : (
+          <button
+            className={cn("zenithui-month-caption", classNames?.monthCaption)}
+            onClick={() => setState("year")}
+          >
+            {format(currentMonth, "yyyy")}
+          </button>
+        )}
       </div>
 
       <button

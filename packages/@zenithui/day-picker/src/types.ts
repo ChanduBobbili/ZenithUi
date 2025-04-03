@@ -28,6 +28,10 @@ export type DayPickerclassNames = {
    */
   weekday: string
   /**
+   * The class names to apply to the months and Years.
+   */
+  months: string
+  /**
    * The class names to apply to the days.
    */
   days: string
@@ -63,7 +67,7 @@ export type DayPickerclassNames = {
 
 export type DatePickerMode = "single" | "range"
 export type DayPickerState = "day" | "month" | "year"
-export type DateRange = [Date, Date] | { from: Date; to: Date }
+export type DateRange = { from: Date; to: Date }
 /**
  * The day of the week.
  * @example
@@ -109,29 +113,7 @@ export type Disabled = {
 
 export type InternalRange = { from: Date; to: Date | null }
 
-/**
- * Props for the DayPicker component.
- */
-export type DayPickerProps = {
-  /**
-   * The date that is currently selected.
-   * Can be a single date or a range of dates.
-   */
-  selected: Date | DateRange
-
-  /**
-   * The function that is called when a date is selected.
-   * @param date - The selected date or date range.
-   */
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  onSelect: (date: any) => void
-
-  /**
-   * The selection mode for the date picker.
-   * Can be either "single" for single date selection or "range" for date range selection.
-   */
-  mode: DatePickerMode
-
+export type BaseDayPickerProps = {
   /**
    * The class names to apply to the day picker.
    * Allows partial customization of the day picker class names.
@@ -143,6 +125,12 @@ export type DayPickerProps = {
    * If true, the navigation buttons will not be displayed.
    */
   hideNavigation?: boolean
+
+  /**
+   * Whether to disable the navigation buttons.
+   * If true, the navigation buttons will be disabled.
+   */
+  disableNavigation?: boolean
 
   /**
    * Whether to hide the weekdays.
@@ -171,9 +159,52 @@ export type DayPickerProps = {
   disabled?: Partial<Disabled>
 }
 
+export type SingleDayPickerProps = {
+  /**
+   * The date that is currently selected.
+   * Can be a single date or a range of dates.
+   */
+  selected: Date
+  /**
+   * The function that is called when a date is selected.
+   * @param date - The selected date or date range.
+   */
+  onSelect: (date: Date) => void
+  /**
+   * The selection mode for the date picker.
+   * Can be either "single" for single date selection or "range" for date range selection.
+   */
+  mode: "single"
+}
+
+export type RangeDayPickerProps = {
+  /**
+   * The date that is currently selected.
+   * Can be a single date or a range of dates.
+   */
+  selected: DateRange
+  /**
+   * The function that is called when a date is selected.
+   * @param date - The selected date or date range.
+   */
+  onSelect: (date: DateRange) => void
+  /**
+   * The selection mode for the date picker.
+   * Can be either "single" for single date selection or "range" for date range selection.
+   */
+  mode: "range"
+}
+
+/**
+ * Props for the DayPicker component.
+ */
+export type DayPickerProps =
+  | (BaseDayPickerProps & SingleDayPickerProps)
+  | (BaseDayPickerProps & RangeDayPickerProps)
+
 export type DayPickerContextProps = {
   selected: Date | DateRange | null
-  onSelect: (date: Date | DateRange) => void
+  onSelect: ((date: Date) => void) | ((date: DateRange) => void)
   mode: DatePickerMode
   currentMonth: Date
   setCurrentMonth: (date: Date) => void
@@ -183,6 +214,7 @@ export type DayPickerContextProps = {
   setRange: (range: InternalRange) => void
   focus: Date | null
   setFocus: (date: Date | null) => void
+  disableNavigation: boolean
   hideWeekdays: boolean
   hideOutsideDates: boolean
   classNames?: Partial<DayPickerclassNames>

@@ -17,8 +17,6 @@
     "react-dom": "^18.3.1",
     "react-icons": "^5.4.0",
     "tailwind-merge": "^2.6.0",
-    "zenithui-light-box": "workspace:*",
-    "zenithui-primitive": "workspace:*",
     "@zenithui/day-picker": "workspace:*",
     "@zenithui/toast": "workspace:*",
     "@zenithui/time-picker": "workspace:*"

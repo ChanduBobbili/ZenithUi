@@ -1,2 +1,1 @@
-export { default as DayPicker } from "./components/day-picker"
-import "./index.css"
+export { default as DayPicker } from "./components/index"

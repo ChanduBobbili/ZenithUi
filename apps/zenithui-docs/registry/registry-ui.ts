@@ -13,4 +13,15 @@ export const ui: Registry["items"] = [
       },
     ],
   },
+  {
+    name: "day-picker",
+    type: "registry:ui",
+    dependencies: ["@zenithui/day-picker", "lucide-react"],
+    files: [
+      {
+        path: "ui/day-picker.tsx",
+        type: "registry:ui",
+      },
+    ],
+  },
 ]

@@ -5,8 +5,8 @@ import { fileURLToPath } from "url"
 // Correctly resolve __dirname
 const __dirname = dirname(fileURLToPath(import.meta.url))
 
-// Locate package.json inside @zenithui/toast
-const packageJsonPath = resolve(__dirname, "package.json") // ✅ Fix path issue
+// Locate package.json inside @zenithui/day-picker
+const packageJsonPath = resolve(__dirname, "./../package.json")
 const packageJson = JSON.parse(readFileSync(packageJsonPath, "utf-8"))
 
 // Reset @zenithui/utils to "workspace:*"

@@ -36,6 +36,20 @@
       ]
     },
     {
+      "name": "day-picker",
+      "type": "registry:ui",
+      "dependencies": [
+        "@zenithui/day-picker",
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "registry/ui/day-picker.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "utils",
       "type": "registry:lib",
       "dependencies": [

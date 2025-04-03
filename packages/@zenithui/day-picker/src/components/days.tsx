@@ -12,8 +12,8 @@ import {
   startOfMonth,
   startOfWeek,
 } from "date-fns"
-import { useDayPicker } from "../../hooks/use-day-picker"
-import { getDisabled, getInitialDate, isBetweenRange } from "../utils"
+import { useDayPicker } from "./../hooks/use-day-picker"
+import { getDisabled, getInitialDate, isBetweenRange } from "./../utils"
 import { cn, useDeviceType } from "@zenithui/utils"
 
 export function DayPickerDays() {
@@ -46,7 +46,7 @@ export function DayPickerDays() {
     if (!isSameMonth(date, currentMonth)) {
       setCurrentMonth(startOfMonth(date))
     }
-    onSelect(date)
+    ;(onSelect as (date: Date) => void)(date)
   }
 
   const handleMouseEnter = useCallback(
@@ -98,6 +98,7 @@ export function DayPickerDays() {
 
       {/* Days Section */}
       <div
+        data-mode={mode}
         className={cn(
           "zenithui-days",
           classNames?.days,
@@ -133,28 +134,11 @@ export function DayPickerDays() {
             <button
               key={`zenithui-day-${day}-${Math.random}`}
               data-today={today}
-              data-today-custom={classNames?.today ? true : false}
               data-selected={isSelected}
-              data-selected-custom={
-                isSelected && (classNames?.daySelected ? true : false)
-              }
               data-range-start={isRangeStart}
-              data-range-start-custom={
-                isRangeStart && (classNames?.rangeStart ? true : false)
-              }
               data-range-end={isRangeEnd}
-              data-range-end-custom={
-                isRangeEnd && (classNames?.rangeEnd ? true : false)
-              }
               data-range-dates={isInRange}
-              data-range-dates-custom={
-                isInRange && (classNames?.rangeDates ? true : false)
-              }
               data-outside-date={!isSameMonth(day, currentMonth)}
-              data-outside-date-custom={
-                !isSameMonth(day, currentMonth) &&
-                (classNames?.outsideDate ? true : false)
-              }
               data-visibility={
                 !isSameMonth(day, currentMonth) && hideOutsideDates
               }

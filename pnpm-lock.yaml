@@ -125,12 +125,6 @@ importers:
       tailwind-merge:
         specifier: ^2.6.0
         version: 2.6.0
-      zenithui-light-box:
-        specifier: workspace:*
-        version: link:../../packages/zenithui-light-box
-      zenithui-primitive:
-        specifier: workspace:*
-        version: link:../../packages/zenithui-primitive
     devDependencies:
       '@tanstack/router-devtools':
         specifier: ^1.106.0

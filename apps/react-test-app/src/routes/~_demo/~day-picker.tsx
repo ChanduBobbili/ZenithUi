@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router"
 import { useState } from "react"
-import { DayPicker } from "zenithui-day-picker"
+import { DayPicker } from "@zenithui/day-picker"
 
 export const Route = createFileRoute("/_demo/day-picker")({
   component: RouteComponent,
