@@ -1,5 +1,11 @@
 # zenithui-docs
 
+## 1.1.13
+
+### Patch Changes
+
+- updated the calendar component in registry
+
 ## 1.1.12
 
 ### Patch Changes
