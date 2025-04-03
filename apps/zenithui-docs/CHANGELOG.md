@@ -1,5 +1,13 @@
 # zenithui-docs
 
+## 1.1.12
+
+### Patch Changes
+
+- Added the DayPicker component to the registry
+- Updated dependencies
+  - @zenithui/day-picker@1.0.4
+
 ## 1.1.11
 
 ### Patch Changes

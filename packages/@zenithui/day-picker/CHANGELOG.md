@@ -1,5 +1,11 @@
 # @zenithui/day-picker
 
+## 1.0.4
+
+### Patch Changes
+
+- Updated the logic of styles and exported the css file
+
 ## 1.0.3
 
 ### Patch Changes
