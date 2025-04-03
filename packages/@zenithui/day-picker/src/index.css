@@ -1,6 +1,3 @@
-@import "tailwindcss";
-@config "../tailwind.config.ts";
-
 /* Light & Dark Theme Variables */
 :root {
   --zenithui-day-picker-bg-color: white;
@@ -179,43 +176,43 @@
 }
 
 /* Selected Day */
-.zenithui-day[data-selected="true"]:not([data-selected-custom="true"]) {
+.zenithui-day[data-selected="true"] {
   background-color: var(--zenithui-day-picker-selected-bg);
   color: var(--zenithui-day-picker-selected-text-color);
 }
 
-.zenithui-day[data-selected="true"]:not([data-selected-custom="true"]):hover {
+.zenithui-day[data-selected="true"]:hover {
   background-color: var(--zenithui-day-picker-selected-bg-hover);
   color: var(--zenithui-day-picker-selected-text-color);
 }
 
 /* Range Start */
-.zenithui-day[data-range-start="true"]:not([data-range-start-custom="true"]) {
+.zenithui-day[data-range-start="true"] {
   background-color: var(--zenithui-day-picker-selected-bg);
   color: var(--zenithui-day-picker-selected-text-color);
   border-radius: 6px 0 0 6px;
 }
 
-.zenithui-day[data-range-end="true"]:not([data-range-end-custom="true"]) {
+.zenithui-day[data-range-end="true"] {
   background-color: var(--zenithui-day-picker-selected-bg);
   color: var(--zenithui-day-picker-selected-text-color);
   border-radius: 0 6px 6px 0;
 }
 
 /* In-Range Dates */
-.zenithui-day[data-range-dates="true"]:not([data-range-dates-custom="true"]) {
+.zenithui-day[data-range-dates="true"] {
   background-color: var(--zenithui-day-picker-range-bg);
   color: var(--zenithui-day-picker-selected-text-color);
   border-radius: 0px;
 }
 
 /* Today */
-.zenithui-day[data-today="true"]:not([data-today-custom="true"]) {
+.zenithui-day[data-today="true"] {
   border: 1.5px solid var(--zenithui-day-picker-outline-color);
 }
 
 /* Outside Date */
-.zenithui-day[data-outside-date="true"]:not([data-outside-date-custom="true"]) {
+.zenithui-day[data-outside-date="true"] {
   opacity: 0.5;
 }
 

@@ -14,10 +14,17 @@
     ".": {
       "import": "./dist/index.js",
       "types": "./dist/index.d.ts"
+    },
+    "./style.css": {
+      "import": "./dist/index.css"
     }
   },
   "files": [
-    "dist"
+    "dist",
+    "dist/index.css"
+  ],
+  "sideEffects": [
+    "dist/index.css"
   ],
   "scripts": {
     "prepack": "node ./scripts/update-deps.js",
@@ -50,13 +57,11 @@
     "@storybook/blocks": "^8.6.7",
     "@storybook/react": "^8.6.7",
     "@storybook/test": "^8.6.7",
-    "@tailwindcss/postcss": "^4.0.7",
     "@types/node": "^22.13.13",
     "rsbuild-plugin-dts": "^0.5.5",
     "storybook": "^8.6.7",
     "storybook-addon-rslib": "^1.0.0",
-    "storybook-react-rsbuild": "^1.0.0",
-    "tailwindcss": "^4.0.17"
+    "storybook-react-rsbuild": "^1.0.0"
   },
   "peerDependencies": {
     "react": ">=17.0.0",

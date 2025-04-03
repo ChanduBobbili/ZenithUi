@@ -28,6 +28,10 @@ export type DayPickerclassNames = {
    */
   weekday: string
   /**
+   * The class names to apply to the months and Years.
+   */
+  months: string
+  /**
    * The class names to apply to the days.
    */
   days: string
@@ -109,7 +113,7 @@ export type Disabled = {
 
 export type InternalRange = { from: Date; to: Date | null }
 
-interface baseDayPickerProps {
+export type BaseDayPickerProps = {
   /**
    * The class names to apply to the day picker.
    * Allows partial customization of the day picker class names.
@@ -121,6 +125,12 @@ interface baseDayPickerProps {
    * If true, the navigation buttons will not be displayed.
    */
   hideNavigation?: boolean
+
+  /**
+   * Whether to disable the navigation buttons.
+   * If true, the navigation buttons will be disabled.
+   */
+  disableNavigation?: boolean
 
   /**
    * Whether to hide the weekdays.
@@ -149,7 +159,7 @@ interface baseDayPickerProps {
   disabled?: Partial<Disabled>
 }
 
-interface singleDayPickerProps extends baseDayPickerProps {
+export type SingleDayPickerProps = {
   /**
    * The date that is currently selected.
    * Can be a single date or a range of dates.
@@ -167,7 +177,7 @@ interface singleDayPickerProps extends baseDayPickerProps {
   mode: "single"
 }
 
-interface rangeDayPickerProps extends baseDayPickerProps {
+export type RangeDayPickerProps = {
   /**
    * The date that is currently selected.
    * Can be a single date or a range of dates.
@@ -188,11 +198,13 @@ interface rangeDayPickerProps extends baseDayPickerProps {
 /**
  * Props for the DayPicker component.
  */
-export type DayPickerProps = singleDayPickerProps | rangeDayPickerProps
+export type DayPickerProps =
+  | (BaseDayPickerProps & SingleDayPickerProps)
+  | (BaseDayPickerProps & RangeDayPickerProps)
 
 export type DayPickerContextProps = {
   selected: Date | DateRange | null
-  onSelect: (date: Date | DateRange) => void
+  onSelect: ((date: Date) => void) | ((date: DateRange) => void)
   mode: DatePickerMode
   currentMonth: Date
   setCurrentMonth: (date: Date) => void
@@ -202,6 +214,7 @@ export type DayPickerContextProps = {
   setRange: (range: InternalRange) => void
   focus: Date | null
   setFocus: (date: Date | null) => void
+  disableNavigation: boolean
   hideWeekdays: boolean
   hideOutsideDates: boolean
   classNames?: Partial<DayPickerclassNames>
