@@ -3,7 +3,7 @@ import { ComponentProps } from "react"
 import { DayPicker } from "@zenithui/day-picker"
 import { cn } from "@/lib/utils"
 
-export default function DatePicker({
+export default function Calendar({
   ...props
 }: ComponentProps<typeof DayPicker>) {
   return (

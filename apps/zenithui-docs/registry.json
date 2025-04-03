@@ -36,7 +36,7 @@
       ]
     },
     {
-      "name": "day-picker",
+      "name": "calendar",
       "type": "registry:ui",
       "dependencies": [
         "@zenithui/day-picker",
@@ -44,7 +44,7 @@
       ],
       "files": [
         {
-          "path": "registry/ui/day-picker.tsx",
+          "path": "registry/ui/calendar.tsx",
           "type": "registry:ui"
         }
       ]
