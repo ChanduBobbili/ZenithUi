@@ -194,7 +194,17 @@ export function throttle<T extends (...args: any[]) => void>(
  * @returns A deep copy of the object.
  */
 export function cloneDeep<T>(obj: T): T {
-  return JSON.parse(JSON.stringify(obj))
+  return JSON.parse(
+    JSON.stringify(obj, (_, value) => {
+      if (value instanceof Map || value instanceof Set) {
+        return undefined
+      }
+      if (value instanceof RegExp) {
+        return {} // replace RegExp with empty object
+      }
+      return value
+    }),
+  )
 }
 
 /**
@@ -286,5 +296,10 @@ export function uuid(): string {
  * @returns The capitalized string.
  */
 export function capitalize(str: string): string {
-  return str.charAt(0).toUpperCase() + str.slice(1)
+  return str
+    .split(" ")
+    .map((i) => {
+      return i.charAt(0).toUpperCase() + i.slice(1).toLocaleLowerCase()
+    })
+    .join(" ")
 }

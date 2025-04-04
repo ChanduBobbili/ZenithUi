@@ -28,7 +28,7 @@ export default defineConfig({
       "react-dom": "react-dom",
       "react/jsx-runtime": "react/jsx-runtime",
     },
-    minify: true,
+    // minify: true,
   },
   resolve: {
     alias: {
