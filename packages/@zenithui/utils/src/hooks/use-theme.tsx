@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react"
+import { useCallback, useEffect, useState } from "react"
 
 export default function useTheme() {
-  const getTheme = () => {
+  const getTheme = useCallback(() => {
     let storedTheme: string
     if (typeof window !== "undefined") {
       storedTheme = localStorage.getItem("theme") ?? ""
@@ -26,7 +26,7 @@ export default function useTheme() {
     }
 
     return storedTheme === "dark" || hasDarkClass ? "dark" : ""
-  }
+  }, [])
 
   const [theme, setTheme] = useState<"dark" | "">("")
 
@@ -66,7 +66,7 @@ export default function useTheme() {
       mediaQuery.removeEventListener("change", handleSystemThemeChange)
       localStorage.setItem = originalSetItem
     }
-  }, [])
+  }, [getTheme])
 
   return theme
 }
