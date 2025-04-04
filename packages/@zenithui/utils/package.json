@@ -29,9 +29,9 @@
     "prepublishOnly": "npm run build",
     "build": "rslib build",
     "dev": "rslib build --watch",
-    "format": "biome format .",
-    "lint": "biome lint .",
-    "lint:fix": "biome lint --write .",
+    "format": "npx @biomejs/biome format .",
+    "lint": "npx @biomejs/biome lint .",
+    "lint:fix": "npx @biomejs/biome lint --write .",
     "clean": "rm -rf dist",
     "test": "jest --config ./jest.config.ts"
   },
