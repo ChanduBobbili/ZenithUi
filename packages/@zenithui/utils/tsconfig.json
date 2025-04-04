@@ -10,6 +10,9 @@
     "moduleResolution": "bundler",
     "useDefineForClassFields": true,
     "declaration": true,
+    "types": ["jest"],
+    "esModuleInterop": true
   },
-  "include": ["src"]
+  "include": ["src"],
+  "exclude": ["tests", "**/*.test.ts", "**/__tests__/**"]
 }

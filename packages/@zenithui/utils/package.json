@@ -31,7 +31,8 @@
     "dev": "rslib build --watch",
     "format": "prettier --write .",
     "lint": "biome lint .",
-    "clean": "rm -rf dist"
+    "clean": "rm -rf dist",
+    "test": "jest --config ./jest.config.ts"
   },
   "devDependencies": {
     "@rsbuild/plugin-react": "^1.1.1",

@@ -44,7 +44,7 @@ export function sortByKey<T>(
   key: SortableKey<T>,
   order: "asc" | "desc" = "asc",
 ): T[] {
-  return array.sort((a, b) => {
+  return [...array].sort((a, b) => {
     const valueA = a[key]
     const valueB = b[key]
 
@@ -77,6 +77,16 @@ export function deepEqual(obj1: any, obj2: any): boolean {
   ) {
     return false
   }
+
+  // Handle Date instances
+  if (obj1 instanceof Date && obj2 instanceof Date) {
+    return obj1.getTime() === obj2.getTime()
+  }
+
+  // Prevent object vs array mismatch
+  const isArray1 = Array.isArray(obj1)
+  const isArray2 = Array.isArray(obj2)
+  if (isArray1 !== isArray2) return false
 
   const keys1 = Object.keys(obj1)
   const keys2 = Object.keys(obj2)
@@ -146,9 +156,9 @@ export function debounce<T extends (...args: any[]) => void>(
   func: T,
   delay: number,
 ): (...args: Parameters<T>) => void {
-  let timeout: NodeJS.Timeout
+  let timeout: ReturnType<typeof setTimeout> | null = null
   return (...args: Parameters<T>) => {
-    clearTimeout(timeout)
+    if (timeout) clearTimeout(timeout)
     timeout = setTimeout(() => func(...args), delay)
   }
 }
