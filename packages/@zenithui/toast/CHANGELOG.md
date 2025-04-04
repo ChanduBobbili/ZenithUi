@@ -1,5 +1,12 @@
 # @zenithui/toast
 
+## 1.0.7
+
+### Patch Changes
+
+- Updated dependencies
+  - @zenithui/utils@0.2.2
+
 ## 1.0.6
 
 ### Patch Changes

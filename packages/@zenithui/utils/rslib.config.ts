@@ -5,14 +5,20 @@ import { pluginDts } from "rsbuild-plugin-dts"
 export default defineConfig({
   source: {
     entry: {
-      index: ["./src/**"],
+      index: ["./src/index.ts"],
     },
+    exclude: ["tests", "**/*.test.ts", "**/__tests__/**"],
   },
   lib: [
     {
-      bundle: false,
+      bundle: true,
       dts: true,
       format: "esm",
+    },
+    {
+      bundle: true,
+      dts: true,
+      format: "cjs",
     },
   ],
   output: {
@@ -22,6 +28,7 @@ export default defineConfig({
       "react-dom": "react-dom",
       "react/jsx-runtime": "react/jsx-runtime",
     },
+    // minify: true,
   },
   resolve: {
     alias: {

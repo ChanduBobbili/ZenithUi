@@ -44,7 +44,7 @@ export function sortByKey<T>(
   key: SortableKey<T>,
   order: "asc" | "desc" = "asc",
 ): T[] {
-  return array.sort((a, b) => {
+  return [...array].sort((a, b) => {
     const valueA = a[key]
     const valueB = b[key]
 
@@ -77,6 +77,16 @@ export function deepEqual(obj1: any, obj2: any): boolean {
   ) {
     return false
   }
+
+  // Handle Date instances
+  if (obj1 instanceof Date && obj2 instanceof Date) {
+    return obj1.getTime() === obj2.getTime()
+  }
+
+  // Prevent object vs array mismatch
+  const isArray1 = Array.isArray(obj1)
+  const isArray2 = Array.isArray(obj2)
+  if (isArray1 !== isArray2) return false
 
   const keys1 = Object.keys(obj1)
   const keys2 = Object.keys(obj2)
@@ -146,9 +156,9 @@ export function debounce<T extends (...args: any[]) => void>(
   func: T,
   delay: number,
 ): (...args: Parameters<T>) => void {
-  let timeout: NodeJS.Timeout
+  let timeout: ReturnType<typeof setTimeout> | null = null
   return (...args: Parameters<T>) => {
-    clearTimeout(timeout)
+    if (timeout) clearTimeout(timeout)
     timeout = setTimeout(() => func(...args), delay)
   }
 }
@@ -184,7 +194,17 @@ export function throttle<T extends (...args: any[]) => void>(
  * @returns A deep copy of the object.
  */
 export function cloneDeep<T>(obj: T): T {
-  return JSON.parse(JSON.stringify(obj))
+  return JSON.parse(
+    JSON.stringify(obj, (_, value) => {
+      if (value instanceof Map || value instanceof Set) {
+        return undefined
+      }
+      if (value instanceof RegExp) {
+        return {} // replace RegExp with empty object
+      }
+      return value
+    }),
+  )
 }
 
 /**
@@ -276,5 +296,10 @@ export function uuid(): string {
  * @returns The capitalized string.
  */
 export function capitalize(str: string): string {
-  return str.charAt(0).toUpperCase() + str.slice(1)
+  return str
+    .split(" ")
+    .map((i) => {
+      return i.charAt(0).toUpperCase() + i.slice(1).toLocaleLowerCase()
+    })
+    .join(" ")
 }

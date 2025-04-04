@@ -1,5 +1,11 @@
 # @zenithui/utils
 
+## 0.2.2
+
+### Patch Changes
+
+- Fixed cloneDeep, capitalize, sortByKey, debounce
+
 ## 0.2.1
 
 ### Patch Changes

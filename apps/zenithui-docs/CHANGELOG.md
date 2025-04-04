@@ -1,5 +1,15 @@
 # zenithui-docs
 
+## 1.1.14
+
+### Patch Changes
+
+- Updated dependencies
+  - @zenithui/utils@0.2.2
+  - @zenithui/day-picker@1.0.5
+  - @zenithui/time-picker@1.1.3
+  - @zenithui/toast@1.0.7
+
 ## 1.1.13
 
 ### Patch Changes
