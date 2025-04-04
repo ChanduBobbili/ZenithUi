@@ -5,31 +5,31 @@
  * @returns Merged class names.
  */
 export function cn(
-  ...classes: (
-    | string
-    | undefined
-    | null
-    | false
-    | Record<string, boolean | null | undefined>
-    | string[]
-  )[]
+	...classes: (
+		| string
+		| undefined
+		| null
+		| false
+		| Record<string, boolean | null | undefined>
+		| string[]
+	)[]
 ): string {
-  return classes
-    .flat(Infinity) // Flatten nested arrays
-    .filter(Boolean) // Remove falsy values (false, null, undefined, "")
-    .map((cls) => {
-      if (typeof cls === "object" && cls !== null && !Array.isArray(cls)) {
-        return Object.entries(cls)
-          .filter(([key, value]) => Boolean(key) && Boolean(value)) // Ensure key is a valid string and value is truthy
-          .map(([key]) => key) // Extract only the valid class names
-          .join(" ")
-      }
-      return cls
-    })
-    .join(" ")
+	return classes
+		.flat(Number.POSITIVE_INFINITY) // Flatten nested arrays
+		.filter(Boolean) // Remove falsy values (false, null, undefined, "")
+		.map((cls) => {
+			if (typeof cls === "object" && cls !== null && !Array.isArray(cls)) {
+				return Object.entries(cls)
+					.filter(([key, value]) => Boolean(key) && Boolean(value)) // Ensure key is a valid string and value is truthy
+					.map(([key]) => key) // Extract only the valid class names
+					.join(" ");
+			}
+			return cls;
+		})
+		.join(" ");
 }
 
-type SortableKey<T> = keyof T
+type SortableKey<T> = keyof T;
 /**
  * Sorts an array of objects by a specified key in ascending or descending order.
  *
@@ -40,18 +40,18 @@ type SortableKey<T> = keyof T
  * @returns A new array sorted by the specified key in the specified order.
  */
 export function sortByKey<T>(
-  array: T[],
-  key: SortableKey<T>,
-  order: "asc" | "desc" = "asc",
+	array: T[],
+	key: SortableKey<T>,
+	order: "asc" | "desc" = "asc",
 ): T[] {
-  return [...array].sort((a, b) => {
-    const valueA = a[key]
-    const valueB = b[key]
+	return [...array].sort((a, b) => {
+		const valueA = a[key];
+		const valueB = b[key];
 
-    if (valueA < valueB) return order === "asc" ? -1 : 1
-    if (valueA > valueB) return order === "asc" ? 1 : -1
-    return 0
-  })
+		if (valueA < valueB) return order === "asc" ? -1 : 1;
+		if (valueA > valueB) return order === "asc" ? 1 : -1;
+		return 0;
+	});
 }
 
 /**
@@ -67,39 +67,45 @@ export function sortByKey<T>(
  * @returns `true` if the two values are deeply equal, otherwise `false`.
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function deepEqual(obj1: any, obj2: any): boolean {
-  if (obj1 === obj2) return true
-  if (
-    typeof obj1 !== "object" ||
-    typeof obj2 !== "object" ||
-    obj1 === null ||
-    obj2 === null
-  ) {
-    return false
-  }
+export function deepEqual(obj1: unknown, obj2: unknown): boolean {
+	if (obj1 === obj2) return true;
+	if (
+		typeof obj1 !== "object" ||
+		typeof obj2 !== "object" ||
+		obj1 === null ||
+		obj2 === null
+	) {
+		return false;
+	}
 
-  // Handle Date instances
-  if (obj1 instanceof Date && obj2 instanceof Date) {
-    return obj1.getTime() === obj2.getTime()
-  }
+	// Handle Date instances
+	if (obj1 instanceof Date && obj2 instanceof Date) {
+		return obj1.getTime() === obj2.getTime();
+	}
 
-  // Prevent object vs array mismatch
-  const isArray1 = Array.isArray(obj1)
-  const isArray2 = Array.isArray(obj2)
-  if (isArray1 !== isArray2) return false
+	// Prevent object vs array mismatch
+	const isArray1 = Array.isArray(obj1);
+	const isArray2 = Array.isArray(obj2);
+	if (isArray1 !== isArray2) return false;
 
-  const keys1 = Object.keys(obj1)
-  const keys2 = Object.keys(obj2)
+	const keys1 = Object.keys(obj1);
+	const keys2 = Object.keys(obj2);
 
-  if (keys1.length !== keys2.length) return false
+	if (keys1.length !== keys2.length) return false;
 
-  for (const key of keys1) {
-    if (!keys2.includes(key) || !deepEqual(obj1[key], obj2[key])) {
-      return false
-    }
-  }
+	for (const key of keys1) {
+		if (
+			!keys2.includes(key) ||
+			!deepEqual(
+				(obj1 as Record<string, unknown>)[key],
+				(obj2 as Record<string, unknown>)[key],
+			)
+		) {
+			return false;
+		}
+	}
 
-  return true
+	return true;
 }
 
 /**
@@ -111,18 +117,18 @@ export function deepEqual(obj1: any, obj2: any): boolean {
  * @returns An object where the keys are the values of the specified key and the values are arrays of grouped objects.
  */
 export function groupBy<T, K extends keyof T>(
-  array: T[],
-  key: K,
+	array: T[],
+	key: K,
 ): Record<string, T[]> {
-  return array.reduce(
-    (acc, item) => {
-      const groupKey = String(item[key])
-      acc[groupKey] = acc[groupKey] || []
-      acc[groupKey].push(item)
-      return acc
-    },
-    {} as Record<string, T[]>,
-  )
+	return array.reduce(
+		(acc, item) => {
+			const groupKey = String(item[key]);
+			acc[groupKey] = acc[groupKey] || [];
+			acc[groupKey].push(item);
+			return acc;
+		},
+		{} as Record<string, T[]>,
+	);
 }
 
 /**
@@ -134,13 +140,13 @@ export function groupBy<T, K extends keyof T>(
  * @returns A new array containing only unique objects based on the specified key.
  */
 export function uniqueByKey<T, K extends keyof T>(array: T[], key: K): T[] {
-  const seen = new Set<T[K]>()
-  return array.filter((item) => {
-    const val = item[key]
-    if (seen.has(val)) return false
-    seen.add(val)
-    return true
-  })
+	const seen = new Set<T[K]>();
+	return array.filter((item) => {
+		const val = item[key];
+		if (seen.has(val)) return false;
+		seen.add(val);
+		return true;
+	});
 }
 
 /**
@@ -152,15 +158,15 @@ export function uniqueByKey<T, K extends keyof T>(array: T[], key: K): T[] {
  * @returns A new debounced function.
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function debounce<T extends (...args: any[]) => void>(
-  func: T,
-  delay: number,
+export function debounce<T extends (...args: unknown[]) => void>(
+	func: T,
+	delay: number,
 ): (...args: Parameters<T>) => void {
-  let timeout: ReturnType<typeof setTimeout> | null = null
-  return (...args: Parameters<T>) => {
-    if (timeout) clearTimeout(timeout)
-    timeout = setTimeout(() => func(...args), delay)
-  }
+	let timeout: ReturnType<typeof setTimeout> | null = null;
+	return (...args: Parameters<T>) => {
+		if (timeout) clearTimeout(timeout);
+		timeout = setTimeout(() => func(...args), delay);
+	};
 }
 
 /**
@@ -172,18 +178,18 @@ export function debounce<T extends (...args: any[]) => void>(
  * @returns A throttled function.
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function throttle<T extends (...args: any[]) => void>(
-  func: T,
-  limit: number,
+export function throttle<T extends (...args: unknown[]) => void>(
+	func: T,
+	limit: number,
 ): (...args: Parameters<T>) => void {
-  let lastCall = 0
-  return (...args: Parameters<T>) => {
-    const now = Date.now()
-    if (now - lastCall >= limit) {
-      lastCall = now
-      func(...args)
-    }
-  }
+	let lastCall = 0;
+	return (...args: Parameters<T>) => {
+		const now = Date.now();
+		if (now - lastCall >= limit) {
+			lastCall = now;
+			func(...args);
+		}
+	};
 }
 
 /**
@@ -194,17 +200,17 @@ export function throttle<T extends (...args: any[]) => void>(
  * @returns A deep copy of the object.
  */
 export function cloneDeep<T>(obj: T): T {
-  return JSON.parse(
-    JSON.stringify(obj, (_, value) => {
-      if (value instanceof Map || value instanceof Set) {
-        return undefined
-      }
-      if (value instanceof RegExp) {
-        return {} // replace RegExp with empty object
-      }
-      return value
-    }),
-  )
+	return JSON.parse(
+		JSON.stringify(obj, (_, value) => {
+			if (value instanceof Map || value instanceof Set) {
+				return undefined;
+			}
+			if (value instanceof RegExp) {
+				return {}; // replace RegExp with empty object
+			}
+			return value;
+		}),
+	);
 }
 
 /**
@@ -216,18 +222,18 @@ export function cloneDeep<T>(obj: T): T {
  * @returns A new object with only the picked keys.
  */
 export function pick<T extends object, K extends keyof T>(
-  obj: T,
-  keys: K[],
+	obj: T,
+	keys: K[],
 ): Pick<T, K> {
-  return keys.reduce(
-    (result, key) => {
-      if (key in obj) {
-        result[key] = obj[key]
-      }
-      return result
-    },
-    {} as Pick<T, K>,
-  )
+	return keys.reduce(
+		(result, key) => {
+			if (key in obj) {
+				result[key] = obj[key];
+			}
+			return result;
+		},
+		{} as Pick<T, K>,
+	);
 }
 
 /**
@@ -239,9 +245,11 @@ export function pick<T extends object, K extends keyof T>(
  * @returns A new object without the omitted keys.
  */
 export function omit<T, K extends keyof T>(obj: T, keys: K[]): Omit<T, K> {
-  const result = { ...obj }
-  keys.forEach((key) => delete result[key])
-  return result
+	const result = { ...obj };
+	for (const key of keys) {
+		delete result[key];
+	}
+	return result;
 }
 
 /**
@@ -252,7 +260,7 @@ export function omit<T, K extends keyof T>(obj: T, keys: K[]): Omit<T, K> {
  * @returns A random integer between min and max.
  */
 export function randomInt(min: number, max: number): number {
-  return Math.floor(Math.random() * (max - min + 1)) + min
+	return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
 /**
@@ -262,7 +270,7 @@ export function randomInt(min: number, max: number): number {
  * @returns A promise that resolves after the specified delay.
  */
 export function sleep(ms: number): Promise<void> {
-  return new Promise((resolve) => setTimeout(resolve, ms))
+	return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
 /**
@@ -273,11 +281,11 @@ export function sleep(ms: number): Promise<void> {
  * @returns A human-readable string.
  */
 export function formatBytes(bytes: number, decimals = 2): string {
-  if (!bytes) return "0 Bytes"
-  const k = 1024
-  const sizes = ["Bytes", "KB", "MB", "GB", "TB"]
-  const i = Math.floor(Math.log(bytes) / Math.log(k))
-  return `${parseFloat((bytes / Math.pow(k, i)).toFixed(decimals))} ${sizes[i]}`
+	if (!bytes) return "0 Bytes";
+	const k = 1024;
+	const sizes = ["Bytes", "KB", "MB", "GB", "TB"];
+	const i = Math.floor(Math.log(bytes) / Math.log(k));
+	return `${Number.parseFloat((bytes / k ** i).toFixed(decimals))} ${sizes[i]}`;
 }
 
 /**
@@ -286,7 +294,7 @@ export function formatBytes(bytes: number, decimals = 2): string {
  * @returns A random UUID string.
  */
 export function uuid(): string {
-  return crypto.randomUUID()
+	return crypto.randomUUID();
 }
 
 /**
@@ -296,10 +304,10 @@ export function uuid(): string {
  * @returns The capitalized string.
  */
 export function capitalize(str: string): string {
-  return str
-    .split(" ")
-    .map((i) => {
-      return i.charAt(0).toUpperCase() + i.slice(1).toLocaleLowerCase()
-    })
-    .join(" ")
+	return str
+		.split(" ")
+		.map((i) => {
+			return i.charAt(0).toUpperCase() + i.slice(1).toLocaleLowerCase();
+		})
+		.join(" ");
 }

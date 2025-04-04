@@ -1,33 +1,39 @@
-import { useCallback, useRef, useState } from "react"
+import { useCallback, useRef, useState } from "react";
 
 export default function useHover() {
-  const [hovering, setHovering] = useState(false)
-  const previousNode = useRef<HTMLElement | null>(null)
+	const [hovering, setHovering] = useState(false);
+	const previousNode = useRef<HTMLElement | null>(null);
 
-  const handleMouseEnter = useCallback(() => {
-    setHovering(true)
-  }, [])
+	const handleMouseEnter = useCallback(() => {
+		setHovering(true);
+	}, []);
 
-  const handleMouseLeave = useCallback(() => {
-    setHovering(false)
-  }, [])
+	const handleMouseLeave = useCallback(() => {
+		setHovering(false);
+	}, []);
 
-  const customRef = useCallback(
-    (node: HTMLElement | null) => {
-      if (previousNode.current?.nodeType === Node.ELEMENT_NODE) {
-        previousNode.current.removeEventListener("mouseenter", handleMouseEnter)
-        previousNode.current.removeEventListener("mouseleave", handleMouseLeave)
-      }
+	const customRef = useCallback(
+		(node: HTMLElement | null) => {
+			if (previousNode.current?.nodeType === Node.ELEMENT_NODE) {
+				previousNode.current.removeEventListener(
+					"mouseenter",
+					handleMouseEnter,
+				);
+				previousNode.current.removeEventListener(
+					"mouseleave",
+					handleMouseLeave,
+				);
+			}
 
-      if (node?.nodeType === Node.ELEMENT_NODE) {
-        node.addEventListener("mouseenter", handleMouseEnter)
-        node.addEventListener("mouseleave", handleMouseLeave)
-      }
+			if (node?.nodeType === Node.ELEMENT_NODE) {
+				node.addEventListener("mouseenter", handleMouseEnter);
+				node.addEventListener("mouseleave", handleMouseLeave);
+			}
 
-      previousNode.current = node
-    },
-    [handleMouseEnter, handleMouseLeave],
-  )
+			previousNode.current = node;
+		},
+		[handleMouseEnter, handleMouseLeave],
+	);
 
-  return [customRef, hovering]
+	return [customRef, hovering];
 }

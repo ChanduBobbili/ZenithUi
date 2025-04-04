@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useRef, useState } from "react";
 
 /**
  * Stores the previous value of a state or prop.
@@ -8,11 +8,11 @@ import { useEffect, useRef, useState } from "react"
  * @returns The previous value.
  */
 export function usePrevious<T>(value: T): T | undefined {
-  const ref = useRef<T>(value)
-  useEffect(() => {
-    ref.current = value
-  }, [value])
-  return ref.current
+	const ref = useRef<T>(value);
+	useEffect(() => {
+		ref.current = value;
+	}, [value]);
+	return ref.current;
 }
 
 /**
@@ -24,14 +24,14 @@ export function usePrevious<T>(value: T): T | undefined {
  * @returns The debounced value.
  */
 export function useDebounce<T>(value: T, delay: number): T {
-  const [debouncedValue, setDebouncedValue] = useState(value)
+	const [debouncedValue, setDebouncedValue] = useState(value);
 
-  useEffect(() => {
-    const handler = setTimeout(() => setDebouncedValue(value), delay)
-    return () => clearTimeout(handler)
-  }, [value, delay])
+	useEffect(() => {
+		const handler = setTimeout(() => setDebouncedValue(value), delay);
+		return () => clearTimeout(handler);
+	}, [value, delay]);
 
-  return debouncedValue
+	return debouncedValue;
 }
 
 /**
@@ -45,16 +45,16 @@ export function useDebounce<T>(value: T, delay: number): T {
  * is returned as the current state.
  */
 export function useDefault<T>(
-  initialValue: T,
-  defaultValue: T,
+	initialValue: T,
+	defaultValue: T,
 ): [T, React.Dispatch<React.SetStateAction<T>>] {
-  const [state, setState] = useState<T>(initialValue)
+	const [state, setState] = useState<T>(initialValue);
 
-  if (typeof state === "undefined" || state === null) {
-    return [defaultValue, setState]
-  }
+	if (typeof state === "undefined" || state === null) {
+		return [defaultValue, setState];
+	}
 
-  return [state, setState]
+	return [state, setState];
 }
 
 /**
@@ -66,9 +66,9 @@ export function useDefault<T>(
  * ```
  */
 export function useDocumentTitle(title: string) {
-  useEffect(() => {
-    document.title = title
-  }, [title])
+	useEffect(() => {
+		document.title = title;
+	}, [title]);
 }
 
 /**
@@ -80,19 +80,19 @@ export function useDocumentTitle(title: string) {
  * ```
  */
 export function useFavicon(url: string) {
-  useEffect(() => {
-    let link = document.querySelector(
-      `link[rel~="icon"]`,
-    ) as HTMLLinkElement | null
+	useEffect(() => {
+		let link = document.querySelector(
+			`link[rel~="icon"]`,
+		) as HTMLLinkElement | null;
 
-    if (!link) {
-      link = document.createElement("link") as HTMLLinkElement
-      link.type = "image/x-icon"
-      link.rel = "icon"
-      link.href = url
-      document.head.appendChild(link)
-    } else {
-      link.href = url
-    }
-  }, [url])
+		if (!link) {
+			link = document.createElement("link") as HTMLLinkElement;
+			link.type = "image/x-icon";
+			link.rel = "icon";
+			link.href = url;
+			document.head.appendChild(link);
+		} else {
+			link.href = url;
+		}
+	}, [url]);
 }
