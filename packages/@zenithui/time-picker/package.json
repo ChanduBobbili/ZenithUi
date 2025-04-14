@@ -67,7 +67,7 @@
     }
   },
   "engines": {
-    "pnpm": ">=9",
+    "npm": ">=9",
     "node": ">=20"
   },
   "keywords": [
