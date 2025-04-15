@@ -1,44 +1,36 @@
-import { useState, useRef, useContext } from "react"
-import { TooltipContext } from "./context"
+import { useState, useRef, useCallback } from "react"
 import {
   useFloating,
-  offset,
+  offset as floatingOffset,
   useHover,
   useFocus,
   useRole,
   useDismiss,
   useInteractions,
-  FloatingPortal,
   autoUpdate,
-  arrow as floatingArrow,
   shift,
   flip,
   safePolygon,
+  arrow as floatingArrow,
   type Placement,
 } from "@floating-ui/react"
-
-export type UseTooltipStateReturn = {
-  open: boolean
-  setOpen: React.Dispatch<React.SetStateAction<boolean>>
-  refs: ReturnType<typeof useFloating>["refs"]
-  floatingStyles: React.CSSProperties
-  getReferenceProps: ReturnType<typeof useInteractions>["getReferenceProps"]
-  getFloatingProps: ReturnType<typeof useInteractions>["getFloatingProps"]
-  placement: Placement
-  middlewareData: ReturnType<typeof useFloating>["middlewareData"]
-  arrowRef: React.RefObject<HTMLDivElement | null>
-}
+import type { OPTIONS, UseTooltipStateReturn } from "./types"
 
 export default function useTooltipState({
   placement = "top",
-  offsetValue = 6,
+  offset = 6,
   delayDuration = 700,
 }: {
-  offsetValue?: number
+  offset?: number
   placement?: Placement
   delayDuration?: number
 }): UseTooltipStateReturn {
   const [open, setOpen] = useState(false)
+  const [options, setOptions] = useState<OPTIONS>({
+    placement,
+    offset,
+    delayDuration,
+  })
   const arrowRef = useRef<HTMLDivElement | null>(null)
 
   const {
@@ -50,11 +42,11 @@ export default function useTooltipState({
   } = useFloating({
     open,
     onOpenChange: setOpen,
-    placement,
+    placement: options.placement,
     whileElementsMounted: autoUpdate,
     middleware: [
-      offset(offsetValue),
-      floatingArrow({ element: arrowRef.current }),
+      floatingOffset(options.offset),
+      floatingArrow({ element: arrowRef.current, padding: 8 }),
       shift(),
       flip(),
     ],
@@ -77,6 +69,23 @@ export default function useTooltipState({
     dismiss,
   ])
 
+  const updateOptions = useCallback((options: Partial<OPTIONS>) => {
+    setOptions((prevOptions) => ({ ...prevOptions, ...options }))
+  }, [])
+  // const getReferenceProps = useCallback(
+  //   (props: React.HTMLProps<HTMLElement> = {}) => {
+  //     return {
+  //       ...getReferenceProps(props),
+  //       ref: (node: HTMLElement) => {
+  //         refs.setReference(node)
+  //         if (typeof props.ref === "function") props.ref(node)
+  //         else if (props.ref && typeof props.ref === "object")
+  //           props.ref.current = node
+  //       },
+  //     }
+  //   },
+  //   [refs, getReferenceProps],
+  // )
   return {
     open,
     setOpen,
@@ -84,8 +93,9 @@ export default function useTooltipState({
     floatingStyles,
     getReferenceProps,
     getFloatingProps,
-    arrowRef,
-    middlewareData,
     placement: actualPlacement,
+    middlewareData,
+    arrowRef,
+    updateOptions,
   }
 }
