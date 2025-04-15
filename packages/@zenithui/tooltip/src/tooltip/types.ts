@@ -81,3 +81,17 @@ export type TooltipContentProps = HTMLAttributes<HTMLDivElement> & {
    */
   // forceMount?: true
 }
+
+export type TooltipTriggerProps = HTMLAttributes<HTMLDivElement> & {
+  /**
+   * The content to be displayed inside the tooltip.
+   */
+  children: React.ReactNode
+
+  /**
+   * When set to `true`, the tooltip trigger will inherit the behavior and styling of its child element.
+   * This allows you to use a custom component or element as the trigger while maintaining the tooltip functionality.
+   * @defaultValue false
+   */
+  asChild?: boolean
+}

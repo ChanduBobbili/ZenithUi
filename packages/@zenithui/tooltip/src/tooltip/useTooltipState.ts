@@ -50,8 +50,12 @@ export default function useTooltipState({
     middleware: [
       floatingOffset(options.offset),
       floatingArrow({ element: arrowRef.current, padding: 8 }),
-      shift(),
-      flip(),
+      shift({
+        padding: 8,
+      }),
+      flip({
+        padding: 8,
+      }),
     ],
   })
 

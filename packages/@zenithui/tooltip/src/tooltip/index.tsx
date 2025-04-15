@@ -1,8 +1,27 @@
 import { TooltipContext, TooltipProviderContext } from "./context"
-import type { TooltipContentProps, TooltipProviderProps } from "./types"
+import type {
+  TooltipContentProps,
+  TooltipProviderProps,
+  TooltipTriggerProps,
+} from "./types"
 import { FloatingPortal, type Placement } from "@floating-ui/react"
 import useTooltipState from "./useTooltipState"
 import * as React from "react"
+
+function getInitialTransform(placement: Placement) {
+  switch (placement.split("-")[0]) {
+    case "top":
+      return "translateY(5px)"
+    case "bottom":
+      return "translateY(-5px)"
+    case "left":
+      return "translateX(5px)"
+    case "right":
+      return "translateX(-5px)"
+    default:
+      return "translateY(5px)"
+  }
+}
 
 export function TooltipProvider({
   delayDuration = 700,
@@ -47,11 +66,9 @@ export function TooltipRoot({
 
 export function TooltipTrigger({
   children,
-  // asChild,
-}: {
-  children: React.ReactElement
-  // asChild?: boolean
-}) {
+  asChild,
+  ...props
+}: TooltipTriggerProps) {
   const context = React.useContext(TooltipContext)
   if (!context) throw new Error("TooltipTrigger must be used within Tooltip")
 
@@ -71,8 +88,23 @@ export function TooltipTrigger({
 
   return (
     <span
+      {...props}
       ref={refs?.setReference}
       {...getReferenceProps?.()}
+      // {...getReferenceProps?.({
+      //   ...props,
+      //   role: "tooltip-trigger",
+      //   tabIndex: 0,
+      //   onKeyDown: (e: React.KeyboardEvent) => {
+      //     if (e.key === "Enter" || e.key === " ") {
+      //       setOpen?.(true)
+      //     }
+      //     if (e.key === "Escape") {
+      //       setOpen?.(false)
+      //     }
+      //     props.onKeyDown?.(e)
+      //   },
+      // })}
     >
       {children}
     </span>
@@ -122,7 +154,7 @@ export function TooltipContent({
     const arrowX = middlewareData?.arrow?.x ?? 0
     const arrowY = middlewareData?.arrow?.y ?? 0
 
-    switch (placement) {
+    switch (placement.split("-")[0]) {
       case "top":
         return {
           ...baseStyle,
@@ -168,6 +200,9 @@ export function TooltipContent({
           className={className}
           style={{
             ...floatingStyles,
+            transition: "opacity 200ms, transform 200ms",
+            opacity: open ? 1 : 0,
+            transform: open ? "translateY(0)" : getInitialTransform(placement),
           }}
           {...getFloatingProps?.()}
           data-side={placement}
