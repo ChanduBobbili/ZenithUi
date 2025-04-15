@@ -16,6 +16,7 @@ import {
   safePolygon,
   type Placement,
 } from "@floating-ui/react"
+
 export type UseTooltipStateReturn = {
   open: boolean
   setOpen: React.Dispatch<React.SetStateAction<boolean>>
@@ -31,22 +32,19 @@ export type UseTooltipStateReturn = {
 export default function useTooltipState({
   placement = "top",
   offsetValue = 6,
+  delayDuration = 700,
 }: {
   offsetValue?: number
   placement?: Placement
+  delayDuration?: number
 }): UseTooltipStateReturn {
   const [open, setOpen] = useState(false)
   const arrowRef = useRef<HTMLDivElement | null>(null)
-  const context = useContext(TooltipContext)
-
-  if (!context) throw new Error("Tooltip must be used within a TooltipProvider")
-
-  const { delayDuration } = context
 
   const {
     refs,
     floatingStyles,
-    context: floatingContext,
+    context,
     placement: actualPlacement,
     middlewareData,
   } = useFloating({
@@ -56,21 +54,21 @@ export default function useTooltipState({
     whileElementsMounted: autoUpdate,
     middleware: [
       offset(offsetValue),
-      floatingArrow({ element: arrowRef }),
+      floatingArrow({ element: arrowRef.current }),
       shift(),
       flip(),
     ],
   })
 
-  const hover = useHover(floatingContext, {
+  const hover = useHover(context, {
     move: false,
     delay: delayDuration,
     handleClose: safePolygon(),
   })
 
-  const focus = useFocus(floatingContext)
-  const role = useRole(floatingContext, { role: "tooltip" })
-  const dismiss = useDismiss(floatingContext)
+  const focus = useFocus(context)
+  const role = useRole(context, { role: "tooltip" })
+  const dismiss = useDismiss(context)
 
   const { getReferenceProps, getFloatingProps } = useInteractions([
     hover,

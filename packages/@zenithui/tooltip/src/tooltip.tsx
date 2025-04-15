@@ -11,8 +11,15 @@ function TooltipRoot({
 }: TooltipProviderProps) {
   const context = React.useContext(TooltipContext)
   if (!context) throw new Error("Tooltip must be used within TooltipProvider")
+  const tooltipState = useTooltipState({
+    placement: "top",
+    offsetValue: 6,
+    delayDuration,
+  })
   return (
-    <TooltipContext.Provider value={{ delayDuration, disableHoverableContent }}>
+    <TooltipContext.Provider
+      value={{ delayDuration, disableHoverableContent, ...tooltipState }}
+    >
       {children}
     </TooltipContext.Provider>
   )
@@ -20,25 +27,28 @@ function TooltipRoot({
 
 function TooltipTrigger({
   children,
-  asChild,
+  // asChild,
 }: {
   children: React.ReactElement
-  asChild?: boolean
+  // asChild?: boolean
 }) {
   const context = React.useContext(TooltipContext)
   if (!context)
     throw new Error("TooltipTrigger must be used within TooltipProvider")
 
-  const { getReferenceProps, refs } = useTooltipState({})
+  const { refs, getReferenceProps } = context
 
-  if (asChild && React.isValidElement(children)) {
-    return React.cloneElement(children, refs.setReference)
-  }
+  // if (asChild && React.isValidElement(children)) {
+  //   return React.cloneElement(children, {
+  // ref: refs?.setReference,
+  //     ...getReferenceProps?.(),
+  //   })
+  // }
 
   return (
     <span
-      ref={refs.setReference}
-      {...getReferenceProps()}
+      ref={refs?.setReference}
+      {...getReferenceProps?.()}
     >
       {children}
     </span>
@@ -56,49 +66,41 @@ function TooltipContent({
   sideOffset?: number
   side?: "top" | "right" | "bottom" | "left"
 }) {
+  const context = React.useContext(TooltipContext)
+  if (!context)
+    throw new Error("TooltipContent must be used within TooltipProvider")
+
   const {
     getFloatingProps,
     refs,
     open,
-    setOpen,
     placement,
     arrowRef,
     middlewareData,
-  } = useTooltipState({ offsetValue: sideOffset, placement: side })
+    floatingStyles,
+  } = context
   return (
     <FloatingPortal>
       {open && (
         <div
-          ref={refs.setFloating}
+          ref={refs?.setFloating}
           className={className}
-          style={{
-            ...(middlewareData.arrow?.y && {
-              top: middlewareData.arrow?.y,
-            }),
-            ...(middlewareData.arrow?.x && {
-              left: middlewareData.arrow?.x,
-            }),
-            ...(middlewareData.arrow?.centerOffset && {
-              left: middlewareData.arrow?.centerOffset,
-            }),
-          }}
-          {...getFloatingProps()}
+          style={floatingStyles}
+          {...getFloatingProps?.()}
+          data-side={placement}
+          data-state={open ? "open" : "closed"}
         >
           {children}
           <div
             className="absolute h-2 w-2 rotate-45 bg-inherit"
-            style={{
-              ...(middlewareData.arrow?.y && {
-                top: "-4px",
-              }),
-              ...(middlewareData.arrow?.x && {
-                left: "-4px",
-              }),
-              ...(middlewareData.arrow?.centerOffset && {
-                left: middlewareData.arrow?.centerOffset - 4,
-              }),
-            }}
             ref={arrowRef}
+            style={{
+              position: "absolute",
+              left: middlewareData?.arrow?.x ?? 0,
+              top: middlewareData?.arrow?.y ?? 0,
+              // position opposite the side:
+              [placement?.startsWith("top") ? "bottom" : "top"]: "-4px",
+            }}
           />
         </div>
       )}
