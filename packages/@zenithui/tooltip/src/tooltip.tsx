@@ -85,20 +85,24 @@ function TooltipContent({
         <div
           ref={refs?.setFloating}
           className={className}
-          style={floatingStyles}
+          style={{
+            ...floatingStyles,
+          }}
           {...getFloatingProps?.()}
           data-side={placement}
           data-state={open ? "open" : "closed"}
         >
           {children}
           <div
-            className="absolute h-2 w-2 rotate-45 bg-inherit"
             ref={arrowRef}
             style={{
               position: "absolute",
+              width: 8,
+              height: 8,
+              backgroundColor: "inherit",
+              transform: "translate(-50%, -50%) rotate(45deg)",
               left: middlewareData?.arrow?.x ?? 0,
-              top: middlewareData?.arrow?.y ?? 0,
-              // position opposite the side:
+              bottom: middlewareData?.arrow?.y ?? 0,
               [placement?.startsWith("top") ? "bottom" : "top"]: "-4px",
             }}
           />
