@@ -1,8 +1,6 @@
 {
-	"routesDirectory": "./src/routes",
-	"generatedRouteTree": "./src/routeTree.gen.ts",
-	"routeFilePrefix": "~",
-	"routeFileIgnorePrefix": "-",
-	"quoteStyle": "double",
-	"routeFileExtensions": ["tsx"]
+  "routesDirectory": "./src/routes",
+  "generatedRouteTree": "./src/routeTree.gen.ts",
+  "quoteStyle": "double",
+  "routeFileExtensions": ["tsx"]
 }

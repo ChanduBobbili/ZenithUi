@@ -37,6 +37,7 @@
     "@zenithui/day-picker": "workspace:*",
     "@zenithui/time-picker": "workspace:*",
     "@zenithui/toast": "workspace:*",
+    "@zenithui/tooltip": "workspace:*",
     "@zenithui/utils": "workspace:*",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
