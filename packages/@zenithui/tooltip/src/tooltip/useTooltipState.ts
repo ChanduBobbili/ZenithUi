@@ -43,6 +43,9 @@ export default function useTooltipState({
     open,
     onOpenChange: setOpen,
     placement: options.placement,
+    transform: true,
+    nodeId: "tooltip",
+    strategy: "fixed",
     whileElementsMounted: autoUpdate,
     middleware: [
       floatingOffset(options.offset),

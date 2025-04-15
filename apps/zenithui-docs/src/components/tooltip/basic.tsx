@@ -14,7 +14,7 @@ export default function BasicTooltip() {
           side="top"
           // offset={50}
           className={cn(
-            "bg-card-foreground text-card z-50 rounded-sm px-3.5 py-2 text-xs",
+            "bg-card-foreground text-card z-50 rounded-sm px-3.5 py-2 text-sm",
           )}
         >
           Add to library
