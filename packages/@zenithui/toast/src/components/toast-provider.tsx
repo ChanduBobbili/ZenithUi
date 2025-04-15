@@ -1,6 +1,6 @@
 import { lazy, useCallback, useEffect, useMemo, useState } from "react"
 import { registerToast } from "./toast"
-import {
+import type {
   Toast,
   ToastOptions,
   ToastProviderProps,

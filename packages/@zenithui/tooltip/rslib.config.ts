@@ -3,14 +3,19 @@ import { defineConfig } from "@rslib/core"
 import { pluginDts } from "rsbuild-plugin-dts"
 
 export default defineConfig({
+  resolve: {
+    alias: {
+      "@": "./src",
+    },
+  },
   source: {
     entry: {
-      index: ["./src/index.ts"],
+      index: ["./src/index.tsx"],
     },
   },
   lib: [
     {
-      bundle: false,
+      bundle: true,
       dts: true,
       format: "esm",
     },
@@ -23,11 +28,6 @@ export default defineConfig({
       "react/jsx-runtime": "react/jsx-runtime",
     },
     // minify: true,
-  },
-  resolve: {
-    alias: {
-      "@": "./src",
-    },
   },
   plugins: [
     pluginReact(),

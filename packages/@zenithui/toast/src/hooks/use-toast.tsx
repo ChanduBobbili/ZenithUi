@@ -1,5 +1,5 @@
 import { createContext, useContext } from "react"
-import { ToastContextProps } from "../lib/types"
+import type { ToastContextProps } from "../lib/types"
 
 /**
  * The Context of the toast which is created using createContext from React.

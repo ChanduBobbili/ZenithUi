@@ -1,190 +1,113 @@
-// Tooltip Architecture using Floating UI with animation, theme support, delay behavior, arrow positioning, and keyboard accessibility
+import { TooltipContext } from "./context"
+import type { TooltipProviderProps } from "./type"
+import { FloatingPortal } from "@floating-ui/react"
+import useTooltipState from "./useTooltipState"
+import * as React from "react"
 
-"use client"
+function TooltipRoot({
+  delayDuration = 700,
+  disableHoverableContent = false,
+  children,
+}: TooltipProviderProps) {
+  const context = React.useContext(TooltipContext)
+  if (!context) throw new Error("Tooltip must be used within TooltipProvider")
+  return (
+    <TooltipContext.Provider value={{ delayDuration, disableHoverableContent }}>
+      {children}
+    </TooltipContext.Provider>
+  )
+}
 
-import React, {
-  createContext,
-  useContext,
-  useRef,
-  useState,
-  useId,
-  cloneElement,
-  isValidElement,
-} from "react"
-import {
-  useFloating,
-  offset,
-  useHover,
-  useFocus,
-  useRole,
-  useDismiss,
-  useInteractions,
-  FloatingPortal,
-  autoUpdate,
-  arrow as floatingArrow,
-  shift,
-  flip,
-} from "@floating-ui/react"
-import { AnimatePresence, motion } from "framer-motion"
-import clsx from "clsx"
+function TooltipTrigger({
+  children,
+  asChild,
+}: {
+  children: React.ReactElement
+  asChild?: boolean
+}) {
+  const context = React.useContext(TooltipContext)
+  if (!context)
+    throw new Error("TooltipTrigger must be used within TooltipProvider")
 
-// Context for Tooltip State
-const TooltipContext = createContext(null)
+  const { getReferenceProps, refs } = useTooltipState({})
 
-function useTooltipState({
-  delay = { open: 100, close: 100 },
-  placement = "top",
-  offsetValue = 6,
-} = {}) {
-  const [open, setOpen] = useState(false)
-  const arrowRef = useRef(null)
+  if (asChild && React.isValidElement(children)) {
+    return React.cloneElement(children, refs.setReference)
+  }
 
+  return (
+    <span
+      ref={refs.setReference}
+      {...getReferenceProps()}
+    >
+      {children}
+    </span>
+  )
+}
+
+function TooltipContent({
+  children,
+  className,
+  sideOffset = 6,
+  side = "top",
+}: {
+  children: React.ReactNode
+  className?: string
+  sideOffset?: number
+  side?: "top" | "right" | "bottom" | "left"
+}) {
   const {
+    getFloatingProps,
     refs,
-    floatingStyles,
-    context,
-    placement: actualPlacement,
-    middlewareData,
-  } = useFloating({
-    open,
-    onOpenChange: setOpen,
-    middleware: [
-      offset(offsetValue),
-      floatingArrow({ element: arrowRef }),
-      shift(),
-      flip(),
-    ],
-    placement,
-    whileElementsMounted: autoUpdate,
-  })
-
-  const hover = useHover(context, {
-    move: false,
-    delay,
-  })
-  const focus = useFocus(context)
-  const role = useRole(context, { role: "tooltip" })
-  const dismiss = useDismiss(context)
-
-  const { getReferenceProps, getFloatingProps } = useInteractions([
-    hover,
-    focus,
-    role,
-    dismiss,
-  ])
-
-  return {
     open,
     setOpen,
-    refs,
-    floatingStyles,
-    getReferenceProps,
-    getFloatingProps,
-    placement: actualPlacement,
-    middlewareData,
+    placement,
     arrowRef,
-  }
+    middlewareData,
+  } = useTooltipState({ offsetValue: sideOffset, placement: side })
+  return (
+    <FloatingPortal>
+      {open && (
+        <div
+          ref={refs.setFloating}
+          className={className}
+          style={{
+            ...(middlewareData.arrow?.y && {
+              top: middlewareData.arrow?.y,
+            }),
+            ...(middlewareData.arrow?.x && {
+              left: middlewareData.arrow?.x,
+            }),
+            ...(middlewareData.arrow?.centerOffset && {
+              left: middlewareData.arrow?.centerOffset,
+            }),
+          }}
+          {...getFloatingProps()}
+        >
+          {children}
+          <div
+            className="absolute h-2 w-2 rotate-45 bg-inherit"
+            style={{
+              ...(middlewareData.arrow?.y && {
+                top: "-4px",
+              }),
+              ...(middlewareData.arrow?.x && {
+                left: "-4px",
+              }),
+              ...(middlewareData.arrow?.centerOffset && {
+                left: middlewareData.arrow?.centerOffset - 4,
+              }),
+            }}
+            ref={arrowRef}
+          />
+        </div>
+      )}
+    </FloatingPortal>
+  )
 }
 
 export const Tooltip = {
-  Root: ({ children, delay, placement, offsetValue }) => {
-    const tooltip = useTooltipState({ delay, placement, offsetValue })
-    return (
-      <TooltipContext.Provider value={tooltip}>
-        {children}
-      </TooltipContext.Provider>
-    )
-  },
-
-  Trigger: ({ children, asChild = false }) => {
-    const context = useContext(TooltipContext)
-    if (!context)
-      throw new Error("Tooltip.Trigger must be used within Tooltip.Root")
-
-    const { refs, getReferenceProps } = context
-    const id = useId()
-
-    if (asChild && isValidElement(children)) {
-      return cloneElement(children, {
-        ref: refs.setReference,
-        "aria-describedby": id,
-        ...getReferenceProps(children.props),
-      })
-    }
-
-    return (
-      <button
-        ref={refs.setReference}
-        aria-describedby={id}
-        {...getReferenceProps()}
-      >
-        {children}
-      </button>
-    )
-  },
-
-  Content: ({ children, className = "" }) => {
-    const context = useContext(TooltipContext)
-    if (!context)
-      throw new Error("Tooltip.Content must be used within Tooltip.Root")
-
-    const {
-      open,
-      refs,
-      floatingStyles,
-      getFloatingProps,
-      middlewareData,
-      arrowRef,
-    } = context
-
-    const id = useId()
-    const staticSide = {
-      top: "bottom",
-      right: "left",
-      bottom: "top",
-      left: "right",
-    }[context.placement?.split("-")[0] ?? "top"]
-
-    return (
-      <FloatingPortal>
-        <AnimatePresence>
-          {open && (
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.95 }}
-              transition={{ duration: 0.15 }}
-              ref={refs.setFloating}
-              style={floatingStyles}
-              {...getFloatingProps({
-                id,
-                role: "tooltip",
-              })}
-              className={clsx(
-                "z-50 rounded bg-black px-2 py-1 text-sm text-white shadow-lg",
-                className,
-              )}
-            >
-              {children}
-              <div
-                ref={arrowRef}
-                className="absolute z-50 h-2 w-2 rotate-45 bg-black"
-                style={{
-                  left:
-                    middlewareData.arrow?.x != null
-                      ? `${middlewareData.arrow.x}px`
-                      : "",
-                  top:
-                    middlewareData.arrow?.y != null
-                      ? `${middlewareData.arrow.y}px`
-                      : "",
-                  [staticSide]: "-0.5rem",
-                }}
-              />
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </FloatingPortal>
-    )
-  },
+  Root: TooltipRoot,
+  Trigger: TooltipTrigger,
+  Content: TooltipContent,
 }
