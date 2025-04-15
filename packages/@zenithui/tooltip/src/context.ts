@@ -7,15 +7,3 @@ export const TooltipContext: React.Context<
 > = createContext<(Partial<UseTooltipStateReturn> & TooltipContextType) | null>(
   null,
 )
-
-export function TooltipProvider({
-  delayDuration = 700,
-  disableHoverableContent = false,
-  children,
-}: TooltipProviderProps) {
-  return (
-    <TooltipContext.Provider value={{ delayDuration, disableHoverableContent }}>
-      {children}
-    </TooltipContext.Provider>
-  )
-}

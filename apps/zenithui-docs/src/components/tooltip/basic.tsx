@@ -10,6 +10,7 @@ export default function BasicTooltip() {
         <Button variant="outline">Hover</Button>
       </Tooltip.Trigger>
       <Tooltip.Content
+        side="top"
         className={cn(
           "bg-card-foreground text-card z-50 rounded-sm px-3.5 py-2 text-xs",
         )}

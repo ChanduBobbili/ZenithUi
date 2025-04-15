@@ -4,6 +4,18 @@ import { FloatingPortal } from "@floating-ui/react"
 import useTooltipState from "./useTooltipState"
 import * as React from "react"
 
+export function TooltipProvider({
+  delayDuration = 700,
+  disableHoverableContent = false,
+  children,
+}: TooltipProviderProps) {
+  return (
+    <TooltipContext.Provider value={{ delayDuration, disableHoverableContent }}>
+      {children}
+    </TooltipContext.Provider>
+  )
+}
+
 function TooltipRoot({
   delayDuration = 700,
   disableHoverableContent = false,
@@ -33,8 +45,7 @@ function TooltipTrigger({
   // asChild?: boolean
 }) {
   const context = React.useContext(TooltipContext)
-  if (!context)
-    throw new Error("TooltipTrigger must be used within TooltipProvider")
+  if (!context) throw new Error("TooltipTrigger must be used within Tooltip")
 
   const { refs, getReferenceProps } = context
 
@@ -68,7 +79,7 @@ function TooltipContent({
 }) {
   const context = React.useContext(TooltipContext)
   if (!context)
-    throw new Error("TooltipContent must be used within TooltipProvider")
+    throw new Error("TooltipContent must be used within Tooltip")
 
   const {
     getFloatingProps,
