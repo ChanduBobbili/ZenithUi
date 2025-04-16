@@ -13,9 +13,11 @@ export type OPTIONS = {
 
 export type UseTooltipStateReturn = {
   open: boolean
+  isMounted: boolean
   setOpen: React.Dispatch<React.SetStateAction<boolean>>
   refs: ReturnType<typeof useFloating>["refs"]
   floatingStyles: React.CSSProperties
+  transitionStyles: React.CSSProperties
   getReferenceProps: ReturnType<typeof useInteractions>["getReferenceProps"]
   getFloatingProps: ReturnType<typeof useInteractions>["getFloatingProps"]
   placement: Placement

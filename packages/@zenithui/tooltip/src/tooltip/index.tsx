@@ -27,7 +27,7 @@ function getInitialTransform(
   floatingStyles?: React.CSSProperties,
 ) {
   const { x, y } = parseTransform(floatingStyles?.transform?.toString())
-  const offset = 18 // Animation offset in pixels
+  const offset = 10 // Animation offset in pixels
 
   switch (placement.split("-")[0]) {
     case "top":
@@ -148,6 +148,8 @@ export function TooltipContent({
     arrowRef,
     middlewareData,
     floatingStyles,
+    transitionStyles,
+    isMounted,
     updateOptions,
   } = context
 
@@ -214,17 +216,18 @@ export function TooltipContent({
 
   return (
     <FloatingPortal>
-      {open && (
+      {isMounted && (
         <div
           ref={refs?.setFloating}
           className={className}
           style={{
             ...floatingStyles,
-            transition: "opacity 200ms, transform 200ms",
-            opacity: open ? 1 : 0,
-            transform: open
-              ? floatingStyles?.transform
-              : getInitialTransform(placement, floatingStyles),
+            ...transitionStyles,
+            // transition: "opacity 200ms, transform 200ms",
+            // opacity: open ? 1 : 0,
+            // transform: open
+              // ? floatingStyles?.transform
+              // : getInitialTransform(placement, floatingStyles),
           }}
           {...getFloatingProps?.()}
           data-side={placement}

@@ -13,6 +13,7 @@ import {
   safePolygon,
   arrow as floatingArrow,
   type Placement,
+  useTransitionStyles,
 } from "@floating-ui/react"
 import type { OPTIONS, UseTooltipStateReturn } from "./types"
 
@@ -68,6 +69,25 @@ export default function useTooltipState({
   const focus = useFocus(context)
   const role = useRole(context, { role: "tooltip" })
   const dismiss = useDismiss(context)
+  const { isMounted, styles: transitionStyles } = useTransitionStyles(context, {
+    duration: {
+      open: 200,
+      close: 200,
+    },
+    // open: ({ placement }) => ({
+    //   transform:
+    //     placement.includes("top") || placement.includes("bottom")
+    //       ? "scale(0.5)"
+    //       : "scale(0.5)",
+    // }),
+    // close: ({ placement }) => ({
+    //   opacity: 0,
+    //   transform:
+    //     placement.includes("top") || placement.includes("bottom")
+    //       ? "scale(1.5)"
+    //       : "scale(1.5)",
+    // }),
+  })
 
   const { getReferenceProps, getFloatingProps } = useInteractions([
     hover,
@@ -104,5 +124,7 @@ export default function useTooltipState({
     middlewareData,
     arrowRef,
     updateOptions,
+    isMounted,
+    transitionStyles,
   }
 }
