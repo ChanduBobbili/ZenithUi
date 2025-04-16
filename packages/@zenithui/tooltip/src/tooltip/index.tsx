@@ -92,7 +92,7 @@ export function TooltipTrigger({
   const context = React.useContext(TooltipContext)
   if (!context) throw new Error("TooltipTrigger must be used within Tooltip")
 
-  const { refs, getReferenceProps } = context
+  const { refs, getReferenceProps, setOpen } = context
 
   //  if (asChild && React.isValidElement(children)) {
   //    return React.cloneElement(children, {
@@ -111,20 +111,17 @@ export function TooltipTrigger({
       {...props}
       ref={refs?.setReference}
       {...getReferenceProps?.()}
-      // {...getReferenceProps?.({
-      //   ...props,
-      //   role: "tooltip-trigger",
-      //   tabIndex: 0,
-      //   onKeyDown: (e: React.KeyboardEvent) => {
-      //     if (e.key === "Enter" || e.key === " ") {
-      //       setOpen?.(true)
-      //     }
-      //     if (e.key === "Escape") {
-      //       setOpen?.(false)
-      //     }
-      //     props.onKeyDown?.(e)
-      //   },
-      // })}
+      {...getReferenceProps?.({
+        ...props,
+        role: "tooltip-trigger",
+        tabIndex: 0,
+        onKeyDown: (e: React.KeyboardEvent) => {
+          if (e.key === "Escape") {
+            setOpen?.(false)
+          }
+          props.onKeyDown?.(e as React.KeyboardEvent<HTMLDivElement>)
+        },
+      })}
     >
       {children}
     </span>
@@ -226,8 +223,8 @@ export function TooltipContent({
             // transition: "opacity 200ms, transform 200ms",
             // opacity: open ? 1 : 0,
             // transform: open
-              // ? floatingStyles?.transform
-              // : getInitialTransform(placement, floatingStyles),
+            // ? floatingStyles?.transform
+            // : getInitialTransform(placement, floatingStyles),
           }}
           {...getFloatingProps?.()}
           data-side={placement}
