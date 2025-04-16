@@ -28,6 +28,12 @@ jobs:
       - name: Install Vercel CLI
         run: npm install --global vercel@latest && vercel link --repo --yes --token ${{ secrets.VERCEL_TOKEN }}
 
+      - name: Delete test route in docs
+        run: |
+          if [ -d "packages/zenithui-docs/src/app/test" ]; then
+            rm -rf packages/zenithui-docs/src/app/test
+          fi
+
       - name: Install Dependencies
         run: pnpm install
 
