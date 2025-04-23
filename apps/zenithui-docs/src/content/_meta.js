@@ -19,6 +19,11 @@ export default {
       timestamp: false, // Hide timestamp on this page
     },
   },
+  "tooltip": {
+    theme: {
+      timestamp: false, // Hide timestamp on this page
+    },
+  },
   "light-box": {
     theme: {
       timestamp: false, // Hide timestamp on this page
