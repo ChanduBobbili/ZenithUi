@@ -71,8 +71,8 @@ export default function useTooltipState({
   const dismiss = useDismiss(context)
   const { isMounted, styles: transitionStyles } = useTransitionStyles(context, {
     duration: {
-      open: 200,
-      close: 200,
+      open: 100,
+      close: 100,
     },
     // open: ({ placement }) => ({
     //   transform:
