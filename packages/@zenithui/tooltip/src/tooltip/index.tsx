@@ -8,40 +8,40 @@ import { FloatingPortal, type Placement } from "@floating-ui/react"
 import useTooltipState from "./useTooltipState"
 import * as React from "react"
 
-function parseTransform(transform?: string) {
-  if (!transform) return { x: 0, y: 0 }
+// function parseTransform(transform?: string) {
+//   if (!transform) return { x: 0, y: 0 }
 
-  // Match translate(Xpx, Ypx) pattern
-  const matches = transform.match(/translate\(([^,]+),\s*([^)]+)\)/)
-  if (matches) {
-    return {
-      x: Number.parseFloat(matches[1]),
-      y: Number.parseFloat(matches[2]),
-    }
-  }
-  return { x: 0, y: 0 }
-}
+//   // Match translate(Xpx, Ypx) pattern
+//   const matches = transform.match(/translate\(([^,]+),\s*([^)]+)\)/)
+//   if (matches) {
+//     return {
+//       x: Number.parseFloat(matches[1]),
+//       y: Number.parseFloat(matches[2]),
+//     }
+//   }
+//   return { x: 0, y: 0 }
+// }
 
-function getInitialTransform(
-  placement: Placement,
-  floatingStyles?: React.CSSProperties,
-) {
-  const { x, y } = parseTransform(floatingStyles?.transform?.toString())
-  const offset = 10 // Animation offset in pixels
+// function getInitialTransform(
+//   placement: Placement,
+//   floatingStyles?: React.CSSProperties,
+// ) {
+//   const { x, y } = parseTransform(floatingStyles?.transform?.toString())
+//   const offset = 10 // Animation offset in pixels
 
-  switch (placement.split("-")[0]) {
-    case "top":
-      return `translate(${x}px, ${y + offset}px)`
-    case "bottom":
-      return `translate(${x}px, ${y - offset}px)`
-    case "left":
-      return `translate(${x + offset}px, ${y}px)`
-    case "right":
-      return `translate(${x - offset}px, ${y}px)`
-    default:
-      return `translate(${x}px, ${y + offset}px)`
-  }
-}
+//   switch (placement.split("-")[0]) {
+//     case "top":
+//       return `translate(${x}px, ${y + offset}px)`
+//     case "bottom":
+//       return `translate(${x}px, ${y - offset}px)`
+//     case "left":
+//       return `translate(${x + offset}px, ${y}px)`
+//     case "right":
+//       return `translate(${x - offset}px, ${y}px)`
+//     default:
+//       return `translate(${x}px, ${y + offset}px)`
+//   }
+// }
 
 export function TooltipProvider({
   delayDuration = 700,
