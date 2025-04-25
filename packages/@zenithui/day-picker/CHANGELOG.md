@@ -1,5 +1,12 @@
 # @zenithui/day-picker
 
+## 1.0.6
+
+### Patch Changes
+
+- Updated dependencies
+  - @zenithui/utils@0.2.3
+
 ## 1.0.5
 
 ### Patch Changes

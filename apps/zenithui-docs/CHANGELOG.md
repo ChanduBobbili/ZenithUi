@@ -1,5 +1,16 @@
 # zenithui-docs
 
+## 1.1.15
+
+### Patch Changes
+
+- feat: add new utility hooks including useCopyToClipboard, useDeviceType, useEventListener, useGeolocation, useHover, useIntersectionObserver, useIsomorphicLayoutEffect, useMediaQuery, useTheme, and useUnmount
+- Updated dependencies
+  - @zenithui/utils@0.2.3
+  - @zenithui/day-picker@1.0.6
+  - @zenithui/time-picker@1.1.4
+  - @zenithui/toast@1.0.8
+
 ## 1.1.14
 
 ### Patch Changes
