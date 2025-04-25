@@ -1,3 +1,5 @@
+import { Table } from "nextra/components"
+
 # Utility Functions & Hooks
 
 This package provides a set of utility functions and hooks to simplify common operations in JavaScript and TypeScript projects.
@@ -275,3 +277,373 @@ The useFavicon hook updates the document's favicon dynamically, allowing for bra
 ```tsx
 useFavicon("/favicon.ico")
 ```
+
+### useCopyToClipboard
+
+The `useCopyToClipboard` hook provides a simple way to programmatically copy text to the user's clipboard. It uses the modern [Clipboard API](https://developer.mozilla.org/en-US/docs/Web/API/Clipboard_API) when available, with an optional fallback to the old-school `document.execCommand` method for broader browser support.
+
+```tsx
+import useCopyToClipboard from "@zenithui/utils"
+
+function CopyButton() {
+  const { copiedText, copyToClipboard } = useCopyToClipboard()
+
+  const handleCopy = async () => {
+    const success = await copyToClipboard("Hello world!")
+    if (success) {
+      alert("Copied to clipboard!")
+    } else {
+      alert("Failed to copy.")
+    }
+  }
+
+  return (
+    <div>
+      <button onClick={handleCopy}>Copy Text</button>
+      {copiedText && <p>Last copied: {copiedText}</p>}
+    </div>
+  )
+}
+```
+
+#### Parameters
+
+<Table>
+  <thead>
+    <Table.Tr>
+      <Table.Th>Parameter</Table.Th>
+      <Table.Th>Type</Table.Th>
+      <Table.Th>Default</Table.Th>
+      <Table.Th>Description</Table.Th>
+    </Table.Tr>
+  </thead>
+  <tbody>
+    <Table.Tr>
+      <Table.Td>**text**</Table.Td>
+      <Table.Td>`string`</Table.Td>
+      <Table.Td>-</Table.Td>
+      <Table.Td>The text string to copy to the clipboard.</Table.Td>
+    </Table.Tr>
+
+    <Table.Tr>
+      <Table.Td>**enableOldSchoolCopy**</Table.Td>
+      <Table.Td>`boolean`</Table.Td>
+      <Table.Td>`false`</Table.Td>
+      <Table.Td>Whether to enable fallback to `document.execCommand("copy")` if needed.</Table.Td>
+    </Table.Tr>
+
+  </tbody>
+</Table>
+
+#### Returned State
+
+The hook returns an object with the following properties:
+
+<Table>
+  <thead>
+    <Table.Tr>
+      <Table.Th>Parameter</Table.Th>
+      <Table.Th>Type</Table.Th>
+      <Table.Th>Description</Table.Th>
+    </Table.Tr>
+  </thead>
+  <tbody>
+    <Table.Tr>
+      <Table.Td>**copiedText**</Table.Td>
+      <Table.Td>`string`</Table.Td>
+      <Table.Td>The most recently copied text, or `null` if nothing has been copied.</Table.Td>
+    </Table.Tr>
+
+    <Table.Tr>
+      <Table.Td>**copyToClipboard**</Table.Td>
+      <Table.Td>`(text: string, enableOldSchoolCopy?: boolean) => Promise<boolean>`</Table.Td>
+      <Table.Td>Function to trigger a clipboard copy operation.</Table.Td>
+    </Table.Tr>
+
+  </tbody>
+</Table>
+
+#### Notes
+
+- The hook automatically handles clipboard support detection.
+- Use the `enableOldSchoolCopy` flag for compatibility with older browsers.
+- If the copy operation fails, a warning will be logged to the console.
+- Clipboard actions may require HTTPS or user interaction depending on the browser.
+
+This hook is ideal for implementing user-friendly copy-to-clipboard features in modern web applications.
+
+### useEventListener
+
+The `useEventListener` hook provides a flexible way to attach event listeners to DOM elements, the window, the document, or even media queries. It supports a wide range of event targets by using TypeScript overloads for strong type safety.
+
+```tsx
+import useEventListener from "@zenithui/utils"
+
+function ResizeTracker() {
+  useEventListener("resize", () => {
+    console.log("Window resized")
+  })
+
+  return <p>Resize the window and check the console.</p>
+}
+
+function ClickTracker() {
+  const buttonRef = useRef<HTMLButtonElement>(null)
+
+  useEventListener("click", () => {
+    console.log("Button clicked")
+  }, buttonRef)
+
+  return <button ref={buttonRef}>Click Me</button>
+}
+```
+
+#### Parameters
+
+| Parameter   | Type                                              | Description                                                              |
+| ----------- | ------------------------------------------------- | ------------------------------------------------------------------------ |
+| `eventName` | `string`                                          | The name of the event to listen for.                                     |
+| `handler`   | `function`                                        | A callback function to run when the event fires.                         |
+| `element`   | `RefObject<T> \| undefined`                       | Optional ref to the target DOM element, media query, or document/window. |
+| `options`   | `boolean \| AddEventListenerOptions \| undefined` | Optional event listener options.                                         |
+
+#### Event Sources Supported
+
+- **Window events** (e.g., `resize`, `scroll`)
+- **HTMLElement events** (e.g., `click`, `keydown`)
+- **SVGElement events**
+- **Document events** (e.g., `visibilitychange`, `DOMContentLoaded`)
+- **MediaQueryList events** (e.g., `change` for media query matches)
+
+#### Notes
+
+- Internally, the hook stores the event handler in a ref to avoid unnecessary re-attachments.
+- It uses `useIsomorphicLayoutEffect` for SSR compatibility.
+- Automatically cleans up the event listener when the component unmounts or dependencies change.
+
+This hook makes it straightforward to bind event listeners in a declarative way, ensuring optimal performance and type safety across various event sources.
+
+### useHover
+
+The `useHover` hook enables hover detection on a specific HTML element. It returns a callback ref that attaches mouse enter and leave listeners to the target element and a boolean value indicating the hover state.
+
+```tsx
+import useHover from "@zenithui/utils"
+
+function HoverableComponent() {
+  const [hoverRef, isHovered] = useHover()
+
+  return (
+    <div ref={hoverRef} style={{ padding: 20, backgroundColor: isHovered ? 'skyblue' : 'lightgray' }}>
+      {isHovered ? "You're hovering over me!" : "Hover over me!"}
+    </div>
+  )
+}
+```
+
+#### Returned Values
+
+<Table>
+  <thead>
+    <Table.Tr>
+      <Table.Th>Value</Table.Th>
+      <Table.Th>Type</Table.Th>
+      <Table.Th>Description</Table.Th>
+    </Table.Tr>
+  </thead>
+  <tbody>
+    <Table.Tr>
+      <Table.Td>**hoverRef**</Table.Td>
+      <Table.Td>`(node: HTMLElement | null) => void`</Table.Td>
+      <Table.Td>Callback ref to attach to the element to monitor.</Table.Td>
+    </Table.Tr>
+
+    <Table.Tr>
+      <Table.Td>**hovering**</Table.Td>
+      <Table.Td>`boolean`</Table.Td>
+      <Table.Td>Whether the element is currently being hovered.</Table.Td>
+    </Table.Tr>
+
+  </tbody>
+</Table>
+
+#### Notes
+
+- Internally, the hook attaches `mouseenter` and `mouseleave` event listeners to the target node.
+- Listeners are cleaned up automatically when the element changes.
+- This hook is useful for tooltips, hover effects, or any interaction based on pointer presence.
+
+The `useHover` hook simplifies handling hover state in React by encapsulating the event binding and cleanup logic.
+
+### useIntersectionObserver
+
+The `useIntersectionObserver` hook allows you to track the intersection of a DOM element with its parent container or the viewport using the [`Intersection Observer API`](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API). This is particularly useful for lazy-loading elements, triggering animations, or determining visibility status.
+
+```tsx
+import useIntersectionObserver from "@zenithui/utils"
+
+function VisibilityTracker() {
+  const [ref, isIntersecting] = useIntersectionObserver({ threshold: 0.5 })
+
+  return (
+    <div ref={ref} style={{ height: "200px", backgroundColor: isIntersecting ? "green" : "red" }}>
+      {isIntersecting ? "In view" : "Out of view"}
+    </div>
+  )
+}
+```
+
+#### Parameters
+
+| Parameter               | Type                                                                  | Description                                                                                                          |
+| ----------------------- | --------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- |
+| `root`                  | `Element \| null`                                                     | The element to be used as the viewport for checking visibility. Defaults to `null` (viewport is the browser window). |
+| `rootMargin`            | `string`                                                              | Margin around the root. Defaults to `0%`.                                                                            |
+| `threshold`             | `number \| number[]`                                                  | The percentage of the target's visibility required to trigger the callback. Defaults to `0`.                         |
+| `freezeOnceVisible`     | `boolean`                                                             | If `true`, the intersection state is frozen once the element becomes visible. Defaults to `false`.                   |
+| `onChange`              | `(isIntersecting: boolean, entry: IntersectionObserverEntry) => void` | Callback to be invoked when the intersection state changes.                                                          |
+| `initialIsIntersecting` | `boolean`                                                             | Initial state of the intersection. Defaults to `false`.                                                              |
+
+#### Return
+
+The hook returns a tuple with the following values:
+
+<Table>
+  <thead>
+    <Table.Tr>
+      <Table.Th>Value</Table.Th>
+      <Table.Th>Type</Table.Th>
+      <Table.Th>Description</Table.Th>
+    </Table.Tr>
+  </thead>
+  <tbody>
+    <Table.Tr>
+      <Table.Td>**ref**</Table.Td>
+      <Table.Td>`(node: Element | null) => void`</Table.Td>
+      <Table.Td>The ref callback to be attached to the observed element.</Table.Td>
+    </Table.Tr>
+
+    <Table.Tr>
+      <Table.Td>**isIntersecting**</Table.Td>
+      <Table.Td>`boolean`</Table.Td>
+      <Table.Td>A boolean indicating if the element is currently in view.</Table.Td>
+    </Table.Tr>
+
+    <Table.Tr>
+      <Table.Td>**entry**</Table.Td>
+      <Table.Td>`IntersectionObserverEntry | undefined`</Table.Td>
+      <Table.Td>The intersection observer entry providing details about the intersection.</Table.Td>
+    </Table.Tr>
+
+  </tbody>
+</Table>
+
+#### Notes
+
+- The hook automatically disconnects the observer when the component unmounts or the observed element changes.
+- You can customize the intersection behavior using various options like `root`, `rootMargin`, and `threshold`.
+- The `freezeOnceVisible` option is useful when you want to stop observing the element after it has become visible.
+
+This hook provides an easy way to integrate the Intersection Observer API into your React components, enabling powerful functionality like lazy loading, visibility detection, and more.
+
+### useIsomorphicLayoutEffect
+
+The `useIsomorphicLayoutEffect` hook is a safe, environment-aware alternative to `useLayoutEffect`. It automatically switches between `useLayoutEffect` on the client and `useEffect` on the server to prevent warnings during server-side rendering (SSR).
+
+This is particularly useful in frameworks like Next.js, where code may run on both the server and client.
+
+#### Usage
+
+```tsx
+useIsomorphicLayoutEffect(() => {
+  // Code that needs to run after DOM mutations, safely on the client
+}, [dependency1, dependency2]);
+```
+
+#### Parameters
+
+| Parameter      | Type         | Required | Description                                            |
+| -------------- | ------------ | -------- | ------------------------------------------------------ |
+| `effect`       | `Function`   | Yes      | The effect callback to be executed.                    |
+| `dependencies` | `Array<any>` | No       | Optional list of dependencies that trigger the effect. |
+
+#### Returns
+
+This hook doesn't return anything. It behaves like `useEffect` or `useLayoutEffect` depending on the execution environment.
+
+#### Notes
+
+- On the **client**, it behaves exactly like `useLayoutEffect`.
+- On the **server**, it gracefully falls back to `useEffect` to avoid hydration warnings.
+- Ideal for DOM-dependent layout calculations or effects that must run after paint.
+
+### useMediaQuery
+
+The `useMediaQuery` hook provides a way to track the state of a CSS media query in a React component. It relies on the [`Match Media API`](https://developer.mozilla.org/en-US/docs/Web/API/Window/matchMedia) and is designed to support both client-side and server-side rendering scenarios.
+
+This hook is useful for responsive designs where components need to behave differently based on screen size or other media features.
+
+#### Usage
+
+```tsx
+const isSmallScreen = useMediaQuery('(max-width: 600px)');
+
+if (isSmallScreen) {
+  // Render mobile-friendly layout
+} else {
+  // Render desktop layout
+}
+```
+
+#### Parameters
+
+| Parameter | Type                   | Required | Description                                                    |
+| --------- | ---------------------- | -------- | -------------------------------------------------------------- |
+| `query`   | `string`               | Yes      | A valid CSS media query string (e.g., `'(min-width: 768px)'`). |
+| `options` | `UseMediaQueryOptions` | No       | Optional object to customize SSR fallback and initialization.  |
+
+##### UseMediaQueryOptions
+
+| Property              | Type      | Default | Description                                                                                        |
+| --------------------- | --------- | ------- | -------------------------------------------------------------------------------------------------- |
+| `defaultValue`        | `boolean` | `false` | The default value to use on the server or when initialization is skipped.                          |
+| `initializeWithValue` | `boolean` | `true`  | Whether to initialize the state with the media query value. Should be `false` in SSR environments. |
+
+#### Returns
+
+| Type      | Description                                                          |
+| --------- | -------------------------------------------------------------------- |
+| `boolean` | Whether the media query currently matches (`true`) or not (`false`). |
+
+#### Notes
+
+- This hook supports older Safari versions by using both `addListener`/`removeListener` and `addEventListener`/`removeEventListener`.
+- It uses `useIsomorphicLayoutEffect` internally for optimal hydration safety in SSR frameworks.
+- Ideal for toggling between mobile and desktop layouts in a declarative way.
+
+### useUnmount
+
+The `useUnmount` hook allows you to run a cleanup function when a component is unmounted. This is helpful for managing side effects like event listeners, timers, or subscriptions that should be cleaned up when the component is removed from the DOM.
+
+#### Usage
+
+```tsx
+useUnmount(() => {
+  // Cleanup logic here
+});
+```
+
+#### Parameters
+
+| Parameter | Type         | Required | Description                                |
+| --------- | ------------ | -------- | ------------------------------------------ |
+| `func`    | `() => void` | Yes      | The cleanup function to be run on unmount. |
+
+#### Returns
+
+This hook does not return anything.
+
+#### Notes
+
+- The function passed to `useUnmount` will be stored in a ref to avoid unnecessary re-registrations.
+- Only runs once when the component is unmounted.
