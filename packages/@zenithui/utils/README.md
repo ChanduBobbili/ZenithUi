@@ -95,6 +95,11 @@ console.log(theme); // "dark" or ""
 - **`useDefault`** - A custom React hook that manages a state with a default fallback value.
 - **`useDocumentTitle`** - A custom React hook that sets the document's title to the specified value.
 - **`useFavicon`** - A custom React hook to dynamically update the favicon of the document.
+- **`useCopyToClipboard`** - A custom React hook that allows you to copy text to the clipboard and optionally track the copied value and copy status.
+- **`useEventListener`** - Attaches an event listener to a DOM element or window, with automatic cleanup and support for dynamic handlers.
+- **`useHover`** - Detects whether a DOM element is currently being hovered and returns a boolean indicating hover state.
+- **`useIntersectionObserver`** - Observes when an element enters or leaves the viewport using the Intersection Observer API, useful for lazy loading or animations.
+- **`useIsomorphicLayoutEffect`** - A safe version of `useLayoutEffect` that works seamlessly across client and server (SSR) environments.
 
 ---
 
