@@ -1,5 +1,11 @@
 # @zenithui/utils
 
+## 0.2.3
+
+### Patch Changes
+
+- feat: add new utility hooks including useCopyToClipboard, useDeviceType, useEventListener, useGeolocation, useHover, useIntersectionObserver, useIsomorphicLayoutEffect, useMediaQuery, useTheme, and useUnmount
+
 ## 0.2.2
 
 ### Patch Changes
