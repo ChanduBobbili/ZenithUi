@@ -7,7 +7,7 @@ export default function BasicTooltip() {
   return (
     <>
       <Tooltip.Root>
-        <Tooltip.Trigger>
+        <Tooltip.Trigger asChild>
           <Button variant="outline">Hover</Button>
         </Tooltip.Trigger>
         <Tooltip.Content

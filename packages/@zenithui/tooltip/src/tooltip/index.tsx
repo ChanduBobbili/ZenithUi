@@ -4,7 +4,11 @@ import type {
   TooltipProviderProps,
   TooltipTriggerProps,
 } from "./types"
-import { FloatingPortal, type Placement } from "@floating-ui/react"
+import {
+  FloatingPortal,
+  useMergeRefs,
+  type Placement,
+} from "@floating-ui/react"
 import useTooltipState from "./useTooltipState"
 import * as React from "react"
 
@@ -86,32 +90,50 @@ export function TooltipRoot({
 
 export function TooltipTrigger({
   children,
-  asChild,
+  asChild = false,
   ...props
 }: TooltipTriggerProps) {
   const context = React.useContext(TooltipContext)
   if (!context) throw new Error("TooltipTrigger must be used within Tooltip")
 
   const { refs, getReferenceProps, setOpen } = context
+  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+  const childrenRef = (children as any).ref
+  const ref = useMergeRefs([refs?.setReference, childrenRef])
 
-  // if (asChild && React.isValidElement(children)) {
-  //   return React.cloneElement(children, {
-  //     ref,
-  //     ...getReferenceProps({
-  //       ...props,
-  //       ...children.props,
-  //       role: "tooltip-trigger",
-  //       tabIndex: children.props.tabIndex ?? 0,
-  //       onKeyDown: (e: React.KeyboardEvent) => {
-  //         if (context.closeOnEsc && e.key === "Escape") {
-  //           setOpen?.(false)
-  //         }
-  //         props.onKeyDown?.(e)
-  //         children.props.onKeyDown?.(e)
-  //       },
-  //     }),
-  //   })
-  // }
+  if (asChild && React.isValidElement(children)) {
+    // Create a safe props object to spread
+    const childProps = children.props as Record<string, unknown>
+    const safeProps =
+      typeof childProps === "object" && childProps !== null ? childProps : {}
+
+    return React.cloneElement(
+      children as React.ReactElement<{
+        ref?: React.Ref<unknown>
+        tabIndex?: number
+        onKeyDown?: React.KeyboardEventHandler
+      }>,
+      {
+        ref,
+        ...getReferenceProps?.({
+          ...props,
+          ...safeProps,
+          role: "tooltip-trigger",
+          tabIndex:
+            "tabIndex" in safeProps ? (safeProps.tabIndex as number) : 0,
+          onKeyDown: (e: React.KeyboardEvent) => {
+            if (e.key === "Escape") {
+              setOpen?.(false)
+            }
+            props.onKeyDown?.(e as React.KeyboardEvent<HTMLDivElement>)
+            if (typeof safeProps.onKeyDown === "function") {
+              ;(safeProps.onKeyDown as React.KeyboardEventHandler)(e)
+            }
+          },
+        }),
+      },
+    )
+  }
 
   return (
     <span
