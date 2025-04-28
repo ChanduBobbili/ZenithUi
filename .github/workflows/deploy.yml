@@ -30,8 +30,8 @@ jobs:
 
       - name: Delete test route in docs
         run: |
-          if [ -d "packages/zenithui-docs/src/app/test" ]; then
-            rm -rf packages/zenithui-docs/src/app/test
+          if [ -d "apps/zenithui-docs/src/app/test" ]; then
+            rm -rf apps/zenithui-docs/src/app/test
           fi
 
       - name: Install Dependencies
