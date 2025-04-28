@@ -149,7 +149,7 @@ function TimeScrollList({
             value={option}
             aria-label={option}
             className={cn(
-              "h-12 w-12 border data-[state='on']:!bg-primary data-[state='on']:!text-white",
+              "data-[state='on']:!bg-primary h-12 w-12 border data-[state='on']:!text-white",
             )}
           >
             {option}

@@ -30,12 +30,12 @@ export type UseTooltipStateReturn = {
 
 export type TooltipContextType = Partial<UseTooltipStateReturn> & {
   delayDuration: number
-  disableHoverableContent: boolean
+  // disableHoverableContent: boolean
 }
 
 export type TooltipProviderContextType = {
   delayDuration: number
-  disableHoverableContent: boolean
+  // disableHoverableContent: boolean
 }
 
 export type TooltipProviderProps = {
@@ -48,7 +48,7 @@ export type TooltipProviderProps = {
    * When `true`, trying to hover the content will result in the tooltip closing as the pointer leaves the trigger.
    * @defaultValue false
    */
-  disableHoverableContent?: boolean
+  // disableHoverableContent?: boolean
   /**
    * The content to be displayed inside the tooltip.
    */

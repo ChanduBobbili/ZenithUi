@@ -80,7 +80,6 @@ const getToastCode = (animation: "fade" | "slide" | "enter-with-icon") => {
       return `toast.success("Toast with enter with icon animation", {
             animation: "enter-with-icon",
           })`
-    case "fade":
     default:
       return `toast.success("Toast with fade animation", {
             animation: "fade",
