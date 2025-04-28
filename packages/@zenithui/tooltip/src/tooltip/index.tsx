@@ -49,13 +49,11 @@ function getInitialTransform(
 
 export function TooltipProvider({
   delayDuration = 700,
-  disableHoverableContent = false,
+  // disableHoverableContent = false,
   children,
 }: TooltipProviderProps) {
   return (
-    <TooltipProviderContext.Provider
-      value={{ delayDuration, disableHoverableContent }}
-    >
+    <TooltipProviderContext.Provider value={{ delayDuration }}>
       {children}
     </TooltipProviderContext.Provider>
   )
@@ -63,7 +61,7 @@ export function TooltipProvider({
 
 export function TooltipRoot({
   delayDuration,
-  disableHoverableContent = false,
+  // disableHoverableContent = false,
   children,
 }: TooltipProviderProps) {
   const provider = React.useContext(TooltipProviderContext)
@@ -74,12 +72,14 @@ export function TooltipRoot({
     // Default values that can be overridden by TooltipContent
     placement: "top",
     offset: 12,
+    // disableHoverableContent:
+    // disableHoverableContent ?? provider.disableHoverableContent,
   })
   return (
     <TooltipContext.Provider
       value={{
         delayDuration: delayDuration ?? provider.delayDuration,
-        disableHoverableContent,
+        // disableHoverableContent,
         ...tooltipState,
       }}
     >

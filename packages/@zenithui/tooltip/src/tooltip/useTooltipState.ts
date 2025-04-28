@@ -21,10 +21,12 @@ export default function useTooltipState({
   placement = "top",
   offset = 6,
   delayDuration = 700,
+  disableHoverableContent,
 }: {
-  offset?: number
-  placement?: Placement
-  delayDuration?: number
+  offset: number
+  placement: Placement
+  delayDuration: number
+  disableHoverableContent?: boolean
 }): UseTooltipStateReturn {
   const [open, setOpen] = useState(false)
   const [options, setOptions] = useState<OPTIONS>({
@@ -63,7 +65,7 @@ export default function useTooltipState({
   const hover = useHover(context, {
     move: false,
     delay: delayDuration,
-    handleClose: safePolygon(),
+    handleClose: disableHoverableContent ? null : safePolygon(),
   })
 
   const focus = useFocus(context)
