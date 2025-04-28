@@ -58,8 +58,6 @@ const App = () => {
 
 ---
 
----
-
 ## Props
 
 #### `ToastProvider` Props
