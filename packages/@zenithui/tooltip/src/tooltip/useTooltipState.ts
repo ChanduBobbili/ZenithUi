@@ -72,23 +72,7 @@ export default function useTooltipState({
   const role = useRole(context, { role: "tooltip" })
   const dismiss = useDismiss(context)
   const { isMounted, styles: transitionStyles } = useTransitionStyles(context, {
-    duration: {
-      open: 100,
-      close: 100,
-    },
-    // open: ({ placement }) => ({
-    //   transform:
-    //     placement.includes("top") || placement.includes("bottom")
-    //       ? "scale(0.5)"
-    //       : "scale(0.5)",
-    // }),
-    // close: ({ placement }) => ({
-    //   opacity: 0,
-    //   transform:
-    //     placement.includes("top") || placement.includes("bottom")
-    //       ? "scale(1.5)"
-    //       : "scale(1.5)",
-    // }),
+    duration: { open: 100, close: 100 },
   })
 
   const { getReferenceProps, getFloatingProps } = useInteractions([
@@ -101,20 +85,7 @@ export default function useTooltipState({
   const updateOptions = useCallback((options: Partial<OPTIONS>) => {
     setOptions((prevOptions) => ({ ...prevOptions, ...options }))
   }, [])
-  // const getReferenceProps = useCallback(
-  //   (props: React.HTMLProps<HTMLElement> = {}) => {
-  //     return {
-  //       ...getReferenceProps(props),
-  //       ref: (node: HTMLElement) => {
-  //         refs.setReference(node)
-  //         if (typeof props.ref === "function") props.ref(node)
-  //         else if (props.ref && typeof props.ref === "object")
-  //           props.ref.current = node
-  //       },
-  //     }
-  //   },
-  //   [refs, getReferenceProps],
-  // )
+
   return {
     open,
     setOpen,
