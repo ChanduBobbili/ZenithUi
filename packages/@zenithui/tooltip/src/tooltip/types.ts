@@ -5,6 +5,8 @@ import type {
 } from "@floating-ui/react"
 import type { HTMLAttributes } from "react"
 
+export type AnimationType = "fade" | "slide" | "zoom" | "none"
+
 export type OPTIONS = {
   placement: Placement
   delayDuration: number
@@ -47,20 +49,27 @@ export type TooltipProviderProps = {
    * @defaultValue false
    */
   disableHoverableContent?: boolean
-  // /**
-  //  * The placement content of the tooltip.
-  //  * @defaultValue "top"
-  //  */
-  // placement?: Placement
+  /**
+   * The content to be displayed inside the tooltip.
+   */
   children: React.ReactNode
 }
 
-export type TooltipContentProps = HTMLAttributes<HTMLDivElement> & {
+export type TooltipTriggerProps = HTMLAttributes<HTMLDivElement> & {
   /**
    * The content to be displayed inside the tooltip.
    */
   children: React.ReactNode
 
+  /**
+   * When set to `true`, the tooltip trigger will inherit the behavior and styling of its child element.
+   * This allows you to use a custom component or element as the trigger while maintaining the tooltip functionality.
+   * @defaultValue false
+   */
+  asChild?: boolean
+}
+
+export type TooltipContentProps = HTMLAttributes<HTMLDivElement> & {
   /**
    * A custom class name to apply to the tooltip content element for styling purposes.
    */
@@ -78,22 +87,25 @@ export type TooltipContentProps = HTMLAttributes<HTMLDivElement> & {
   offset?: number
 
   /**
-   * Forces the tooltip to be mounted in the DOM, even when it is not visible.
-   * This can be useful for applying styles or animations to the tooltip.
+   * The animation type for the tooltip.
+   * @defaultValue "fade"
    */
-  // forceMount?: true
-}
+  animation?: AnimationType
 
-export type TooltipTriggerProps = HTMLAttributes<HTMLDivElement> & {
+  /**
+   * The duration of the tooltip animation in milliseconds.
+   * @defaultValue 200
+   */
+  animationDuration?: number
+
   /**
    * The content to be displayed inside the tooltip.
    */
   children: React.ReactNode
 
   /**
-   * When set to `true`, the tooltip trigger will inherit the behavior and styling of its child element.
-   * This allows you to use a custom component or element as the trigger while maintaining the tooltip functionality.
-   * @defaultValue false
+   * Forces the tooltip to be mounted in the DOM, even when it is not visible.
+   * This can be useful for applying styles or animations to the tooltip.
    */
-  asChild?: boolean
+  // forceMount?: true
 }

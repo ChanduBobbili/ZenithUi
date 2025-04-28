@@ -8,40 +8,40 @@ import { FloatingPortal, type Placement } from "@floating-ui/react"
 import useTooltipState from "./useTooltipState"
 import * as React from "react"
 
-// function parseTransform(transform?: string) {
-//   if (!transform) return { x: 0, y: 0 }
+function parseTransform(transform?: string) {
+  if (!transform) return { x: 0, y: 0 }
 
-//   // Match translate(Xpx, Ypx) pattern
-//   const matches = transform.match(/translate\(([^,]+),\s*([^)]+)\)/)
-//   if (matches) {
-//     return {
-//       x: Number.parseFloat(matches[1]),
-//       y: Number.parseFloat(matches[2]),
-//     }
-//   }
-//   return { x: 0, y: 0 }
-// }
+  // Match translate(Xpx, Ypx) pattern
+  const matches = transform.match(/translate\(([^,]+),\s*([^)]+)\)/)
+  if (matches) {
+    return {
+      x: Number.parseFloat(matches[1]),
+      y: Number.parseFloat(matches[2]),
+    }
+  }
+  return { x: 0, y: 0 }
+}
 
-// function getInitialTransform(
-//   placement: Placement,
-//   floatingStyles?: React.CSSProperties,
-// ) {
-//   const { x, y } = parseTransform(floatingStyles?.transform?.toString())
-//   const offset = 10 // Animation offset in pixels
+function getInitialTransform(
+  placement: Placement,
+  floatingStyles?: React.CSSProperties,
+) {
+  const { x, y } = parseTransform(floatingStyles?.transform?.toString())
+  const offset = 10 // Animation offset in pixels
 
-//   switch (placement.split("-")[0]) {
-//     case "top":
-//       return `translate(${x}px, ${y + offset}px)`
-//     case "bottom":
-//       return `translate(${x}px, ${y - offset}px)`
-//     case "left":
-//       return `translate(${x + offset}px, ${y}px)`
-//     case "right":
-//       return `translate(${x - offset}px, ${y}px)`
-//     default:
-//       return `translate(${x}px, ${y + offset}px)`
-//   }
-// }
+  switch (placement.split("-")[0]) {
+    case "top":
+      return `translate(${x}px, ${y + offset}px)`
+    case "bottom":
+      return `translate(${x}px, ${y - offset}px)`
+    case "left":
+      return `translate(${x + offset}px, ${y}px)`
+    case "right":
+      return `translate(${x - offset}px, ${y}px)`
+    default:
+      return `translate(${x}px, ${y + offset}px)`
+  }
+}
 
 export function TooltipProvider({
   delayDuration = 700,
@@ -94,17 +94,24 @@ export function TooltipTrigger({
 
   const { refs, getReferenceProps, setOpen } = context
 
-  //  if (asChild && React.isValidElement(children)) {
-  //    return React.cloneElement(children, {
-  //      ref: (node: HTMLElement) => {
-  //        refs?.setReference(node)
-  //        const { ref } = children
-  //        if (typeof ref === "function") ref(node)
-  //        else if (ref && typeof ref === "object") ref.current = node
-  //      },
-  //      ...getReferenceProps?.(),
-  //    })
-  //  }
+  // if (asChild && React.isValidElement(children)) {
+  //   return React.cloneElement(children, {
+  //     ref,
+  //     ...getReferenceProps({
+  //       ...props,
+  //       ...children.props,
+  //       role: "tooltip-trigger",
+  //       tabIndex: children.props.tabIndex ?? 0,
+  //       onKeyDown: (e: React.KeyboardEvent) => {
+  //         if (context.closeOnEsc && e.key === "Escape") {
+  //           setOpen?.(false)
+  //         }
+  //         props.onKeyDown?.(e)
+  //         children.props.onKeyDown?.(e)
+  //       },
+  //     }),
+  //   })
+  // }
 
   return (
     <span
@@ -132,6 +139,8 @@ export function TooltipContent({
   children,
   className,
   side = "top",
+  animation = "fade",
+  animationDuration = 200,
   offset = 12,
 }: TooltipContentProps) {
   const context = React.useContext(TooltipContext)
@@ -145,7 +154,6 @@ export function TooltipContent({
     arrowRef,
     middlewareData,
     floatingStyles,
-    transitionStyles,
     isMounted,
     updateOptions,
   } = context
@@ -211,36 +219,60 @@ export function TooltipContent({
     }
   }, [middlewareData?.arrow?.x, middlewareData?.arrow?.y, placement])
 
-  return (
+  const getAnimationStyles = () => {
+    if (animation === "none") return {}
+
+    const baseStyles = {
+      transition: `transform ${animationDuration}ms ease-out`,
+      opacity: isMounted ? 1 : 0,
+    }
+
+    switch (animation) {
+      case "fade":
+        return baseStyles
+      case "slide":
+        return {
+          ...baseStyles,
+          transform: open
+            ? floatingStyles?.transform
+            : getInitialTransform(placement, floatingStyles),
+        }
+      case "zoom":
+        return {
+          ...baseStyles,
+          transform: open
+            ? `${floatingStyles?.transform} scale(1)`
+            : `${getInitialTransform(placement, floatingStyles)} scale(0.95)`,
+        }
+      default:
+        return baseStyles
+    }
+  }
+
+  return isMounted ? (
     <FloatingPortal>
-      {isMounted && (
+      <div
+        ref={refs?.setFloating}
+        className={className}
+        style={{
+          ...floatingStyles,
+          ...getAnimationStyles(),
+        }}
+        {...getFloatingProps?.()}
+        data-side={placement}
+        data-state={open ? "open" : "closed"}
+        role="tooltip"
+      >
+        {children}
         <div
-          ref={refs?.setFloating}
-          className={className}
-          style={{
-            ...floatingStyles,
-            ...transitionStyles,
-            // transition: "opacity 200ms, transform 200ms",
-            // opacity: open ? 1 : 0,
-            // transform: open
-            // ? floatingStyles?.transform
-            // : getInitialTransform(placement, floatingStyles),
-          }}
-          {...getFloatingProps?.()}
-          data-side={placement}
-          data-state={open ? "open" : "closed"}
-        >
-          {children}
-          <div
-            ref={arrowRef}
-            style={
-              {
-                ...getArrowStyle(),
-              } as React.CSSProperties
-            }
-          />
-        </div>
-      )}
+          ref={arrowRef}
+          style={
+            {
+              ...getArrowStyle(),
+            } as React.CSSProperties
+          }
+        />
+      </div>
     </FloatingPortal>
-  )
+  ) : null
 }

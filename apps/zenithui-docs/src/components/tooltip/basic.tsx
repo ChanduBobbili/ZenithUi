@@ -12,7 +12,7 @@ export default function BasicTooltip() {
         </Tooltip.Trigger>
         <Tooltip.Content
           side="top"
-          // offset={50}
+          animation="fade"
           className={cn(
             "bg-card-foreground text-card z-50 rounded-sm px-3.5 py-2 text-sm",
           )}

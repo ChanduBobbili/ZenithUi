@@ -15,7 +15,9 @@
   },
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "prepublishOnly": "npm run build",
     "build": "rslib build",
@@ -59,6 +61,6 @@
   "author": "Chandu Bobbili <chandubobbili12@gmail.com> (https://github.com/ChanduBobbili)",
   "packageManager": "pnpm@9.5.0",
   "dependencies": {
-    "@floating-ui/react": "^0.27.7"
+    "@floating-ui/react": "^0.27.8"
   }
 }
