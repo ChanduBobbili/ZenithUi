@@ -1,5 +1,11 @@
 # zenithui-docs
 
+## 1.2.1
+
+### Patch Changes
+
+- fixed and added the tooltip component in the registry
+
 ## 1.2.0
 
 ### Minor Changes

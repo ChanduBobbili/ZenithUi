@@ -1,25 +1,52 @@
 "use client"
 
 import type { ComponentProps } from "react"
-import { Tooltip } from "@zenithui/tooltip"
+import {
+  Tooltip as TooltipPrimitive,
+  TooltipProvider as Provider,
+} from "@zenithui/tooltip"
+import { cn } from "@/lib/utils"
 
-export function TooltipRoot({
+export const TooltipProvider = Provider
+
+export function Tooltip({
+  delayDuration = 700,
   children,
   ...props
-}: ComponentProps<typeof Tooltip.Root>) {
-  return <Tooltip.Root {...props}>{children}</Tooltip.Root>
+}: ComponentProps<typeof TooltipPrimitive.Root>) {
+  return (
+    <TooltipPrimitive.Root
+      {...props}
+      delayDuration={delayDuration}
+    >
+      {children}
+    </TooltipPrimitive.Root>
+  )
 }
 
 export function TooltipTrigger({
   children,
   ...props
-}: ComponentProps<typeof Tooltip.Trigger>) {
-  return <Tooltip.Trigger {...props}>{children}</Tooltip.Trigger>
+}: ComponentProps<typeof TooltipPrimitive.Trigger>) {
+  return (
+    <TooltipPrimitive.Trigger {...props}>{children}</TooltipPrimitive.Trigger>
+  )
 }
 
 export function TooltipContent({
+  className,
   children,
   ...props
-}: ComponentProps<typeof Tooltip.Content>) {
-  return <Tooltip.Content {...props}>{children}</Tooltip.Content>
+}: ComponentProps<typeof TooltipPrimitive.Content>) {
+  return (
+    <TooltipPrimitive.Content
+      {...props}
+      className={cn(
+        "bg-card-foreground text-card z-50 rounded-sm px-3.5 py-2 text-xs",
+        className,
+      )}
+    >
+      {children}
+    </TooltipPrimitive.Content>
+  )
 }
