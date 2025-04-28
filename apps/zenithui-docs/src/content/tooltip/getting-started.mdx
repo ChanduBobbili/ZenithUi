@@ -1,15 +1,46 @@
+import { Steps } from "nextra/components"
+
 # Getting Started
 
-A ZenithUi Light Box is a React component that creates an elegant modal overlay for displaying content like images, videos, or any custom content with a clean, modern design.
-with support for animations, captions, navigation, and more.
+A flexible, accessible tooltip component built with React and Floating UI that supports animations, custom positioning.
+
+## ✨ Features
+
+- 🎯 Precise positioning using Floating UI
+- ♿ Fully accessible with proper ARIA attributes
+- 🎨 Customizable animations (fade, slide, zoom)
+- 🧩 Compound component pattern for flexible usage
+- 🏗️ Supports asChild for seamless integration with existing components
+- 🏷️ Customizable delay duration
+- 🎚️ Configurable placement and offset
 
 ## 📦 Installation
+
+<Steps>
+
+### Install the @zenithui/tooltip
 
 Install the library using your preferred package manager:
 
 ```sh npm2yarn copy
-npm install zenithui-light-box
+npm install @zenithui/tooltip
 ```
+
+### Wrap the App with the TooltipProvider
+
+```jsx filename="root.jsx"
+import { TooltipProvider } from "@zenithui/tooltip";
+
+createRoot(document.getElementById("root")!).render(
+  <StrictMode>
+    <TooltipProvider>
+      <App />
+    </TooltipProvider>
+  </StrictMode>,
+)
+```
+
+</Steps>
 
 ---
 

@@ -50,6 +50,19 @@
       ]
     },
     {
+      "name": "tooltip",
+      "type": "registry:ui",
+      "dependencies": [
+        "@zenithui/tooltip"
+      ],
+      "files": [
+        {
+          "path": "registry/ui/tooltip.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "utils",
       "type": "registry:lib",
       "dependencies": [

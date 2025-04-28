@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "tooltip",
+  "type": "registry:ui",
+  "dependencies": [
+    "@zenithui/tooltip"
+  ],
+  "files": [
+    {
+      "path": "registry/ui/tooltip.tsx",
+      "content": "\"use client\"\n\nimport type { ComponentProps } from \"react\"\nimport { Tooltip } from \"@zenithui/tooltip\"\n\nexport function TooltipRoot({\n  children,\n  ...props\n}: ComponentProps<typeof Tooltip.Root>) {\n  return <Tooltip.Root {...props}>{children}</Tooltip.Root>\n}\n\nexport function TooltipTrigger({\n  children,\n  ...props\n}: ComponentProps<typeof Tooltip.Trigger>) {\n  return <Tooltip.Trigger {...props}>{children}</Tooltip.Trigger>\n}\n\nexport function TooltipContent({\n  children,\n  ...props\n}: ComponentProps<typeof Tooltip.Content>) {\n  return <Tooltip.Content {...props}>{children}</Tooltip.Content>\n}\n",
+      "type": "registry:ui"
+    }
+  ]
+}

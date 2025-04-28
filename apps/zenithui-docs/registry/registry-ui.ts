@@ -1,4 +1,4 @@
-import { type Registry } from "shadcn/registry"
+import type { Registry } from "shadcn/registry"
 
 export const ui: Registry["items"] = [
   {
@@ -20,6 +20,17 @@ export const ui: Registry["items"] = [
     files: [
       {
         path: "ui/calendar.tsx",
+        type: "registry:ui",
+      },
+    ],
+  },
+  {
+    name: "tooltip",
+    type: "registry:ui",
+    dependencies: ["@zenithui/tooltip"],
+    files: [
+      {
+        path: "ui/tooltip.tsx",
         type: "registry:ui",
       },
     ],
