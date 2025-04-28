@@ -21,18 +21,38 @@ export default function useTooltipState({
   placement = "top",
   offset = 6,
   delayDuration = 700,
+  open: controlledOpen,
+  onOpenChange: setControlledOpen,
 }: {
   offset?: number
   placement?: Placement
   delayDuration?: number
+  open?: boolean
+  onOpenChange?: (open: boolean) => void
 }): UseTooltipStateReturn {
-  const [open, setOpen] = useState(false)
+  const [uncontrolledOpen, setUncontrolledOpen] = useState<boolean>(false)
   const [options, setOptions] = useState<OPTIONS>({
     placement,
     offset,
     delayDuration,
   })
   const arrowRef = useRef<HTMLDivElement | null>(null)
+
+  // Determine if the tooltip is controlled
+  const isControlled = typeof controlledOpen !== "undefined"
+  const open = isControlled ? controlledOpen : uncontrolledOpen
+
+  const setOpen = useCallback(
+    (newOpen: boolean) => {
+      if (!isControlled) {
+        console.log("setUncontrolledOpen(newOpen)", newOpen)
+        setUncontrolledOpen(newOpen)
+      }
+      console.log("setControlledOpen(newOpen)", newOpen)
+      setControlledOpen?.(newOpen)
+    },
+    [isControlled, setControlledOpen],
+  )
 
   const {
     refs,
@@ -64,29 +84,14 @@ export default function useTooltipState({
     move: false,
     delay: delayDuration,
     handleClose: safePolygon(),
+    enabled: !isControlled,
   })
 
   const focus = useFocus(context)
   const role = useRole(context, { role: "tooltip" })
   const dismiss = useDismiss(context)
   const { isMounted, styles: transitionStyles } = useTransitionStyles(context, {
-    duration: {
-      open: 100,
-      close: 100,
-    },
-    // open: ({ placement }) => ({
-    //   transform:
-    //     placement.includes("top") || placement.includes("bottom")
-    //       ? "scale(0.5)"
-    //       : "scale(0.5)",
-    // }),
-    // close: ({ placement }) => ({
-    //   opacity: 0,
-    //   transform:
-    //     placement.includes("top") || placement.includes("bottom")
-    //       ? "scale(1.5)"
-    //       : "scale(1.5)",
-    // }),
+    duration: { open: 100, close: 100 },
   })
 
   const { getReferenceProps, getFloatingProps } = useInteractions([
@@ -99,20 +104,7 @@ export default function useTooltipState({
   const updateOptions = useCallback((options: Partial<OPTIONS>) => {
     setOptions((prevOptions) => ({ ...prevOptions, ...options }))
   }, [])
-  // const getReferenceProps = useCallback(
-  //   (props: React.HTMLProps<HTMLElement> = {}) => {
-  //     return {
-  //       ...getReferenceProps(props),
-  //       ref: (node: HTMLElement) => {
-  //         refs.setReference(node)
-  //         if (typeof props.ref === "function") props.ref(node)
-  //         else if (props.ref && typeof props.ref === "object")
-  //           props.ref.current = node
-  //       },
-  //     }
-  //   },
-  //   [refs, getReferenceProps],
-  // )
+
   return {
     open,
     setOpen,
@@ -126,5 +118,6 @@ export default function useTooltipState({
     updateOptions,
     isMounted,
     transitionStyles,
+    isControlled,
   }
 }

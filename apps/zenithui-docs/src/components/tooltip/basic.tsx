@@ -2,11 +2,13 @@
 import { Tooltip } from "@zenithui/tooltip"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
+import { useState } from "react"
 
 export default function BasicTooltip() {
+  const [open, setOpen] = useState(false)
   return (
     <>
-      <Tooltip.Root>
+      <Tooltip.Root open={open}>
         <Tooltip.Trigger asChild>
           <Button variant="outline">Hover</Button>
         </Tooltip.Trigger>
@@ -20,6 +22,13 @@ export default function BasicTooltip() {
           Add to library
         </Tooltip.Content>
       </Tooltip.Root>
+
+      <Button
+        variant="outline"
+        onClick={() => setOpen((open) => !open)}
+      >
+        open
+      </Button>
     </>
   )
 }

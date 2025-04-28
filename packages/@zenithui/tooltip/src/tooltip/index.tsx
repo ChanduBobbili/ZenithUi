@@ -2,6 +2,7 @@ import { TooltipContext, TooltipProviderContext } from "./context"
 import type {
   TooltipContentProps,
   TooltipProviderProps,
+  TooltipRootProps,
   TooltipTriggerProps,
 } from "./types"
 import {
@@ -64,8 +65,9 @@ export function TooltipProvider({
 export function TooltipRoot({
   delayDuration,
   disableHoverableContent = false,
+  open,
   children,
-}: TooltipProviderProps) {
+}: TooltipRootProps) {
   const provider = React.useContext(TooltipProviderContext)
   if (!provider)
     throw new Error("TooltipRoot must be used within TooltipProvider")
@@ -74,6 +76,8 @@ export function TooltipRoot({
     // Default values that can be overridden by TooltipContent
     placement: "top",
     offset: 12,
+    open, // Pass controlled open state
+    // onOpenChange, // Pass controlled onOpenChange handler
   })
   return (
     <TooltipContext.Provider
@@ -96,7 +100,7 @@ export function TooltipTrigger({
   const context = React.useContext(TooltipContext)
   if (!context) throw new Error("TooltipTrigger must be used within Tooltip")
 
-  const { refs, getReferenceProps, setOpen } = context
+  const { refs, isControlled, getReferenceProps, setOpen } = context
   // biome-ignore lint/suspicious/noExplicitAny: <explanation>
   const childrenRef = (children as any).ref
   const ref = useMergeRefs([refs?.setReference, childrenRef])
@@ -130,6 +134,35 @@ export function TooltipTrigger({
               ;(safeProps.onKeyDown as React.KeyboardEventHandler)(e)
             }
           },
+          // Only add hover/focus handlers if uncontrolled
+          // ...(!isControlled
+          //   ? {
+          //       onMouseEnter: (e: React.MouseEvent) => {
+          //         props.onMouseEnter?.(e as React.MouseEvent<HTMLDivElement>)
+          //         if (typeof safeProps.onMouseEnter === "function") {
+          //           ;(safeProps.onMouseEnter as React.MouseEventHandler)(e)
+          //         }
+          //       },
+          //       onMouseLeave: (e: React.MouseEvent) => {
+          //         props.onMouseLeave?.(e as React.MouseEvent<HTMLDivElement>)
+          //         if (typeof safeProps.onMouseLeave === "function") {
+          //           ;(safeProps.onMouseLeave as React.MouseEventHandler)(e)
+          //         }
+          //       },
+          //       onFocus: (e: React.FocusEvent) => {
+          //         props.onFocus?.(e as React.FocusEvent<HTMLDivElement>)
+          //         if (typeof safeProps.onFocus === "function") {
+          //           ;(safeProps.onFocus as React.FocusEventHandler)(e)
+          //         }
+          //       },
+          //       onBlur: (e: React.FocusEvent) => {
+          //         props.onBlur?.(e as React.FocusEvent<HTMLDivElement>)
+          //         if (typeof safeProps.onBlur === "function") {
+          //           ;(safeProps.onBlur as React.FocusEventHandler)(e)
+          //         }
+          //       },
+          //     }
+          //   : {}),
         }),
       },
     )
@@ -150,6 +183,15 @@ export function TooltipTrigger({
           }
           props.onKeyDown?.(e as React.KeyboardEvent<HTMLDivElement>)
         },
+        // Only add hover/focus handlers if uncontrolled
+        // ...(!isControlled
+        //   ? {
+        //       onMouseEnter: props.onMouseEnter,
+        //       onMouseLeave: props.onMouseLeave,
+        //       onFocus: props.onFocus,
+        //       onBlur: props.onBlur,
+        //     }
+        //   : {}),
       })}
     >
       {children}

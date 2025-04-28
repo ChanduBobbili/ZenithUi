@@ -16,7 +16,7 @@ export type OPTIONS = {
 export type UseTooltipStateReturn = {
   open: boolean
   isMounted: boolean
-  setOpen: React.Dispatch<React.SetStateAction<boolean>>
+  setOpen: (newOpen: boolean) => void
   refs: ReturnType<typeof useFloating>["refs"]
   floatingStyles: React.CSSProperties
   transitionStyles: React.CSSProperties
@@ -26,6 +26,7 @@ export type UseTooltipStateReturn = {
   middlewareData: ReturnType<typeof useFloating>["middlewareData"]
   arrowRef: React.RefObject<HTMLDivElement | null>
   updateOptions: (options: Partial<OPTIONS>) => void
+  isControlled: boolean
 }
 
 export type TooltipContextType = Partial<UseTooltipStateReturn> & {
@@ -53,6 +54,19 @@ export type TooltipProviderProps = {
    * The content to be displayed inside the tooltip.
    */
   children: React.ReactNode
+}
+
+export type TooltipRootProps = TooltipProviderProps & {
+  /**
+   * The controlled open state of the tooltip.
+   * Must be used in conjunction with `onOpenChange` property.
+   */
+  open?: boolean
+
+  /**
+   * Event handler called when the open state of the tooltip changes.
+   */
+  // onOpenChange?: (open: boolean) => void
 }
 
 export type TooltipTriggerProps = HTMLAttributes<HTMLDivElement> & {
