@@ -1,5 +1,11 @@
 # zenithui-docs
 
+## 1.2.2
+
+### Patch Changes
+
+- just redeploy
+
 ## 1.2.1
 
 ### Patch Changes
