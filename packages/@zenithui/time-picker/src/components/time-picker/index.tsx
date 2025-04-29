@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react"
-import { TimePickerProps } from "../types"
+import type { TimePickerProps } from "../types"
 import {
   convertTo24Hour,
   formatTime24To12,
@@ -32,7 +32,7 @@ const TimePicker: React.FC<TimePickerProps> = ({
   const minutes = useMemo(() => generateTimeOptions(0, 59), [])
   const themeClass = useMemo(
     () => (theme === "auto" ? hookTheme : theme === "dark" ? "dark" : ""),
-    [theme],
+    [theme, hookTheme],
   )
 
   // Update time whenever hour, minute, or period changes
@@ -47,6 +47,7 @@ const TimePicker: React.FC<TimePickerProps> = ({
     <Popover>
       <PopoverTrigger asChild>
         <button
+          type="button"
           className={cn(
             themeClass,
             "zenithui-time-trigger",
@@ -95,6 +96,7 @@ const TimePicker: React.FC<TimePickerProps> = ({
 }
 
 const ClockIcon = () => (
+  // biome-ignore lint/a11y/noSvgWithoutTitle: <explanation>
   <svg
     width="15"
     height="15"
@@ -107,7 +109,7 @@ const ClockIcon = () => (
       fill="currentColor"
       fillRule="evenodd"
       clipRule="evenodd"
-    ></path>
+    />
   </svg>
 )
 

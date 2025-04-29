@@ -177,6 +177,7 @@ export function TooltipContent({
     middlewareData,
     floatingStyles,
     isMounted,
+    isPositioned,
     updateOptions,
   } = context
 
@@ -271,30 +272,32 @@ export function TooltipContent({
     }
   }
 
-  return isMounted ? (
+  return (
     <FloatingPortal>
-      <div
-        ref={refs?.setFloating}
-        className={className}
-        style={{
-          ...floatingStyles,
-          ...getAnimationStyles(),
-        }}
-        {...getFloatingProps?.()}
-        data-side={placement}
-        data-state={open ? "open" : "closed"}
-        role="tooltip"
-      >
-        {children}
+      {open ? (
         <div
-          ref={arrowRef}
-          style={
-            {
-              ...getArrowStyle(),
-            } as React.CSSProperties
-          }
-        />
-      </div>
+          ref={refs?.setFloating}
+          className={className}
+          style={{
+            ...floatingStyles,
+            ...getAnimationStyles(),
+          }}
+          {...getFloatingProps?.()}
+          data-side={placement}
+          data-state={open ? "open" : "closed"}
+          role="tooltip"
+        >
+          {children}
+          <div
+            ref={arrowRef}
+            style={
+              {
+                ...getArrowStyle(),
+              } as React.CSSProperties
+            }
+          />
+        </div>
+      ) : null}
     </FloatingPortal>
-  ) : null
+  )
 }

@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react"
-import { UseTimePickerProps } from "./types"
+import type { UseTimePickerProps } from "./types"
 import {
   convertTo24Hour,
   generateTimeOptions,

@@ -54,7 +54,8 @@ const ToggleGroupRoot = React.forwardRef<
   ) => {
     if (type === "single" && Array.isArray(value)) {
       throw new Error("ToggleGroup: value must be a string when type is single")
-    } else if (type === "multiple" && !Array.isArray(value)) {
+    }
+    if (type === "multiple" && !Array.isArray(value)) {
       throw new Error(
         "ToggleGroup: value must be an array when type is multiple",
       )
@@ -67,7 +68,7 @@ const ToggleGroupRoot = React.forwardRef<
     // useEffect to sync external state changes
     React.useEffect(() => {
       setSelectedValues(value ?? (type === "single" ? "" : []))
-    }, [value])
+    }, [value, type])
 
     // useCallback for optimized state updates
     const toggleValue = React.useCallback(
@@ -86,7 +87,7 @@ const ToggleGroupRoot = React.forwardRef<
           })
         }
       },
-      [onValueChange, type, setSelectedValues],
+      [onValueChange, type],
     )
 
     return (
@@ -96,6 +97,7 @@ const ToggleGroupRoot = React.forwardRef<
         <div
           {...props}
           ref={ref}
+          // biome-ignore lint/a11y/useSemanticElements: <explanation>
           role="group"
           className={cn(className, "toggle-group")}
         >

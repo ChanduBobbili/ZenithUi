@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react"
 import { useTheme, cn } from "@zenithui/utils"
-import { CountDownTimerProps } from "./types"
+import type { CountDownTimerProps } from "./types"
 
 const CountDownTimer: React.FC<CountDownTimerProps> = ({
   startTime,
@@ -17,7 +17,7 @@ const CountDownTimer: React.FC<CountDownTimerProps> = ({
   const hookTheme = useTheme()
   const themeClass = useMemo(
     () => (theme === "auto" ? hookTheme : theme === "dark" ? "dark" : ""),
-    [theme],
+    [theme, hookTheme],
   )
 
   useEffect(() => {
@@ -58,7 +58,7 @@ const CountDownTimer: React.FC<CountDownTimerProps> = ({
     }, 1000)
 
     return () => clearInterval(interval)
-  }, [startTime])
+  }, [startTime, format, minutes, onExpired])
 
   return description ? (
     <span className={cn(themeClass, "count-down-text", className)}>

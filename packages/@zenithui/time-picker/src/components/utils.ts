@@ -6,7 +6,7 @@
  */
 export function getInitialHour(time: string) {
   const [inputHour] = time.split(":")
-  const hour = parseInt(inputHour)
+  const hour = Number.parseInt(inputHour)
   return hour === 0
     ? "12"
     : hour > 12
@@ -22,7 +22,7 @@ export function getInitialHour(time: string) {
  */
 export function getInitialPeriod(time: string) {
   const [inputHour] = time.split(":")
-  return parseInt(inputHour) >= 12 ? "PM" : "AM"
+  return Number.parseInt(inputHour) >= 12 ? "PM" : "AM"
 }
 
 /**
@@ -33,7 +33,7 @@ export function getInitialPeriod(time: string) {
  * @returns The converted time string.
  */
 export function convertTo24Hour(hour: string, period: string) {
-  const intHour = parseInt(hour)
+  const intHour = Number.parseInt(hour)
   if (period === "PM" && intHour !== 12) return intHour + 12
   if (period === "AM" && intHour === 12) return "00"
   return hour
@@ -45,7 +45,7 @@ export function convertTo24Hour(hour: string, period: string) {
  * @returns The object with the converted hour and period.
  */
 export function convertTo12Hour(hour: string) {
-  const intHour = parseInt(hour)
+  const intHour = Number.parseInt(hour)
   const period = intHour >= 12 ? "PM" : "AM"
   const formattedHour =
     intHour === 0 ? 12 : intHour > 12 ? intHour - 12 : intHour

@@ -26,6 +26,7 @@ export type UseTooltipStateReturn = {
   middlewareData: ReturnType<typeof useFloating>["middlewareData"]
   arrowRef: React.RefObject<HTMLDivElement | null>
   updateOptions: (options: Partial<OPTIONS>) => void
+  isPositioned: boolean
 }
 
 export type TooltipContextType = Partial<UseTooltipStateReturn> & {

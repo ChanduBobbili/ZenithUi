@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react"
-import { TimeScrollListProps } from "../types"
+import type { TimeScrollListProps } from "../types"
 import { ToggleGroupItem, ToggleGroupRoot } from "../toggle-group"
 import { cn } from "@zenithui/utils"
 
