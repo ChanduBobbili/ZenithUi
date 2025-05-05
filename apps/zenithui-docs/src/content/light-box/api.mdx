@@ -1,0 +1,151 @@
+import { Table } from "nextra/components"
+
+# API
+
+---
+
+<Table>
+  <thead>
+    <Table.Tr>
+      <Table.Th>Prop Name</Table.Th>
+      <Table.Th>Type</Table.Th>
+      <Table.Th>Description</Table.Th>
+      <Table.Th>Default</Table.Th>
+    </Table.Tr>
+  </thead>
+  <tbody>
+    <Table.Tr>
+      <Table.Td>**open**</Table.Td>
+      <Table.Td>`boolean`</Table.Td>
+      <Table.Td>Controls the visibility of the lightbox.</Table.Td>
+      <Table.Td>Required</Table.Td>
+    </Table.Tr>
+
+    <Table.Tr>
+      <Table.Td>**onOpenChange**</Table.Td>
+      <Table.Td>`(date: boolean) => void`</Table.Td>
+      <Table.Td>Callback function triggered when the lightbox's visibility changes.</Table.Td>
+      <Table.Td>Required</Table.Td>
+    </Table.Tr>
+
+    <Table.Tr>
+      <Table.Td>**images**</Table.Td>
+      <Table.Td>`"LightBoxImages" | "string[]"`</Table.Td>
+      <Table.Td>Array of image objects or strings representing the images to display in the lightbox.</Table.Td>
+      <Table.Td>Required</Table.Td>
+    </Table.Tr>
+
+    <Table.Tr>
+      <Table.Td>**initialIndex**</Table.Td>
+      <Table.Td>`number`</Table.Td>
+      <Table.Td>The index of the initial image to display.</Table.Td>
+      <Table.Td>0</Table.Td>
+    </Table.Tr>
+
+    <Table.Tr>
+      <Table.Td>**showCloseButton**</Table.Td>
+      <Table.Td>`boolean`</Table.Td>
+      <Table.Td>Whether to display the close button.</Table.Td>
+      <Table.Td>`true`</Table.Td>
+    </Table.Tr>
+
+    <Table.Tr>
+      <Table.Td>**showDeleteButton**</Table.Td>
+      <Table.Td>`boolean`</Table.Td>
+      <Table.Td>Whether to display the delete button.</Table.Td>
+      <Table.Td>`false`</Table.Td>
+    </Table.Tr>
+
+    <Table.Tr>
+      <Table.Td>**showPaginationButton**</Table.Td>
+      <Table.Td>`boolean`</Table.Td>
+      <Table.Td>Whether to display pagination indicators.</Table.Td>
+      <Table.Td>`true`</Table.Td>
+    </Table.Tr>
+
+    <Table.Tr>
+      <Table.Td>**showCaption**</Table.Td>
+      <Table.Td>`boolean`</Table.Td>
+      <Table.Td>Whether to display image captions.</Table.Td>
+      <Table.Td>`false`</Table.Td>
+    </Table.Tr>
+
+    <Table.Tr>
+      <Table.Td>**animation**</Table.Td>
+      <Table.Td>`"slide" | "fade" | "stretch" | "flip" | "blur"`</Table.Td>
+      <Table.Td>Theme of the calendar.</Table.Td>
+      <Table.Td>`"auto"`</Table.Td>
+    </Table.Tr>
+
+    <Table.Tr>
+      <Table.Td>**onImageDelete**</Table.Td>
+      <Table.Td>`(index: number) => void`</Table.Td>
+      <Table.Td>Callback function triggered when an image is deleted.</Table.Td>
+      <Table.Td>optional</Table.Td>
+    </Table.Tr>
+
+
+    <Table.Tr>
+      <Table.Td>**components**</Table.Td>
+      <Table.Td>`LightBoxComponents`</Table.Td>
+      <Table.Td>Object containing components for customizing the appearance of the lightbox.</Table.Td>
+      <Table.Td>optional</Table.Td>
+    </Table.Tr>
+
+    <Table.Tr>
+      <Table.Td>**classNames**</Table.Td>
+      <Table.Td>`LightBoxClassNames`</Table.Td>
+      <Table.Td>Object containing class names for customizing the appearance of the lightbox.</Table.Td>
+      <Table.Td>optional</Table.Td>
+    </Table.Tr>
+
+  </tbody>
+</Table>
+
+---
+
+## LightBoxImages
+
+| Property             | Type     | Description                                  |
+| -------------------- | -------- | -------------------------------------------- |
+| `src`                | `string` | The source URL of the image                  |
+| `alt`                | `string` | The alternative text for the image           |
+| `caption`            | `string` | The caption text for the image               |
+| `captionDescription` | `string` | Additional description for the image caption |
+
+---
+
+## LightBoxClassNames
+
+| Property                 | Type     | Description                                 |
+| ------------------------ | -------- | ------------------------------------------- |
+| `lightBox`               | `string` | Class name for the lightbox container       |
+| `caption`                | `string` | Class name for the caption text             |
+| `captionDescription`     | `string` | Class name for the caption description text |
+| `pagination`             | `string` | Class name for the pagination container     |
+| `paginationButton`       | `string` | Class name for the pagination buttons       |
+| `paginationButtonActive` | `string` | Class name for the active pagination button |
+| `navigateButton`         | `string` | Class name for the navigation button        |
+| `navigateButtonLeft`     | `string` | Class name for the left navigation button   |
+| `navigateButtonRight`    | `string` | Class name for the right navigation button  |
+| `closeButton`            | `string` | Class name for the close button             |
+| `deleteButton`           | `string` | Class name for the delete button            |
+| `overLay`                | `string` | Class name for the overlay background       |
+| `controls`               | `string` | Class name for the controls container       |
+| `navigation`             | `string` | Class name for the navigation container     |
+| `footer`                 | `string` | Class name for the footer container         |
+
+---
+
+## LightBoxComponents
+
+| Property                    | Type                    | Description                                      |
+| --------------------------- | ----------------------- | ------------------------------------------------ |
+| `NavigationButtonLeft`      | `NavigationButtonProps` | Custom component for the navigation button left  |
+| `NavigationButtonRight`     | `NavigationButtonProps` | Custom component for the navigation button right |
+| `DeleteButton`              | `DeleteButtonProps`     | Custom component for the delete button           |
+| `CloseButton`               | `CloseButtonProps`      | Custom component for the close button            |
+| `NavigationButtonLeftIcon`  | `React.ReactNode`       | Custom icon for the navigation button left       |
+| `NavigationButtonRightIcon` | `React.ReactNode`       | Custom icon for the navigation button right      |
+| `DeleteButtonIcon`          | `React.ReactNode`       | Custom icon for the delete button                |
+| `CloseButtonIcon`           | `React.ReactNode`       | Custom icon for the close button                 |

@@ -6,8 +6,10 @@ import { Button } from "../ui/button"
 import { toast } from "@zenithui/toast"
 import CodePreview from "../code-preview"
 
-export default function BasicLightBox() {
-  const [open, setOpen] = useState<boolean>(false)
+export default function AnimationLightBox() {
+  const [animation, setAnimation] = useState<
+    "slide" | "fade" | "stretch" | "flip" | "blur" | ""
+  >("")
   const dummyImages: LightBoxImages[] = [
     {
       src: `${process.env.NEXT_PUBLIC_SITE_URL}/assets/images/spider-man-2.jpg`,
@@ -36,7 +38,7 @@ export default function BasicLightBox() {
 import { type LightBoxImages, LightBox } from "@zenithui/light-box"
 
 export default function BasicTooltip() {
-  const [open, setOpen] = useState<boolean>(false)
+  const [animation, setOpen] = useState<boolean>(false)
   const dummyImages: LightBoxImages[] = [
     {
       src: "${process.env.NEXT_PUBLIC_SITE_URL}/assets/images/spider-man-2.jpg",
@@ -74,13 +76,19 @@ export default function BasicTooltip() {
         language: "jsx",
       }}
     >
-      <div>
-        <Button onClick={() => setOpen(true)}>Open</Button>
+      <div className="flex items-center gap-2">
+        <Button onClick={() => setAnimation("slide")}>Slide</Button>
+        <Button onClick={() => setAnimation("stretch")}>Stretch</Button>
+        <Button onClick={() => setAnimation("fade")}>Fade</Button>
+        <Button onClick={() => setAnimation("flip")}>Flip</Button>
+        <Button onClick={() => setAnimation("blur")}>Blur</Button>
         <LightBox
           images={dummyImages}
-          open={open}
-          animation="slide"
-          onOpenChange={setOpen}
+          open={animation !== ""}
+          animation={animation === "" ? undefined : animation}
+          onOpenChange={(open) => {
+            setAnimation(open ? "slide" : "")
+          }}
           showCloseButton={true}
           showPagination={true}
           showDeleteButton={true}

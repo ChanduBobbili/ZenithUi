@@ -1,3 +1,5 @@
+import NPMTab from "@/components/npm-tab"
+
 # Getting Started
 
 A ZenithUi Light Box is a React component that creates an elegant modal overlay for displaying content like images, videos, or any custom content with a clean, modern design.
@@ -8,8 +10,27 @@ with support for animations, captions, navigation, and more.
 Install the library using your preferred package manager:
 
 ```sh npm2yarn copy
-npm install zenithui-light-box
+npm install @zenithui/light-box
 ```
+
+---
+
+## 🚀 Installation through Shadcn CLI
+
+To install the `lightbox` component in your application.
+
+<NPMTab path={`${process.env.NEXT_PUBLIC_SITE_URL}/r/light-box.json`} />
+
+---
+
+## ✨ Customization
+
+You can customize the behavior and appearance of the light box using the following:
+
+- Ensure that `images` is either an array of strings (URLs) or objects adhering to the `LightBoxImages` structure.
+- Use the `classNames` prop to provide custom styling for specific parts of the lightbox.
+- The component includes support for animations such as `slide`, `fade`, `stretch`.
+- Custom behavior for image deletion can be implemented using the `onImageDelete` callback.
 
 ---
 
