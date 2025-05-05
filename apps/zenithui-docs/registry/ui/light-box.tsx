@@ -67,10 +67,10 @@ export default function LightBox({
         ),
       }}
       components={{
-        DeleteButtonIcon: <Trash2 />,
-        CloseButtonIcon: <X />,
-        NavigationButtonLeftIcon: <ChevronLeft />,
-        NavigationButtonRightIcon: <ChevronRight />,
+        DeleteButtonIcon: <Trash2 className="size-1/2" />,
+        CloseButtonIcon: <X className="size-1/2" />,
+        NavigationButtonLeftIcon: <ChevronLeft className="size-1/2" />,
+        NavigationButtonRightIcon: <ChevronRight className="size-1/2" />,
       }}
       {...props}
     />

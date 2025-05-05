@@ -257,12 +257,12 @@ export function LightBox({
                 <span className={cn(classNames?.caption)}>
                   {(typeof images[currentIndex] !== "string" &&
                     images[currentIndex].caption) ??
-                    "Image caption"}
+                    ""}
                 </span>
                 <span className={cn(classNames?.captionDescription)}>
                   {(typeof images[currentIndex] !== "string" &&
                     images[currentIndex].captionDescription) ??
-                    "Image Descripton"}
+                    ""}
                 </span>
               </div>
             )}

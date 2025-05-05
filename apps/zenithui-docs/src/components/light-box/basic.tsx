@@ -3,6 +3,7 @@ import type { LightBoxImages } from "@zenithui/light-box"
 import LightBox from "../ui/light-box"
 import { useState } from "react"
 import { Button } from "../ui/button"
+import { toast } from "@zenithui/toast"
 
 export default function BasicLightBox() {
   const [open, setOpen] = useState<boolean>(false)
@@ -33,6 +34,11 @@ export default function BasicLightBox() {
         images={dummyImages}
         open={open}
         onOpenChange={setOpen}
+        showCloseButton={true}
+        showPagination={true}
+        showDeleteButton={true}
+        showCaption={true}
+        onImageDelete={() => toast.info("Trying to delete image !")}
       />
     </div>
   )
