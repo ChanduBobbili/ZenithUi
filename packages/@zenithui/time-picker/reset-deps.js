@@ -1,6 +1,6 @@
-import { readFileSync, writeFileSync } from "fs"
-import { resolve, dirname } from "path"
-import { fileURLToPath } from "url"
+import { readFileSync, writeFileSync } from "node:fs"
+import { resolve, dirname } from "node:path"
+import { fileURLToPath } from "node:url"
 
 // Correctly resolve __dirname
 const __dirname = dirname(fileURLToPath(import.meta.url))
@@ -16,4 +16,4 @@ if (packageJson.dependencies["@zenithui/utils"]) {
 
 // Write updated package.json
 writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 2))
-console.log(`Restored @zenithui/utils to workspace:*`)
+console.log("Restored @zenithui/utils to workspace:*")
