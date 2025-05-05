@@ -18,6 +18,18 @@
   "files": [
     "dist"
   ],
+  "keywords": [
+    "react",
+    "components",
+    "ui",
+    "zenithui",
+    "accessible",
+    "design-system",
+    "styled-components",
+    "styled-system",
+    "typescript",
+    "light-box"
+  ],
   "scripts": {
     "prepack": "node update-deps.js",
     "postpublish": "node reset-deps.js",
