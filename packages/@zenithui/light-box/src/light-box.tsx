@@ -3,6 +3,7 @@ import * as DialogPrimitive from "@radix-ui/react-dialog"
 import type {
   CloseButtonProps,
   DeleteButtonProps,
+  LightBoxImages,
   LightBoxProps,
   NavigationButtonProps,
   PaginationDotProps,
@@ -29,32 +30,48 @@ export function LightBox({
   components,
 }: LightBoxProps) {
   const [currentIndex, setCurrentIndex] = React.useState<number>(initialIndex)
-  const [loadedImages, setLoadedImages] = React.useState<boolean[]>([])
   const [touchStart, setTouchStart] = React.useState<number>(0)
   const [touchEnd, setTouchEnd] = React.useState<number>(0)
   const [zoomLevel, setZoomLevel] = React.useState<number>(1)
+  const [loadedImages, setLoadedImages] = React.useState<
+    Record<number, boolean>
+  >({})
+  const [errorImages, setErrorImages] = React.useState<Record<number, boolean>>(
+    {},
+  )
 
+  const imageRefs = React.useRef<(HTMLImageElement | null)[]>([])
+
+  // Initialize loaded state
   React.useEffect(() => {
-    setLoadedImages(images.map(() => false))
+    const initialLoadState: Record<number, boolean> = {}
+    images.forEach((_, index) => {
+      initialLoadState[index] = false
+    })
+    setLoadedImages(initialLoadState)
+    imageRefs.current = images.map(() => null)
   }, [images])
 
   const handleImageLoad = (index: number) => {
-    setLoadedImages((prev) => {
-      const newLoaded = [...prev]
-      newLoaded[index] = true
-      return newLoaded
-    })
+    setLoadedImages((prev) => ({
+      ...prev,
+      [index]: true,
+    }))
   }
 
-  const handlePrev = React.useCallback(() => {
-    const prevIndex = currentIndex - 1
-    setCurrentIndex(prevIndex < 0 ? images.length - 1 : prevIndex)
-  }, [images.length, currentIndex])
+  const handleImageError = (index: number) => {
+    setErrorImages((prev) => ({ ...prev, [index]: true }))
+  }
 
   const handleNext = React.useCallback(() => {
-    const prevIndex = currentIndex - 1
-    setCurrentIndex(prevIndex < 0 ? images.length - 1 : prevIndex)
-  }, [images.length, currentIndex])
+    setCurrentIndex((prev) => (prev >= images.length - 1 ? 0 : prev + 1))
+    setZoomLevel(1)
+  }, [images.length])
+
+  const handlePrev = React.useCallback(() => {
+    setCurrentIndex((prev) => (prev <= 0 ? images.length - 1 : prev - 1))
+    setZoomLevel(1)
+  }, [images.length])
 
   const handleTouchStart = (e: React.TouchEvent) => {
     setTouchStart(e.targetTouches[0].clientX)
@@ -81,16 +98,113 @@ export function LightBox({
     if (e.key === "End") setCurrentIndex(images.length - 1)
   }
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
+  React.useEffect(() => {
+    setZoomLevel(1) // Reset zoom on image change
+  }, [currentIndex])
+
   const handleZoom = (e: React.WheelEvent) => {
-    if (!zoomable) return
+    if (!zoomable || animation !== "stretch") return
 
     e.preventDefault()
     const delta = e.deltaY > 0 ? -0.1 : 0.1
-    setZoomLevel((prev) => Math.min(Math.max(prev + delta, 0.5), 3))
+    setZoomLevel((prev) => Math.min(Math.max(prev + delta, 1), 3)) // Min 1 for stretch
   }
 
   const getImageUrl = (image: string | { src: string }) =>
     typeof image !== "string" ? image.src : image
+
+  // Improved image rendering with proper loading states
+  const renderImage = (image: string | LightBoxImages, index: number) => {
+    const imageUrl = typeof image !== "string" ? image.src : image
+    return (
+      <img
+        ref={(el) => {
+          if (el) {
+            imageRefs.current[index] = el
+          }
+        }}
+        src={imageUrl}
+        alt={
+          typeof image !== "string"
+            ? image.alt || `Image ${index + 1}`
+            : `Image ${index + 1}`
+        }
+        onLoad={() => handleImageLoad(index)}
+        onError={() => handleImageError(index)}
+        style={{
+          position: "absolute",
+          top: "50%",
+          left: "50%",
+          transform: `translate(-50%, -50%) scale(${zoomLevel})`,
+          minWidth: "100%",
+          minHeight: "100%",
+          objectFit: "cover",
+          opacity: loadedImages[index] ? 1 : 0,
+          transition: `opacity ${animationDuration}ms ease, transform ${animationDuration}ms ease`,
+          willChange: "transform, opacity",
+        }}
+        className="lightbox-image"
+      />
+    )
+  }
+
+  // Stretch Animation Implementation
+  const renderStretchAnimation = () => {
+    return (
+      <>
+        {/* Background fallback for stretch effect */}
+        <div
+          style={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            width: "100%",
+            height: "100%",
+            zIndex: -2,
+            backgroundImage: `url(${getImageUrl(images[currentIndex])})`,
+            backgroundSize: "cover",
+            backgroundRepeat: "no-repeat",
+            backgroundPosition: "center",
+            opacity: loadedImages[currentIndex] ? 1 : 0,
+            transition: `opacity ${animationDuration}ms ease`,
+          }}
+        />
+
+        {/* Foreground image with zoom */}
+        <div
+          style={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            width: "100%",
+            height: "100%",
+            zIndex: -1,
+            opacity: loadedImages[currentIndex] ? 1 : 0,
+            transition: `opacity ${animationDuration}ms ease`,
+            transform: `scale(${zoomLevel})`,
+            transformOrigin: "center center",
+          }}
+        >
+          <img
+            ref={(el) => {
+              if (el) {
+                imageRefs.current[currentIndex] = el
+              }
+            }}
+            src={getImageUrl(images[currentIndex])}
+            alt=""
+            style={{
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+            }}
+            onLoad={() => handleImageLoad(currentIndex)}
+          />
+        </div>
+      </>
+    )
+  }
 
   return (
     <DialogPrimitive.Root
@@ -124,10 +238,7 @@ export function LightBox({
               "--animation-duration": `${animationDuration}ms`,
               ...(animation === "stretch"
                 ? {
-                    backgroundImage: `url(${getImageUrl(images[currentIndex])})`,
-                    backgroundSize: "cover",
-                    backgroundRepeat: "no-repeat",
-                    backgroundPosition: "center",
+                    overflow: "hidden",
                   }
                 : {}),
             } as React.CSSProperties
@@ -141,38 +252,33 @@ export function LightBox({
           <DialogPrimitive.Title style={{ display: "none" }}>
             Title
           </DialogPrimitive.Title>
-          {/* Slide Animation Image Container */}
+
+          {/* Slide Animation */}
           {animation === "slide" && (
             <div
               style={{
-                transform: `translateX(-${currentIndex * 100}%)`,
-                display: "flex",
-                zIndex: -1,
                 position: "absolute",
-                top: "0px",
-                left: "0px",
-                width: "100%",
+                top: 0,
+                left: 0,
+                display: "flex",
                 height: "100%",
+                width: "100%",
+                zIndex: -1,
+                transform: `translateX(-${currentIndex * 100}%)`,
                 transition: `transform ${animationDuration}ms ease-in-out`,
               }}
             >
               {images.map((image, index) => (
                 <div
-                  key={`image-slide-${image.toString()}-${uuid()}`}
+                  key={`image-slide-${getImageUrl(image)}-${index}`}
                   style={{
-                    backgroundImage: `url(${getImageUrl(image)})`,
-                    backgroundSize: "cover",
-                    backgroundRepeat: "no-repeat",
-                    backgroundPosition: "center",
                     flex: "0 0 100%",
-                    opacity: loadedImages[index] ? 1 : 0,
-                    transition: `opacity ${animationDuration}ms ease`,
+                    position: "relative",
+                    overflow: "hidden",
                   }}
-                  onLoad={() => {
-                    console.log("loaded")
-                    handleImageLoad(index)
-                  }}
-                />
+                >
+                  {renderImage(image, index)}
+                </div>
               ))}
             </div>
           )}
@@ -181,26 +287,22 @@ export function LightBox({
           {animation === "fade" &&
             images.map((image, index) => (
               <div
-                key={`image-fade-${image.toString()}-${uuid()}`}
+                key={`image-fade-${getImageUrl(image)}-${index}`}
                 style={{
-                  backgroundImage: `url(${getImageUrl(image)})`,
-                  backgroundSize: "cover",
-                  backgroundRepeat: "no-repeat",
-                  backgroundPosition: "center",
-                  width: "100%",
-                  height: "100%",
                   position: "absolute",
                   top: 0,
                   left: 0,
+                  width: "100%",
+                  height: "100%",
                   zIndex: -1,
                   opacity:
                     currentIndex === index ? (loadedImages[index] ? 1 : 0) : 0,
                   transition: `opacity ${animationDuration}ms ease-in-out`,
-                  transform: `scale(${zoomLevel})`,
-                  transformOrigin: "center center",
+                  pointerEvents: currentIndex === index ? "auto" : "none",
                 }}
-                onLoad={() => handleImageLoad(index)}
-              />
+              >
+                {renderImage(image, index)}
+              </div>
             ))}
 
           {/* Flip Animation */}
@@ -208,44 +310,46 @@ export function LightBox({
             <div
               style={{
                 position: "absolute",
-                top: "0px",
-                inset: "0px",
+                top: 0,
+                left: 0,
+                width: "100%",
+                height: "100%",
+                zIndex: -1,
                 transform: `${
                   currentIndex % 2 === 0 ? "rotateY(180deg)" : "rotateY(0deg)"
-                } scale(${zoomLevel})`,
-                backgroundImage: `url(${getImageUrl(images[currentIndex])})`,
-                backgroundSize: "cover",
-                backgroundRepeat: "no-repeat",
-                backgroundPosition: "center",
+                }`,
+                transition: `transform ${animationDuration}ms ease-in-out`,
                 opacity: loadedImages[currentIndex] ? 1 : 0,
-                transition: `opacity ${animationDuration}ms ease`,
               }}
-              onLoad={() => handleImageLoad(currentIndex)}
-            />
+            >
+              {renderImage(images[currentIndex], currentIndex)}
+            </div>
           )}
 
           {/* Blur Animation */}
           {animation === "blur" &&
             images.map((image, index) => (
               <div
-                key={`image-blur-${image.toString()}-${uuid()}`}
+                key={`image-blur-${getImageUrl(image)}-${index}`}
                 style={{
                   position: "absolute",
-                  inset: "0px",
-                  backgroundImage: `url(${getImageUrl(image)})`,
-                  backgroundSize: "cover",
-                  backgroundRepeat: "no-repeat",
-                  backgroundPosition: "center",
+                  top: 0,
+                  left: 0,
+                  width: "100%",
+                  height: "100%",
+                  zIndex: -1,
                   filter: currentIndex === index ? "blur(0)" : "blur(10px)",
                   transition: `filter ${animationDuration}ms ease-in-out, opacity ${animationDuration}ms ease-in-out`,
                   opacity:
                     currentIndex === index ? (loadedImages[index] ? 1 : 0) : 0,
-                  transform: `scale(${zoomLevel})`,
-                  transformOrigin: "center center",
+                  pointerEvents: currentIndex === index ? "auto" : "none",
                 }}
-                onLoad={() => handleImageLoad(index)}
-              />
+              >
+                {renderImage(image, index)}
+              </div>
             ))}
+
+          {animation === "stretch" && renderStretchAnimation()}
 
           {/* Controls */}
           <div
