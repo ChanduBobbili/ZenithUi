@@ -1,5 +1,11 @@
 # @zenithui/tooltip
 
+## 1.0.1
+
+### Patch Changes
+
+- Fixed the minor issue and Added the Arrow component
+
 ## 1.0.0
 
 ### Major Changes

@@ -1,5 +1,13 @@
 # zenithui-docs
 
+## 1.2.3
+
+### Patch Changes
+
+- Fixed the minor issue and Added the Arrow component
+- Updated dependencies
+  - @zenithui/tooltip@1.0.1
+
 ## 1.2.2
 
 ### Patch Changes
