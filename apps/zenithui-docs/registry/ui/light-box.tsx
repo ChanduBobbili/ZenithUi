@@ -16,20 +16,24 @@ export default function LightBox({
           classNames?.overLay,
         ),
         lightBox: cn(
-          "data-[state=closed]:animate-zenithui-fade-out data-[state=open]:animate-zenithui-fade-in bg-background fixed top-[50%] left-[50%] z-50 grid w-full max-w-lg translate-x-[-50%] translate-y-[-50%] gap-4 border p-6 shadow-lg duration-200 sm:rounded-lg",
+          "data-[state=closed]:animate-zenithui-fade-out data-[state=open]:animate-zenithui-fade-in bg-background fixed top-[50%] left-[50%] z-50 grid w-full max-w-lg translate-x-[-50%] translate-y-[-50%] gap-4 border shadow-lg duration-200 sm:rounded-lg",
           "flex aspect-square min-w-[35%] flex-col justify-between overflow-hidden border-0 bg-white p-6 shadow-[inset_0_0_20px_5px_rgb(0,0,0,0.25)]",
+          "data-[animation=slide]:p-0",
           classNames?.lightBox,
         ),
         controls: cn(
           "z-10 flex w-full flex-row items-center justify-end gap-4 space-y-0",
+          "data-[animation=slide]:p-4",
           classNames?.controls,
         ),
         navigation: cn(
           "z-10 flex w-full items-center justify-between",
+          "data-[animation=slide]:p-4",
           classNames?.navigation,
         ),
         footer: cn(
           "z-10 flex w-full flex-col justify-end sm:flex-col",
+          "data-[animation=slide]:p-4",
           classNames?.footer,
         ),
         caption: cn("text-2xl font-semibold text-white", classNames?.caption),
