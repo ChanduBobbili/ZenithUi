@@ -275,7 +275,7 @@ const LightBox: React.FC<LightBoxProps> = ({
         />
         <DialogPrimitive.Content
           className={cn(
-            "data-[state=closed]:animate-zenithui-fade-out data-[state=open]:animate-zenithui-fade-in fixed left-[50%] top-[50%] z-50 grid w-full max-w-lg translate-x-[-50%] translate-y-[-50%] gap-4 border bg-background p-6 shadow-lg duration-200 sm:rounded-lg",
+            "data-[state=closed]:animate-zenithui-fade-out data-[state=open]:animate-zenithui-fade-in bg-background fixed top-[50%] left-[50%] z-50 grid w-full max-w-lg translate-x-[-50%] translate-y-[-50%] gap-4 border p-6 shadow-lg duration-200 sm:rounded-lg",
             "flex aspect-square min-w-[35%] flex-col justify-between overflow-hidden border-0 bg-white p-6 shadow-[inset_0_0_20px_5px_rgb(0,0,0,0.25)]",
             classNames?.lightBox,
           )}
@@ -294,7 +294,7 @@ const LightBox: React.FC<LightBoxProps> = ({
             <>
               {/* Slide Animation Image Container */}
               <div
-                className="absolute left-0 top-0 flex h-full w-full transition-transform duration-500"
+                className="absolute top-0 left-0 flex h-full w-full transition-transform duration-500"
                 style={{
                   transform: `translateX(-${currentIndex * 100}%)`,
                   display: "flex",
@@ -316,29 +316,26 @@ const LightBox: React.FC<LightBoxProps> = ({
               </div>
             </>
           )}
-          {animation === "fade" && (
-            <>
-              {images.map((image, index) => (
-                <div
-                  key={index}
-                  style={{
-                    backgroundImage: `url(${typeof image !== "string" ? image.src : image})`,
-                    backgroundSize: "cover",
-                    backgroundRepeat: "no-repeat",
-                    backgroundPosition: "center",
-                    width: "100%",
-                    height: "100%",
-                    position: "absolute",
-                    top: 0,
-                    left: 0,
-                    zIndex: -1,
-                    opacity: currentIndex === index ? 1 : 0,
-                    transition: "opacity 1s ease-in-out", // Fade animation
-                  }}
-                />
-              ))}
-            </>
-          )}
+          {animation === "fade" &&
+            images.map((image, index) => (
+              <div
+                key={index}
+                style={{
+                  backgroundImage: `url(${typeof image !== "string" ? image.src : image})`,
+                  backgroundSize: "cover",
+                  backgroundRepeat: "no-repeat",
+                  backgroundPosition: "center",
+                  width: "100%",
+                  height: "100%",
+                  position: "absolute",
+                  top: 0,
+                  left: 0,
+                  zIndex: -1,
+                  opacity: currentIndex === index ? 1 : 0,
+                  transition: "opacity 1s ease-in-out", // Fade animation
+                }}
+              />
+            ))}
           {animation === "flip" && (
             <div
               className="absolute inset-0 z-0 transition-transform duration-500"

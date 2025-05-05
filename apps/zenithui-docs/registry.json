@@ -63,6 +63,20 @@
       ]
     },
     {
+      "name": "light-box",
+      "type": "registry:ui",
+      "dependencies": [
+        "@zenithui/light-box",
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "registry/ui/light-box.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "utils",
       "type": "registry:lib",
       "dependencies": [

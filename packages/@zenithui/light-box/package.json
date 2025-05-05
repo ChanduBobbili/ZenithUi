@@ -74,6 +74,9 @@
   },
   "license": "MIT",
   "author": "Chandu Bobbili <chandubobbili12@gmail.com> (https://github.com/ChanduBobbili)",
-  "dependencies": {},
+  "dependencies": {
+    "@radix-ui/react-dialog": "^1.1.11",
+    "@zenithui/utils": "workspace:*"
+  },
   "packageManager": "pnpm@9.5.0"
 }

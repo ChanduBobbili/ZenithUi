@@ -35,6 +35,7 @@
     "@radix-ui/react-toggle-group": "^1.1.2",
     "@vercel/speed-insights": "^1.2.0",
     "@zenithui/day-picker": "workspace:*",
+    "@zenithui/light-box": "workspace:*",
     "@zenithui/time-picker": "workspace:*",
     "@zenithui/toast": "workspace:*",
     "@zenithui/tooltip": "workspace:*",
