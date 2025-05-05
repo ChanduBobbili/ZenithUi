@@ -1,11 +1,11 @@
 "use client"
 import { ToastProvider } from "@zenithui/toast"
-import { TooltipProvider } from "@zenithui/tooltip"
+import * as TooltipPrimitive from "@zenithui/tooltip"
 
 export default function Providers({ children }: { children: React.ReactNode }) {
   return (
     <ToastProvider enableQueueSystem>
-      <TooltipProvider>{children}</TooltipProvider>
+      <TooltipPrimitive.Provider>{children}</TooltipPrimitive.Provider>
     </ToastProvider>
   )
 }

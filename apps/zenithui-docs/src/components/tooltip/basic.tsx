@@ -1,5 +1,5 @@
 "use client"
-import { Tooltip } from "@zenithui/tooltip"
+import * as TooltipPrimitive from "@zenithui/tooltip"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 import { useState } from "react"
@@ -8,11 +8,11 @@ export default function BasicTooltip() {
   const [open, setOpen] = useState(false)
   return (
     <>
-      <Tooltip.Root open={open}>
-        <Tooltip.Trigger asChild>
+      <TooltipPrimitive.Root open={open}>
+        <TooltipPrimitive.Trigger asChild>
           <Button variant="outline">Hover</Button>
-        </Tooltip.Trigger>
-        <Tooltip.Content
+        </TooltipPrimitive.Trigger>
+        <TooltipPrimitive.Content
           side="top"
           animation="fade"
           className={cn(
@@ -20,8 +20,9 @@ export default function BasicTooltip() {
           )}
         >
           Add to library
-        </Tooltip.Content>
-      </Tooltip.Root>
+          <TooltipPrimitive.Arrow />
+        </TooltipPrimitive.Content>
+      </TooltipPrimitive.Root>
 
       <Button
         variant="outline"

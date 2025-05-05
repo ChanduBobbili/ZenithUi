@@ -1,8 +1,7 @@
-import { TooltipRoot, TooltipTrigger, TooltipContent } from "./tooltip"
-
-export { TooltipProvider } from "./tooltip"
-export const Tooltip = {
-  Root: TooltipRoot,
-  Trigger: TooltipTrigger,
-  Content: TooltipContent,
-}
+export {
+  TooltipRoot as Root,
+  TooltipTrigger as Trigger,
+  TooltipContent as Content,
+  TooltipArrow as Arrow,
+  TooltipProvider as Provider,
+} from "./tooltip"
