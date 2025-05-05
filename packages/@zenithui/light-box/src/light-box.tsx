@@ -8,7 +8,7 @@ import type {
   NavigationButtonProps,
   PaginationDotProps,
 } from "./types"
-import { cn, uuid } from "@zenithui/utils"
+import { cn, useDeviceType, uuid } from "@zenithui/utils"
 
 export function LightBox({
   open,
@@ -24,7 +24,7 @@ export function LightBox({
   closeOnBackdropClick = true,
   closeOnEscape = true,
   swipeToNavigate = true,
-  zoomable = false,
+  zoomable = true,
   onImageDelete,
   classNames,
   components,
@@ -39,8 +39,8 @@ export function LightBox({
   const [errorImages, setErrorImages] = React.useState<Record<number, boolean>>(
     {},
   )
-
   const imageRefs = React.useRef<(HTMLImageElement | null)[]>([])
+  const deviceType = useDeviceType()
 
   // Initialize loaded state
   React.useEffect(() => {
@@ -104,7 +104,7 @@ export function LightBox({
   }, [currentIndex])
 
   const handleZoom = (e: React.WheelEvent) => {
-    if (!zoomable || animation !== "stretch") return
+    if (!zoomable) return
 
     e.preventDefault()
     const delta = e.deltaY > 0 ? -0.1 : 0.1
@@ -181,7 +181,7 @@ export function LightBox({
             height: "100%",
             zIndex: -1,
             opacity: loadedImages[currentIndex] ? 1 : 0,
-            transition: `opacity ${animationDuration}ms ease`,
+            transition: `opacity ${animationDuration}ms ease, transform ${animationDuration}ms ease`,
             transform: `scale(${zoomLevel})`,
             transformOrigin: "center center",
           }}
@@ -244,10 +244,12 @@ export function LightBox({
             } as React.CSSProperties
           }
           onKeyDown={handleKeyDown}
-          onTouchStart={swipeToNavigate ? handleTouchStart : undefined}
-          onTouchMove={swipeToNavigate ? handleTouchMove : undefined}
-          onTouchEnd={swipeToNavigate ? handleTouchEnd : undefined}
           onWheel={zoomable ? handleZoom : undefined}
+          {...(["smallMobile", "largeMobile"].includes(deviceType) && {
+            onTouchStart: swipeToNavigate ? handleTouchStart : undefined,
+            onTouchMove: swipeToNavigate ? handleTouchMove : undefined,
+            onTouchEnd: swipeToNavigate ? handleTouchEnd : undefined,
+          })}
         >
           <DialogPrimitive.Title style={{ display: "none" }}>
             Title
