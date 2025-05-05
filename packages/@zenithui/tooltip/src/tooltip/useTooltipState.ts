@@ -46,7 +46,6 @@ export default function useTooltipState({
     middlewareData,
     x,
     y,
-    strategy,
   } = useFloating({
     open,
     onOpenChange: setOpen,
@@ -87,8 +86,6 @@ export default function useTooltipState({
     // }
     setIsPositioned(open && x !== 0 && y !== 0)
   }, [open, x, y])
-
-  console.log("isPositioned", open, x, y, isPositioned)
 
   const hover = useHover(context, {
     move: false,

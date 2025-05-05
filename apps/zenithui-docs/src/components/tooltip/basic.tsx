@@ -1,5 +1,5 @@
 "use client"
-import { Tooltip } from "@zenithui/tooltip"
+import * as TooltipPrimitive from "@zenithui/tooltip"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 import CodePreview from "../code-preview"
@@ -9,15 +9,15 @@ export default function BasicTooltip() {
     <CodePreview
       code={{
         code: `
-  import { Tooltip } from "@zenithui/tooltip"
+  import * as TooltipPrimitive from "@zenithui/tooltip"
   
   export default function BasicTooltip() {
     return (
-     <Tooltip.Root>
-        <Tooltip.Trigger asChild>
+      <TooltipPrimitive.Root>
+         <TooltipPrimitive.Trigger asChild>
           <Button variant="outline">Hover</Button>
-        </Tooltip.Trigger>
-        <Tooltip.Content
+         </TooltipPrimitive.Trigger>
+         <TooltipPrimitive.Content
           side="top"
           animation="fade"
           className={cn(
@@ -25,19 +25,20 @@ export default function BasicTooltip() {
           )}
         >
           Add to library
-        </Tooltip.Content>
-      </Tooltip.Root>
+          <TooltipPrimitive.Arrow />
+         </TooltipPrimitive.Content>
+       </TooltipPrimitive.Root>
     );
   }
   `,
         language: "jsx",
       }}
     >
-      <Tooltip.Root>
-        <Tooltip.Trigger asChild>
+      <TooltipPrimitive.Root>
+        <TooltipPrimitive.Trigger asChild>
           <Button variant="outline">Hover</Button>
-        </Tooltip.Trigger>
-        <Tooltip.Content
+        </TooltipPrimitive.Trigger>
+        <TooltipPrimitive.Content
           side="top"
           animation="fade"
           className={cn(
@@ -45,8 +46,9 @@ export default function BasicTooltip() {
           )}
         >
           Add to library
-        </Tooltip.Content>
-      </Tooltip.Root>
+          <TooltipPrimitive.Arrow />
+        </TooltipPrimitive.Content>
+      </TooltipPrimitive.Root>
     </CodePreview>
   )
 }

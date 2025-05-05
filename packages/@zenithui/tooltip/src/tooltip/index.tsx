@@ -173,11 +173,8 @@ export function TooltipContent({
     refs,
     open,
     placement = side,
-    arrowRef,
-    middlewareData,
     floatingStyles,
     isMounted,
-    isPositioned,
     updateOptions,
   } = context
 
@@ -190,57 +187,6 @@ export function TooltipContent({
       })
     }
   }, [side, offset, updateOptions])
-
-  // Calculate arrow position based on placement
-  const getArrowStyle = React.useCallback(() => {
-    const baseStyle = {
-      position: "absolute",
-      width: 8,
-      height: 8,
-      backgroundColor: "inherit",
-      transform: "rotate(45deg)",
-    }
-
-    const arrowX = middlewareData?.arrow?.x ?? 0
-    const arrowY = middlewareData?.arrow?.y ?? 0
-
-    switch (placement.split("-")[0]) {
-      case "top":
-        return {
-          ...baseStyle,
-          bottom: "-4px",
-          left: arrowX,
-          transformOrigin: "center center",
-        }
-      case "bottom":
-        return {
-          ...baseStyle,
-          top: "-4px",
-          left: arrowX,
-          transformOrigin: "center center",
-        }
-      case "left":
-        return {
-          ...baseStyle,
-          right: "-4px",
-          top: arrowY,
-          transformOrigin: "center center",
-        }
-      case "right":
-        return {
-          ...baseStyle,
-          left: "-4px",
-          top: arrowY,
-          transformOrigin: "center center",
-        }
-      default:
-        return {
-          ...baseStyle,
-          bottom: "-4px",
-          left: arrowX,
-        }
-    }
-  }, [middlewareData?.arrow?.x, middlewareData?.arrow?.y, placement])
 
   const getAnimationStyles = () => {
     if (animation === "none") return {}
@@ -288,16 +234,89 @@ export function TooltipContent({
           role="tooltip"
         >
           {children}
-          <div
-            ref={arrowRef}
-            style={
-              {
-                ...getArrowStyle(),
-              } as React.CSSProperties
-            }
-          />
         </div>
       ) : null}
     </FloatingPortal>
   )
 }
+
+export function TooltipArrow({
+  className,
+  ...props
+}: {
+  className?: string
+} & React.HTMLAttributes<HTMLDivElement>) {
+  const context = React.useContext(TooltipContext)
+  if (!context) throw new Error("TooltipArrow must be used within Tooltip")
+
+  const { placement, arrowRef, middlewareData } = context
+
+  // Calculate arrow position based on placement
+  const getArrowStyle = React.useCallback(() => {
+    const baseStyle = {
+      position: "absolute",
+      width: 8,
+      height: 8,
+      backgroundColor: "inherit",
+      transform: "rotate(45deg)",
+    }
+
+    const arrowX = middlewareData?.arrow?.x ?? 0
+    const arrowY = middlewareData?.arrow?.y ?? 0
+
+    switch (placement?.split("-")[0]) {
+      case "top":
+        return {
+          ...baseStyle,
+          bottom: "-4px",
+          left: arrowX,
+          transformOrigin: "center center",
+        }
+      case "bottom":
+        return {
+          ...baseStyle,
+          top: "-4px",
+          left: arrowX,
+          transformOrigin: "center center",
+        }
+      case "left":
+        return {
+          ...baseStyle,
+          right: "-4px",
+          top: arrowY,
+          transformOrigin: "center center",
+        }
+      case "right":
+        return {
+          ...baseStyle,
+          left: "-4px",
+          top: arrowY,
+          transformOrigin: "center center",
+        }
+      default:
+        return {
+          ...baseStyle,
+          bottom: "-4px",
+          left: arrowX,
+        }
+    }
+  }, [middlewareData?.arrow?.x, middlewareData?.arrow?.y, placement])
+
+  return (
+    <div
+      {...props}
+      ref={arrowRef}
+      style={
+        {
+          ...getArrowStyle(),
+        } as React.CSSProperties
+      }
+    />
+  )
+}
+
+TooltipArrow.displayName = "TooltipArrow"
+TooltipContent.displayName = "TooltipContent"
+TooltipTrigger.displayName = "TooltipTrigger"
+TooltipRoot.displayName = "TooltipRoot"
+TooltipProvider.displayName = "TooltipProvider"

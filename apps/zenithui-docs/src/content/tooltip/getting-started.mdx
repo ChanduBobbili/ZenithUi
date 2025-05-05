@@ -30,13 +30,13 @@ npm install @zenithui/tooltip
 ### Wrap the App with the TooltipProvider
 
 ```jsx filename="root.jsx"
-import { TooltipProvider } from "@zenithui/tooltip";
+import * as TooltipPrimitive from "@zenithui/tooltip";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <TooltipProvider>
+    <TooltipPrimitive.Provider>
       <App />
-    </TooltipProvider>
+    </TooltipPrimitive.Provider>
   </StrictMode>,
 )
 ```

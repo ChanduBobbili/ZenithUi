@@ -1,13 +1,10 @@
 "use client"
 
 import type { ComponentProps } from "react"
-import {
-  Tooltip as TooltipPrimitive,
-  TooltipProvider as Provider,
-} from "@zenithui/tooltip"
+import * as TooltipPrimitive from "@zenithui/tooltip"
 import { cn } from "@/lib/utils"
 
-export const TooltipProvider = Provider
+export const TooltipProvider = TooltipPrimitive.Provider
 
 export function Tooltip({
   delayDuration = 700,
@@ -36,8 +33,11 @@ export function TooltipTrigger({
 export function TooltipContent({
   className,
   children,
+  showArrow = true,
   ...props
-}: ComponentProps<typeof TooltipPrimitive.Content>) {
+}: ComponentProps<typeof TooltipPrimitive.Content> & {
+  showArrow?: boolean
+}) {
   return (
     <TooltipPrimitive.Content
       {...props}
@@ -47,6 +47,7 @@ export function TooltipContent({
       )}
     >
       {children}
+      {showArrow && <TooltipPrimitive.Arrow />}
     </TooltipPrimitive.Content>
   )
 }
