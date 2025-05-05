@@ -8,6 +8,7 @@ on:
       - "@zenithui/time-picker@*"
       - "@zenithui/day-picker@*"
       - "@zenithui/tooltip@*"
+      - "@zenithui/fab@*"
 
 jobs:
   publish:
