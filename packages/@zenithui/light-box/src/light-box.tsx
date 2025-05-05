@@ -19,11 +19,78 @@ export function LightBox({
   showPagination = true,
   showCaption = false,
   animation = "slide",
+  animationDuration = 500,
+  closeOnBackdropClick = true,
+  closeOnEscape = true,
+  swipeToNavigate = true,
+  zoomable = false,
   onImageDelete,
   classNames,
   components,
 }: LightBoxProps) {
   const [currentIndex, setCurrentIndex] = React.useState<number>(initialIndex)
+  const [loadedImages, setLoadedImages] = React.useState<boolean[]>([])
+  const [touchStart, setTouchStart] = React.useState<number>(0)
+  const [touchEnd, setTouchEnd] = React.useState<number>(0)
+  const [zoomLevel, setZoomLevel] = React.useState<number>(1)
+
+  React.useEffect(() => {
+    setLoadedImages(images.map(() => false))
+  }, [images])
+
+  const handleImageLoad = (index: number) => {
+    setLoadedImages((prev) => {
+      const newLoaded = [...prev]
+      newLoaded[index] = true
+      return newLoaded
+    })
+  }
+
+  const handlePrev = React.useCallback(() => {
+    const prevIndex = currentIndex - 1
+    setCurrentIndex(prevIndex < 0 ? images.length - 1 : prevIndex)
+  }, [images.length, currentIndex])
+
+  const handleNext = React.useCallback(() => {
+    const prevIndex = currentIndex - 1
+    setCurrentIndex(prevIndex < 0 ? images.length - 1 : prevIndex)
+  }, [images.length, currentIndex])
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    setTouchStart(e.targetTouches[0].clientX)
+  }
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    setTouchEnd(e.targetTouches[0].clientX)
+  }
+
+  const handleTouchEnd = () => {
+    if (swipeToNavigate) {
+      if (touchStart - touchEnd > 50) handleNext()
+      if (touchStart - touchEnd < -50) handlePrev()
+    }
+  }
+
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (closeOnEscape && e.key === "Escape") {
+      onOpenChange(false)
+    }
+    if (e.key === "ArrowLeft") handlePrev()
+    if (e.key === "ArrowRight") handleNext()
+    if (e.key === "Home") setCurrentIndex(0)
+    if (e.key === "End") setCurrentIndex(images.length - 1)
+  }
+
+  const handleZoom = (e: React.WheelEvent) => {
+    if (!zoomable) return
+
+    e.preventDefault()
+    const delta = e.deltaY > 0 ? -0.1 : 0.1
+    setZoomLevel((prev) => Math.min(Math.max(prev + delta, 0.5), 3))
+  }
+
+  const getImageUrl = (image: string | { src: string }) =>
+    typeof image !== "string" ? image.src : image
 
   return (
     <DialogPrimitive.Root
@@ -33,55 +100,90 @@ export function LightBox({
       <DialogPrimitive.DialogPortal>
         <DialogPrimitive.Overlay className={cn(classNames?.overLay)} />
         <DialogPrimitive.Content
-          className={cn(classNames?.lightBox)}
-          style={
-            animation === "stretch"
-              ? {
-                  backgroundImage: `url(${typeof images[currentIndex] !== "string" ? images[currentIndex].src : images[currentIndex]})`,
-                  backgroundSize: "cover",
-                  backgroundRepeat: "no-repeat",
-                  backgroundPosition: "center",
-                }
-              : {}
+          onEscapeKeyDown={(e) => {
+            if (!closeOnEscape) e.preventDefault()
+          }}
+          onPointerDownOutside={(e) => {
+            if (!closeOnBackdropClick) e.preventDefault()
+          }}
+          aria-modal="true"
+          aria-labelledby={
+            typeof images[currentIndex] !== "string"
+              ? images[currentIndex]?.caption
+              : ""
           }
+          aria-describedby={
+            typeof images[currentIndex] !== "string"
+              ? images[currentIndex]?.captionDescription
+              : ""
+          }
+          className={cn(classNames?.lightBox)}
           data-animation={animation}
+          style={
+            {
+              "--animation-duration": `${animationDuration}ms`,
+              ...(animation === "stretch"
+                ? {
+                    backgroundImage: `url(${getImageUrl(images[currentIndex])})`,
+                    backgroundSize: "cover",
+                    backgroundRepeat: "no-repeat",
+                    backgroundPosition: "center",
+                  }
+                : {}),
+            } as React.CSSProperties
+          }
+          onKeyDown={handleKeyDown}
+          onTouchStart={swipeToNavigate ? handleTouchStart : undefined}
+          onTouchMove={swipeToNavigate ? handleTouchMove : undefined}
+          onTouchEnd={swipeToNavigate ? handleTouchEnd : undefined}
+          onWheel={zoomable ? handleZoom : undefined}
         >
           <DialogPrimitive.Title style={{ display: "none" }}>
             Title
           </DialogPrimitive.Title>
+          {/* Slide Animation Image Container */}
           {animation === "slide" && (
-            <>
-              {/* Slide Animation Image Container */}
-              <div
-                className="absolute top-0 left-0 flex h-full w-full transition-transform duration-500"
-                style={{
-                  transform: `translateX(-${currentIndex * 100}%)`,
-                  display: "flex",
-                  zIndex: -1,
-                }}
-              >
-                {images.map((image) => (
-                  <div
-                    key={`image-slide-${image.toString()}-${uuid()}`}
-                    style={{
-                      backgroundImage: `url(${typeof image !== "string" ? image.src : image})`,
-                      backgroundSize: "cover",
-                      backgroundRepeat: "no-repeat",
-                      backgroundPosition: "center",
-                      flex: "0 0 100%",
-                    }}
-                  />
-                ))}
-              </div>
-            </>
+            <div
+              style={{
+                transform: `translateX(-${currentIndex * 100}%)`,
+                display: "flex",
+                zIndex: -1,
+                position: "absolute",
+                top: "0px",
+                left: "0px",
+                width: "100%",
+                height: "100%",
+                transition: `transform ${animationDuration}ms ease-in-out`,
+              }}
+            >
+              {images.map((image, index) => (
+                <div
+                  key={`image-slide-${image.toString()}-${uuid()}`}
+                  style={{
+                    backgroundImage: `url(${getImageUrl(image)})`,
+                    backgroundSize: "cover",
+                    backgroundRepeat: "no-repeat",
+                    backgroundPosition: "center",
+                    flex: "0 0 100%",
+                    opacity: loadedImages[index] ? 1 : 0,
+                    transition: `opacity ${animationDuration}ms ease`,
+                  }}
+                  onLoad={() => {
+                    console.log("loaded")
+                    handleImageLoad(index)
+                  }}
+                />
+              ))}
+            </div>
           )}
 
+          {/* Fade Animation */}
           {animation === "fade" &&
             images.map((image, index) => (
               <div
                 key={`image-fade-${image.toString()}-${uuid()}`}
                 style={{
-                  backgroundImage: `url(${typeof image !== "string" ? image.src : image})`,
+                  backgroundImage: `url(${getImageUrl(image)})`,
                   backgroundSize: "cover",
                   backgroundRepeat: "no-repeat",
                   backgroundPosition: "center",
@@ -91,39 +193,57 @@ export function LightBox({
                   top: 0,
                   left: 0,
                   zIndex: -1,
-                  opacity: currentIndex === index ? 1 : 0,
-                  transition: "opacity 1s ease-in-out", // Fade animation
+                  opacity:
+                    currentIndex === index ? (loadedImages[index] ? 1 : 0) : 0,
+                  transition: `opacity ${animationDuration}ms ease-in-out`,
+                  transform: `scale(${zoomLevel})`,
+                  transformOrigin: "center center",
                 }}
+                onLoad={() => handleImageLoad(index)}
               />
             ))}
+
+          {/* Flip Animation */}
           {animation === "flip" && (
             <div
-              className="absolute inset-0 z-0 transition-transform duration-500"
               style={{
-                transform:
-                  currentIndex % 2 === 0 ? "rotateY(180deg)" : "rotateY(0deg)",
-                backgroundImage: `url(${typeof images[currentIndex] !== "string" ? images[currentIndex].src : images[currentIndex]})`,
+                position: "absolute",
+                top: "0px",
+                inset: "0px",
+                transform: `${
+                  currentIndex % 2 === 0 ? "rotateY(180deg)" : "rotateY(0deg)"
+                } scale(${zoomLevel})`,
+                backgroundImage: `url(${getImageUrl(images[currentIndex])})`,
                 backgroundSize: "cover",
                 backgroundRepeat: "no-repeat",
                 backgroundPosition: "center",
+                opacity: loadedImages[currentIndex] ? 1 : 0,
+                transition: `opacity ${animationDuration}ms ease`,
               }}
+              onLoad={() => handleImageLoad(currentIndex)}
             />
           )}
+
+          {/* Blur Animation */}
           {animation === "blur" &&
             images.map((image, index) => (
               <div
                 key={`image-blur-${image.toString()}-${uuid()}`}
                 style={{
-                  backgroundImage: `url(${typeof image !== "string" ? image.src : image})`,
+                  position: "absolute",
+                  inset: "0px",
+                  backgroundImage: `url(${getImageUrl(image)})`,
                   backgroundSize: "cover",
                   backgroundRepeat: "no-repeat",
                   backgroundPosition: "center",
                   filter: currentIndex === index ? "blur(0)" : "blur(10px)",
-                  transition:
-                    "filter 0.5s ease-in-out, opacity 0.5s ease-in-out",
-                  opacity: currentIndex === index ? 1 : 0,
+                  transition: `filter ${animationDuration}ms ease-in-out, opacity ${animationDuration}ms ease-in-out`,
+                  opacity:
+                    currentIndex === index ? (loadedImages[index] ? 1 : 0) : 0,
+                  transform: `scale(${zoomLevel})`,
+                  transformOrigin: "center center",
                 }}
-                className="absolute inset-0"
+                onLoad={() => handleImageLoad(index)}
               />
             ))}
 
@@ -184,25 +304,19 @@ export function LightBox({
             {components?.NavigationButtonLeft ? (
               <components.NavigationButtonLeft
                 direction="left"
-                onClick={() => {
-                  const prevIndex = currentIndex - 1
-                  setCurrentIndex(prevIndex < 0 ? images.length - 1 : prevIndex)
-                }}
+                onClick={handlePrev}
                 className={cn(
-                  classNames?.navigateButtonLeft,
                   classNames?.navigateButton,
+                  classNames?.navigateButtonLeft,
                 )}
               />
             ) : (
               <NavigationButton
                 direction="left"
-                onClick={() => {
-                  const prevIndex = currentIndex - 1
-                  setCurrentIndex(prevIndex < 0 ? images.length - 1 : prevIndex)
-                }}
+                onClick={handlePrev}
                 className={cn(
-                  classNames?.navigateButtonLeft,
                   classNames?.navigateButton,
+                  classNames?.navigateButtonLeft,
                 )}
               >
                 {components?.NavigationButtonLeftIcon}
@@ -213,25 +327,19 @@ export function LightBox({
             {components?.NavigationButtonRight ? (
               <components.NavigationButtonRight
                 direction="right"
-                onClick={() => {
-                  const nextIndex = currentIndex + 1
-                  setCurrentIndex(nextIndex >= images.length ? 0 : nextIndex)
-                }}
+                onClick={handleNext}
                 className={cn(
-                  classNames?.navigateButtonRight,
                   classNames?.navigateButton,
+                  classNames?.navigateButtonRight,
                 )}
               />
             ) : (
               <NavigationButton
                 direction="right"
-                onClick={() => {
-                  const nextIndex = currentIndex + 1
-                  setCurrentIndex(nextIndex >= images.length ? 0 : nextIndex)
-                }}
+                onClick={handleNext}
                 className={cn(
-                  classNames?.navigateButtonRight,
                   classNames?.navigateButton,
+                  classNames?.navigateButtonRight,
                 )}
               >
                 {components?.NavigationButtonRightIcon}
@@ -253,6 +361,7 @@ export function LightBox({
                   gap: "0.5rem",
                   width: "100%",
                 }}
+                className={cn(classNames?.captionContainer)}
               >
                 <span className={cn(classNames?.caption)}>
                   {(typeof images[currentIndex] !== "string" &&
@@ -272,7 +381,10 @@ export function LightBox({
                   <PaginationDot
                     key={`pagination-${index.toString()}`}
                     active={currentIndex === index}
-                    onClick={() => setCurrentIndex(index)}
+                    onClick={() => {
+                      setCurrentIndex(index)
+                      setZoomLevel(1)
+                    }}
                     className={classNames?.paginationButton}
                     activeClassName={classNames?.paginationButtonActive}
                   />
@@ -286,108 +398,92 @@ export function LightBox({
   )
 }
 
-const CloseButton: React.FC<CloseButtonProps> = ({
-  onOpenChange,
-  className,
-  children,
-}) => {
-  return (
-    <button
-      type="button"
-      className={cn(className)}
-      onClick={() => onOpenChange(false)}
-      onKeyDown={(event) => {
-        if (event.key === "Escape") {
-          onOpenChange(false)
-        }
-      }}
-    >
-      {children}
-    </button>
-  )
-}
-
-const DeleteButton: React.FC<DeleteButtonProps> = ({
-  onImageDelete,
-  setCurrentIndex,
-  currentIndex,
-  images,
-  onOpenChange,
-  className,
-  children,
-}) => {
-  return (
-    <button
-      type="button"
-      className={cn(className)}
-      tabIndex={0}
-      onClick={() => {
-        if (onImageDelete) {
-          onImageDelete(currentIndex)
-          if (images.length === 1) {
-            onOpenChange(false)
-          }
-          if (currentIndex === images.length - 1) {
-            setCurrentIndex(currentIndex - 1)
-          } else {
-            setCurrentIndex(currentIndex)
-          }
-        }
-      }}
-      onKeyDown={(event) => {
-        if (event.key === "Delete") {
-          if (onImageDelete) {
-            onImageDelete(currentIndex)
-            if (images.length === 1) {
-              onOpenChange(false)
-            }
-            if (currentIndex === images.length - 1) {
-              setCurrentIndex(currentIndex - 1)
-            } else {
-              setCurrentIndex(currentIndex)
-            }
-          }
-        }
-      }}
-    >
-      {children}
-    </button>
-  )
-}
-
-const NavigationButton: React.FC<NavigationButtonProps> = ({
-  direction,
-  onClick,
-  className,
-  children,
-}) => (
-  <button
-    type="button"
-    className={cn(className)}
-    onClick={onClick}
-    aria-label={`Navigate ${direction}`}
-  >
-    {children}
-  </button>
+const CloseButton = React.memo(
+  ({ onOpenChange, className, children }: CloseButtonProps) => {
+    return (
+      <button
+        type="button"
+        className={cn(className)}
+        onClick={() => onOpenChange(false)}
+      >
+        {children}
+      </button>
+    )
+  },
 )
 
-const PaginationDot: React.FC<PaginationDotProps> = ({
-  active,
-  onClick,
-  className,
-  activeClassName,
-}) => (
-  <div
-    data-active={active}
-    className={cn(className, active && (activeClassName || ""))}
-    onClick={onClick}
-    onKeyUp={(event) => {
-      if (event.key === "Enter" || event.key === " ") {
-        onClick()
+const DeleteButton = React.memo(
+  ({
+    currentIndex,
+    images,
+    onOpenChange,
+    setCurrentIndex,
+    className,
+    onImageDelete,
+    children,
+  }: DeleteButtonProps) => {
+    const handleDelete = React.useCallback(() => {
+      if (onImageDelete) {
+        onImageDelete(currentIndex)
+        if (images.length === 1) {
+          onOpenChange(false)
+        } else if (currentIndex === images.length - 1) {
+          setCurrentIndex(currentIndex - 1)
+        }
       }
-    }}
-    tabIndex={0}
-    role="button"
-    aria-pressed={active}
-  />
+    }, [
+      currentIndex,
+      images.length,
+      onImageDelete,
+      onOpenChange,
+      setCurrentIndex,
+    ])
+    return (
+      <button
+        type="button"
+        className={cn(className)}
+        tabIndex={0}
+        onClick={handleDelete}
+        aria-label="Delete current image"
+      >
+        {children}
+      </button>
+    )
+  },
+)
+
+const NavigationButton = React.memo(
+  ({ direction, onClick, className, children }: NavigationButtonProps) => {
+    return (
+      <button
+        type="button"
+        className={cn(className)}
+        onClick={onClick}
+        aria-label={`Navigate ${direction}`}
+      >
+        {children}
+      </button>
+    )
+  },
+)
+
+const PaginationDot = React.memo(
+  ({ active, onClick, activeClassName, className }: PaginationDotProps) => {
+    return (
+      <div
+        data-active={active}
+        className={cn(className, active && (activeClassName || ""))}
+        onClick={onClick}
+        onKeyUp={(event) => {
+          if (event.key === "Enter" || event.key === " ") {
+            onClick()
+          }
+        }}
+        tabIndex={0}
+        role="button"
+        aria-pressed={active}
+        aria-label={`Go to image ${active ? "(current)" : ""}`}
+      />
+    )
+  },
 )

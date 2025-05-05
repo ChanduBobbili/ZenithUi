@@ -59,6 +59,10 @@ export type LightBoxClassNames = {
    * The class to apply to the footer.
    */
   footer?: string
+  /**
+   * The class to apply to the caption container.
+   */
+  captionContainer?: string
 }
 
 export type LightBoxImages = {
@@ -240,6 +244,31 @@ export type LightBoxProps = {
    * Whether to show the caption.
    */
   showCaption?: boolean
+  /**
+   * The Animation duration of the lightbox.
+   * @default 500
+   */
+  animationDuration?: number
+  /**
+   * Close on backdrop click
+   * @default true
+   */
+  closeOnBackdropClick?: boolean
+  /**
+   * Close on escape key
+   * @default true
+   */
+  closeOnEscape?: boolean
+  /**
+   * Enable swipe navigation
+   * @default true
+   */
+  swipeToNavigate?: boolean
+  /**
+   * Enable image zoom
+   * @default false
+   */
+  zoomable?: boolean
   /**
    * The class names to apply to the lightbox.
    */
