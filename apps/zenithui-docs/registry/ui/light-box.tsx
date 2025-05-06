@@ -17,7 +17,7 @@ export default function LightBox({
         ),
         lightBox: cn(
           "data-[state=closed]:animate-fade-out data-[state=open]:animate-fade-in bg-background fixed top-[50%] left-[50%] z-50 grid w-11/12 max-w-lg translate-x-[-50%] translate-y-[-50%] gap-4 border shadow-lg duration-200 sm:rounded-lg lg:w-full",
-          "flex aspect-square min-w-[35%] flex-col justify-between overflow-hidden border-0 bg-white p-6 shadow-[inset_0_0_20px_5px_rgb(0,0,0,0.25)]",
+          "flex aspect-square min-w-[35%] flex-col justify-between overflow-hidden border-0 p-6 shadow-[inset_0_0_20px_5px_rgb(0,0,0,0.25)]",
           "data-[animation=slide]:p-0",
           classNames?.lightBox,
         ),

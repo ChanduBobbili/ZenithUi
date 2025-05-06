@@ -201,6 +201,14 @@ export type LightBoxComponents = {
    * The icon to use for the close button.
    */
   CloseButtonIcon: React.ReactNode
+  /**
+   * The icon to show while image is loading
+   */
+  LoadingIcon: React.ReactNode
+  /**
+   * The icon to show if any error occurs while fetcing image
+   */
+  ErrorIcon: React.ReactNode
 }
 
 export type LightBoxProps = {
