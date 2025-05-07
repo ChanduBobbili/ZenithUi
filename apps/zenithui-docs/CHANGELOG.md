@@ -1,5 +1,16 @@
 # zenithui-docs
 
+## 1.3.0
+
+### Minor Changes
+
+- Added the light-box component as first release
+
+### Patch Changes
+
+- Updated dependencies
+  - @zenithui/light-box@1.0.0
+
 ## 1.2.4
 
 ### Patch Changes

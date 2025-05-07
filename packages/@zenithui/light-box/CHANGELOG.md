@@ -1,0 +1,15 @@
+# @zenithui/light-box
+
+## 1.0.0
+
+### Major Changes
+
+- The first release of the component with following features
+  - Fullscreen modal lightbox using Radix UI Dialog
+  - Multiple animation styles: slide, fade, flip, blur, stretch
+  - Keyboard navigation (ArrowLeft, ArrowRight, Escape, Home, End)
+  - Touch swipe navigation (mobile support)
+  - Loading and error state indicators
+  - Customizable buttons (close, delete, navigation)
+  - Pagination dots and optional caption support
+  - Controlled open/close state

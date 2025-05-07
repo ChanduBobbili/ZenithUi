@@ -1,5 +1,6 @@
-import * as React from "react"
 import * as DialogPrimitive from "@radix-ui/react-dialog"
+import { cn, useDeviceType } from "@zenithui/utils"
+import * as React from "react"
 import type {
   CloseButtonProps,
   DeleteButtonProps,
@@ -8,7 +9,6 @@ import type {
   NavigationButtonProps,
   PaginationDotProps,
 } from "./types"
-import { cn, useDeviceType, useEventListener } from "@zenithui/utils"
 
 const LoadingSpinner = () => (
   <div
