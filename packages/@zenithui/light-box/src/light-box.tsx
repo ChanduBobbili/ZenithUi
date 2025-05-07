@@ -38,7 +38,6 @@ const ErrorIcon = () => (
       color: "white",
       textAlign: "center",
       padding: "1rem",
-      backgroundColor: "rgba(255,0,0,0.3)",
       borderRadius: "4px",
     }}
   >
@@ -82,6 +81,7 @@ export function LightBox({
   const [position, setPosition] = React.useState({ x: 0, y: 0 })
   const [isDragging, setIsDragging] = React.useState(false)
   const containerRef = React.useRef<HTMLDivElement>(null)
+  const contentRef = React.useRef<HTMLDivElement>(null)
 
   const deviceType = useDeviceType()
 
@@ -120,53 +120,104 @@ export function LightBox({
     setCurrentIndex((prev) => (prev <= 0 ? images.length - 1 : prev - 1))
   }, [images.length])
 
-  // Gesture handlers
+  // Calculate boundaries with proper edge handling
+  const calculateBounds = React.useCallback(() => {
+    if (!containerRef.current || !contentRef.current)
+      return {
+        minX: 0,
+        maxX: 0,
+        minY: 0,
+        maxY: 0,
+      }
+
+    const container = containerRef.current.getBoundingClientRect()
+    const content = contentRef.current.getBoundingClientRect()
+
+    const scaledWidth = content.width * zoom
+    const scaledHeight = content.height * zoom
+
+    const maxX = Math.max(0, (scaledWidth - container.width) / 2)
+    const maxY = Math.max(0, (scaledHeight - container.height) / 2)
+
+    return {
+      minX: -maxX,
+      maxX,
+      minY: -maxY,
+      maxY,
+    }
+  }, [zoom])
+
+  // Constrain position to keep image edges visible
+  const constrainPosition = React.useCallback(
+    (x: number, y: number) => {
+      const { minX, maxX, minY, maxY } = calculateBounds()
+      return {
+        x: Math.min(Math.max(x, minX), maxX),
+        y: Math.min(Math.max(y, minY), maxY),
+      }
+    },
+    [calculateBounds],
+  )
+
+  // Enhanced gesture handlers with perfect edge handling
   const bind = useGesture(
     {
       onDrag: ({ offset: [x, y], event }) => {
         if (!zoomable || zoom <= 1) return
         event?.preventDefault()
-        setPosition({ x, y })
+        const constrained = constrainPosition(x, y)
+        setPosition(constrained)
         setIsDragging(true)
+
+        // Update cursor immediately
+        if (contentRef.current) {
+          contentRef.current.style.cursor = "grabbing"
+        }
       },
-      onDragEnd: () => setIsDragging(false),
+      onDragEnd: () => {
+        setIsDragging(false)
+        if (contentRef.current) {
+          contentRef.current.style.cursor = zoom > 1 ? "grab" : "default"
+        }
+      },
       onPinch: ({ origin: [ox, oy], movement: [m], event }) => {
         if (!zoomable || !containerRef.current) return
         event?.preventDefault()
 
         const rect = containerRef.current.getBoundingClientRect()
-        const containerX = ox - rect.left
-        const containerY = oy - rect.top
+        const containerX = ox - rect.left - position.x
+        const containerY = oy - rect.top - position.y
 
         const newZoom = Math.min(Math.max(zoom + m * 0.5, minZoom), maxZoom)
-        const imageX = (containerX - position.x) / zoom
-        const imageY = (containerY - position.y) / zoom
+        const zoomChange = newZoom / zoom
 
-        const newX = containerX - imageX * newZoom
-        const newY = containerY - imageY * newZoom
+        // Calculate new position to keep pinch point under cursor
+        const newX = (position.x + containerX) * zoomChange - containerX
+        const newY = (position.y + containerY) * zoomChange - containerY
 
+        const constrained = constrainPosition(newX, newY)
         setZoom(newZoom)
-        setPosition({ x: newX, y: newY })
+        setPosition(constrained)
       },
       onWheel: ({ event, delta: [dx, dy] }) => {
         if (!zoomable || !containerRef.current) return
         event.preventDefault()
 
         const rect = containerRef.current.getBoundingClientRect()
-        const containerX = event.clientX - rect.left
-        const containerY = event.clientY - rect.top
+        const pointX = event.clientX - rect.left - position.x
+        const pointY = event.clientY - rect.top - position.y
 
         const delta = dy > 0 ? -0.1 : 0.1
         const newZoom = Math.min(Math.max(zoom + delta, minZoom), maxZoom)
+        const zoomChange = newZoom / zoom
 
-        const imageX = (containerX - position.x) / zoom
-        const imageY = (containerY - position.y) / zoom
+        // Calculate new position to keep wheel point under cursor
+        const newX = (position.x + pointX) * zoomChange - pointX
+        const newY = (position.y + pointY) * zoomChange - pointY
 
-        const newX = containerX - imageX * newZoom
-        const newY = containerY - imageY * newZoom
-
+        const constrained = constrainPosition(newX, newY)
         setZoom(newZoom)
-        setPosition({ x: newX, y: newY })
+        setPosition(constrained)
       },
       onDoubleClick: ({ event }) => {
         if (!zoomable) return
@@ -176,11 +227,29 @@ export function LightBox({
       },
     },
     {
-      drag: { filterTaps: true, rubberband: 0.1 },
-      pinch: { distanceBounds: { min: 0.1 }, rubberband: 0.1 },
-      wheel: { rubberband: 0.1 },
+      drag: {
+        filterTaps: true,
+        bounds: () => {
+          const { minX, maxX, minY, maxY } = calculateBounds();
+          return { left: minX, right: maxX, top: minY, bottom: maxY };
+        },
+        rubberband: 0.2,
+      },
+      pinch: {
+        distanceBounds: { min: 0.1 },
+        rubberband: 0.2,
+      },
+      wheel: {
+        rubberband: 0.2,
+      },
     },
   )
+
+  // Update cursor state based on zoom
+  React.useEffect(() => {
+    if (!contentRef.current) return
+    contentRef.current.style.cursor = zoom > 1 ? "grab" : "default"
+  }, [zoom])
 
   const getImageUrl = (image: string | LightBoxImages) =>
     typeof image !== "string" ? image.src : image
@@ -195,6 +264,7 @@ export function LightBox({
 
     return (
       <div
+        ref={index === currentIndex ? contentRef : null}
         style={{
           position: "relative",
           width: "100%",
@@ -226,9 +296,11 @@ export function LightBox({
             width: "100%",
             height: "100%",
             opacity: !isLoading && !hasError ? 1 : 0,
-            pointerEvents: "none", // avoids image interfering with dragging
-            userSelect: "none", // avoids text selection
             willChange: "transform, opacity",
+            pointerEvents: "none",
+            userSelect: "none",
+            touchAction: "none",
+            MozUserSelect: "none",
           }}
           onLoad={() => handleImageLoad(index)}
           onError={() => handleImageError(index)}
