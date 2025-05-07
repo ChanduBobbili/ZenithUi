@@ -9,6 +9,7 @@ import type {
   NavigationButtonProps,
   PaginationDotProps,
 } from "./types"
+import { useGesture } from "react-use-gesture"
 
 const LoadingSpinner = () => (
   <div
@@ -60,12 +61,14 @@ export function LightBox({
   closeOnBackdropClick = true,
   closeOnEscape = true,
   swipeToNavigate = true,
+  zoomable = true,
+  maxZoom = 4,
+  minZoom = 1,
   onImageDelete,
   classNames,
   components,
 }: LightBoxProps) {
   const [currentIndex, setCurrentIndex] = React.useState<number>(initialIndex)
-
   const [loadedImages, setLoadedImages] = React.useState<
     Record<number, boolean>
   >({})
@@ -74,6 +77,11 @@ export function LightBox({
   >({})
   const [touchStart, setTouchStart] = React.useState<number>(0)
   const [touchEnd, setTouchEnd] = React.useState<number>(0)
+
+  const [zoom, setZoom] = React.useState(1)
+  const [position, setPosition] = React.useState({ x: 0, y: 0 })
+  const [isDragging, setIsDragging] = React.useState(false)
+  const containerRef = React.useRef<HTMLDivElement>(null)
 
   const deviceType = useDeviceType()
 
@@ -88,6 +96,13 @@ export function LightBox({
     setLoadedImages(initialLoadState)
     setErroredImages(initialErrorState)
   }, [images])
+
+  // Reset zoom when image changes
+  // biome-ignore lint/correctness/useExhaustiveDependencies: Running on every image change
+  React.useEffect(() => {
+    setZoom(1)
+    setPosition({ x: 0, y: 0 })
+  }, [currentIndex])
 
   const handleImageLoad = (index: number) => {
     setLoadedImages((prev) => ({ ...prev, [index]: true }))
@@ -104,6 +119,68 @@ export function LightBox({
   const handlePrev = React.useCallback(() => {
     setCurrentIndex((prev) => (prev <= 0 ? images.length - 1 : prev - 1))
   }, [images.length])
+
+  // Gesture handlers
+  const bind = useGesture(
+    {
+      onDrag: ({ offset: [x, y], event }) => {
+        if (!zoomable || zoom <= 1) return
+        event?.preventDefault()
+        setPosition({ x, y })
+        setIsDragging(true)
+      },
+      onDragEnd: () => setIsDragging(false),
+      onPinch: ({ origin: [ox, oy], movement: [m], event }) => {
+        if (!zoomable || !containerRef.current) return
+        event?.preventDefault()
+
+        const rect = containerRef.current.getBoundingClientRect()
+        const containerX = ox - rect.left
+        const containerY = oy - rect.top
+
+        const newZoom = Math.min(Math.max(zoom + m * 0.5, minZoom), maxZoom)
+        const imageX = (containerX - position.x) / zoom
+        const imageY = (containerY - position.y) / zoom
+
+        const newX = containerX - imageX * newZoom
+        const newY = containerY - imageY * newZoom
+
+        setZoom(newZoom)
+        setPosition({ x: newX, y: newY })
+      },
+      onWheel: ({ event, delta: [dx, dy] }) => {
+        if (!zoomable || !containerRef.current) return
+        event.preventDefault()
+
+        const rect = containerRef.current.getBoundingClientRect()
+        const containerX = event.clientX - rect.left
+        const containerY = event.clientY - rect.top
+
+        const delta = dy > 0 ? -0.1 : 0.1
+        const newZoom = Math.min(Math.max(zoom + delta, minZoom), maxZoom)
+
+        const imageX = (containerX - position.x) / zoom
+        const imageY = (containerY - position.y) / zoom
+
+        const newX = containerX - imageX * newZoom
+        const newY = containerY - imageY * newZoom
+
+        setZoom(newZoom)
+        setPosition({ x: newX, y: newY })
+      },
+      onDoubleClick: ({ event }) => {
+        if (!zoomable) return
+        event.preventDefault()
+        setZoom(1)
+        setPosition({ x: 0, y: 0 })
+      },
+    },
+    {
+      drag: { filterTaps: true, rubberband: 0.1 },
+      pinch: { distanceBounds: { min: 0.1 }, rubberband: 0.1 },
+      wheel: { rubberband: 0.1 },
+    },
+  )
 
   const getImageUrl = (image: string | LightBoxImages) =>
     typeof image !== "string" ? image.src : image
@@ -123,6 +200,19 @@ export function LightBox({
           width: "100%",
           height: "100%",
           overflow: "hidden",
+          transform: zoomable
+            ? `translate(${position.x}px, ${position.y}px) scale(${zoom})`
+            : undefined,
+          transition: isDragging
+            ? "none"
+            : `transform ${animationDuration}ms ease-out`,
+          cursor:
+            zoomable && zoom > 1
+              ? isDragging
+                ? "grabbing"
+                : "grab"
+              : "default",
+          touchAction: zoomable ? "none" : undefined,
         }}
       >
         <img
@@ -133,16 +223,12 @@ export function LightBox({
             top: "0",
             left: "0",
             objectFit: "cover",
-            transform: "translate(0%, 0%) scale(1)",
-            maxWidth: "unset",
-            maxHeight: "unset",
             width: "100%",
             height: "100%",
             opacity: !isLoading && !hasError ? 1 : 0,
             pointerEvents: "none", // avoids image interfering with dragging
             userSelect: "none", // avoids text selection
             willChange: "transform, opacity",
-            // objectPosition: "center",
           }}
           onLoad={() => handleImageLoad(index)}
           onError={() => handleImageError(index)}
@@ -296,6 +382,7 @@ export function LightBox({
         `}</style>
         <DialogPrimitive.Overlay className={cn(classNames?.overLay)} />
         <DialogPrimitive.Content
+          ref={containerRef}
           style={
             {
               "--animation-duration": `${animationDuration}ms`,
@@ -342,6 +429,7 @@ export function LightBox({
                 }
               : undefined,
           })}
+          {...(zoomable ? bind() : {})}
         >
           <DialogPrimitive.Title style={{ display: "none" }}>
             Title
