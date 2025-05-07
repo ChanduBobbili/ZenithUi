@@ -3,10 +3,59 @@ import AnimationLightBox from "@/components/light-box/animation"
 
 # Light Box
 
-## Usage
+This component is ideal for photo galleries, product viewers, or any place where immersive image previews are needed.
+
+## ⚙️ Usage
 
 <BasicLightBox />
 
-## Animations
+## 🎬 Animations
+
+- `slide`: default, horizontal slide effect
+- `fade`: crossfade between images
+- `flip`: flip card-like animation
+- `blur`: blurry transition between images
+- `stretch`: image stretch effect (good for background viewing)
 
 <AnimationLightBox />
+
+---
+
+## 🧩 Customization
+
+You can override:
+
+- Internal components using `components` prop
+- Styling via `classNames`
+
+---
+
+## 📱 Touch Support
+
+- Swiping left/right navigates between images
+- Supports mobile device detection via `useDeviceType`
+
+---
+
+## 🔐 Accessibility
+
+- Keyboard accessible navigation
+- Proper ARIA roles and labels via Radix Dialog
+
+---
+
+## 🧪 Error/Loading States
+
+- Displays a spinner while loading
+- Shows an error icon if the image fails to load
+
+---
+
+## 🧠 Best Practices
+
+- Always provide `onOpenChange` to control visibility
+- Provide `onImageDelete` if delete button is shown
+- Customize buttons for consistent UI across app
+- Ensure image URLs are valid or provide fallback handling
+
+---
