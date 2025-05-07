@@ -1,4 +1,4 @@
-# @zenithui/tooltip
+# @zenithui/light-box
 
 A ZenithUi Light Box is a React component that creates an elegant modal overlay for displaying content like images, videos, or any custom content with a clean, modern design.
 with support for animations, captions, navigation, and more.
