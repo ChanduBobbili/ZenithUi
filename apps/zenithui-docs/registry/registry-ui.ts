@@ -35,4 +35,15 @@ export const ui: Registry["items"] = [
       },
     ],
   },
+  {
+    name: "light-box",
+    type: "registry:ui",
+    dependencies: ["@zenithui/light-box", "lucide-react"],
+    files: [
+      {
+        path: "ui/light-box.tsx",
+        type: "registry:ui",
+      },
+    ],
+  },
 ]

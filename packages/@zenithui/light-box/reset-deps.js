@@ -1,12 +1,12 @@
-import { readFileSync, writeFileSync } from "fs"
-import { resolve, dirname } from "path"
-import { fileURLToPath } from "url"
+import { readFileSync, writeFileSync } from "node:fs"
+import { dirname, resolve } from "node:path"
+import { fileURLToPath } from "node:url"
 
 // Correctly resolve __dirname
 const __dirname = dirname(fileURLToPath(import.meta.url))
 
-// Locate package.json inside @zenithui/day-picker
-const packageJsonPath = resolve(__dirname, "./../package.json")
+// Locate package.json inside @zenithui/toast
+const packageJsonPath = resolve(__dirname, "package.json") // ✅ Fix path issue
 const packageJson = JSON.parse(readFileSync(packageJsonPath, "utf-8"))
 
 // Reset @zenithui/utils to "workspace:*"
@@ -16,4 +16,4 @@ if (packageJson.dependencies["@zenithui/utils"]) {
 
 // Write updated package.json
 writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 2))
-console.log(`Restored @zenithui/utils to workspace:*`)
+console.log("Restored @zenithui/utils to workspace:*")

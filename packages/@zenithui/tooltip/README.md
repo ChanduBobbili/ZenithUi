@@ -90,7 +90,7 @@ const App = () => {
 | Prop Name           | Type                | Description                                                                                  | Default |
 | ------------------- | ------------------- | -------------------------------------------------------------------------------------------- | ------- |
 | `side`              | `Placement`         | Specifies the side of the trigger element where the tooltip should appear.                   | `top`   |
-| `offset`            | `number`            | The distance in pixels between the tooltip and the trigger element along the specified side. | `12` |
+| `offset`            | `number`            | The distance in pixels between the tooltip and the trigger element along the specified side. | `12`    |
 | `animation`         | `fade, slide, zoom` | The animation type for the tooltip.                                                          | `fade`  |
 | `animationDuration` | `number`            | The duration of the tooltip animation in milliseconds.                                       | `200`   |
 

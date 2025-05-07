@@ -1,58 +1,69 @@
 {
-	"name": "@zenithui/utils",
-	"version": "0.2.4",
-	"description": "A collection of utility functions and hooks to simplify development in the ZenithUI ecosystem.",
-	"private": false,
-	"publishConfig": {
-		"access": "public"
-	},
-	"type": "module",
-	"module": "./dist/index.js",
-	"main": "./dist/index.cjs",
-	"types": "./dist/index.d.ts",
-	"exports": {
-		".": {
-			"import": {
-				"types": "./dist/index.d.ts",
-				"default": "./dist/index.js"
-			},
-			"require": {
-				"types": "./dist/index.d.ts",
-				"default": "./dist/index.cjs"
-			}
-		}
-	},
-	"files": [
-		"dist"
-	],
-	"scripts": {
-		"prepublishOnly": "npm run build",
-		"build": "rslib build",
-		"dev": "rslib build --watch",
-		"format": "npx @biomejs/biome format --write .",
-		"lint": "npx @biomejs/biome lint .",
-		"lint:fix": "npx @biomejs/biome lint --write .",
-		"clean": "rm -rf dist",
-		"test": "jest --config ./jest.config.ts"
-	},
-	"devDependencies": {
-		"@rsbuild/plugin-react": "^1.1.1",
-		"@rslib/core": "^0.5.5",
-		"rsbuild-plugin-dts": "^0.5.5"
-	},
-	"engines": {
-		"npm": ">=9",
-		"node": ">=20"
-	},
-	"homepage": "https://zenithui-docs.vercel.app/",
-	"bugs": {
-		"url": "https://github.com/ChanduBobbili/ZenithUi/issues"
-	},
-	"repository": {
-		"type": "git",
-		"url": "git+https://github.com/ChanduBobbili/ZenithUi.git#main"
-	},
-	"license": "MIT",
-	"author": "Chandu Bobbili <chandubobbili12@gmail.com> (https://github.com/ChanduBobbili)",
-	"packageManager": "pnpm@9.5.0"
+  "name": "@zenithui/utils",
+  "version": "0.2.4",
+  "description": "A collection of utility functions and hooks to simplify development in the ZenithUI ecosystem.",
+  "private": false,
+  "publishConfig": {
+    "access": "public"
+  },
+  "type": "module",
+  "module": "./dist/index.js",
+  "main": "./dist/index.cjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.cjs"
+      }
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "keywords": [
+    "utils",
+    "utility-functions",
+    "hooks",
+    "zenithui",
+    "typescript",
+    "react",
+    "development-tools",
+    "helper-functions",
+    "frontend"
+  ],
+  "scripts": {
+    "prepublishOnly": "npm run build",
+    "build": "rslib build",
+    "dev": "rslib build --watch",
+    "format": "npx @biomejs/biome format --write .",
+    "lint": "npx @biomejs/biome lint .",
+    "lint:fix": "npx @biomejs/biome lint --write .",
+    "clean": "rm -rf dist",
+    "test": "jest --config ./jest.config.ts"
+  },
+  "devDependencies": {
+    "@rsbuild/plugin-react": "^1.1.1",
+    "@rslib/core": "^0.5.5",
+    "rsbuild-plugin-dts": "^0.5.5"
+  },
+  "engines": {
+    "npm": ">=9",
+    "node": ">=20"
+  },
+  "homepage": "https://zenithui-docs.vercel.app/",
+  "bugs": {
+    "url": "https://github.com/ChanduBobbili/ZenithUi/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ChanduBobbili/ZenithUi.git#main"
+  },
+  "license": "MIT",
+  "author": "Chandu Bobbili <chandubobbili12@gmail.com> (https://github.com/ChanduBobbili)",
+  "packageManager": "pnpm@9.5.0"
 }

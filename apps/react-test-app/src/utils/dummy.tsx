@@ -1,4 +1,4 @@
-import { LightBoxImages } from "zenithui-light-box"
+import type { LightBoxImages } from "zenithui-light-box"
 
 export const dummyImages: LightBoxImages[] = [
   {
