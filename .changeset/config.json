@@ -7,9 +7,5 @@
   "access": "public",
   "baseBranch": "main",
   "updateInternalDependencies": "patch",
-  "ignore": [
-    "react-test-app",
-    "zenithui-primitive",
-    "zenithui-light-box"
-  ]
+  "ignore": ["react-test-app", "zenithui-primitive"]
 }
