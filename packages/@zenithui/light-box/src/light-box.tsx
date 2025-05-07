@@ -60,7 +60,6 @@ export function LightBox({
   closeOnBackdropClick = true,
   closeOnEscape = true,
   swipeToNavigate = true,
-  zoomable = true,
   onImageDelete,
   classNames,
   components,
@@ -76,19 +75,6 @@ export function LightBox({
   const [touchStart, setTouchStart] = React.useState<number>(0)
   const [touchEnd, setTouchEnd] = React.useState<number>(0)
 
-  // Zoom-related states (only initialized if zoomable)
-  const [zoomLevel, setZoomLevel] = React.useState(zoomable ? 1 : 1)
-  const [position, setPosition] = React.useState(
-    zoomable ? { x: 0, y: 0 } : { x: 0, y: 0 },
-  )
-  const [isDragging, setIsDragging] = React.useState(false)
-  const [dragStart, setDragStart] = React.useState(
-    zoomable ? { x: 0, y: 0 } : { x: 0, y: 0 },
-  )
-
-  // Refs
-  const containerRef = React.useRef<HTMLDivElement>(null)
-  const imageRefs = React.useRef<(HTMLImageElement | null)[]>([])
   const deviceType = useDeviceType()
 
   // Initialize states
@@ -102,15 +88,6 @@ export function LightBox({
     setLoadedImages(initialLoadState)
     setErroredImages(initialErrorState)
   }, [images])
-
-  // biome-ignore lint/correctness/useExhaustiveDependencies: currentIndex is already in the dependency array and this is a performance optimization
-  React.useEffect(() => {
-    // if (onImageChange) onImageChange(currentIndex)
-    if (zoomable) {
-      setPosition({ x: 0, y: 0 })
-      setZoomLevel(1)
-    }
-  }, [currentIndex, zoomable])
 
   const handleImageLoad = (index: number) => {
     setLoadedImages((prev) => ({ ...prev, [index]: true }))
@@ -127,100 +104,6 @@ export function LightBox({
   const handlePrev = React.useCallback(() => {
     setCurrentIndex((prev) => (prev <= 0 ? images.length - 1 : prev - 1))
   }, [images.length])
-
-  // Zoom and pan handlers (only used if zoomable)
-  const handleZoom = (e: WheelEvent) => {
-    if (!zoomable) return
-    e.preventDefault()
-
-    const container = containerRef.current
-    if (!container) return
-
-    const rect = container.getBoundingClientRect()
-    const containerWidth = rect.width
-    const containerHeight = rect.height
-
-    // Mouse position relative to container
-    const mouseX = e.clientX - rect.left
-    const mouseY = e.clientY - rect.top
-
-    // Image coordinates before zoom
-    const imageX = (mouseX - position.x) / zoomLevel
-    const imageY = (mouseY - position.y) / zoomLevel
-
-    // Calculate new zoom level
-    const delta = e.deltaY > 0 ? -0.2 : 0.2
-    const newZoom = Math.min(Math.max(zoomLevel + delta, 1), 4)
-
-    // Calculate new position to zoom toward cursor
-    let newX = mouseX - imageX * newZoom
-    let newY = mouseY - imageY * newZoom
-
-    // Calculate maximum allowed position to keep image within bounds
-    const maxX = ((newZoom - 1) * containerWidth) / 2
-    const maxY = ((newZoom - 1) * containerHeight) / 2
-
-    // Constrain the position to keep image within container
-    newX = Math.min(Math.max(newX, -maxX), maxX)
-    newY = Math.min(Math.max(newY, -maxY), maxY)
-
-    setZoomLevel(newZoom)
-    setPosition({ x: newX, y: newY })
-  }
-
-  useEventListener(
-    "wheel",
-    handleZoom,
-    containerRef as React.RefObject<HTMLElement>,
-  )
-
-  const handleMouseDown = (e: React.MouseEvent) => {
-    if (!zoomable || zoomLevel <= 1) return
-    setIsDragging(true)
-    setDragStart({
-      x: e.clientX - position.x,
-      y: e.clientY - position.y,
-    })
-  }
-
-  const handleMouseMove = (e: React.MouseEvent) => {
-    if (!isDragging || !zoomable || zoomLevel <= 1) return
-
-    const container = containerRef.current
-    if (!container) return
-
-    const rect = container.getBoundingClientRect()
-    const containerWidth = rect.width
-    const containerHeight = rect.height
-
-    // Calculate new position
-    let newX = e.clientX - dragStart.x
-    let newY = e.clientY - dragStart.y
-
-    // Calculate maximum allowed position
-    const maxX = ((zoomLevel - 1) * containerWidth) / 2
-    const maxY = ((zoomLevel - 1) * containerHeight) / 2
-
-    // Constrain the position
-    newX = Math.min(Math.max(newX, -maxX), maxX)
-    newY = Math.min(Math.max(newY, -maxY), maxY)
-
-    setPosition({ x: newX, y: newY })
-  }
-
-  const handleMouseUp = () => {
-    setIsDragging(false)
-  }
-
-const handleDoubleClick = () => {
-  if (!zoomable) return
-  setZoomLevel(1)
-  setPosition({
-    x: position.x * 0.2,
-    y: position.y * 0.2,
-  })
-  setTimeout(() => setPosition({ x: 0, y: 0 }), 200)
-}
 
   const getImageUrl = (image: string | LightBoxImages) =>
     typeof image !== "string" ? image.src : image
@@ -240,23 +123,7 @@ const handleDoubleClick = () => {
           width: "100%",
           height: "100%",
           overflow: "hidden",
-          cursor:
-            zoomable && zoomLevel > 1
-              ? isDragging
-                ? "grabbing"
-                : "grab"
-              : "default",
         }}
-        {...(zoomable
-          ? {
-              onMouseDown: handleMouseDown,
-              onMouseMove: handleMouseMove,
-              onMouseUp: handleMouseUp,
-              onMouseLeave: handleMouseUp,
-              onDoubleClick: handleDoubleClick,
-            }
-          : {})}
-        ref={containerRef}
       >
         <img
           src={imageUrl}
@@ -265,19 +132,16 @@ const handleDoubleClick = () => {
             position: "absolute",
             top: "0",
             left: "0",
-            transformOrigin: "top left",
-            transform: zoomable
-              ? `translate(${position.x}px, ${position.y}px) scale(${zoomLevel})`
-              : "translate(-50%, -50%) scale(1)",
-            transition: isDragging ? "none" : "transform 0.1s ease",
+            objectFit: "cover",
+            transform: "translate(0%, 0%) scale(1)",
             maxWidth: "unset",
             maxHeight: "unset",
-            width: "auto",
-            height: "auto",
+            width: "100%",
+            height: "100%",
             opacity: !isLoading && !hasError ? 1 : 0,
             pointerEvents: "none", // avoids image interfering with dragging
             userSelect: "none", // avoids text selection
-            // objectFit: "contain",
+            willChange: "transform, opacity",
             // objectPosition: "center",
           }}
           onLoad={() => handleImageLoad(index)}
@@ -621,7 +485,6 @@ const handleDoubleClick = () => {
                     active={currentIndex === index}
                     onClick={() => {
                       setCurrentIndex(index)
-                      setZoomLevel(1)
                     }}
                     className={classNames?.paginationButton}
                     activeClassName={classNames?.paginationButtonActive}
