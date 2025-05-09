@@ -76,8 +76,6 @@ export function LightBox({
   const [erroredImages, setErroredImages] = React.useState<
     Record<number, boolean>
   >({})
-  const [touchStart, setTouchStart] = React.useState<number>(0)
-  const [touchEnd, setTouchEnd] = React.useState<number>(0)
 
   const [zoom, setZoom] = React.useState(1)
   const [position, setPosition] = React.useState({ x: 0, y: 0 })
@@ -102,9 +100,9 @@ export function LightBox({
   // Reset zoom when image changes
   // biome-ignore lint/correctness/useExhaustiveDependencies: Running on every image change
   React.useEffect(() => {
-    setZoom(1)
+    setZoom(minZoom)
     setPosition({ x: 0, y: 0 })
-  }, [currentIndex])
+  }, [currentIndex, open])
 
   const handleImageLoad = (index: number) => {
     setLoadedImages((prev) => ({ ...prev, [index]: true }))
@@ -201,7 +199,7 @@ export function LightBox({
           }
         }
       },
-      onPinch: ({ origin, movement: [d], da: [distance], memo, event }) => {
+      onPinch: ({ origin, da: [distance], memo, event }) => {
         if (!zoomable || !containerRef.current) return
         event.preventDefault()
 
@@ -228,7 +226,7 @@ export function LightBox({
 
         return { lastDistance: distance } // store for next event
       },
-      onWheel: ({ event, delta: [dx, dy] }) => {
+      onWheel: ({ event, delta: [_, dy] }) => {
         if (!zoomable || !containerRef.current) return
 
         // Block zooming out if already at or below minZoom and scrolling down
