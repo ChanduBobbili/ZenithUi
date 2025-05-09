@@ -36,6 +36,15 @@ You can customize the behavior and appearance of the light box using the followi
 - Customizable buttons (close, delete, navigation)
 - Pagination dots and optional caption support
 - Controlled open/close state
+- Zoomble LightBox
+
+## 🔍 Zoom
+
+You can also implement a zoom effect for images. This is useful for detailed views or when you want to focus on a specific part of an image.
+
+- `zoomable`: enables zoom effect
+- `minZoom`: minimum zoom level
+- `maxZoom`: maximum zoom level
 
 ### 📱 Touch Support
 

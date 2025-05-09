@@ -273,6 +273,21 @@ export type LightBoxProps = {
    */
   swipeToNavigate?: boolean
   /**
+   * Enable zooming
+   * @default false
+   */
+  zoomable?: boolean
+  /**
+   * The maximum zoom level.
+   * @default 4
+   */
+  maxZoom?: number
+  /**
+   * The minimum zoom level.
+   * @default 1
+   */
+  minZoom?: number
+  /**
    * The class names to apply to the lightbox.
    */
   classNames?: LightBoxClassNames

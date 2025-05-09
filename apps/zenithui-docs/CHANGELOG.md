@@ -1,5 +1,13 @@
 # zenithui-docs
 
+## 1.3.2
+
+### Patch Changes
+
+- added the zooming and panning in the docs
+- Updated dependencies
+  - @zenithui/light-box@1.1.0
+
 ## 1.3.1
 
 ### Patch Changes
