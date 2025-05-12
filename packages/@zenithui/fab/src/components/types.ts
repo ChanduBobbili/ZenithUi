@@ -1,3 +1,8 @@
+import type {
+  Placement,
+  useFloating,
+  useInteractions,
+} from "@floating-ui/react"
 import type { HTMLAttributes } from "react"
 
 export type POSITION =
@@ -73,4 +78,18 @@ export type FAB_CONTENT = {
    * @type {string}
    */
   className?: string
+}
+
+export type FAB_STATE = {
+  open: boolean
+  setOpen: (open: boolean) => void
+  placement: Placement
+  setPosition: (position: POSITION) => void
+  xOffset: number
+  yOffset: number
+  refs: ReturnType<typeof useFloating>["refs"]
+  floatingStyles: React.CSSProperties
+  middlewareData: ReturnType<typeof useFloating>["middlewareData"]
+  getReferenceProps: ReturnType<typeof useInteractions>["getReferenceProps"]
+  getFloatingProps: ReturnType<typeof useInteractions>["getFloatingProps"]
 }
