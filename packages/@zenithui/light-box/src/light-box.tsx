@@ -9,7 +9,7 @@ import type {
   NavigationButtonProps,
   PaginationDotProps,
 } from "./types"
-import { useGesture } from "react-use-gesture"
+import { useGesture } from "@use-gesture/react"
 
 const EPSILON = 0.01
 
@@ -163,7 +163,8 @@ export function LightBox({
   const bind = useGesture(
     {
       onDrag: ({ movement: [mx, my], memo, event }) => {
-        if (!zoomable || zoom <= 1) return
+        if (!zoomable) return
+        if (zoom <= 1) return
         event?.preventDefault()
 
         if (!memo) {
@@ -185,7 +186,7 @@ export function LightBox({
         // important: return memo so it persists through the drag
         return memo
       },
-      onDragEnd: ({ swipe: [swipeX], direction: [dirX], velocity: vx }) => {
+      onDragEnd: ({ swipe: [swipeX], direction: [dirX], velocity: [vx] }) => {
         setIsDragging(false)
 
         if (["smallMobile", "largeMobile"].includes(deviceType)) {
@@ -200,7 +201,8 @@ export function LightBox({
         }
       },
       onPinch: ({ origin, da: [distance], memo, event }) => {
-        if (!zoomable || !containerRef.current) return
+        if (!zoomable) return
+        if (!containerRef.current) return
         event.preventDefault()
 
         const rect = containerRef.current.getBoundingClientRect()
@@ -227,7 +229,8 @@ export function LightBox({
         return { lastDistance: distance } // store for next event
       },
       onWheel: ({ event, delta: [_, dy] }) => {
-        if (!zoomable || !containerRef.current) return
+        if (!zoomable) return
+        if (!containerRef.current) return
 
         // Block zooming out if already at or below minZoom and scrolling down
         if (zoom <= minZoom && dy >= 0) {
@@ -545,7 +548,7 @@ export function LightBox({
             if (e.key === "Home") setCurrentIndex(0)
             if (e.key === "End") setCurrentIndex(images.length - 1)
           }}
-          {...(zoomable ? bind() : {})}
+          {...bind()}
         >
           <DialogPrimitive.Title style={{ display: "none" }}>
             Title

@@ -1,5 +1,11 @@
 # @zenithui/light-box
 
+## 1.1.1
+
+### Patch Changes
+
+- replace deprecated react-use-gesture with @use-gesture/react and update related code
+
 ## 1.1.0
 
 ### Minor Changes
