@@ -1,5 +1,11 @@
 # @zenithui/light-box
 
+## 1.1.0
+
+### Minor Changes
+
+- Added the zooming and panning feature
+
 ## 1.0.1
 
 ### Patch Changes
