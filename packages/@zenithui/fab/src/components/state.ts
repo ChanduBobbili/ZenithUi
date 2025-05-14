@@ -204,99 +204,149 @@ function calculateContentPlacement(
   triggerRect: Rect,
   contentRect: Rect,
   offset: number,
-  xOffset: number,
-  yOffset: number,
 ): { x: number; y: number; placement: PLACEMENT } {
   const viewportWidth = window.innerWidth
   const viewportHeight = window.innerHeight
   const safeArea = 8
+  const minOffset = 16 // Minimum space between trigger and content
 
-  // Base calculation for all positions
-  let baseX = triggerCoords.x
-  let baseY = triggerCoords.y
+  // Calculate trigger center point
+  const triggerCenterX = triggerCoords.x + triggerRect.width / 2
+  const triggerCenterY = triggerCoords.y + triggerRect.height / 2
 
-  // Adjust for center positions
-  if (position.includes("center")) {
-    switch (placement) {
-      case "top":
-        baseX += triggerRect.width / 2 - contentRect.width / 2
-        baseY -= contentRect.height + offset
-        break
-      case "bottom":
-        baseX += triggerRect.width / 2 - contentRect.width / 2
-        baseY += triggerRect.height + offset
-        break
-      case "left":
-        baseX -= contentRect.width + offset
-        baseY += triggerRect.height / 2 - contentRect.height / 2
-        break
-      case "right":
-        baseX += triggerRect.width + offset
-        baseY += triggerRect.height / 2 - contentRect.height / 2
-        break
+  let baseX = 0
+  let baseY = 0
+  let adjustedPlacement = placement
+
+  // Calculate base position based on placement
+  switch (placement) {
+    case "top":
+      baseX = triggerCenterX - contentRect.width / 2
+      baseY = triggerCoords.y - contentRect.height - offset
+      break
+    case "bottom":
+      baseX = triggerCenterX - contentRect.width / 2
+      baseY = triggerCoords.y + triggerRect.height + offset
+      break
+    case "left":
+      baseX = triggerCoords.x - contentRect.width - offset
+      baseY = triggerCenterY - contentRect.height / 2
+      break
+    case "right":
+      baseX = triggerCoords.x + triggerRect.width + offset
+      baseY = triggerCenterY - contentRect.height / 2
+      break
+  }
+
+  // Special adjustments for corner positions
+  if (position.includes("right") && placement === "top") {
+    baseX = triggerCoords.x + triggerRect.width - contentRect.width
+  } else if (position.includes("left") && placement === "top") {
+    baseX = triggerCoords.x
+  }
+
+  // Boundary checks and adjustments
+  let adjustedX = baseX
+  let adjustedY = baseY
+
+  // Horizontal boundary check
+  if (adjustedX < safeArea) {
+    adjustedX = safeArea
+    // Flip to right placement if pushed too far left
+    if (
+      placement === "left" &&
+      triggerCoords.x + triggerRect.width + minOffset + contentRect.width <
+        viewportWidth
+    ) {
+      adjustedX = triggerCoords.x + triggerRect.width + minOffset
+      adjustedPlacement = "right"
     }
-
-    // Special handling for pure center position
-    if (position === "center") {
-      if (placement === "top" || placement === "bottom") {
-        baseX = viewportWidth / 2 - contentRect.width / 2
-      } else {
-        baseY = viewportHeight / 2 - contentRect.height / 2
-      }
-    }
-  } else {
-    // Original position calculations for non-center positions
-    switch (placement) {
-      case "top":
-        baseX += triggerRect.width / 2 - contentRect.width / 2
-        baseY -= contentRect.height + offset
-        break
-      case "bottom":
-        baseX += triggerRect.width / 2 - contentRect.width / 2
-        baseY += triggerRect.height + offset
-        break
-      case "left":
-        baseX -= contentRect.width + offset
-        baseY += triggerRect.height / 2 - contentRect.height / 2
-        break
-      case "right":
-        baseX += triggerRect.width + offset
-        baseY += triggerRect.height / 2 - contentRect.height / 2
-        break
+  } else if (adjustedX + contentRect.width > viewportWidth - safeArea) {
+    adjustedX = viewportWidth - contentRect.width - safeArea
+    // Flip to left placement if pushed too far right
+    if (
+      placement === "right" &&
+      triggerCoords.x - minOffset - contentRect.width > 0
+    ) {
+      adjustedX = triggerCoords.x - contentRect.width - minOffset
+      adjustedPlacement = "left"
     }
   }
 
-  // Boundary adjustments
-  let adjustedX = Math.max(
-    safeArea,
-    Math.min(baseX, viewportWidth - contentRect.width - safeArea),
-  )
-  let adjustedY = Math.max(
-    safeArea,
-    Math.min(baseY, viewportHeight - contentRect.height - safeArea),
-  )
-  let adjustedPlacement = placement
-
-  // Special edge case handling for center positions
-  if (position.includes("center")) {
-    if (placement === "top" && baseY < safeArea) {
+  // Vertical boundary check
+  if (adjustedY < safeArea) {
+    adjustedY = safeArea
+    // Flip to bottom placement if pushed too far up
+    if (
+      placement === "top" &&
+      triggerCoords.y + triggerRect.height + minOffset + contentRect.height <
+        viewportHeight
+    ) {
+      adjustedY = triggerCoords.y + triggerRect.height + minOffset
       adjustedPlacement = "bottom"
-      adjustedY = triggerCoords.y + triggerRect.height + offset
-    } else if (
+    }
+  } else if (adjustedY + contentRect.height > viewportHeight - safeArea) {
+    adjustedY = viewportHeight - contentRect.height - safeArea
+    // Flip to top placement if pushed too far down
+    if (
       placement === "bottom" &&
-      baseY + contentRect.height > viewportHeight - safeArea
+      triggerCoords.y - minOffset - contentRect.height > 0
     ) {
+      adjustedY = triggerCoords.y - contentRect.height - minOffset
       adjustedPlacement = "top"
-      adjustedY = triggerCoords.y - contentRect.height - offset
-    } else if (placement === "left" && baseX < safeArea) {
-      adjustedPlacement = "right"
-      adjustedX = triggerCoords.x + triggerRect.width + offset
-    } else if (
-      placement === "right" &&
-      baseX + contentRect.width > viewportWidth - safeArea
-    ) {
-      adjustedPlacement = "left"
-      adjustedX = triggerCoords.x - contentRect.width - offset
+    }
+  }
+
+  // Final position validation to ensure no overlap
+  const contentRectFinal = {
+    left: adjustedX,
+    top: adjustedY,
+    right: adjustedX + contentRect.width,
+    bottom: adjustedY + contentRect.height,
+  }
+
+  const triggerRectFinal = {
+    left: triggerCoords.x,
+    top: triggerCoords.y,
+    right: triggerCoords.x + triggerRect.width,
+    bottom: triggerCoords.y + triggerRect.height,
+  }
+
+  // If still overlapping, force a valid position
+  if (isOverlapping(contentRectFinal, triggerRectFinal)) {
+    // Find first non-overlapping position
+    const placementsToTry: PLACEMENT[] = ["top", "bottom", "left", "right"]
+    for (const newPlacement of placementsToTry) {
+      if (newPlacement !== placement) {
+        const newCoords = calculateContentPlacement(
+          newPlacement,
+          position,
+          triggerCoords,
+          triggerRect,
+          contentRect,
+          offset,
+        )
+        if (
+          !isOverlapping(
+            {
+              left: newCoords.x,
+              top: newCoords.y,
+              right: newCoords.x + contentRect.width,
+              bottom: newCoords.y + contentRect.height,
+            },
+            triggerRectFinal,
+          )
+        ) {
+          return newCoords
+        }
+      }
+    }
+
+    // Fallback position (centered in viewport)
+    return {
+      x: Math.max(safeArea, (viewportWidth - contentRect.width) / 2),
+      y: Math.max(safeArea, (viewportHeight - contentRect.height) / 2),
+      placement: adjustedPlacement,
     }
   }
 
@@ -305,6 +355,18 @@ function calculateContentPlacement(
     y: adjustedY,
     placement: adjustedPlacement,
   }
+}
+
+function isOverlapping(
+  rect1: { left: number; top: number; right: number; bottom: number },
+  rect2: { left: number; top: number; right: number; bottom: number },
+): boolean {
+  return !(
+    rect1.right < rect2.left ||
+    rect1.left > rect2.right ||
+    rect1.bottom < rect2.top ||
+    rect1.top > rect2.bottom
+  )
 }
 
 function getBestPlacement(
@@ -339,8 +401,6 @@ function getBestPlacement(
       triggerRect,
       contentRect,
       offset,
-      xOffset,
-      yOffset,
     )
 
     if (isPlacementValid(coords, contentRect)) {

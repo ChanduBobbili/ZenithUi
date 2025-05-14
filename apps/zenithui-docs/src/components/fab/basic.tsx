@@ -8,10 +8,10 @@ export default function BasicFab() {
     <FabPrimitive.Root
       open={open}
       onOpenChange={setOpen}
-      position="top-right"
+      position="bottom-right"
     >
       <FabPrimitive.Trigger>B</FabPrimitive.Trigger>
-      <FabPrimitive.Content placement="bottom">Content</FabPrimitive.Content>
+      <FabPrimitive.Content placement="top">Content</FabPrimitive.Content>
     </FabPrimitive.Root>
   )
 }
