@@ -7,6 +7,9 @@ export type POSITION =
   | "bottom-left"
   | "bottom-right"
   | "bottom-center"
+  | "center-left"
+  | "center-right"
+  | "center"
 
 export type PLACEMENT = "left" | "right" | "top" | "bottom"
 

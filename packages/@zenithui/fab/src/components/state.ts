@@ -122,6 +122,7 @@ export default function useFabState({
   useEventListener("resize", updateCoords)
   useEventListener("DOMContentLoaded", updateCoords)
 
+  console.log(contentCords)
   return {
     open,
     setOpen,
@@ -176,6 +177,21 @@ function calculateTriggerPlacement(
         x: viewportWidth / 2 - trigger.width / 2 + xOffset,
         y: viewportHeight - trigger.height - yOffset,
       }
+    case "center-left":
+      return {
+        x: xOffset,
+        y: viewportHeight / 2 - trigger.height / 2 + yOffset,
+      }
+    case "center-right":
+      return {
+        x: viewportWidth - trigger.width - xOffset,
+        y: viewportHeight / 2 - trigger.height / 2 + yOffset,
+      }
+    case "center":
+      return {
+        x: viewportWidth / 2 - trigger.width / 2 + xOffset,
+        y: viewportHeight / 2 - trigger.height / 2 + yOffset,
+      }
     default:
       return { x: 0, y: 0 }
   }
@@ -190,127 +206,107 @@ function calculateContentPlacement(
   offset: number,
   xOffset: number,
   yOffset: number,
-): { x: number; y: number } {
+): { x: number; y: number; placement: PLACEMENT } {
   const viewportWidth = window.innerWidth
   const viewportHeight = window.innerHeight
-  const safeArea = 8 // Minimum padding from viewport edges
+  const safeArea = 8
 
-  // 1. Calculate ideal position
-  let baseX = 0
-  let baseY = 0
+  // Base calculation for all positions
+  let baseX = triggerCoords.x
+  let baseY = triggerCoords.y
 
-  switch (placement) {
-    case "top":
-      baseX = triggerCoords.x + triggerRect.width / 2 - contentRect.width / 2
-      baseY = triggerCoords.y - contentRect.height - offset
-      break
-    case "bottom":
-      baseX = triggerCoords.x + triggerRect.width / 2 - contentRect.width / 2
-      baseY = triggerCoords.y + triggerRect.height + offset
-      break
-    case "left":
-      baseX = triggerCoords.x - contentRect.width - offset
-      baseY = triggerCoords.y + triggerRect.height / 2 - contentRect.height / 2
-      break
-    case "right":
-      baseX = triggerCoords.x + triggerRect.width + offset
-      baseY = triggerCoords.y + triggerRect.height / 2 - contentRect.height / 2
-      break
+  // Adjust for center positions
+  if (position.includes("center")) {
+    switch (placement) {
+      case "top":
+        baseX += triggerRect.width / 2 - contentRect.width / 2
+        baseY -= contentRect.height + offset
+        break
+      case "bottom":
+        baseX += triggerRect.width / 2 - contentRect.width / 2
+        baseY += triggerRect.height + offset
+        break
+      case "left":
+        baseX -= contentRect.width + offset
+        baseY += triggerRect.height / 2 - contentRect.height / 2
+        break
+      case "right":
+        baseX += triggerRect.width + offset
+        baseY += triggerRect.height / 2 - contentRect.height / 2
+        break
+    }
+
+    // Special handling for pure center position
+    if (position === "center") {
+      if (placement === "top" || placement === "bottom") {
+        baseX = viewportWidth / 2 - contentRect.width / 2
+      } else {
+        baseY = viewportHeight / 2 - contentRect.height / 2
+      }
+    }
+  } else {
+    // Original position calculations for non-center positions
+    switch (placement) {
+      case "top":
+        baseX += triggerRect.width / 2 - contentRect.width / 2
+        baseY -= contentRect.height + offset
+        break
+      case "bottom":
+        baseX += triggerRect.width / 2 - contentRect.width / 2
+        baseY += triggerRect.height + offset
+        break
+      case "left":
+        baseX -= contentRect.width + offset
+        baseY += triggerRect.height / 2 - contentRect.height / 2
+        break
+      case "right":
+        baseX += triggerRect.width + offset
+        baseY += triggerRect.height / 2 - contentRect.height / 2
+        break
+    }
   }
 
-  // 2. Apply position-specific corrections
-  if (position.includes("right")) {
-    if (placement === "top")
-      baseX = triggerCoords.x - contentRect.width + triggerRect.width
-    if (placement === "bottom")
-      baseX = triggerCoords.x - contentRect.width + triggerRect.width
-  } else if (position.includes("left")) {
-    if (placement === "top") baseX = triggerCoords.x
-    if (placement === "bottom") baseX = triggerCoords.x
-  }
-
-  // 3. Boundary collision detection and adjustment
-  let adjustedX = baseX
-  let adjustedY = baseY
+  // Boundary adjustments
+  let adjustedX = Math.max(
+    safeArea,
+    Math.min(baseX, viewportWidth - contentRect.width - safeArea),
+  )
+  let adjustedY = Math.max(
+    safeArea,
+    Math.min(baseY, viewportHeight - contentRect.height - safeArea),
+  )
   let adjustedPlacement = placement
 
-  // Horizontal boundaries
-  if (baseX < safeArea) {
-    adjustedX = safeArea
-    // Try shifting to right placement if severely constrained
-    if (baseX < -contentRect.width / 2 && placement !== "right") {
-      adjustedX = triggerCoords.x + triggerRect.width + offset
-      adjustedPlacement = "right"
-    }
-  } else if (baseX + contentRect.width > viewportWidth - safeArea) {
-    adjustedX = viewportWidth - contentRect.width - safeArea
-    // Try shifting to left placement if severely constrained
-    if (
-      baseX + contentRect.width > viewportWidth + contentRect.width / 2 &&
-      placement !== "left"
-    ) {
-      adjustedX = triggerCoords.x - contentRect.width - offset
-      adjustedPlacement = "left"
-    }
-  }
-
-  // Vertical boundaries
-  if (baseY < safeArea) {
-    adjustedY = safeArea
-    // Try shifting to bottom placement if severely constrained
-    if (baseY < -contentRect.height / 2 && placement !== "bottom") {
-      adjustedY = triggerCoords.y + triggerRect.height + offset
+  // Special edge case handling for center positions
+  if (position.includes("center")) {
+    if (placement === "top" && baseY < safeArea) {
       adjustedPlacement = "bottom"
-    }
-  } else if (baseY + contentRect.height > viewportHeight - safeArea) {
-    adjustedY = viewportHeight - contentRect.height - safeArea
-    // Try shifting to top placement if severely constrained
-    if (
-      baseY + contentRect.height > viewportHeight + contentRect.height / 2 &&
-      placement !== "top"
+      adjustedY = triggerCoords.y + triggerRect.height + offset
+    } else if (
+      placement === "bottom" &&
+      baseY + contentRect.height > viewportHeight - safeArea
     ) {
-      adjustedY = triggerCoords.y - contentRect.height - offset
       adjustedPlacement = "top"
+      adjustedY = triggerCoords.y - contentRect.height - offset
+    } else if (placement === "left" && baseX < safeArea) {
+      adjustedPlacement = "right"
+      adjustedX = triggerCoords.x + triggerRect.width + offset
+    } else if (
+      placement === "right" &&
+      baseX + contentRect.width > viewportWidth - safeArea
+    ) {
+      adjustedPlacement = "left"
+      adjustedX = triggerCoords.x - contentRect.width - offset
     }
   }
 
-  // 4. Final position validation
-  const finalPosition = {
-    x: Math.max(
-      safeArea,
-      Math.min(adjustedX, viewportWidth - contentRect.width - safeArea),
-    ),
-    y: Math.max(
-      safeArea,
-      Math.min(adjustedY, viewportHeight - contentRect.height - safeArea),
-    ),
+  return {
+    x: adjustedX,
+    y: adjustedY,
     placement: adjustedPlacement,
   }
-
-  // 5. Special cases for corner positions
-  if (position.includes("center")) {
-    // Center-aligned FABs get special treatment
-    if (placement === "top" || placement === "bottom") {
-      finalPosition.x =
-        triggerCoords.x + triggerRect.width / 2 - contentRect.width / 2
-    } else {
-      finalPosition.y =
-        triggerCoords.y + triggerRect.height / 2 - contentRect.height / 2
-    }
-  }
-
-  // 6. Ensure content stays attached to trigger
-  if (adjustedPlacement === "top" || adjustedPlacement === "bottom") {
-    const minX = triggerCoords.x - contentRect.width + triggerRect.width
-    const maxX = triggerCoords.x
-    finalPosition.x = Math.max(minX, Math.min(finalPosition.x, maxX))
-  } else {
-    const minY = triggerCoords.y - contentRect.height + triggerRect.height
-    const maxY = triggerCoords.y
-    finalPosition.y = Math.max(minY, Math.min(finalPosition.y, maxY))
-  }
-  return finalPosition
 }
+
 function getBestPlacement(
   preferredPlacement: PLACEMENT,
   position: POSITION,
@@ -323,50 +319,36 @@ function getBestPlacement(
 ): { x: number; y: number; placement: PLACEMENT } {
   const viewportWidth = window.innerWidth
   const viewportHeight = window.innerHeight
-  const placements: PLACEMENT[] = ["top", "bottom", "left", "right"]
 
-  // Test all placements and find the best one
-  const validPlacements = placements
-    .map((testPlacement) => {
-      const coords = calculateContentPlacement(
-        testPlacement,
-        position,
-        triggerCoords,
-        triggerRect,
-        contentRect,
-        offset,
-        xOffset,
-        yOffset,
-      )
+  // For center positions, prioritize placements that make visual sense
+  const placementPriority: Record<string, PLACEMENT[]> = {
+    "center-left": ["right", "top", "bottom", "left"],
+    "center-right": ["left", "top", "bottom", "right"],
+    center: ["top", "bottom", "left", "right"],
+    default: [preferredPlacement, "top", "bottom", "left", "right"],
+  }
 
-      const isValid = isPlacementValid(coords, contentRect)
-      const distance = isValid
-        ? distanceFromTrigger(triggerCoords, triggerRect, coords, contentRect)
-        : Number.POSITIVE_INFINITY
+  const placementsToTry =
+    placementPriority[position] || placementPriority.default
 
+  for (const testPlacement of placementsToTry) {
+    const coords = calculateContentPlacement(
+      testPlacement,
+      position,
+      triggerCoords,
+      triggerRect,
+      contentRect,
+      offset,
+      xOffset,
+      yOffset,
+    )
+
+    if (isPlacementValid(coords, contentRect)) {
       return {
-        coords,
-        placement: testPlacement,
-        isValid,
-        distance,
+        x: coords.x,
+        y: coords.y,
+        placement: coords.placement,
       }
-    })
-    .filter((p) => p.isValid)
-    .sort((a, b) => {
-      // Prefer the original placement
-      if (a.placement === preferredPlacement) return -1
-      if (b.placement === preferredPlacement) return 1
-      // Then by distance to trigger
-      return a.distance - b.distance
-    })
-
-  // Return the best placement if found
-  if (validPlacements.length > 0) {
-    const best = validPlacements[0]
-    return {
-      x: best.coords.x,
-      y: best.coords.y,
-      placement: best.placement,
     }
   }
 
