@@ -1,8 +1,3 @@
-import type {
-  Placement,
-  useFloating,
-  useInteractions,
-} from "@floating-ui/react"
 import type { HTMLAttributes } from "react"
 
 export type POSITION =
@@ -12,6 +7,22 @@ export type POSITION =
   | "bottom-left"
   | "bottom-right"
   | "bottom-center"
+
+export type PLACEMENT = "left" | "right" | "top" | "bottom"
+
+export type COORDS = {
+  x: number
+  y: number
+}
+
+export type Rect = {
+  width: number
+  height: number
+  top: number
+  left: number
+  right: number
+  bottom: number
+}
 
 export type FAB_ROOT = {
   /**
@@ -44,9 +55,26 @@ export type FAB_ROOT = {
    * @defaultValue 0
    */
   yOffset?: number
+  /**
+   * The Fab content dismisses when clicking outside of it.
+   * @type {boolean}
+   * @defaultValue true
+   */
+  dismissOutsideClick?: boolean
+  /**
+   * The Fab content dismisses when pressing the escape key.
+   * @type {boolean}
+   * @defaultValue true
+   */
+  dismissOnEsc?: boolean
+  /**
+   * The children of the FAB.
+   * @type {React.ReactNode}
+   */
+  children: React.ReactNode
 }
 
-export type FAB_TRIGGER = HTMLAttributes<HTMLDivElement> & {
+export type FAB_TRIGGER = HTMLAttributes<HTMLButtonElement> & {
   /**
    * The content to be displayed inside the tooltip.
    */
@@ -66,7 +94,7 @@ export type FAB_CONTENT = {
    * @type {"left" | "right" | "top" | "bottom"}
    * @defaultValue "top"
    */
-  placement?: "left" | "right" | "top" | "bottom"
+  placement?: PLACEMENT
   /**
    * The offset between the trigger and the content.
    * @type {number}
@@ -78,18 +106,45 @@ export type FAB_CONTENT = {
    * @type {string}
    */
   className?: string
+  /**
+   * The content to be displayed inside the Fab Content.
+   * @type {React.ReactNode}
+   */
+  children: React.ReactNode
 }
 
 export type FAB_STATE = {
   open: boolean
   setOpen: (open: boolean) => void
-  placement: Placement
-  setPosition: (position: POSITION) => void
+  position: POSITION
+  placement: PLACEMENT
+  triggerCords: COORDS
+  contentCords: COORDS
+  triggerRef: React.RefObject<HTMLButtonElement | null>
+  contentRef: React.RefObject<HTMLDivElement | null>
+  setPlacement: (placement: PLACEMENT) => void
+  setOffset: (offset: number) => void
+}
+
+export type FAB_HOOK = {
+  position: POSITION
+  placement: PLACEMENT
+  offset: number
   xOffset: number
   yOffset: number
-  refs: ReturnType<typeof useFloating>["refs"]
-  floatingStyles: React.CSSProperties
-  middlewareData: ReturnType<typeof useFloating>["middlewareData"]
-  getReferenceProps: ReturnType<typeof useInteractions>["getReferenceProps"]
-  getFloatingProps: ReturnType<typeof useInteractions>["getFloatingProps"]
+  dismissOutsideClick?: boolean
+  dismissOnEsc?: boolean
+}
+
+export type FAB_CONTEXT = {
+  open: boolean
+  setOpen: (open: boolean) => void
+  position: POSITION
+  placement: PLACEMENT
+  triggerCords: COORDS
+  contentCords: COORDS
+  triggerRef: React.RefObject<HTMLButtonElement | null>
+  contentRef: React.RefObject<HTMLDivElement | null>
+  setPlacement: (placement: PLACEMENT) => void
+  setOffset: (offset: number) => void
 }
