@@ -29,7 +29,7 @@
   "scripts": {
     "prepack": "node ./scripts/update-deps.js",
     "postpublish": "node ./scripts/reset-deps.js",
-    "prepublishOnly": "npm pack && pnpm install --no-frozen-lockfile && npm run build",
+    "prepublishOnly": "pnpm build",
     "build": "rslib build",
     "build:storybook": "storybook build",
     "check": "biome check --write",

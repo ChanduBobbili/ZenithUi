@@ -33,7 +33,7 @@
   "scripts": {
     "prepack": "node update-deps.js",
     "postpublish": "node reset-deps.js",
-    "prepublishOnly": "npm pack && pnpm install && npm run build",
+    "prepublishOnly": "pnpm build",
     "build": "rslib build",
     "check": "biome check --write",
     "dev": "rslib build --watch",

@@ -37,7 +37,7 @@
     "frontend"
   ],
   "scripts": {
-    "prepublishOnly": "npm run build",
+    "prepublishOnly": "pnpm build",
     "build": "rslib build",
     "dev": "rslib build --watch",
     "format": "npx @biomejs/biome format --write .",
