@@ -55,7 +55,7 @@ export function DayPickerDays() {
         setFocus(day)
       }
     },
-    [range],
+    [range, mode, setFocus],
   )
 
   const handleRangeSelect = useCallback(
@@ -63,13 +63,13 @@ export function DayPickerDays() {
       setFocus(null)
       if (range.from && range.to) {
         setRange({ from: date, to: null })
-      } else if (isAfter(date, range.from)) {
+      } else if (isAfter(date, range.from ?? new Date())) {
         setRange({ from: range.from, to: date })
       } else {
         setRange({ from: date, to: range.from })
       }
     },
-    [range, setRange],
+    [range, setRange, setFocus],
   )
 
   const handleMouseEnterDebounced = useCallback(
@@ -114,7 +114,7 @@ export function DayPickerDays() {
               : false
 
           const isRangeStart =
-            mode === "range" ? isSameDay(range.from, day) : false
+            mode === "range" ? isSameDay(range.from ?? new Date(), day) : false
 
           const isRangeEnd =
             mode === "range" ? range.to && isSameDay(range.to, day) : false
@@ -125,7 +125,7 @@ export function DayPickerDays() {
                 ? isBetweenRange(day, range, focus)
                 : range.to &&
                   isBefore(day, range.to) &&
-                  isAfter(day, range.from)
+                  isAfter(day, range.from ?? new Date())
               : false
 
           const isDisabled = getDisabled(day, disabled)
@@ -133,6 +133,7 @@ export function DayPickerDays() {
           return (
             <button
               key={`zenithui-day-${day}-${Math.random}`}
+              type="button"
               data-today={today}
               data-selected={isSelected}
               data-range-start={isRangeStart}

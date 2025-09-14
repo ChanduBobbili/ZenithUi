@@ -16,7 +16,8 @@ export function DayPickerYears() {
   return (
     <div className={cn("zenithui-months", classNames?.months)}>
       {years.map((year) => (
-        <div
+        <button
+          type="button"
           key={`zenithui-year-${format(year, "yyyy")}`}
           data-month={format(year, "yyyy")}
           className={cn("zenithui-day", classNames?.day)}
@@ -26,7 +27,7 @@ export function DayPickerYears() {
           }}
         >
           {format(year, "yyyy")}
-        </div>
+        </button>
       ))}
     </div>
   )

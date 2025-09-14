@@ -6,7 +6,7 @@ import "@zenithui/day-picker/style.css"
 import CodePreview from "../code-preview"
 
 export default function SingleDayPicker() {
-  const [selectedDate, setSelectedDate] = useState(new Date())
+  const [selectedDate, setSelectedDate] = useState<Date | undefined>(undefined)
 
   return (
     <CodePreview

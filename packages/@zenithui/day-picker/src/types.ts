@@ -111,7 +111,7 @@ export type Disabled = {
   modifier: (date: Date) => boolean
 }
 
-export type InternalRange = { from: Date; to: Date | null }
+export type InternalRange = { from: Date | null; to: Date | null }
 
 export type BaseDayPickerProps = {
   /**
@@ -164,12 +164,12 @@ export type SingleDayPickerProps = {
    * The date that is currently selected.
    * Can be a single date or a range of dates.
    */
-  selected: Date
+  selected?: Date
   /**
    * The function that is called when a date is selected.
    * @param date - The selected date or date range.
    */
-  onSelect: (date: Date) => void
+  onSelect?: (date: Date) => void
   /**
    * The selection mode for the date picker.
    * Can be either "single" for single date selection or "range" for date range selection.
@@ -182,12 +182,12 @@ export type RangeDayPickerProps = {
    * The date that is currently selected.
    * Can be a single date or a range of dates.
    */
-  selected: DateRange
+  selected?: DateRange
   /**
    * The function that is called when a date is selected.
    * @param date - The selected date or date range.
    */
-  onSelect: (date: DateRange) => void
+  onSelect?: (date: DateRange) => void
   /**
    * The selection mode for the date picker.
    * Can be either "single" for single date selection or "range" for date range selection.

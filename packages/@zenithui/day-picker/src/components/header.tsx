@@ -3,6 +3,7 @@ import { useDayPicker } from "./../hooks/use-day-picker"
 import { cn } from "@zenithui/utils"
 
 const Arrow = ({ className }: { className: string }) => (
+  // biome-ignore lint/a11y/noSvgWithoutTitle: <explanation>
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="26"
@@ -40,6 +41,7 @@ export function DayPickerHeader() {
   return (
     <div className={cn("zenithui-calendar-header", classNames?.header)}>
       <button
+        type="button"
         onClick={handlePrev}
         className={cn("zenithui-nav-button", classNames?.prevMonthButton)}
         disabled={state === "month"}
@@ -65,6 +67,7 @@ export function DayPickerHeader() {
           </span>
         ) : (
           <button
+            type="button"
             className={cn("zenithui-month-caption", classNames?.monthCaption)}
             onClick={() => setState("month")}
           >
@@ -82,6 +85,7 @@ export function DayPickerHeader() {
           </span>
         ) : (
           <button
+            type="button"
             className={cn("zenithui-month-caption", classNames?.monthCaption)}
             onClick={() => setState("year")}
           >
@@ -91,6 +95,7 @@ export function DayPickerHeader() {
       </div>
 
       <button
+        type="button"
         onClick={handleNext}
         className={cn("zenithui-nav-button", classNames?.nextMonthButton)}
         disabled={state === "month"}

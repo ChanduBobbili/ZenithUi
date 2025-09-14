@@ -1,5 +1,5 @@
 import { isAfter, isBefore, isSameDay, isWithinInterval } from "date-fns"
-import { DateRange, Disabled, InternalRange } from "./types"
+import type { DateRange, Disabled, InternalRange } from "./types"
 
 /**
  * Gets the initial date from the selected date or range.
@@ -9,12 +9,10 @@ import { DateRange, Disabled, InternalRange } from "./types"
  * @param selected
  * @returns
  */
-export function getInitialDate(selected: Date | DateRange): Date {
-  return selected instanceof Date
-    ? selected
-    : Array.isArray(selected)
-      ? selected[0]
-      : selected.from
+export function getInitialDate(selected?: Date | DateRange | null): Date {
+  if (selected instanceof Date) return selected
+  if (selected && "from" in selected && selected.from) return selected.from
+  return new Date() // fallback only for rendering the current month
 }
 
 /**
@@ -23,12 +21,20 @@ export function getInitialDate(selected: Date | DateRange): Date {
  * @param selected
  * @returns
  */
-export function getInitialRange(selected: Date | DateRange): InternalRange {
-  return selected instanceof Date
-    ? { from: new Date(), to: new Date() }
-    : Array.isArray(selected)
-      ? { from: selected[0], to: selected[1] }
-      : selected
+export function getInitialRange(
+  selected?: Date | DateRange | null,
+): InternalRange {
+  if (!selected) return { from: null, to: null }
+
+  if (selected instanceof Date) {
+    return { from: selected, to: selected }
+  }
+
+  if ("from" in selected && "to" in selected) {
+    return { from: selected.from, to: selected.to ?? null }
+  }
+
+  return { from: null, to: null }
 }
 
 /**
@@ -113,10 +119,7 @@ export function getDisabled(
   if (disable.date && isSameDay(current, parseDate(disable.date))) return true
 
   // Check array of dates
-  if (
-    disable.dates &&
-    disable.dates.some((date) => isSameDay(current, parseDate(date)))
-  )
+  if (disable?.dates?.some((date) => isSameDay(current, parseDate(date))))
     return true
 
   // Check days of week
@@ -143,7 +146,7 @@ export function getDisabled(
   }
 
   // Check custom modifier function
-  if (disable.modifier && disable.modifier(current)) return true
+  if (disable.modifier?.(current)) return true
 
   // If none of the conditions matched, the date is not disabled
   return false
