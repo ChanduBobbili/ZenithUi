@@ -27,8 +27,8 @@
     "dist/index.css"
   ],
   "scripts": {
-    "prepack": "node ./scripts/update-deps.js",
-    "postpublish": "node ./scripts/reset-deps.js",
+    "prepack": "node update-deps.js",
+    "postpublish": "node reset-deps.js",
     "prepublishOnly": "npm pack && pnpm install --no-frozen-lockfile && npm run build",
     "build": "rslib build",
     "build:storybook": "storybook build",
