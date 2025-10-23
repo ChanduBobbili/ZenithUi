@@ -8,6 +8,7 @@ export { default as useIsomorphicLayoutEffect } from "./hooks/use-isomorphic-lay
 export { default as useMediaQuery } from "./hooks/use-media-query"
 export { default as useTheme } from "./hooks/use-theme"
 export { default as useUnMount } from "./hooks/use-unmount"
+export { default as useThemeMode } from "./hooks/use-theme-mode"
 export {
   useDebounce,
   usePrevious,
