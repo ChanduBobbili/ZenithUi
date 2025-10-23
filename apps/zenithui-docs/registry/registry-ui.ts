@@ -46,4 +46,56 @@ export const ui: Registry["items"] = [
       },
     ],
   },
+  {
+    name: "marquee",
+    type: "registry:ui",
+    title: "Marquee",
+    description:
+      "An infinite scrolling component that can be used to display text, images, or videos.",
+    files: [
+      {
+        path: "magicui/marquee.tsx",
+        type: "registry:ui",
+      },
+    ],
+    cssVars: {
+      theme: {
+        "animate-marquee": "marquee var(--duration) infinite linear",
+        "animate-marquee-vertical":
+          "marquee-vertical var(--duration) linear infinite",
+      },
+    },
+    css: {
+      "@keyframes marquee": {
+        from: {
+          transform: "translateX(0)",
+        },
+        to: {
+          transform: "translateX(calc(-100% - var(--gap)))",
+        },
+      },
+      "@keyframes marquee-vertical": {
+        from: {
+          transform: "translateY(0)",
+        },
+        to: {
+          transform: "translateY(calc(-100% - var(--gap)))",
+        },
+      },
+    },
+  },
+  {
+    name: "animated-list",
+    type: "registry:ui",
+    title: "Animated List",
+    description:
+      "A list that animates each item in sequence with a delay. Used to showcase notifications or events on your landing page.",
+    dependencies: ["motion"],
+    files: [
+      {
+        path: "magicui/animated-list.tsx",
+        type: "registry:ui",
+      },
+    ],
+  },
 ]
