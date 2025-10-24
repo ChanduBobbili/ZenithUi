@@ -7,6 +7,7 @@
     "pnpm": ">=9",
     "node": ">=20"
   },
+  "type": "module",
   "author": {
     "name": "Chandu Bobbili",
     "email": "chandubobbili12@gmail.com",
