@@ -1,5 +1,20 @@
 # zenithui-docs
 
+## 1.4.0
+
+### Minor Changes
+
+- Addded theme toggle hook
+
+### Patch Changes
+
+- Updated dependencies
+  - @zenithui/utils@0.3.0
+  - @zenithui/day-picker@1.0.8
+  - @zenithui/light-box@1.1.2
+  - @zenithui/time-picker@1.2.1
+  - @zenithui/toast@1.0.9
+
 ## 1.3.5
 
 ### Patch Changes
