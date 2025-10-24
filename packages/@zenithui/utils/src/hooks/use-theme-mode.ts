@@ -47,6 +47,14 @@ type ThemeAnimationType =
   | "CIRCLE-BLUR"
   | "DIAMOND"
   | "RIPPLE"
+  | "SHUTTER"
+  | "SPLIT"
+  | "SPIRAL"
+  | "PIXELATE"
+  | "RANDOM_BLOCKS"
+  | "CORNERS"
+  | "WARP"
+  | "GLITCH"
 
 interface ReactThemeSwitchAnimationHook {
   ref: React.RefObject<HTMLButtonElement | null>
@@ -84,8 +92,8 @@ const useThemeMode = (
     isDarkMode: externalDarkMode,
     rippleCount = 3,
     splitDirection = "vertical",
-    pixelSize = 20,
-    glitchIntensity = 10,
+    pixelSize = 10,
+    glitchIntensity = 5,
     onDarkModeChange,
   } = props || {}
 
@@ -342,6 +350,271 @@ const useThemeMode = (
           pseudoElement,
         },
       )
+    }
+
+    if (animationType === "SHUTTER") {
+      const segments = 8
+      const centerX = x
+      const centerY = y
+      const radius = maxRadius * 1.5
+
+      const createShutterPolygon = (angle: number, open: boolean) => {
+        const nextAngle = angle + 360 / segments
+        const openRadius = open ? radius : 0
+
+        const x1 = centerX + Math.cos((angle * Math.PI) / 180) * openRadius
+        const y1 = centerY + Math.sin((angle * Math.PI) / 180) * openRadius
+        const x2 = centerX + Math.cos((nextAngle * Math.PI) / 180) * openRadius
+        const y2 = centerY + Math.sin((nextAngle * Math.PI) / 180) * openRadius
+
+        return `${centerX}px ${centerY}px, ${x1}px ${y1}px, ${x2}px ${y2}px`
+      }
+
+      const closedPath = Array.from({ length: segments }, (_, i) =>
+        createShutterPolygon(i * (360 / segments), false),
+      ).join(", ")
+
+      const openPath = Array.from({ length: segments }, (_, i) =>
+        createShutterPolygon(i * (360 / segments), true),
+      ).join(", ")
+
+      document.documentElement.animate(
+        {
+          clipPath: [`polygon(${closedPath})`, `polygon(${openPath})`],
+        },
+        {
+          duration,
+          easing: "cubic-bezier(0.65, 0, 0.35, 1)",
+          pseudoElement,
+        },
+      )
+    }
+
+    if (animationType === "SPLIT") {
+      let clipPaths: string[] = []
+
+      if (splitDirection === "horizontal") {
+        clipPaths = [
+          `polygon(0% ${(y / window.innerHeight) * 100}%, 100% ${(y / window.innerHeight) * 100}%, 100% ${(y / window.innerHeight) * 100}%, 0% ${(y / window.innerHeight) * 100}%)`,
+          "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
+        ]
+      } else if (splitDirection === "vertical") {
+        clipPaths = [
+          `polygon(${(x / window.innerWidth) * 100}% 0%, ${(x / window.innerWidth) * 100}% 0%, ${(x / window.innerWidth) * 100}% 100%, ${(x / window.innerWidth) * 100}% 100%)`,
+          "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
+        ]
+      } else {
+        clipPaths = [
+          `polygon(${x}px ${y}px, ${x}px ${y}px, ${x}px ${y}px)`,
+          "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
+        ]
+      }
+
+      document.documentElement.animate(
+        {
+          clipPath: clipPaths,
+        },
+        {
+          duration,
+          easing,
+          pseudoElement,
+        },
+      )
+    }
+
+    if (animationType === "SPIRAL") {
+      const styleElement = document.createElement("style")
+      styleElement.id = styleId
+
+      const turns = 3
+      const steps = 60
+      const spiralPath = Array.from({ length: steps }, (_, i) => {
+        const progress = i / steps
+        const angle = progress * turns * 2 * Math.PI
+        const radius = progress * maxRadius
+        const spiralX = x + Math.cos(angle) * radius
+        const spiralY = y + Math.sin(angle) * radius
+        return `${spiralX}px ${spiralY}px`
+      }).join(", ")
+
+      styleElement.textContent = `
+        @keyframes spiral {
+          0% {
+            clip-path: circle(0px at ${x}px ${y}px);
+            transform: rotate(0deg);
+          }
+          100% {
+            clip-path: circle(${maxRadius}px at ${x}px ${y}px);
+            transform: rotate(${turns * 360}deg);
+          }
+        }
+        ::view-transition-new(root) {
+          animation: spiral ${duration}ms cubic-bezier(0.4, 0, 0.2, 1);
+          transform-origin: ${x}px ${y}px;
+        }
+      `
+      document.head.appendChild(styleElement)
+    }
+
+    if (animationType === "PIXELATE") {
+      const styleElement = document.createElement("style")
+      styleElement.id = styleId
+
+      const cols = Math.ceil(window.innerWidth / pixelSize)
+      const rows = Math.ceil(window.innerHeight / pixelSize)
+
+      styleElement.textContent = `
+        @keyframes pixelate {
+          0% {
+            filter: blur(${pixelSize}px) brightness(0.5);
+            transform: scale(0.9);
+          }
+          50% {
+            filter: blur(${pixelSize / 2}px) brightness(0.75);
+          }
+          100% {
+            filter: blur(0px) brightness(1);
+            transform: scale(1);
+          }
+        }
+        ::view-transition-new(root) {
+          animation: pixelate ${duration}ms steps(${Math.min(cols, rows, 20)}) forwards;
+        }
+        ::view-transition-old(root) {
+          animation: pixelate ${duration}ms steps(${Math.min(cols, rows, 20)}) reverse;
+        }
+      `
+      document.head.appendChild(styleElement)
+    }
+
+    if (animationType === "WARP") {
+      const styleElement = document.createElement("style")
+      styleElement.id = styleId
+
+      styleElement.textContent = `
+        @keyframes warp {
+          0% {
+            transform: perspective(1000px) rotateY(90deg) scale(0.5);
+            filter: blur(10px);
+            opacity: 0;
+          }
+          50% {
+            transform: perspective(1000px) rotateY(45deg) scale(0.75);
+            filter: blur(5px);
+            opacity: 0.5;
+          }
+          100% {
+            transform: perspective(1000px) rotateY(0deg) scale(1);
+            filter: blur(0px);
+            opacity: 1;
+          }
+        }
+        ::view-transition-new(root) {
+          animation: warp ${duration}ms cubic-bezier(0.34, 1.56, 0.64, 1);
+          transform-origin: center center;
+        }
+      `
+      document.head.appendChild(styleElement)
+    }
+
+    if (animationType === "CORNERS") {
+      const corners = [
+        { x: 0, y: 0 },
+        { x: window.innerWidth, y: 0 },
+        { x: window.innerWidth, y: window.innerHeight },
+        { x: 0, y: window.innerHeight },
+      ]
+
+      const maxCornerRadius =
+        Math.hypot(window.innerWidth, window.innerHeight) / 1.5
+
+      const startPath = corners
+        .map((c) => `circle(0px at ${c.x}px ${c.y}px)`)
+        .join(", ")
+      const endPath = corners
+        .map((c) => `circle(${maxCornerRadius}px at ${c.x}px ${c.y}px)`)
+        .join(", ")
+
+      document.documentElement.animate(
+        {
+          clipPath: [
+            `circle(0px at ${x}px ${y}px)`,
+            `circle(${maxRadius}px at ${x}px ${y}px)`,
+          ],
+        },
+        {
+          duration,
+          easing: "cubic-bezier(0.25, 0.46, 0.45, 0.94)",
+          pseudoElement,
+        },
+      )
+    }
+
+    if (animationType === "RANDOM_BLOCKS") {
+      const styleElement = document.createElement("style")
+      styleElement.id = styleId
+
+      const blockSize = 50
+      const cols = Math.ceil(window.innerWidth / blockSize)
+      const rows = Math.ceil(window.innerHeight / blockSize)
+      const totalBlocks = cols * rows
+
+      styleElement.textContent = `
+        @keyframes randomBlocks {
+          0% {
+            clip-path: polygon(0% 0%, 0% 0%, 0% 0%, 0% 0%);
+          }
+          100% {
+            clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+          }
+        }
+        ::view-transition-new(root) {
+          animation: randomBlocks ${duration}ms steps(${Math.min(totalBlocks, 50)}) forwards;
+        }
+      `
+      document.head.appendChild(styleElement)
+    }
+
+    if (animationType === "GLITCH") {
+      const styleElement = document.createElement("style")
+      styleElement.id = styleId
+
+      const slices = 20
+      const glitchKeyframes = Array.from({ length: 10 }, (_, i) => {
+        const percent = i * 10
+        const offset = Math.random() * glitchIntensity - glitchIntensity / 2
+        return `${percent}% { transform: translate(${offset}px, 0); }`
+      }).join("\n")
+
+      styleElement.textContent = `
+        @keyframes glitch {
+          ${glitchKeyframes}
+          100% { transform: translate(0, 0); }
+        }
+        @keyframes glitchRGB {
+          0%, 100% {
+            clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+            filter: none;
+          }
+          25% {
+            clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+            filter: hue-rotate(90deg);
+          }
+          50% {
+            clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+            filter: hue-rotate(180deg);
+          }
+          75% {
+            clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+            filter: hue-rotate(270deg);
+          }
+        }
+        ::view-transition-new(root) {
+          animation: glitch ${duration * 0.3}ms steps(${slices}) 3,
+                     glitchRGB ${duration}ms ease-in-out;
+        }
+      `
+      document.head.appendChild(styleElement)
     }
   }
 
