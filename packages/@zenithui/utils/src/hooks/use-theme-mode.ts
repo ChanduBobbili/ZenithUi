@@ -41,7 +41,7 @@ const injectBaseStyles = () => {
   }
 }
 
-type ThemeAnimationType =
+export type ThemeAnimationType =
   | "SWIPE"
   | "CIRCLE"
   | "CIRCLE-BLUR"

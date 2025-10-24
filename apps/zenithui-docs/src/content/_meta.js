@@ -29,7 +29,7 @@ export default {
       timestamp: false, // Hide timestamp on this page
     },
   },
-  "theme-animator": {
+  "theme-toggle": {
     theme: {
       timestamp: false, // Hide timestamp on this page
     },
