@@ -1,5 +1,11 @@
 # zenithui-docs
 
+## 1.4.2
+
+### Patch Changes
+
+- fixed theme-toggle documentation intro content
+
 ## 1.4.1
 
 ### Patch Changes
