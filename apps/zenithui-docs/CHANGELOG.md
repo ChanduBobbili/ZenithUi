@@ -1,5 +1,11 @@
 # zenithui-docs
 
+## 1.4.1
+
+### Patch Changes
+
+- Added animated list component in the registry
+
 ## 1.4.0
 
 ### Minor Changes
