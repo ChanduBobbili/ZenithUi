@@ -38,8 +38,8 @@ export default function BasicFab() {
     <Fab.Root
       open={open}
       onOpenChange={setOpen}
-      position="bottom-right"
-      xOffset={24}
+      position="bottom-center"
+      xOffset={0}
       yOffset={24}
     >
       <Fab.Trigger

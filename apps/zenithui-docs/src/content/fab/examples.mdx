@@ -1,0 +1,57 @@
+import FabDemoWrapper from "@/components/fab/fab-demo-wrapper"
+import ControlledDemoFab from "@/components/fab/controlled-demo"
+import PositionsDemoFab from "@/components/fab/positions-demo"
+import BasicFab from "@/components/fab/basic"
+
+# FAB Examples
+
+Common usage patterns: controlled state, positions, and content placement. Click **Show FAB** to preview each example.
+
+---
+
+## Controlled open
+
+Use `open` and `onOpenChange` when you need to drive the FAB from outside (e.g. close on route change or sync with another UI).
+
+<FabDemoWrapper
+  title="Controlled open"
+  description="FAB is controlled by external Open/Close buttons and open/onOpenChange."
+>
+  <ControlledDemoFab />
+</FabDemoWrapper>
+
+---
+
+## Positions
+
+Set `position` on `Fab.Root` to place the trigger. Use the dropdown to try corners, edges, and center. Use `xOffset` and `yOffset` to nudge from the edge.
+
+<FabDemoWrapper
+  title="Positions"
+  description="Change the dropdown to move the FAB to different viewport positions."
+>
+  <PositionsDemoFab />
+</FabDemoWrapper>
+
+**Positions:** `top-left`, `top-center`, `top-right`, `center-left`, `center`, `center-right`, `bottom-left`, `bottom-center`, `bottom-right`.
+
+---
+
+## Content placement
+
+Set `placement` on `Fab.Content` to open the panel **relative to the trigger**: `top`, `bottom`, `left`, or `right`. The component flips automatically if there isn’t enough space.
+
+In the [main FAB page](/fab/fab), the content uses `placement="top"` so the menu opens above the trigger. For a FAB at `bottom-right`, that keeps the menu in view; for `top-right`, you might use `placement="bottom"`.
+
+---
+
+## Full example with groups
+
+<FabDemoWrapper
+  title="Full example with groups"
+  description="Groups, labels, separators, radio items, and a checkbox item."
+>
+  <BasicFab />
+</FabDemoWrapper>
+
+See [Templates](/fab/templates) for more copy-paste patterns.
