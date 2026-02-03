@@ -129,6 +129,8 @@ export type FAB_STATE = {
   contentRef: React.RefObject<HTMLDivElement | null>
   setPlacement: (placement: PLACEMENT) => void
   setOffset: (offset: number) => void
+  isTriggerReady: boolean
+  isContentReady: boolean
 }
 
 export type FAB_HOOK = {
@@ -154,6 +156,10 @@ export type FAB_CONTEXT = {
   contentRef: React.RefObject<HTMLDivElement | null>
   setPlacement: (placement: PLACEMENT) => void
   setOffset: (offset: number) => void
+  /** True after initial trigger position is computed (avoids flash from 0,0). */
+  isTriggerReady: boolean
+  /** True after content position is computed when open (avoids flash from 0,0). */
+  isContentReady: boolean
 }
 
 // Menu sub-components (used inside FabContent)

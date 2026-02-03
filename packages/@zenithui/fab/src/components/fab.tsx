@@ -44,6 +44,8 @@ export function FabRoot({
     setOpen,
     setOffset,
     setPlacement,
+    isTriggerReady,
+    isContentReady,
   } = useFabState({
     open,
     onOpenChange,
@@ -67,6 +69,8 @@ export function FabRoot({
         contentRef,
         setOffset,
         setPlacement,
+        isTriggerReady,
+        isContentReady,
       }}
     >
       {children}
@@ -90,7 +94,7 @@ export function FabTrigger({
     throw new Error("Fab Trigger must be used within a Fab Root")
   }
 
-  const { open, triggerRef, triggerCords, setOpen } = context
+  const { open, triggerRef, triggerCords, setOpen, isTriggerReady } = context
 
   const positionStyle: React.CSSProperties = {
     zIndex: 9999,
@@ -115,7 +119,7 @@ export function FabTrigger({
     ...props,
   }
 
-  if (!mounted || typeof document === "undefined") {
+  if (!mounted || typeof document === "undefined" || !isTriggerReady) {
     return null
   }
 
@@ -168,38 +172,49 @@ export function FabContent({
     throw new Error("Fab Content must be used within a Fab Root")
   }
 
-  const { open, contentRef, contentCords, setPlacement, setOffset } = context
+  const {
+    open,
+    contentRef,
+    contentCords,
+    setPlacement,
+    setOffset,
+    isContentReady,
+  } = context
 
   React.useEffect(() => {
     setPlacement(placement)
     setOffset(offset)
   }, [placement, offset, setPlacement, setOffset])
 
+  // When !isContentReady, position off-screen so we can measure real size without flashing at (0,0)
   const positionStyle: React.CSSProperties = {
     zIndex: 9999,
     position: "fixed",
-    left: `${contentCords.x}px`,
-    top: `${contentCords.y}px`,
+    left: isContentReady ? contentCords.x : -9999,
+    top: isContentReady ? contentCords.y : -9999,
+    visibility: isContentReady ? undefined : ("hidden" as const),
   }
 
   if (!mounted || typeof document === "undefined") {
     return null
   }
 
-  return open
-    ? createPortal(
-        <div
-          ref={contentRef}
-          style={{ ...positionStyle, ...style }}
-          className={cn(className)}
-          aria-modal="true"
-          role="menu"
-        >
-          {children}
-        </div>,
-        document.body,
-      )
-    : null
+  if (!open) {
+    return null
+  }
+
+  return createPortal(
+    <div
+      ref={contentRef}
+      style={{ ...positionStyle, ...style }}
+      className={cn(className)}
+      aria-modal="true"
+      role="menu"
+    >
+      {children}
+    </div>,
+    document.body,
+  )
 }
 
 export function FabGroup({ className, children, ...props }: FAB_GROUP) {

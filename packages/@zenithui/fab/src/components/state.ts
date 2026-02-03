@@ -19,6 +19,9 @@ const X_OFFSET = 40
 const Y_OFFSET = 40
 const OFFSET = 20
 
+/** Default trigger size used to compute initial position before the trigger is in the DOM. */
+const DEFAULT_TRIGGER_SIZE = 56
+
 /** Viewport size excluding scrollbar so trigger position doesn't jump when content opens/closes. */
 function getViewportSize(): { width: number; height: number } {
   if (typeof document === "undefined") {
@@ -59,9 +62,34 @@ export default function useFabState({
   const [offset, setOffsetState] = React.useState<number>(initialOffset)
   const [triggerCords, setTriggerCoords] = React.useState<COORDS>(defaultCoords)
   const [contentCords, setContentCoords] = React.useState<COORDS>(defaultCoords)
+  const [isTriggerReady, setTriggerReady] = React.useState(false)
+  const [isContentReady, setContentReady] = React.useState(false)
 
   const triggerRef = React.useRef<HTMLButtonElement>(null)
   const contentRef = React.useRef<HTMLDivElement>(null)
+
+  // Compute initial trigger position before trigger is in DOM to avoid flash from (0,0)
+  useIsomorphicLayoutEffect(() => {
+    if (typeof document === "undefined") return
+    const viewport = getViewportSize()
+    if (viewport.width === 0 && viewport.height === 0) return
+    const syntheticRect: Rect = {
+      width: DEFAULT_TRIGGER_SIZE,
+      height: DEFAULT_TRIGGER_SIZE,
+      top: 0,
+      left: 0,
+      right: DEFAULT_TRIGGER_SIZE,
+      bottom: DEFAULT_TRIGGER_SIZE,
+    }
+    const coords = calculateTriggerPlacement(
+      inputPosition,
+      xOffset + X_OFFSET,
+      yOffset + Y_OFFSET,
+      syntheticRect,
+    )
+    setTriggerCoords(coords)
+    setTriggerReady(true)
+  }, [inputPosition, xOffset, yOffset])
 
   const setOffset = React.useCallback((next: number) => {
     setOffsetState(next)
@@ -140,10 +168,13 @@ export default function useFabState({
         )
 
         setContentCoords({ x, y })
+        setContentReady(true)
         if (bestPlacement !== placement) {
           setPlacement(bestPlacement)
         }
       }
+    } else {
+      setContentReady(false)
     }
 
     setTriggerCoords(triggerCoords)
@@ -153,14 +184,12 @@ export default function useFabState({
     updateCoords()
   }, [updateCoords])
 
-  // Re-run position when content mounts (open just became true) so contentRef is measured after layout
+  // When open, measure content (rendered off-screen) and set position; run again in rAF in case layout wasn't done
   useIsomorphicLayoutEffect(() => {
-    if (open) {
-      const id = requestAnimationFrame(() => {
-        updateCoords()
-      })
-      return () => cancelAnimationFrame(id)
-    }
+    if (!open) return
+    updateCoords()
+    const id = requestAnimationFrame(() => updateCoords())
+    return () => cancelAnimationFrame(id)
   }, [open, updateCoords])
 
   useEventListener("mousedown", handleClickOutside)
@@ -179,6 +208,8 @@ export default function useFabState({
     contentCords,
     setOffset,
     setPlacement,
+    isTriggerReady,
+    isContentReady,
   }
 }
 
