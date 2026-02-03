@@ -1,0 +1,58 @@
+import BasicFab from "@/components/fab/basic"
+
+# FAB
+
+A Floating Action Button with optional speed-dial content. Use it for primary actions, quick menus, or contextual options that stay visible in a corner of the screen.
+
+## ⚙️ Usage
+
+The example below shows a FAB with quick actions, a view radio group (List / Grid), and a compact-mode checkbox. All menu sub-components (Group, Label, Separator, Item, RadioGroup, RadioItem, CheckboxItem, ItemIndicator) are used.
+
+<BasicFab />
+
+---
+
+## 📍 Position
+
+Place the FAB on screen with the `position` prop on `Root`:
+
+- **Corners:** `top-left`, `top-right`, `bottom-left`, `bottom-right`
+- **Edges:** `top-center`, `bottom-center`, `center-left`, `center-right`
+- **Center:** `center`
+
+Use `xOffset` and `yOffset` (in pixels) to nudge the trigger from the edges.
+
+---
+
+## 📂 Content placement
+
+Use the `placement` prop on `Content` to open the panel relative to the trigger: `top`, `bottom`, `left`, or `right`. The component flips automatically if there isn’t enough space in the viewport.
+
+---
+
+## 🧩 Menu building blocks
+
+Use inside `Fab.Content`:
+
+- **Fab.Group** – Wraps a set of items; use with **Fab.Label** for a section title.
+- **Fab.Label** – Section label (e.g. "Quick actions").
+- **Fab.Separator** – Visual divider between sections.
+- **Fab.Item** – Clickable menu item; closes the FAB on select by default (`closeOnSelect`).
+- **Fab.CheckboxItem** – Toggle item with `checked` / `onCheckedChange`; use **Fab.ItemIndicator** for a checkmark.
+- **Fab.RadioGroup** + **Fab.RadioItem** – Single selection; use **Fab.ItemIndicator** for the selected state.
+- **Fab.ItemIndicator** – Renders when the parent item is checked/selected; style with `group-data-[state=checked]:inline-flex` (or use the registry styles).
+
+---
+
+## 🔐 Accessibility
+
+- Trigger has `aria-expanded` and `aria-haspopup="true"`.
+- Content has `role="menu"` and `aria-modal="true"`.
+- Items use `role="menuitem"`, `menuitemcheckbox`, or `menuitemradio` as appropriate.
+
+---
+
+## 🧠 Best practices
+
+- Prefer outline-based focus styles (or the registry trigger) so `transform: scale()` doesn’t shift the trigger position.
+- Use controlled `open` / `onOpenChange` when you need to sync with other UI (e.g. close when navigating).

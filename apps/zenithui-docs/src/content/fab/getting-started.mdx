@@ -1,0 +1,61 @@
+import { Steps } from "nextra/components"
+import NPMTab from "@/components/npm-tab"
+
+# Getting Started
+
+A Floating Action Button (FAB) component with optional speed-dial content. Built for React with support for controlled or uncontrolled state, multiple screen positions, and a full menu API (groups, labels, items, checkboxes, radio groups).
+
+## ✨ Features
+
+- 📍 Configurable position (9 corners/edges: top-left, top-right, bottom-right, etc.)
+- ♿ Accessible with ARIA attributes (aria-expanded, aria-haspopup, role="menu")
+- 🧩 Compound component pattern: Root, Trigger, Content, Group, Label, Separator, Item, CheckboxItem, RadioGroup, RadioItem, ItemIndicator
+- 🎚️ Content placement relative to trigger (top, bottom, left, right) with viewport-aware flip
+- 🏗️ Supports asChild on Trigger for custom trigger elements
+- 📐 Stable position with scale/transform (uses layout dimensions for placement)
+- 🌐 SSR-safe (portals only after mount)
+
+## 📦 Installation
+
+<Steps>
+
+### Install the @zenithui/fab
+
+Install the library using your preferred package manager:
+
+```sh npm2yarn copy
+npm install @zenithui/fab
+```
+
+### Use the FAB
+
+```jsx filename="example.jsx"
+import * as Fab from "@zenithui/fab"
+
+export function MyFab() {
+  return (
+    <Fab.Root position="bottom-right">
+      <Fab.Trigger>+</Fab.Trigger>
+      <Fab.Content placement="top">
+        <Fab.Item>Action</Fab.Item>
+      </Fab.Content>
+    </Fab.Root>
+  )
+}
+```
+
+</Steps>
+
+---
+
+## 🚀 Installation through Shadcn CLI
+
+To install the `fab` component in your application.
+
+<NPMTab path={`${process.env.NEXT_PUBLIC_SITE_URL}/r/fab.json`} />
+
+---
+
+## 🐛 Reporting Issues
+
+Found a bug or have a feature request? [Create an issue](https://github.com/ChanduBobbili/ZenithUi/issues) on GitHub.
