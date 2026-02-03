@@ -19,25 +19,53 @@ const X_OFFSET = 40
 const Y_OFFSET = 40
 const OFFSET = 20
 
+/** Viewport size excluding scrollbar so trigger position doesn't jump when content opens/closes. */
+function getViewportSize(): { width: number; height: number } {
+  if (typeof document === "undefined") {
+    return { width: 0, height: 0 }
+  }
+  return {
+    width: document.documentElement.clientWidth,
+    height: document.documentElement.clientHeight,
+  }
+}
+
 export const FabContext = React.createContext<FAB_CONTEXT | null>(null)
 
 export default function useFabState({
+  open: controlledOpen,
+  onOpenChange,
   placement: inputPlacement,
   position: inputPosition,
-  offset,
+  offset: initialOffset = 0,
   xOffset = 16,
   yOffset = 16,
   dismissOutsideClick = true,
   dismissOnEsc = true,
 }: FAB_HOOK): FAB_STATE {
-  const [open, setOpen] = React.useState<boolean>(true)
+  const isControlled = controlledOpen !== undefined
+  const [uncontrolledOpen, setUncontrolledOpen] = React.useState<boolean>(false)
+  const open = isControlled ? controlledOpen : uncontrolledOpen
+  const setOpen = React.useCallback(
+    (next: boolean) => {
+      if (!isControlled) setUncontrolledOpen(next)
+      onOpenChange?.(next)
+    },
+    [isControlled, onOpenChange],
+  )
+
   const [position, setPosition] = React.useState<POSITION>(inputPosition)
   const [placement, setPlacement] = React.useState<PLACEMENT>(inputPlacement)
+  const [offset, setOffsetState] = React.useState<number>(initialOffset)
   const [triggerCords, setTriggerCoords] = React.useState<COORDS>(defaultCoords)
   const [contentCords, setContentCoords] = React.useState<COORDS>(defaultCoords)
 
   const triggerRef = React.useRef<HTMLButtonElement>(null)
   const contentRef = React.useRef<HTMLDivElement>(null)
+
+  const setOffset = React.useCallback((next: number) => {
+    setOffsetState(next)
+  }, [])
 
   const handleClickOutside = React.useCallback(
     (event: MouseEvent) => {
@@ -56,7 +84,7 @@ export default function useFabState({
         }
       }
     },
-    [open, dismissOutsideClick],
+    [open, dismissOutsideClick, setOpen],
   )
 
   const handleKeyDown = React.useCallback(
@@ -65,27 +93,31 @@ export default function useFabState({
         setOpen(false)
       }
     },
-    [open, dismissOnEsc],
+    [open, dismissOnEsc, setOpen],
   )
 
   React.useEffect(() => {
     setPosition(inputPosition)
   }, [inputPosition])
 
-  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
-  React.useEffect(() => {
-    updateCoords()
-  }, [open, placement, position, offset, xOffset, yOffset])
+  const updateCoords = React.useCallback(() => {
+    const el = triggerRef.current
+    if (!el) return
 
-  const updateCoords = () => {
-    const trigger = triggerRef.current?.getBoundingClientRect() as Rect
-    if (!trigger) return
+    const trigger = el.getBoundingClientRect() as Rect
+    // Use layout dimensions (untransformed) for trigger placement so transform: scale()
+    // and other CSS transforms don't cause the trigger to shift position.
+    const triggerRectForPlacement: Rect = {
+      ...trigger,
+      width: el.offsetWidth,
+      height: el.offsetHeight,
+    }
 
     const triggerCoords = calculateTriggerPlacement(
       position,
       xOffset + X_OFFSET,
       yOffset + Y_OFFSET,
-      trigger,
+      triggerRectForPlacement,
     )
     setTriggerCoords(triggerCoords)
 
@@ -115,14 +147,27 @@ export default function useFabState({
     }
 
     setTriggerCoords(triggerCoords)
-  }
+  }, [open, placement, position, offset, xOffset, yOffset])
+
+  React.useEffect(() => {
+    updateCoords()
+  }, [updateCoords])
+
+  // Re-run position when content mounts (open just became true) so contentRef is measured after layout
+  useIsomorphicLayoutEffect(() => {
+    if (open) {
+      const id = requestAnimationFrame(() => {
+        updateCoords()
+      })
+      return () => cancelAnimationFrame(id)
+    }
+  }, [open, updateCoords])
 
   useEventListener("mousedown", handleClickOutside)
   useEventListener("keydown", handleKeyDown)
   useEventListener("resize", updateCoords)
   useEventListener("DOMContentLoaded", updateCoords)
 
-  console.log(contentCords)
   return {
     open,
     setOpen,
@@ -132,7 +177,7 @@ export default function useFabState({
     contentRef,
     triggerCords,
     contentCords,
-    setOffset: () => {},
+    setOffset,
     setPlacement,
   }
 }
@@ -143,8 +188,7 @@ function calculateTriggerPlacement(
   yOffset: number,
   trigger: Rect,
 ): { x: number; y: number } {
-  const viewportWidth = window.innerWidth
-  const viewportHeight = window.innerHeight
+  const { width: viewportWidth, height: viewportHeight } = getViewportSize()
 
   switch (fabPosition) {
     case "top-left":
@@ -205,8 +249,7 @@ function calculateContentPlacement(
   contentRect: Rect,
   offset: number,
 ): { x: number; y: number; placement: PLACEMENT } {
-  const viewportWidth = window.innerWidth
-  const viewportHeight = window.innerHeight
+  const { width: viewportWidth, height: viewportHeight } = getViewportSize()
   const safeArea = 8
   const minOffset = 16 // Minimum space between trigger and content
 
@@ -379,8 +422,7 @@ function getBestPlacement(
   xOffset: number,
   yOffset: number,
 ): { x: number; y: number; placement: PLACEMENT } {
-  const viewportWidth = window.innerWidth
-  const viewportHeight = window.innerHeight
+  const { width: viewportWidth, height: viewportHeight } = getViewportSize()
 
   // For center positions, prioritize placements that make visual sense
   const placementPriority: Record<string, PLACEMENT[]> = {
@@ -423,12 +465,13 @@ function getBestPlacement(
 function isPlacementValid(coords: COORDS, contentRect: Rect): boolean {
   const { x, y } = coords
   const safeArea = 8
+  const { width: viewportWidth, height: viewportHeight } = getViewportSize()
 
   return (
     x >= safeArea &&
     y >= safeArea &&
-    x + contentRect.width <= window.innerWidth - safeArea &&
-    y + contentRect.height <= window.innerHeight - safeArea
+    x + contentRect.width <= viewportWidth - safeArea &&
+    y + contentRect.height <= viewportHeight - safeArea
   )
 }
 

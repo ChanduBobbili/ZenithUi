@@ -29,17 +29,16 @@ export type Rect = {
 
 export type FAB_ROOT = {
   /**
-   * The open state of the FAB.
-   * When set to `true`, the FAB is open.
-   * When set to `false`, the FAB is closed.
-   * @type {boolean}
+   * The open state of the FAB (controlled mode).
+   * When provided with onOpenChange, the FAB is controlled.
+   * @type {boolean | undefined}
    */
-  open: boolean
+  open?: boolean
   /**
-   * The function to call when the open state of the FAB changes.
+   * Called when the open state changes (controlled mode).
    * @param open boolean - The new open state of the FAB.
    */
-  onOpenChange: (open: boolean) => void
+  onOpenChange?: (open: boolean) => void
   /**
    * The position of the FAB on the screen.
    * @type {POSITION}
@@ -79,13 +78,12 @@ export type FAB_ROOT = {
 
 export type FAB_TRIGGER = HTMLAttributes<HTMLButtonElement> & {
   /**
-   * The content to be displayed inside the tooltip.
+   * The content of the FAB trigger (e.g. icon or label).
    */
   children: React.ReactNode
 
   /**
-   * When set to `true`, the tooltip trigger will inherit the behavior and styling of its child element.
-   * This allows you to use a custom component or element as the trigger while maintaining the tooltip functionality.
+   * When `true`, merges props and behavior onto the child element instead of rendering a button.
    * @defaultValue false
    */
   asChild?: boolean
@@ -110,6 +108,10 @@ export type FAB_CONTENT = {
    */
   className?: string
   /**
+   * Optional inline styles (merged with position styles).
+   */
+  style?: React.CSSProperties
+  /**
    * The content to be displayed inside the Fab Content.
    * @type {React.ReactNode}
    */
@@ -130,9 +132,11 @@ export type FAB_STATE = {
 }
 
 export type FAB_HOOK = {
+  open?: boolean
+  onOpenChange?: (open: boolean) => void
   position: POSITION
   placement: PLACEMENT
-  offset: number
+  offset?: number
   xOffset: number
   yOffset: number
   dismissOutsideClick?: boolean
@@ -150,4 +154,50 @@ export type FAB_CONTEXT = {
   contentRef: React.RefObject<HTMLDivElement | null>
   setPlacement: (placement: PLACEMENT) => void
   setOffset: (offset: number) => void
+}
+
+// Menu sub-components (used inside FabContent)
+
+export type FAB_GROUP = React.HTMLAttributes<HTMLDivElement> & {
+  children: React.ReactNode
+}
+
+export type FAB_LABEL = React.HTMLAttributes<HTMLDivElement> & {
+  children: React.ReactNode
+}
+
+export type FAB_SEPARATOR = React.HTMLAttributes<HTMLDivElement>
+
+export type FAB_ITEM = React.HTMLAttributes<HTMLButtonElement> & {
+  children: React.ReactNode
+  /** When true, closes the FAB content on select. @defaultValue true */
+  closeOnSelect?: boolean
+}
+
+export type FAB_ITEM_INDICATOR = React.HTMLAttributes<HTMLSpanElement> & {
+  children: React.ReactNode
+}
+
+export type FAB_CHECKBOX_ITEM = Omit<
+  React.HTMLAttributes<HTMLButtonElement>,
+  "onSelect"
+> & {
+  children: React.ReactNode
+  checked?: boolean
+  onCheckedChange?: (checked: boolean) => void
+  /** When true, closes the FAB content on select. @defaultValue true */
+  closeOnSelect?: boolean
+}
+
+export type FAB_RADIO_GROUP = React.HTMLAttributes<HTMLDivElement> & {
+  value?: string
+  onValueChange?: (value: string) => void
+  children: React.ReactNode
+}
+
+export type FAB_RADIO_ITEM = React.HTMLAttributes<HTMLButtonElement> & {
+  value: string
+  children: React.ReactNode
+  /** When true, closes the FAB content on select. @defaultValue true */
+  closeOnSelect?: boolean
 }
