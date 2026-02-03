@@ -151,7 +151,8 @@ export default function useFabState({
 
     if (open) {
       const content = contentRef.current?.getBoundingClientRect() as Rect
-      if (content) {
+      // Only mark ready when we have real dimensions so we never paint at wrong size/position
+      if (content && content.width > 0 && content.height > 0) {
         const {
           x,
           y,
@@ -190,6 +191,14 @@ export default function useFabState({
     updateCoords()
     const id = requestAnimationFrame(() => updateCoords())
     return () => cancelAnimationFrame(id)
+  }, [open, updateCoords])
+
+  // Re-measure when content gets real dimensions (e.g. first measure was 0x0 before layout)
+  React.useEffect(() => {
+    if (!open || !contentRef.current) return
+    const ro = new ResizeObserver(() => updateCoords())
+    ro.observe(contentRef.current)
+    return () => ro.disconnect()
   }, [open, updateCoords])
 
   useEventListener("mousedown", handleClickOutside)

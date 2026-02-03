@@ -181,26 +181,42 @@ export function FabContent({
     isContentReady,
   } = context
 
+  // Only show after we've painted at target position (avoids visible move from top-left or off-screen).
+  // Double rAF ensures the browser has committed the "hidden at final position" frame before we reveal.
+  const [canShow, setCanShow] = React.useState(false)
+  React.useEffect(() => {
+    if (!open || !isContentReady) {
+      setCanShow(false)
+      return
+    }
+    let id2: number
+    const id1 = requestAnimationFrame(() => {
+      id2 = requestAnimationFrame(() => setCanShow(true))
+    })
+    return () => {
+      cancelAnimationFrame(id1)
+      if (id2 != null) cancelAnimationFrame(id2)
+    }
+  }, [open, isContentReady])
+
   React.useEffect(() => {
     setPlacement(placement)
     setOffset(offset)
   }, [placement, offset, setPlacement, setOffset])
 
-  // When !isContentReady, position off-screen so we can measure real size without flashing at (0,0)
-  const positionStyle: React.CSSProperties = {
-    zIndex: 9999,
-    position: "fixed",
-    left: isContentReady ? contentCords.x : -9999,
-    top: isContentReady ? contentCords.y : -9999,
-    visibility: isContentReady ? undefined : ("hidden" as const),
-  }
-
   if (!mounted || typeof document === "undefined") {
     return null
   }
 
-  if (!open) {
-    return null
+  const positionStyle: React.CSSProperties = {
+    zIndex: 9999,
+    position: "fixed",
+    left: canShow ? contentCords.x : "auto",
+    top: canShow ? contentCords.y : "auto",
+    visibility: canShow ? undefined : ("hidden" as const),
+    opacity: canShow ? undefined : 0,
+    pointerEvents: canShow ? undefined : ("none" as const),
+    ...(canShow ? {} : { contentVisibility: "hidden" as const }),
   }
 
   return createPortal(
@@ -210,6 +226,7 @@ export function FabContent({
       className={cn(className)}
       aria-modal="true"
       role="menu"
+      aria-hidden={!open}
     >
       {children}
     </div>,
