@@ -1,4 +1,7 @@
+import { cn, useDeviceType, useTheme } from "@zenithui/utils"
+import * as React from "react"
 import { useEffect, useMemo, useState } from "react"
+import { Popover, PopoverContent, PopoverTrigger } from "../popover"
 import type { TimePickerProps } from "../types"
 import {
   convertTo24Hour,
@@ -7,8 +10,6 @@ import {
   getInitialHour,
   getInitialPeriod,
 } from "../utils"
-import { useTheme, cn, useDeviceType } from "@zenithui/utils"
-import { Popover, PopoverContent, PopoverTrigger } from "../popover"
 import TimeScrollList from "./scroll-list"
 
 const TimePicker: React.FC<TimePickerProps> = ({
@@ -63,14 +64,12 @@ const TimePicker: React.FC<TimePickerProps> = ({
         side={device.includes("Mobile") ? "top" : side}
         alignOffset={alignOffset}
         sideOffset={sideOffset}
-        openAnimate="slide"
-        closeAnimate="slide"
         className={cn(
           themeClass,
           "zenithui-time-container",
           classNames?.popoverContent,
         )}
-        onWheel={(e) => e.stopPropagation()}
+        onWheel={(e: React.WheelEvent) => e.stopPropagation()}
       >
         <TimeScrollList
           options={hours}

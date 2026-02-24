@@ -5,7 +5,7 @@
  * @returns The initial hour.
  */
 export function getInitialHour(time: string) {
-  const [inputHour] = time.split(":")
+  const [inputHour] = time?.split(":") ?? ["12"]
   const hour = Number.parseInt(inputHour)
   return hour === 0
     ? "12"
@@ -21,7 +21,7 @@ export function getInitialHour(time: string) {
  * @returns The initial period.
  */
 export function getInitialPeriod(time: string) {
-  const [inputHour] = time.split(":")
+  const [inputHour] = time?.split(":") ?? ["12"]
   return Number.parseInt(inputHour) >= 12 ? "PM" : "AM"
 }
 

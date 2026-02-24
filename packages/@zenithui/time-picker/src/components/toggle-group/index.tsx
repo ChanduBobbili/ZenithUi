@@ -1,5 +1,5 @@
-import * as React from "react"
 import { cn } from "@zenithui/utils"
+import * as React from "react"
 
 type ToggleGroupType = "single" | "multiple"
 
