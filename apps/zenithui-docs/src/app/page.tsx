@@ -1,19 +1,32 @@
 "use client"
 
-import ComponentStrip from "@/components/hero/component-strip"
-import FeaturesSection from "@/components/hero/features-section"
-import Hero from "@/components/hero/hero"
-import InstallSnippet from "@/components/hero/install-snippet"
-import OpenSourceSection from "@/components/hero/open-source-section"
+import { useHomeTheme, THEME_TRANSITION } from "@/lib/homeTheme"
+import HeroSection from "@/components/home/HeroSection"
+import StatsBar from "@/components/home/StatsBar"
+import ComponentShowcase from "@/components/home/ComponentShowcase"
+import FeaturePillars from "@/components/home/FeaturePillars"
+import FooterCTA from "@/components/home/FooterCTA"
+import ThemeToggleButton from "@/components/home/ThemeToggleButton"
 
 export default function IndexPage() {
+  const THEME = useHomeTheme()
+
   return (
-    <div className="flex flex-col">
-      <Hero />
-      <InstallSnippet />
-      <ComponentStrip />
-      <FeaturesSection />
-      <OpenSourceSection />
+    <div
+      className="flex min-h-screen flex-col font-sans selection:bg-indigo-500/30"
+      style={{
+        backgroundColor: THEME.bg.page,
+        color: THEME.text.primary,
+        transition: THEME_TRANSITION,
+      }}
+    >
+      <ThemeToggleButton />
+      <HeroSection />
+      <StatsBar />
+      <ComponentShowcase />
+      <FeaturePillars />
+      {/* <QuickStart /> */}
+      <FooterCTA />
     </div>
   )
 }

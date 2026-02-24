@@ -65,6 +65,7 @@ export default function TimePicker({
   return (
     <Popover>
       <PopoverTrigger asChild>
+        {/* @ts-expect-error React 19 JSX element type issue */}
         <Button
           variant="outline"
           className={cn(
