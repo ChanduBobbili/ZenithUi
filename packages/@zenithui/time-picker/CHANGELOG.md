@@ -1,5 +1,11 @@
 # @zenithui/time-picker
 
+## 1.2.2
+
+### Patch Changes
+
+- 4d5a2a3: update time-picker dependencies and styling
+
 ## 1.2.1
 
 ### Patch Changes

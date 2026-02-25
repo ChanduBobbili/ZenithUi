@@ -1,5 +1,15 @@
 # zenithui-docs
 
+## 1.4.3
+
+### Patch Changes
+
+- 4d5a2a3: introduce a new, interactive homepage for the documentation site
+- 4d5a2a3: Added documentation for FAB
+- Updated dependencies [4d5a2a3]
+  - @zenithui/time-picker@1.2.2
+  - @zenithui/fab@1.0.0
+
 ## 1.4.2
 
 ### Patch Changes
