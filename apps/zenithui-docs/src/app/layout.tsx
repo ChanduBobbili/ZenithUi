@@ -3,6 +3,7 @@ import { Layout, Navbar } from "nextra-theme-docs"
 import { Head } from "nextra/components"
 import { getPageMap } from "nextra/page-map"
 import { SpeedInsights } from "@vercel/speed-insights/next"
+import { Analytics } from "@vercel/analytics/next"
 import type { Metadata, Viewport } from "next"
 import Providers from "./providers"
 import Image from "next/image"
@@ -185,6 +186,7 @@ export default async function RootLayout({
             {children}
           </Layout>
           <SpeedInsights />
+          <Analytics />
         </Providers>
 
         <script
