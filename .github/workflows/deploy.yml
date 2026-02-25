@@ -26,7 +26,10 @@ jobs:
         run: npm install -g pnpm
 
       - name: Install Vercel CLI
-        run: npm install --global vercel@latest && vercel link --repo --yes --token ${{ secrets.VERCEL_TOKEN }}
+        run: npm install --global vercel@latest
+
+      - name: Install Dependencies
+        run: pnpm install
 
       - name: Delete test route in docs
         run: |
@@ -34,14 +37,23 @@ jobs:
             rm -rf apps/zenithui-docs/src/app/test
           fi
 
-      - name: Install Dependencies
-        run: pnpm install
+      - name: Build ZenithUI Docs Packages
+        run: pnpm build --filter zenithui-docs^...
 
-      - name: Build ZenithUI Docs
-        run: pnpm build --filter zenithui-docs
+      - name: Pull Vercel Environment Information
+        run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
+        env:
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
 
-      - name: Deploy to Vercel
-        run: npx vercel --prod --token ${{ secrets.VERCEL_TOKEN }}
+      - name: Build Project Artifacts
+        run: vercel build --prod --token=${{ secrets.VERCEL_TOKEN }}
+        env:
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+
+      - name: Deploy Project Artifacts to Vercel
+        run: vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }}
         env:
           VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
           VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
