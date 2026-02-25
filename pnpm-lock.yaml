@@ -372,8 +372,8 @@ importers:
   packages/@zenithui/fab:
     dependencies:
       '@floating-ui/react':
-        specifier: ^0.27.17
-        version: 0.27.17(react-dom@19.0.0(react@19.2.4))(react@19.2.4)
+        specifier: ^0.27.18
+        version: 0.27.18(react-dom@19.0.0(react@19.2.4))(react@19.2.4)
       '@zenithui/utils':
         specifier: workspace:*
         version: link:../utils
@@ -2091,8 +2091,8 @@ packages:
       react: '>=16.8.0'
       react-dom: '>=16.8.0'
 
-  '@floating-ui/react@0.27.17':
-    resolution: {integrity: sha512-LGVZKHwmWGg6MRHjLLgsfyaX2y2aCNgnD1zT/E6B+/h+vxg+nIJUqHPAlTzsHDyqdgEpJ1Np5kxWuFEErXzoGg==}
+  '@floating-ui/react@0.27.18':
+    resolution: {integrity: sha512-xJWJxvmy3a05j643gQt+pRbht5XnTlGpsEsAPnMi5F5YTOEEJymA90uZKBD8OvIv5XvZ1qi4GcccSlqT3Bq44Q==}
     peerDependencies:
       react: '>=17.0.0'
       react-dom: '>=17.0.0'
@@ -12213,7 +12213,7 @@ snapshots:
       react-dom: 19.2.4(react@19.2.4)
       tabbable: 6.2.0
 
-  '@floating-ui/react@0.27.17(react-dom@19.0.0(react@19.2.4))(react@19.2.4)':
+  '@floating-ui/react@0.27.18(react-dom@19.0.0(react@19.2.4))(react@19.2.4)':
     dependencies:
       '@floating-ui/react-dom': 2.1.7(react-dom@19.0.0(react@19.2.4))(react@19.2.4)
       '@floating-ui/utils': 0.2.10
