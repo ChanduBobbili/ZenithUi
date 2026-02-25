@@ -71,4 +71,15 @@ export const ui: Registry["items"] = [
       },
     ],
   },
+  {
+    name: "fab",
+    type: "registry:ui",
+    dependencies: ["@zenithui/fab"],
+    files: [
+      {
+        path: "ui/fab.tsx",
+        type: "registry:ui",
+      },
+    ],
+  },
 ]

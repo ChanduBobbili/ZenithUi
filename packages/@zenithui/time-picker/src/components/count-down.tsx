@@ -1,5 +1,5 @@
+import { cn, useTheme } from "@zenithui/utils"
 import { useEffect, useMemo, useState } from "react"
-import { useTheme, cn } from "@zenithui/utils"
 import type { CountDownTimerProps } from "./types"
 
 const CountDownTimer: React.FC<CountDownTimerProps> = ({

@@ -16,43 +16,29 @@
   "module": "./dist/index.js",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
-  "files": [
-    "dist"
-  ],
+  "files": ["dist"],
   "scripts": {
     "prepack": "node update-deps.js",
     "postpublish": "node reset-deps.js",
-    "prepublishOnly": "npm pack && pnpm install --no-frozen-lockfile && npm run build",
+    "prepublishOnly": "pnpm build",
     "build": "rslib build",
-    "build:storybook": "storybook build",
     "check": "biome check --write",
     "dev": "rslib build --watch",
-    "format": "biome format --write",
-    "storybook": "storybook dev"
+    "format": "biome format --write"
   },
   "dependencies": {
-    "@radix-ui/react-popover": "^1.1.6",
+    "@radix-ui/react-popover": "^1.1.15",
     "@zenithui/utils": "workspace:*"
   },
   "devDependencies": {
-    "@biomejs/biome": "^1.9.4",
-    "@rsbuild/core": "~1.2.19",
-    "@rsbuild/plugin-css-minimizer": "^1.0.2",
-    "@rsbuild/plugin-react": "^1.1.1",
-    "@rslib/core": "^0.5.5",
-    "@storybook/addon-essentials": "^8.6.7",
-    "@storybook/addon-interactions": "^8.6.7",
-    "@storybook/addon-links": "^8.6.7",
-    "@storybook/addon-onboarding": "^8.6.7",
-    "@storybook/blocks": "^8.6.7",
-    "@storybook/react": "^8.6.7",
-    "@storybook/test": "^8.6.7",
-    "@tailwindcss/postcss": "^4.0.7",
-    "rsbuild-plugin-dts": "^0.5.5",
-    "storybook": "^8.6.7",
-    "storybook-addon-rslib": "^1.0.0",
-    "storybook-react-rsbuild": "^1.0.0",
-    "tailwindcss": "^4.0.17"
+    "@biomejs/biome": "^2.4.4",
+    "@rsbuild/core": "~1.7.3",
+    "@rsbuild/plugin-css-minimizer": "^1.1.1",
+    "@rsbuild/plugin-react": "^1.4.5",
+    "@rslib/core": "^0.19.6",
+    "@tailwindcss/postcss": "^4.2.1",
+    "rsbuild-plugin-dts": "^0.19.6",
+    "tailwindcss": "^4.2.1"
   },
   "peerDependencies": {
     "react": ">=16.9.0",

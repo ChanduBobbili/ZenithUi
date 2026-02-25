@@ -1,6 +1,6 @@
+import { pluginCssMinimizer } from "@rsbuild/plugin-css-minimizer"
 import { pluginReact } from "@rsbuild/plugin-react"
 import { defineConfig } from "@rslib/core"
-import { pluginCssMinimizer } from "@rsbuild/plugin-css-minimizer"
 
 export default defineConfig({
   source: {

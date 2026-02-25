@@ -6,6 +6,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next"
 import type { Metadata, Viewport } from "next"
 import Providers from "./providers"
 import Image from "next/image"
+import Footer from "@/components/footer/footer"
 import "nextra-theme-docs/style.css"
 import "./global.css"
 
@@ -17,11 +18,11 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   title: {
-    default: "Zenithui",
-    template: "%s - Zenithui",
+    default: "ZenithUi – React component library",
+    template: "%s – ZenithUi",
   },
   description:
-    "A ZenithUi React component library containing primitive UI components.",
+    "Accessible, customizable React components: day picker, time picker, toasts, lightbox, and FAB. TypeScript, tree-shakeable, and built for modern apps.",
   metadataBase: new URL("https://zenithui-docs.vercel.app/"),
   keywords: [
     "react",
@@ -43,11 +44,11 @@ export const metadata: Metadata = {
   openGraph: {
     url: "https://zenithui-docs.vercel.app/",
     type: "website",
-    siteName: "Zenithui-Docs",
+    siteName: "ZenithUi Docs",
     locale: "en_US",
-    title: "ZenithUi React component library documentation",
+    title: "ZenithUi – React component library",
     description:
-      "A ZenithUi React component library containing primitive UI components.",
+      "Accessible, customizable React components: day picker, time picker, toasts, lightbox, and FAB. TypeScript and tree-shakeable.",
     images: [
       {
         url: "https://zenithui-docs.vercel.app/open-graph.png",
@@ -59,9 +60,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "ZenithUi React component library documentation",
+    title: "ZenithUi – React component library",
     description:
-      "A ZenithUi React component library containing primitive UI components.",
+      "Accessible, customizable React components: day picker, time picker, toasts, lightbox, and FAB.",
     creator: "@ChanduBobbili",
     site: "@ChanduBobbili",
     images: [
@@ -174,7 +175,7 @@ export default async function RootLayout({
         <Providers>
           <Layout
             navbar={navbar}
-            footer={<></>}
+            footer={<Footer />}
             editLink={null}
             docsRepositoryBase="https://github.com/ChanduBobbili/ZenithUi"
             sidebar={{ defaultMenuCollapseLevel: 1 }}

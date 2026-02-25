@@ -29,6 +29,11 @@ export default {
       timestamp: false, // Hide timestamp on this page
     },
   },
+  fab: {
+    theme: {
+      timestamp: false, // Hide timestamp on this page
+    },
+  },
   "theme-toggle": {
     theme: {
       timestamp: false, // Hide timestamp on this page

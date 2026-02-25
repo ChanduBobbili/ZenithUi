@@ -1,0 +1,316 @@
+import { Table } from "nextra/components"
+
+# API
+
+---
+
+## Root (FabRoot)
+
+<Table>
+  <thead>
+    <Table.Tr>
+      <Table.Th>Prop Name</Table.Th>
+      <Table.Th>Type</Table.Th>
+      <Table.Th>Description</Table.Th>
+      <Table.Th>Default</Table.Th>
+    </Table.Tr>
+  </thead>
+  <tbody>
+    <Table.Tr>
+      <Table.Td>**open**</Table.Td>
+      <Table.Td>`boolean`</Table.Td>
+      <Table.Td>Controlled open state. Omit for uncontrolled.</Table.Td>
+      <Table.Td>—</Table.Td>
+    </Table.Tr>
+    <Table.Tr>
+      <Table.Td>**onOpenChange**</Table.Td>
+      <Table.Td>`(open: boolean) => void`</Table.Td>
+      <Table.Td>Called when open state changes (controlled mode).</Table.Td>
+      <Table.Td>—</Table.Td>
+    </Table.Tr>
+    <Table.Tr>
+      <Table.Td>**position**</Table.Td>
+      <Table.Td>`"top-left" | "top-right" | "top-center" | "bottom-left" | "bottom-right" | "bottom-center" | "center-left" | "center-right" | "center"`</Table.Td>
+      <Table.Td>Screen position of the FAB trigger.</Table.Td>
+      <Table.Td>`"bottom-right"`</Table.Td>
+    </Table.Tr>
+    <Table.Tr>
+      <Table.Td>**xOffset**</Table.Td>
+      <Table.Td>`number`</Table.Td>
+      <Table.Td>Horizontal offset from the edge (px).</Table.Td>
+      <Table.Td>`0`</Table.Td>
+    </Table.Tr>
+    <Table.Tr>
+      <Table.Td>**yOffset**</Table.Td>
+      <Table.Td>`number`</Table.Td>
+      <Table.Td>Vertical offset from the edge (px).</Table.Td>
+      <Table.Td>`0`</Table.Td>
+    </Table.Tr>
+    <Table.Tr>
+      <Table.Td>**dismissOutsideClick**</Table.Td>
+      <Table.Td>`boolean`</Table.Td>
+      <Table.Td>Close content when clicking outside.</Table.Td>
+      <Table.Td>`true`</Table.Td>
+    </Table.Tr>
+    <Table.Tr>
+      <Table.Td>**dismissOnEsc**</Table.Td>
+      <Table.Td>`boolean`</Table.Td>
+      <Table.Td>Close content on Escape key.</Table.Td>
+      <Table.Td>`true`</Table.Td>
+    </Table.Tr>
+    <Table.Tr>
+      <Table.Td>**children**</Table.Td>
+      <Table.Td>`React.ReactNode`</Table.Td>
+      <Table.Td>Trigger and Content (and other FAB sub-components).</Table.Td>
+      <Table.Td>Required</Table.Td>
+    </Table.Tr>
+  </tbody>
+</Table>
+
+---
+
+## Trigger (FabTrigger)
+
+<Table>
+  <thead>
+    <Table.Tr>
+      <Table.Th>Prop Name</Table.Th>
+      <Table.Th>Type</Table.Th>
+      <Table.Th>Description</Table.Th>
+      <Table.Th>Default</Table.Th>
+    </Table.Tr>
+  </thead>
+  <tbody>
+    <Table.Tr>
+      <Table.Td>**asChild**</Table.Td>
+      <Table.Td>`boolean`</Table.Td>
+      <Table.Td>Merge props onto the child element instead of rendering a button.</Table.Td>
+      <Table.Td>`false`</Table.Td>
+    </Table.Tr>
+    <Table.Tr>
+      <Table.Td>**children**</Table.Td>
+      <Table.Td>`React.ReactNode`</Table.Td>
+      <Table.Td>Trigger content (e.g. icon or label).</Table.Td>
+      <Table.Td>Required</Table.Td>
+    </Table.Tr>
+    <Table.Tr>
+      <Table.Td>**className**</Table.Td>
+      <Table.Td>`string`</Table.Td>
+      <Table.Td>Additional CSS classes.</Table.Td>
+      <Table.Td>—</Table.Td>
+    </Table.Tr>
+    <Table.Tr>
+      <Table.Td>**style**</Table.Td>
+      <Table.Td>`React.CSSProperties`</Table.Td>
+      <Table.Td>Inline styles (merged with position styles).</Table.Td>
+      <Table.Td>—</Table.Td>
+    </Table.Tr>
+    <Table.Tr>
+      <Table.Td>_…button props_</Table.Td>
+      <Table.Td>—</Table.Td>
+      <Table.Td>Any valid HTML button attributes.</Table.Td>
+      <Table.Td>—</Table.Td>
+    </Table.Tr>
+  </tbody>
+</Table>
+
+---
+
+## Content (FabContent)
+
+<Table>
+  <thead>
+    <Table.Tr>
+      <Table.Th>Prop Name</Table.Th>
+      <Table.Th>Type</Table.Th>
+      <Table.Th>Description</Table.Th>
+      <Table.Th>Default</Table.Th>
+    </Table.Tr>
+  </thead>
+  <tbody>
+    <Table.Tr>
+      <Table.Td>**placement**</Table.Td>
+      <Table.Td>`"top" | "bottom" | "left" | "right"`</Table.Td>
+      <Table.Td>Content position relative to the trigger.</Table.Td>
+      <Table.Td>`"top"`</Table.Td>
+    </Table.Tr>
+    <Table.Tr>
+      <Table.Td>**offset**</Table.Td>
+      <Table.Td>`number`</Table.Td>
+      <Table.Td>Gap between trigger and content (px).</Table.Td>
+      <Table.Td>`0`</Table.Td>
+    </Table.Tr>
+    <Table.Tr>
+      <Table.Td>**className**</Table.Td>
+      <Table.Td>`string`</Table.Td>
+      <Table.Td>Additional CSS classes.</Table.Td>
+      <Table.Td>—</Table.Td>
+    </Table.Tr>
+    <Table.Tr>
+      <Table.Td>**style**</Table.Td>
+      <Table.Td>`React.CSSProperties`</Table.Td>
+      <Table.Td>Inline styles (merged with position styles).</Table.Td>
+      <Table.Td>—</Table.Td>
+    </Table.Tr>
+    <Table.Tr>
+      <Table.Td>**children**</Table.Td>
+      <Table.Td>`React.ReactNode`</Table.Td>
+      <Table.Td>Menu content (e.g. Group, Label, Item, Separator).</Table.Td>
+      <Table.Td>Required</Table.Td>
+    </Table.Tr>
+  </tbody>
+</Table>
+
+---
+
+## Menu components
+
+Use these inside **FabContent**.
+
+### FabGroup
+
+Wraps a set of items. Accepts `className` and standard `div` props.
+
+### FabLabel
+
+Section label. Accepts `className` and standard `div` props. Use for accessibility and section titles.
+
+### FabSeparator
+
+Visual divider. Accepts `className` and standard `div` props.
+
+### FabItem
+
+<Table>
+  <thead>
+    <Table.Tr>
+      <Table.Th>Prop Name</Table.Th>
+      <Table.Th>Type</Table.Th>
+      <Table.Th>Description</Table.Th>
+      <Table.Th>Default</Table.Th>
+    </Table.Tr>
+  </thead>
+  <tbody>
+    <Table.Tr>
+      <Table.Td>**closeOnSelect**</Table.Td>
+      <Table.Td>`boolean`</Table.Td>
+      <Table.Td>Close the FAB content when the item is clicked.</Table.Td>
+      <Table.Td>`true`</Table.Td>
+    </Table.Tr>
+    <Table.Tr>
+      <Table.Td>**children**</Table.Td>
+      <Table.Td>`React.ReactNode`</Table.Td>
+      <Table.Td>Item content.</Table.Td>
+      <Table.Td>Required</Table.Td>
+    </Table.Tr>
+  </tbody>
+</Table>
+
+### FabItemIndicator
+
+Renders when the parent **FabCheckboxItem** or **FabRadioItem** is checked/selected. Accepts `className` and `children` (e.g. a check icon). Style with `group-data-[state=checked]:inline-flex` when the parent has the `group` class.
+
+### FabCheckboxItem
+
+<Table>
+  <thead>
+    <Table.Tr>
+      <Table.Th>Prop Name</Table.Th>
+      <Table.Th>Type</Table.Th>
+      <Table.Th>Description</Table.Th>
+      <Table.Th>Default</Table.Th>
+    </Table.Tr>
+  </thead>
+  <tbody>
+    <Table.Tr>
+      <Table.Td>**checked**</Table.Td>
+      <Table.Td>`boolean`</Table.Td>
+      <Table.Td>Controlled checked state. Omit for uncontrolled.</Table.Td>
+      <Table.Td>—</Table.Td>
+    </Table.Tr>
+    <Table.Tr>
+      <Table.Td>**onCheckedChange**</Table.Td>
+      <Table.Td>`(checked: boolean) => void`</Table.Td>
+      <Table.Td>Called when checked state changes.</Table.Td>
+      <Table.Td>—</Table.Td>
+    </Table.Tr>
+    <Table.Tr>
+      <Table.Td>**closeOnSelect**</Table.Td>
+      <Table.Td>`boolean`</Table.Td>
+      <Table.Td>Close the FAB content when toggled.</Table.Td>
+      <Table.Td>`true`</Table.Td>
+    </Table.Tr>
+    <Table.Tr>
+      <Table.Td>**children**</Table.Td>
+      <Table.Td>`React.ReactNode`</Table.Td>
+      <Table.Td>Item content; include FabItemIndicator for checkmark.</Table.Td>
+      <Table.Td>Required</Table.Td>
+    </Table.Tr>
+  </tbody>
+</Table>
+
+### FabRadioGroup
+
+<Table>
+  <thead>
+    <Table.Tr>
+      <Table.Th>Prop Name</Table.Th>
+      <Table.Th>Type</Table.Th>
+      <Table.Th>Description</Table.Th>
+      <Table.Th>Default</Table.Th>
+    </Table.Tr>
+  </thead>
+  <tbody>
+    <Table.Tr>
+      <Table.Td>**value**</Table.Td>
+      <Table.Td>`string`</Table.Td>
+      <Table.Td>Controlled selected value. Omit for uncontrolled.</Table.Td>
+      <Table.Td>—</Table.Td>
+    </Table.Tr>
+    <Table.Tr>
+      <Table.Td>**onValueChange**</Table.Td>
+      <Table.Td>`(value: string) => void`</Table.Td>
+      <Table.Td>Called when selection changes.</Table.Td>
+      <Table.Td>—</Table.Td>
+    </Table.Tr>
+    <Table.Tr>
+      <Table.Td>**children**</Table.Td>
+      <Table.Td>`React.ReactNode`</Table.Td>
+      <Table.Td>FabRadioItem components.</Table.Td>
+      <Table.Td>Required</Table.Td>
+    </Table.Tr>
+  </tbody>
+</Table>
+
+### FabRadioItem
+
+<Table>
+  <thead>
+    <Table.Tr>
+      <Table.Th>Prop Name</Table.Th>
+      <Table.Th>Type</Table.Th>
+      <Table.Th>Description</Table.Th>
+      <Table.Th>Default</Table.Th>
+    </Table.Tr>
+  </thead>
+  <tbody>
+    <Table.Tr>
+      <Table.Td>**value**</Table.Td>
+      <Table.Td>`string`</Table.Td>
+      <Table.Td>Value when this item is selected.</Table.Td>
+      <Table.Td>Required</Table.Td>
+    </Table.Tr>
+    <Table.Tr>
+      <Table.Td>**closeOnSelect**</Table.Td>
+      <Table.Td>`boolean`</Table.Td>
+      <Table.Td>Close the FAB content when selected.</Table.Td>
+      <Table.Td>`true`</Table.Td>
+    </Table.Tr>
+    <Table.Tr>
+      <Table.Td>**children**</Table.Td>
+      <Table.Td>`React.ReactNode`</Table.Td>
+      <Table.Td>Item content; include FabItemIndicator for selected state.</Table.Td>
+      <Table.Td>Required</Table.Td>
+    </Table.Tr>
+  </tbody>
+</Table>

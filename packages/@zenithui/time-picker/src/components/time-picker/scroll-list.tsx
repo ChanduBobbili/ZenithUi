@@ -1,7 +1,7 @@
-import { useEffect, useRef } from "react"
-import type { TimeScrollListProps } from "../types"
-import { ToggleGroupItem, ToggleGroupRoot } from "../toggle-group"
 import { cn } from "@zenithui/utils"
+import { useEffect, useRef } from "react"
+import { ToggleGroupItem, ToggleGroupRoot } from "../toggle-group"
+import type { TimeScrollListProps } from "../types"
 
 const TimeScrollList: React.FC<TimeScrollListProps> = ({
   options,
