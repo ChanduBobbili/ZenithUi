@@ -4,9 +4,7 @@ import type { ComponentProps } from "react"
 import * as FabPrimitive from "@zenithui/fab"
 import { cn } from "@/lib/utils"
 
-export function FabRoot(
-  props: ComponentProps<typeof FabPrimitive.Root>,
-) {
+export function FabRoot(props: ComponentProps<typeof FabPrimitive.Root>) {
   return <FabPrimitive.Root {...props} />
 }
 
@@ -19,7 +17,7 @@ export function FabTrigger({
       className={cn(
         "flex size-12 items-center justify-center rounded-full shadow-lg transition-all",
         "bg-primary text-primary-foreground",
-        "hover:opacity-90 focus:outline-2 focus:outline-offset-2 focus:outline-primary",
+        "focus:outline-primary hover:opacity-90 focus:outline-2 focus:outline-offset-2",
         className,
       )}
       {...props}
@@ -34,7 +32,7 @@ export function FabContent({
   return (
     <FabPrimitive.Content
       className={cn(
-        "min-w-[12rem] rounded-xl border border-border bg-background p-3 shadow-lg",
+        "border-border bg-background min-w-[12rem] rounded-xl border p-3 shadow-lg",
         className,
       )}
       {...props}
@@ -61,7 +59,7 @@ export function FabLabel({
   return (
     <FabPrimitive.Label
       className={cn(
-        "mb-2 block text-xs font-semibold uppercase tracking-wider text-muted-foreground",
+        "text-muted-foreground mb-2 block text-xs font-semibold tracking-wider uppercase",
         className,
       )}
       {...props}
@@ -75,7 +73,7 @@ export function FabSeparator({
 }: ComponentProps<typeof FabPrimitive.Separator>) {
   return (
     <FabPrimitive.Separator
-      className={cn("my-2 h-px bg-border", className)}
+      className={cn("bg-border my-2 h-px", className)}
       {...props}
     />
   )
@@ -90,7 +88,7 @@ export function FabItem({
       className={cn(
         "flex w-full cursor-pointer items-center gap-2 rounded-lg px-3 py-2 text-left text-sm",
         "hover:bg-accent hover:text-accent-foreground",
-        "focus:outline-none focus:ring-2 focus:ring-primary/20",
+        "focus:ring-primary/20 focus:ring-2 focus:outline-none",
         "transition-colors",
         className,
       )}
@@ -123,7 +121,7 @@ export function FabCheckboxItem({
       className={cn(
         "group flex w-full cursor-pointer items-center gap-2 rounded-lg px-3 py-2 text-left text-sm",
         "hover:bg-accent hover:text-accent-foreground",
-        "focus:outline-none focus:ring-2 focus:ring-primary/20",
+        "focus:ring-primary/20 focus:ring-2 focus:outline-none",
         "transition-colors",
         className,
       )}
@@ -153,7 +151,7 @@ export function FabRadioItem({
       className={cn(
         "group flex w-full cursor-pointer items-center gap-2 rounded-lg px-3 py-2 text-left text-sm",
         "hover:bg-accent hover:text-accent-foreground",
-        "focus:outline-none focus:ring-2 focus:ring-primary/20",
+        "focus:ring-primary/20 focus:ring-2 focus:outline-none",
         "transition-colors",
         className,
       )}

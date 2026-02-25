@@ -1,7 +1,6 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "theme-toggle",
-  "type": "registry:ui",
   "dependencies": [
     "@zenithui/utils",
     "lucide-react"
@@ -12,5 +11,6 @@
       "content": "\"use-client\"\nimport { cn, useThemeMode } from \"@zenithui/utils\"\nimport { Button } from \"@/components/ui/button\"\nimport { Moon, Sun } from \"lucide-react\"\n\nexport default function ThemeToggle() {\n  const { ref, toggleSwitchTheme, isDarkMode } = useThemeMode({\n    animationType: \"CIRCLE\",\n    duration: 750,\n    blurAmount: 2,\n  })\n\n  return (\n    <Button\n      ref={ref}\n      variant=\"outline\"\n      size=\"icon\"\n      className={cn(\"relative size-fit rounded-full p-3 transition-all\")}\n      onClick={toggleSwitchTheme}\n    >\n      {isDarkMode ? (\n        <Moon className=\"h-[1.2rem] w-[1.2rem] scale-0 rotate-90 opacity-0 transition-all dark:scale-100 dark:rotate-0 dark:opacity-100\" />\n      ) : (\n        <Sun className=\"h-[1.2rem] w-[1.2rem] scale-100 rotate-0 opacity-100 transition-all dark:scale-0 dark:-rotate-90 dark:opacity-0\" />\n      )}\n    </Button>\n  )\n}\n",
       "type": "registry:ui"
     }
-  ]
+  ],
+  "type": "registry:ui"
 }
