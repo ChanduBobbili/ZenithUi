@@ -45,11 +45,11 @@ jobs:
           echo "Extracted package name: $PACKAGE_NAME"
           echo "Extracted version: $PACKAGE_VERSION"
 
-      - name: Navigate to package directory and install dependencies
-        run: |
-          set -e
-          cd packages/@zenithui/$PACKAGE_NAME
-          pnpm install
+      - name: Install package dependencies
+        run: pnpm install
+
+      - name: Build workspace dependencies for package
+        run: pnpm build --filter @zenithui/$PACKAGE_NAME^...
 
       - name: Publish package with building
         run: |
