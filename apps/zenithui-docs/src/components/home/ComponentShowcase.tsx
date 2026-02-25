@@ -414,20 +414,20 @@ const [time, setTime] = useState<string>("16:13")
         label: "Install",
         code: "npm install @zenithui/toast",
       },
-      {
-        id: "setup",
-        label: "Setup",
-        code: `// Wrap your app with ToastProvider
-import { ToastProvider } from "@zenithui/toast"
+//       {
+//         id: "setup",
+//         label: "Setup",
+//         code: `// Wrap your app with ToastProvider
+// import { ToastProvider } from "@zenithui/toast"
 
-createRoot(document.getElementById("root")!).render(
-  <StrictMode>
-    <ToastProvider>
-      <App />
-    </ToastProvider>
-  </StrictMode>,
-)`,
-      },
+// createRoot(document.getElementById("root")!).render(
+//   <StrictMode>
+//     <ToastProvider>
+//       <App />
+//     </ToastProvider>
+//   </StrictMode>,
+// )`,
+//       },
       {
         id: "usage",
         label: "Usage",
@@ -449,20 +449,20 @@ toast.warning("This is a warning toast")`,
         label: "Install",
         code: "npm install @zenithui/tooltip",
       },
-      {
-        id: "setup",
-        label: "Setup",
-        code: `// Wrap your app with the Tooltip Provider
-import * as TooltipPrimitive from "@zenithui/tooltip"
+//       {
+//         id: "setup",
+//         label: "Setup",
+//         code: `// Wrap your app with the Tooltip Provider
+// import * as TooltipPrimitive from "@zenithui/tooltip"
 
-createRoot(document.getElementById("root")!).render(
-  <StrictMode>
-    <TooltipPrimitive.Provider>
-      <App />
-    </TooltipPrimitive.Provider>
-  </StrictMode>,
-)`,
-      },
+// createRoot(document.getElementById("root")!).render(
+//   <StrictMode>
+//     <TooltipPrimitive.Provider>
+//       <App />
+//     </TooltipPrimitive.Provider>
+//   </StrictMode>,
+// )`,
+//       },
       {
         id: "usage",
         label: "Usage",
@@ -556,6 +556,8 @@ export default function ComponentShowcase() {
 
   const currentData = TAB_DATA[activeTab]
 
+  console.log(currentData)
+
   return (
     <section
       className="relative z-10 flex w-full flex-col items-center border-t px-6 py-24"
@@ -605,11 +607,11 @@ export default function ComponentShowcase() {
           variants={itemVariants}
         >
           {TABS.map((tab) => (
-            <button
+            <motion.button
               type="button"
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
-              className="relative rounded-full px-5 py-2.5 text-sm font-semibold transition-all"
+              className="relative cursor-pointer rounded-md px-5 py-2.5 text-sm font-semibold transition-all"
               style={{
                 backgroundColor:
                   activeTab === tab.id ? THEME.bg.card : "transparent",
@@ -628,16 +630,16 @@ export default function ComponentShowcase() {
                   style={{ backgroundColor: THEME.accent.primary }}
                 />
               )}
-            </button>
+            </motion.button>
           ))}
         </motion.div>
 
         {/* Preview Area */}
-        <motion.div
-          className="relative min-h-[500px]"
-          variants={itemVariants}
-        >
-          <AnimatePresence mode="wait">
+        <AnimatePresence mode="wait">
+          <motion.div
+            className="relative min-h-[500px]"
+            variants={itemVariants}
+          >
             <ComponentPreviewCard
               key={activeTab}
               activeTabId={activeTab}
@@ -645,8 +647,8 @@ export default function ComponentShowcase() {
               codeTabs={currentData.codeTabs}
               docsHref={currentData.docsHref}
             />
-          </AnimatePresence>
-        </motion.div>
+          </motion.div>
+        </AnimatePresence>
       </motion.div>
     </section>
   )
