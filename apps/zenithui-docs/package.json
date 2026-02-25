@@ -68,7 +68,7 @@
     "@types/mdx": "^2.0.13",
     "@types/node": "^22.13.12",
     "@types/react": "^19.2.14",
-    "@types/react-dom": "^19.0.4",
+    "@types/react-dom": "^19.2.3",
     "eslint": "^9.20.1",
     "eslint-config-next": "15.1.7",
     "pagefind": "^1.4.0",
