@@ -6,7 +6,8 @@ const CountDownTimer: React.FC<CountDownTimerProps> = ({
   startTime,
   className = "",
   description = "",
-  minutes = 5,
+  type = "seconds",
+  duration = 5,
   format = "without-names",
   descriptionClassName = "",
   theme = "auto",
@@ -22,7 +23,16 @@ const CountDownTimer: React.FC<CountDownTimerProps> = ({
 
   useEffect(() => {
     const startDate = new Date(startTime)
-    const endDate = new Date(startDate.getTime() + minutes * 60 * 1000) // Add 5 minutes
+
+    // Convert duration into milliseconds based on type
+    const durationMs =
+      type === "seconds"
+        ? duration * 1000
+        : type === "minutes"
+          ? duration * 60 * 1000
+          : duration * 60 * 60 * 1000
+
+    const endDate = new Date(startDate.getTime() + durationMs)
 
     const interval = setInterval(() => {
       const now = new Date()
@@ -31,34 +41,39 @@ const CountDownTimer: React.FC<CountDownTimerProps> = ({
       if (diff <= 0) {
         clearInterval(interval)
         if (format === "with-names") {
-          setTimeLeft("00 minutes 00 seconds")
+          setTimeLeft("00 hours 00 minutes 00 seconds")
         } else {
           if (onExpired) {
             onExpired(true)
           }
-          setTimeLeft("00 : 00")
+          setTimeLeft("00 : 00 : 00")
         }
         return
       }
 
-      const minutes = Math.floor(diff / (1000 * 60))
+      const hours = Math.floor(diff / (1000 * 60 * 60))
+      const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60))
       const seconds = Math.floor((diff % (1000 * 60)) / 1000)
 
       if (format === "with-names") {
         setTimeLeft(
-          `${String(minutes).padStart(2, "0")} minutes ${String(
-            seconds,
-          ).padStart(2, "0")} seconds`,
+          `${String(hours).padStart(2, "0")} hours ${String(minutes).padStart(
+            2,
+            "0",
+          )} minutes ${String(seconds).padStart(2, "0")} seconds`,
         )
       } else {
         setTimeLeft(
-          `${String(minutes).padStart(2, "0")} : ${String(seconds).padStart(2, "0")}`,
+          `${String(hours).padStart(2, "0")} : ${String(minutes).padStart(
+            2,
+            "0",
+          )} : ${String(seconds).padStart(2, "0")}`,
         )
       }
     }, 1000)
 
     return () => clearInterval(interval)
-  }, [startTime, format, minutes, onExpired])
+  }, [startTime, type, duration, format, onExpired])
 
   return description ? (
     <span className={cn(themeClass, "count-down-text", className)}>

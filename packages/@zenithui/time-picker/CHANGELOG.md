@@ -1,5 +1,18 @@
 # @zenithui/time-picker
 
+## 1.2.1
+
+### Patch Changes
+
+- Updated dependencies
+  - @zenithui/utils@0.3.0
+
+## 1.2.0
+
+### Minor Changes
+
+- Provided the support for Hours, Minutes also in the countdown timer
+
 ## 1.1.4
 
 ### Patch Changes

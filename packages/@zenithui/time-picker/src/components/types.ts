@@ -123,10 +123,17 @@ export type CountDownTimerProps = {
   description?: string
 
   /**
-   * The number of minutes for the countdown timer.
+   * The type of the countdown timer.
+   * Can be "seconds", "minutes", or "hours".
+   * @default "seconds"
+   */
+  type?: "seconds" | "minutes" | "hours"
+
+  /**
+   * The number of seconds/minutes/hours for the countdown timer.
    * @default 5
    */
-  minutes?: number
+  duration?: number
 
   /**
    * Additional CSS class name(s) to apply to the description text.

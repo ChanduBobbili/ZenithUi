@@ -47,6 +47,31 @@ export const ui: Registry["items"] = [
     ],
   },
   {
+    name: "theme-toggle",
+    type: "registry:ui",
+    dependencies: ["@zenithui/utils", "lucide-react"],
+    files: [
+      {
+        path: "ui/theme-toggle.tsx",
+        type: "registry:ui",
+      },
+    ],
+  },
+  {
+    name: "animated-list",
+    type: "registry:ui",
+    title: "Animated List",
+    description:
+      "A list that animates each item in sequence with a delay. Used to showcase notifications or events on your landing page.",
+    dependencies: ["motion"],
+    files: [
+      {
+        path: "ui/animated-list.tsx",
+        type: "registry:ui",
+      },
+    ],
+  },
+  {
     name: "fab",
     type: "registry:ui",
     dependencies: ["@zenithui/fab"],

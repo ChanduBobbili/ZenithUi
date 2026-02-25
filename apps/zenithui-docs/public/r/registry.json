@@ -106,19 +106,6 @@
       ]
     },
     {
-      "name": "fab",
-      "type": "registry:ui",
-      "dependencies": [
-        "@zenithui/fab"
-      ],
-      "files": [
-        {
-          "path": "registry/ui/fab.tsx",
-          "type": "registry:ui"
-        }
-      ]
-    },
-    {
       "name": "utils",
       "type": "registry:lib",
       "dependencies": [

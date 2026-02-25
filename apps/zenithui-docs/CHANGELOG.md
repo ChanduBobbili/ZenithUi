@@ -1,5 +1,46 @@
 # zenithui-docs
 
+## 1.4.2
+
+### Patch Changes
+
+- fixed theme-toggle documentation intro content
+
+## 1.4.1
+
+### Patch Changes
+
+- Added animated list component in the registry
+
+## 1.4.0
+
+### Minor Changes
+
+- Addded theme toggle hook
+
+### Patch Changes
+
+- Updated dependencies
+  - @zenithui/utils@0.3.0
+  - @zenithui/day-picker@1.0.8
+  - @zenithui/light-box@1.1.2
+  - @zenithui/time-picker@1.2.1
+  - @zenithui/toast@1.0.9
+
+## 1.3.5
+
+### Patch Changes
+
+- Updated dependencies
+  - @zenithui/day-picker@1.0.7
+
+## 1.3.4
+
+### Patch Changes
+
+- Updated dependencies
+  - @zenithui/time-picker@1.2.0
+
 ## 1.3.3
 
 ### Patch Changes

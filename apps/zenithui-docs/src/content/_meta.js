@@ -19,7 +19,7 @@ export default {
       timestamp: false, // Hide timestamp on this page
     },
   },
-  "tooltip": {
+  tooltip: {
     theme: {
       timestamp: false, // Hide timestamp on this page
     },
@@ -30,6 +30,11 @@ export default {
     },
   },
   fab: {
+    theme: {
+      timestamp: false, // Hide timestamp on this page
+    },
+  },
+  "theme-toggle": {
     theme: {
       timestamp: false, // Hide timestamp on this page
     },

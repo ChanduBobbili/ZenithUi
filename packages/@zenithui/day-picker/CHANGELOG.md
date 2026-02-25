@@ -1,5 +1,18 @@
 # @zenithui/day-picker
 
+## 1.0.8
+
+### Patch Changes
+
+- Updated dependencies
+  - @zenithui/utils@0.3.0
+
+## 1.0.7
+
+### Patch Changes
+
+- Provided the selected && onSelect optional functionality
+
 ## 1.0.6
 
 ### Patch Changes
