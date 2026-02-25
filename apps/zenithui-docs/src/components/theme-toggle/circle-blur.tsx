@@ -1,4 +1,4 @@
-"use-client"
+"use client"
 import { useThemeMode } from "@zenithui/utils"
 import { Button } from "../ui/button"
 import { cn } from "@/lib/utils"

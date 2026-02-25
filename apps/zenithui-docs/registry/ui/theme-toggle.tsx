@@ -1,4 +1,4 @@
-"use-client"
+"use client"
 import { cn, useThemeMode } from "@zenithui/utils"
 import { Button } from "@/components/ui/button"
 import { Moon, Sun } from "lucide-react"
