@@ -35,7 +35,7 @@
     "@radix-ui/react-toggle": "^1.1.2",
     "@radix-ui/react-toggle-group": "^1.1.2",
     "@vercel/analytics": "^1.6.1",
-    "@vercel/speed-insights": "^1.2.0",
+    "@vercel/speed-insights": "^1.3.1",
     "@zenithui/day-picker": "workspace:*",
     "@zenithui/fab": "workspace:*",
     "@zenithui/light-box": "workspace:*",
@@ -64,19 +64,19 @@
     "zod": "^3.24.2"
   },
   "devDependencies": {
-    "@eslint/eslintrc": "^3.3.1",
-    "@tailwindcss/postcss": "^4.0.7",
+    "@eslint/eslintrc": "^3.3.4",
+    "@tailwindcss/postcss": "^4.2.1",
     "@types/mdx": "^2.0.13",
-    "@types/node": "^22.13.12",
+    "@types/node": "^25.3.0",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
-    "eslint": "^9.20.1",
-    "eslint-config-next": "15.1.7",
+    "eslint": "^10.0.2",
+    "eslint-config-next": "16.1.6",
     "pagefind": "^1.4.0",
-    "postcss": "^8.5.3",
-    "tailwindcss": "^4.0.7",
-    "tsx": "^4.19.3",
-    "typescript": "^5.8.2"
+    "postcss": "^8.5.6",
+    "tailwindcss": "^4.2.1",
+    "tsx": "^4.21.0",
+    "typescript": "^5.9.3"
   },
   "packageManager": "pnpm@9.5.0"
 }

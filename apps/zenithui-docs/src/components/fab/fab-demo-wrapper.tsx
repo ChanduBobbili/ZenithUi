@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils"
 
 type FabDemoWrapperProps = {
   title: string
-  description?: ReactNode
+  description?: string
   children: ReactNode
   className?: string
 }
@@ -29,10 +29,7 @@ export default function FabDemoWrapper({
         <div>
           <h3 className="text-foreground font-semibold">{title}</h3>
           {description && (
-            <p className="text-muted-foreground mt-1 text-sm">
-              {/* @ts-expect-error React 19 ReactNode type mismatch */}
-              {description}
-            </p>
+            <p className="text-muted-foreground mt-1 text-sm">{description}</p>
           )}
         </div>
         <button
@@ -48,7 +45,6 @@ export default function FabDemoWrapper({
           {show ? "Hide FAB" : "Show FAB"}
         </button>
       </div>
-      {/* @ts-expect-error React 19 ReactNode type mismatch */}
       {show && <div className="relative">{children}</div>}
     </div>
   )
