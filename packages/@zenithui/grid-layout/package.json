@@ -1,0 +1,82 @@
+{
+  "name": "@zenithui/grid-layout",
+  "version": "0.0.0",
+  "private": false,
+  "description": "A highly customizable and flexible drag-and-drop grid layout component for React applications.",
+  "publishConfig": {
+    "access": "public"
+  },
+  "type": "module",
+  "module": "./dist/index.js",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "files": ["dist", "dist/index.css"],
+  "sideEffects": ["dist/index.css"],
+  "scripts": {
+    "prepack": "node update-deps.js",
+    "postpublish": "node reset-deps.js",
+    "prepublishOnly": "npm pack && pnpm install --no-frozen-lockfile && npm run build",
+    "build": "rslib build",
+    "build:storybook": "storybook build",
+    "check": "biome check --write",
+    "dev": "rslib build --watch",
+    "format": "prettier --write .",
+    "clean": "rm -rf dist && rm -rf storybook-static",
+    "lint": "eslint .",
+    "storybook": "storybook dev"
+  },
+  "dependencies": {
+    "@zenithui/utils": "workspace:*"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^2.4.6",
+    "@rsbuild/core": "~1.7.3",
+    "@rsbuild/plugin-css-minimizer": "^1.1.1",
+    "@rsbuild/plugin-react": "^1.4.5",
+    "@rslib/core": "^0.19.6",
+    "@types/node": "^25.3.5",
+    "rsbuild-plugin-dts": "^0.19.6"
+  },
+  "peerDependencies": {
+    "react": ">=17.0.0",
+    "react-dom": ">=17.0.0"
+  },
+  "peerDependenciesMeta": {
+    "react": {
+      "optional": false
+    },
+    "react-dom": {
+      "optional": false
+    }
+  },
+  "engines": {
+    "npm": ">=9",
+    "node": ">=20"
+  },
+  "keywords": [
+    "react",
+    "components",
+    "ui",
+    "zenithui",
+    "grid",
+    "layout",
+    "drag-and-drop"
+  ],
+  "homepage": "https://zenithui-docs.vercel.app/",
+  "bugs": {
+    "url": "https://github.com/ChanduBobbili/ZenithUi/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ChanduBobbili/ZenithUi.git#main"
+  },
+  "license": "MIT",
+  "author": "Chandu Bobbili <chandubobbili12@gmail.com> (https://github.com/ChanduBobbili)",
+  "packageManager": "pnpm@9.5.0"
+}

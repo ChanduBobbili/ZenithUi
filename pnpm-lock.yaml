@@ -400,6 +400,40 @@ importers:
         specifier: ^0.19.4
         version: 0.19.4(@microsoft/api-extractor@7.49.2(@types/node@25.3.0))(@rsbuild/core@1.7.2)(typescript@5.9.3)
 
+  packages/@zenithui/grid-layout:
+    dependencies:
+      '@zenithui/utils':
+        specifier: workspace:*
+        version: link:../utils
+      react:
+        specifier: '>=17.0.0'
+        version: 19.2.4
+      react-dom:
+        specifier: '>=17.0.0'
+        version: 19.2.4(react@19.2.4)
+    devDependencies:
+      '@biomejs/biome':
+        specifier: ^1.9.4
+        version: 1.9.4
+      '@rsbuild/core':
+        specifier: ~1.2.19
+        version: 1.2.19
+      '@rsbuild/plugin-css-minimizer':
+        specifier: ^1.0.2
+        version: 1.1.1(@rsbuild/core@1.2.19)(lightningcss@1.31.1)(webpack@5.98.0(@swc/core@1.10.15(@swc/helpers@0.5.18)))
+      '@rsbuild/plugin-react':
+        specifier: ^1.1.1
+        version: 1.4.5(@rsbuild/core@1.2.19)
+      '@rslib/core':
+        specifier: ^0.5.5
+        version: 0.5.5(@microsoft/api-extractor@7.49.2(@types/node@22.19.11))(typescript@5.9.3)
+      '@types/node':
+        specifier: ^22.13.13
+        version: 22.19.11
+      rsbuild-plugin-dts:
+        specifier: ^0.5.5
+        version: 0.5.5(@microsoft/api-extractor@7.49.2(@types/node@22.19.11))(@rsbuild/core@1.2.19)(typescript@5.9.3)
+
   packages/@zenithui/light-box:
     dependencies:
       '@radix-ui/react-dialog':
@@ -13172,6 +13206,15 @@ snapshots:
       - '@types/node'
     optional: true
 
+  '@microsoft/api-extractor-model@7.30.3(@types/node@22.19.11)':
+    dependencies:
+      '@microsoft/tsdoc': 0.15.1
+      '@microsoft/tsdoc-config': 0.17.1
+      '@rushstack/node-core-library': 5.11.0(@types/node@22.19.11)
+    transitivePeerDependencies:
+      - '@types/node'
+    optional: true
+
   '@microsoft/api-extractor-model@7.30.3(@types/node@25.3.0)':
     dependencies:
       '@microsoft/tsdoc': 0.15.1
@@ -13208,6 +13251,25 @@ snapshots:
       '@rushstack/rig-package': 0.5.3
       '@rushstack/terminal': 0.14.6(@types/node@22.13.13)
       '@rushstack/ts-command-line': 4.23.4(@types/node@22.13.13)
+      lodash: 4.17.21
+      minimatch: 3.0.8
+      resolve: 1.22.10
+      semver: 7.5.4
+      source-map: 0.6.1
+      typescript: 5.7.2
+    transitivePeerDependencies:
+      - '@types/node'
+    optional: true
+
+  '@microsoft/api-extractor@7.49.2(@types/node@22.19.11)':
+    dependencies:
+      '@microsoft/api-extractor-model': 7.30.3(@types/node@22.19.11)
+      '@microsoft/tsdoc': 0.15.1
+      '@microsoft/tsdoc-config': 0.17.1
+      '@rushstack/node-core-library': 5.11.0(@types/node@22.19.11)
+      '@rushstack/rig-package': 0.5.3
+      '@rushstack/terminal': 0.14.6(@types/node@22.19.11)
+      '@rushstack/ts-command-line': 4.23.4(@types/node@22.19.11)
       lodash: 4.17.21
       minimatch: 3.0.8
       resolve: 1.22.10
@@ -14641,6 +14703,21 @@ snapshots:
       - lightningcss
       - webpack
 
+  '@rsbuild/plugin-css-minimizer@1.1.1(@rsbuild/core@1.2.19)(lightningcss@1.31.1)(webpack@5.98.0(@swc/core@1.10.15(@swc/helpers@0.5.18)))':
+    dependencies:
+      css-minimizer-webpack-plugin: 7.0.2(lightningcss@1.31.1)(webpack@5.98.0(@swc/core@1.10.15(@swc/helpers@0.5.18)))
+      reduce-configs: 1.1.1
+    optionalDependencies:
+      '@rsbuild/core': 1.2.19
+    transitivePeerDependencies:
+      - '@parcel/css'
+      - '@swc/css'
+      - clean-css
+      - csso
+      - esbuild
+      - lightningcss
+      - webpack
+
   '@rsbuild/plugin-css-minimizer@1.1.1(@rsbuild/core@1.7.3)(lightningcss@1.31.1)(webpack@5.98.0(@swc/core@1.10.15(@swc/helpers@0.5.18)))':
     dependencies:
       css-minimizer-webpack-plugin: 7.0.2(lightningcss@1.31.1)(webpack@5.98.0(@swc/core@1.10.15(@swc/helpers@0.5.18)))
@@ -14681,6 +14758,14 @@ snapshots:
       '@rsbuild/core': 1.3.14
       '@rspack/plugin-react-refresh': 1.4.1(react-refresh@0.17.0)
       react-refresh: 0.17.0
+    transitivePeerDependencies:
+      - webpack-hot-middleware
+
+  '@rsbuild/plugin-react@1.4.5(@rsbuild/core@1.2.19)':
+    dependencies:
+      '@rsbuild/core': 1.2.19
+      '@rspack/plugin-react-refresh': 1.6.0(react-refresh@0.18.0)
+      react-refresh: 0.18.0
     transitivePeerDependencies:
       - webpack-hot-middleware
 
@@ -14777,6 +14862,17 @@ snapshots:
       tinyglobby: 0.2.12
     optionalDependencies:
       '@microsoft/api-extractor': 7.49.2(@types/node@22.13.13)
+      typescript: 5.9.3
+    transitivePeerDependencies:
+      - '@rspack/tracing'
+
+  '@rslib/core@0.5.5(@microsoft/api-extractor@7.49.2(@types/node@22.19.11))(typescript@5.9.3)':
+    dependencies:
+      '@rsbuild/core': 1.2.19
+      rsbuild-plugin-dts: 0.5.5(@microsoft/api-extractor@7.49.2(@types/node@22.19.11))(@rsbuild/core@1.2.19)(typescript@5.9.3)
+      tinyglobby: 0.2.12
+    optionalDependencies:
+      '@microsoft/api-extractor': 7.49.2(@types/node@22.19.11)
       typescript: 5.9.3
     transitivePeerDependencies:
       - '@rspack/tracing'
@@ -15129,6 +15225,20 @@ snapshots:
       '@types/node': 22.13.13
     optional: true
 
+  '@rushstack/node-core-library@5.11.0(@types/node@22.19.11)':
+    dependencies:
+      ajv: 8.13.0
+      ajv-draft-04: 1.0.0(ajv@8.13.0)
+      ajv-formats: 3.0.1(ajv@8.13.0)
+      fs-extra: 11.3.0
+      import-lazy: 4.0.0
+      jju: 1.4.0
+      resolve: 1.22.10
+      semver: 7.5.4
+    optionalDependencies:
+      '@types/node': 22.19.11
+    optional: true
+
   '@rushstack/node-core-library@5.11.0(@types/node@25.3.0)':
     dependencies:
       ajv: 8.13.0
@@ -15163,6 +15273,14 @@ snapshots:
       '@types/node': 22.13.13
     optional: true
 
+  '@rushstack/terminal@0.14.6(@types/node@22.19.11)':
+    dependencies:
+      '@rushstack/node-core-library': 5.11.0(@types/node@22.19.11)
+      supports-color: 8.1.1
+    optionalDependencies:
+      '@types/node': 22.19.11
+    optional: true
+
   '@rushstack/terminal@0.14.6(@types/node@25.3.0)':
     dependencies:
       '@rushstack/node-core-library': 5.11.0(@types/node@25.3.0)
@@ -15183,6 +15301,16 @@ snapshots:
   '@rushstack/ts-command-line@4.23.4(@types/node@22.13.13)':
     dependencies:
       '@rushstack/terminal': 0.14.6(@types/node@22.13.13)
+      '@types/argparse': 1.0.38
+      argparse: 1.0.10
+      string-argv: 0.3.2
+    transitivePeerDependencies:
+      - '@types/node'
+    optional: true
+
+  '@rushstack/ts-command-line@4.23.4(@types/node@22.19.11)':
+    dependencies:
+      '@rushstack/terminal': 0.14.6(@types/node@22.19.11)
       '@types/argparse': 1.0.38
       argparse: 1.0.10
       string-argv: 0.3.2
@@ -22087,6 +22215,18 @@ snapshots:
       tsconfig-paths: 4.2.0
     optionalDependencies:
       '@microsoft/api-extractor': 7.49.2(@types/node@22.13.13)
+      typescript: 5.9.3
+
+  rsbuild-plugin-dts@0.5.5(@microsoft/api-extractor@7.49.2(@types/node@22.19.11))(@rsbuild/core@1.2.19)(typescript@5.9.3):
+    dependencies:
+      '@ast-grep/napi': 0.36.2
+      '@rsbuild/core': 1.2.19
+      magic-string: 0.30.17
+      picocolors: 1.1.1
+      tinyglobby: 0.2.12
+      tsconfig-paths: 4.2.0
+    optionalDependencies:
+      '@microsoft/api-extractor': 7.49.2(@types/node@22.19.11)
       typescript: 5.9.3
 
   rsbuild-plugin-dts@0.5.5(@microsoft/api-extractor@7.49.2(@types/node@25.3.0))(@rsbuild/core@1.2.19)(typescript@5.9.3):
