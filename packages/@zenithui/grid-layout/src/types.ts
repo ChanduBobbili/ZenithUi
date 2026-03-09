@@ -3,11 +3,11 @@
  * @template T - The type of the data structure contained within the cell.
  */
 export interface GridCell<T> {
-  id: string;
-  width?: number;
-  minWidth?: number;
-  data: T;
-  className?: string; // Added for customization
+  id: string
+  width?: number
+  minWidth?: number
+  data: T
+  className?: string // Added for customization
 }
 
 /**
@@ -15,11 +15,11 @@ export interface GridCell<T> {
  * @template T - The type of the data structure contained within the cells.
  */
 export interface GridRow<T> {
-  id: string;
-  height?: number;
-  minHeight?: number;
-  cells: GridCell<T>[];
-  className?: string; // Added for customization
+  id: string
+  height?: number
+  minHeight?: number
+  cells: GridCell<T>[]
+  className?: string // Added for customization
 }
 
 /**
@@ -27,5 +27,5 @@ export interface GridRow<T> {
  * @template T - The type of the data structure contained within the grid's cells.
  */
 export interface GridLayoutConfig<T> {
-  rows: GridRow<T>[];
+  rows: GridRow<T>[]
 }

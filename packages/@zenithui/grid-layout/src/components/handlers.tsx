@@ -1,15 +1,15 @@
-import { cn } from "@zenithui/utils";
-import { useEffect, useRef, useState } from "react";
+import { cn } from "@zenithui/utils"
+import { useEffect, useRef, useState } from "react"
 
 /**
  * Props for resize handle components.
  */
 export interface ResizeHandleProps {
-  onResize: (delta: number) => void;
-  onResizeStart?: () => void;
-  onResizeEnd?: () => void;
-  children?: React.ReactNode;
-  className?: string;
+  onResize: (delta: number) => void
+  onResizeStart?: () => void
+  onResizeEnd?: () => void
+  children?: React.ReactNode
+  className?: string
 }
 
 /**
@@ -25,46 +25,46 @@ export function ColResizeHandle({
   children,
   className,
 }: ResizeHandleProps) {
-  const [isDragging, setIsDragging] = useState(false);
-  const startXRef = useRef(0);
-  const onResizeRef = useRef(onResize);
-  const onResizeStartRef = useRef(onResizeStart);
-  const onResizeEndRef = useRef(onResizeEnd);
+  const [isDragging, setIsDragging] = useState(false)
+  const startXRef = useRef(0)
+  const onResizeRef = useRef(onResize)
+  const onResizeStartRef = useRef(onResizeStart)
+  const onResizeEndRef = useRef(onResizeEnd)
 
   useEffect(() => {
-    onResizeRef.current = onResize;
-    onResizeStartRef.current = onResizeStart;
-    onResizeEndRef.current = onResizeEnd;
-  }, [onResize, onResizeStart, onResizeEnd]);
+    onResizeRef.current = onResize
+    onResizeStartRef.current = onResizeStart
+    onResizeEndRef.current = onResizeEnd
+  }, [onResize, onResizeStart, onResizeEnd])
 
   const handleMouseDown = (e: React.MouseEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setIsDragging(true);
-    startXRef.current = e.clientX;
-    onResizeStartRef.current?.();
+    e.preventDefault()
+    e.stopPropagation()
+    setIsDragging(true)
+    startXRef.current = e.clientX
+    onResizeStartRef.current?.()
 
     const handleMouseMove = (moveEvent: MouseEvent) => {
-      moveEvent.preventDefault();
-      const deltaX = moveEvent.clientX - startXRef.current;
-      startXRef.current = moveEvent.clientX;
-      onResizeRef.current(deltaX);
-    };
+      moveEvent.preventDefault()
+      const deltaX = moveEvent.clientX - startXRef.current
+      startXRef.current = moveEvent.clientX
+      onResizeRef.current(deltaX)
+    }
 
     const handleMouseUp = () => {
-      setIsDragging(false);
-      document.removeEventListener("mousemove", handleMouseMove);
-      document.removeEventListener("mouseup", handleMouseUp);
-      document.body.style.cursor = "";
-      document.body.style.userSelect = "";
-      onResizeEndRef.current?.();
-    };
+      setIsDragging(false)
+      document.removeEventListener("mousemove", handleMouseMove)
+      document.removeEventListener("mouseup", handleMouseUp)
+      document.body.style.cursor = ""
+      document.body.style.userSelect = ""
+      onResizeEndRef.current?.()
+    }
 
-    document.body.style.cursor = "col-resize";
-    document.body.style.userSelect = "none";
-    document.addEventListener("mousemove", handleMouseMove);
-    document.addEventListener("mouseup", handleMouseUp);
-  };
+    document.body.style.cursor = "col-resize"
+    document.body.style.userSelect = "none"
+    document.addEventListener("mousemove", handleMouseMove)
+    document.addEventListener("mouseup", handleMouseUp)
+  }
 
   return (
     <div
@@ -98,7 +98,7 @@ export function ColResizeHandle({
         </>
       )}
     </div>
-  );
+  )
 }
 
 /**
@@ -114,46 +114,46 @@ export function RowResizeHandle({
   children,
   className,
 }: ResizeHandleProps) {
-  const [isDragging, setIsDragging] = useState(false);
-  const startYRef = useRef(0);
-  const onResizeRef = useRef(onResize);
-  const onResizeStartRef = useRef(onResizeStart);
-  const onResizeEndRef = useRef(onResizeEnd);
+  const [isDragging, setIsDragging] = useState(false)
+  const startYRef = useRef(0)
+  const onResizeRef = useRef(onResize)
+  const onResizeStartRef = useRef(onResizeStart)
+  const onResizeEndRef = useRef(onResizeEnd)
 
   useEffect(() => {
-    onResizeRef.current = onResize;
-    onResizeStartRef.current = onResizeStart;
-    onResizeEndRef.current = onResizeEnd;
-  }, [onResize, onResizeStart, onResizeEnd]);
+    onResizeRef.current = onResize
+    onResizeStartRef.current = onResizeStart
+    onResizeEndRef.current = onResizeEnd
+  }, [onResize, onResizeStart, onResizeEnd])
 
   const handleMouseDown = (e: React.MouseEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setIsDragging(true);
-    startYRef.current = e.clientY;
-    onResizeStartRef.current?.();
+    e.preventDefault()
+    e.stopPropagation()
+    setIsDragging(true)
+    startYRef.current = e.clientY
+    onResizeStartRef.current?.()
 
     const handleMouseMove = (moveEvent: MouseEvent) => {
-      moveEvent.preventDefault();
-      const deltaY = moveEvent.clientY - startYRef.current;
-      startYRef.current = moveEvent.clientY;
-      onResizeRef.current(deltaY);
-    };
+      moveEvent.preventDefault()
+      const deltaY = moveEvent.clientY - startYRef.current
+      startYRef.current = moveEvent.clientY
+      onResizeRef.current(deltaY)
+    }
 
     const handleMouseUp = () => {
-      setIsDragging(false);
-      document.removeEventListener("mousemove", handleMouseMove);
-      document.removeEventListener("mouseup", handleMouseUp);
-      document.body.style.cursor = "";
-      document.body.style.userSelect = "";
-      onResizeEndRef.current?.();
-    };
+      setIsDragging(false)
+      document.removeEventListener("mousemove", handleMouseMove)
+      document.removeEventListener("mouseup", handleMouseUp)
+      document.body.style.cursor = ""
+      document.body.style.userSelect = ""
+      onResizeEndRef.current?.()
+    }
 
-    document.body.style.cursor = "row-resize";
-    document.body.style.userSelect = "none";
-    document.addEventListener("mousemove", handleMouseMove);
-    document.addEventListener("mouseup", handleMouseUp);
-  };
+    document.body.style.cursor = "row-resize"
+    document.body.style.userSelect = "none"
+    document.addEventListener("mousemove", handleMouseMove)
+    document.addEventListener("mouseup", handleMouseUp)
+  }
 
   return (
     <div
@@ -187,5 +187,5 @@ export function RowResizeHandle({
         </>
       )}
     </div>
-  );
+  )
 }

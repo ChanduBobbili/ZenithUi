@@ -1,40 +1,40 @@
-import { cn } from "@zenithui/utils";
-import { useState } from "react";
-import type { GridCell } from "../types";
+import { cn } from "@zenithui/utils"
+import { useState } from "react"
+import type { GridCell } from "../types"
 
 /**
  * Props for the GridItem component.
  * @template T - The type of the data contained within the cell.
  */
 export interface GridItemProps<T> {
-  cell: GridCell<T>;
-  parentRowId: string;
-  isDragging?: boolean;
-  isResizing?: boolean;
-  isDragTarget?: boolean;
-  dragTargetPosition?: "left" | "right" | "swap" | null;
-  className?: string;
+  cell: GridCell<T>
+  parentRowId: string
+  isDragging?: boolean
+  isResizing?: boolean
+  isDragTarget?: boolean
+  dragTargetPosition?: "left" | "right" | "swap" | null
+  className?: string
 
   // Custom renders
-  renderItem: (cell: GridCell<T>) => React.ReactNode;
+  renderItem: (cell: GridCell<T>) => React.ReactNode
   renderDragHandle?: (props: {
-    dragHandleProps: React.HTMLAttributes<HTMLElement>;
-  }) => React.ReactNode;
+    dragHandleProps: React.HTMLAttributes<HTMLElement>
+  }) => React.ReactNode
 
   // Handlers
-  onDragStart: (cellId: string, parentRowId: string) => void;
+  onDragStart: (cellId: string, parentRowId: string) => void
   onDragOver: (
     e: React.DragEvent,
     cellId: string,
     position: "left" | "right" | "swap",
-  ) => void;
+  ) => void
   onDrop: (
     e: React.DragEvent,
     cellId: string,
     position: "left" | "right" | "swap",
-  ) => void;
-  onDragEnd: () => void;
-  onDragLeave: () => void;
+  ) => void
+  onDragEnd: () => void
+  onDragLeave: () => void
 }
 
 /**
@@ -62,52 +62,52 @@ export function GridItem<T>({
 }: GridItemProps<T>) {
   const [internalDropPos, setInternalDropPos] = useState<
     "left" | "right" | "swap" | null
-  >(null);
+  >(null)
 
   const handleDragStart = (e: React.DragEvent) => {
-    e.dataTransfer.effectAllowed = "move";
+    e.dataTransfer.effectAllowed = "move"
     e.dataTransfer.setData(
       "application/grid-cell",
       JSON.stringify({ cellId: cell.id, parentRowId }),
-    );
-    onDragStart(cell.id, parentRowId);
-  };
+    )
+    onDragStart(cell.id, parentRowId)
+  }
 
   const handleDragOverLocal = (e: React.DragEvent) => {
-    e.preventDefault();
-    e.dataTransfer.dropEffect = "move";
+    e.preventDefault()
+    e.dataTransfer.dropEffect = "move"
 
-    const rect = (e.currentTarget as HTMLElement).getBoundingClientRect();
-    const x = e.clientX - rect.left;
+    const rect = (e.currentTarget as HTMLElement).getBoundingClientRect()
+    const x = e.clientX - rect.left
 
-    const threshold = rect.width * 0.25;
-    let position: "left" | "right" | "swap" = "swap";
+    const threshold = rect.width * 0.25
+    let position: "left" | "right" | "swap" = "swap"
 
-    if (x < threshold) position = "left";
-    else if (x > rect.width - threshold) position = "right";
+    if (x < threshold) position = "left"
+    else if (x > rect.width - threshold) position = "right"
 
-    setInternalDropPos(position);
-    onDragOver(e, cell.id, position);
-  };
+    setInternalDropPos(position)
+    onDragOver(e, cell.id, position)
+  }
 
   const handleDragLeaveLocal = () => {
-    setInternalDropPos(null);
-    onDragLeave();
-  };
+    setInternalDropPos(null)
+    onDragLeave()
+  }
 
   const handleDropLocal = (e: React.DragEvent) => {
-    e.preventDefault();
+    e.preventDefault()
     if (internalDropPos) {
-      onDrop(e, cell.id, internalDropPos);
+      onDrop(e, cell.id, internalDropPos)
     } else {
-      onDrop(e, cell.id, "swap");
+      onDrop(e, cell.id, "swap")
     }
-    setInternalDropPos(null);
-  };
+    setInternalDropPos(null)
+  }
 
   const activeDropPos = isDragTarget
     ? dragTargetPosition || internalDropPos
-    : null;
+    : null
 
   return (
     <div
@@ -173,5 +173,5 @@ export function GridItem<T>({
         )}
       </div>
     </div>
-  );
+  )
 }

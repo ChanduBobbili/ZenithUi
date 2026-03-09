@@ -1,25 +1,25 @@
-import type { GridCell, GridLayoutConfig, GridRow } from "../types";
+import type { GridCell, GridLayoutConfig, GridRow } from "../types"
 
-const MIN_ROW_HEIGHT = 100;
-const DEFAULT_CELL_WIDTH = 1;
-const MIN_CELL_WIDTH_PERCENT = 10;
+const MIN_ROW_HEIGHT = 100
+const DEFAULT_CELL_WIDTH = 1
+const MIN_CELL_WIDTH_PERCENT = 10
 
 function normalizeLayout<T>(layout: GridLayoutConfig<T>): GridLayoutConfig<T> {
   const newRows = layout.rows
     .map((row) => {
-      if (row.cells.length === 0) return row;
-      const totalWidth = row.cells.reduce((sum, c) => sum + (c.width ?? 1), 0);
-      if (totalWidth === 0) return row;
+      if (row.cells.length === 0) return row
+      const totalWidth = row.cells.reduce((sum, c) => sum + (c.width ?? 1), 0)
+      if (totalWidth === 0) return row
 
       const cells = row.cells.map((c) => ({
         ...c,
         width: ((c.width ?? 1) / totalWidth) * 100,
-      }));
-      return { ...row, cells };
+      }))
+      return { ...row, cells }
     })
-    .filter((row) => row.cells.length > 0);
+    .filter((row) => row.cells.length > 0)
 
-  return { ...layout, rows: newRows };
+  return { ...layout, rows: newRows }
 }
 
 /**
@@ -36,18 +36,18 @@ export function swapRows<T>(
   rowId1: string,
   rowId2: string,
 ): GridLayoutConfig<T> {
-  const newRows = [...layout.rows];
-  const idx1 = newRows.findIndex((r) => r.id === rowId1);
-  const idx2 = newRows.findIndex((r) => r.id === rowId2);
-  if (idx1 === -1 || idx2 === -1) return layout;
-  const temp = newRows[idx1];
+  const newRows = [...layout.rows]
+  const idx1 = newRows.findIndex((r) => r.id === rowId1)
+  const idx2 = newRows.findIndex((r) => r.id === rowId2)
+  if (idx1 === -1 || idx2 === -1) return layout
+  const temp = newRows[idx1]
 
   if (temp && newRows[idx2]) {
-    newRows[idx1] = newRows[idx2];
-    newRows[idx2] = temp;
+    newRows[idx1] = newRows[idx2]
+    newRows[idx2] = temp
   }
 
-  return { ...layout, rows: newRows };
+  return { ...layout, rows: newRows }
 }
 
 /**
@@ -65,11 +65,11 @@ export function resizeRow<T>(
   newHeight: number,
 ): GridLayoutConfig<T> {
   const newRows = layout.rows.map((row) => {
-    if (row.id !== rowId) return row;
-    const minH = row.minHeight ?? MIN_ROW_HEIGHT;
-    return { ...row, height: Math.max(minH, newHeight) };
-  });
-  return { ...layout, rows: newRows };
+    if (row.id !== rowId) return row
+    const minH = row.minHeight ?? MIN_ROW_HEIGHT
+    return { ...row, height: Math.max(minH, newHeight) }
+  })
+  return { ...layout, rows: newRows }
 }
 
 /**
@@ -87,7 +87,7 @@ export function removeRow<T>(
   return {
     ...layout,
     rows: layout.rows.filter((r) => r.id !== rowId),
-  };
+  }
 }
 
 /**
@@ -109,42 +109,42 @@ export function resizeCellPair<T>(
   deltaPercent: number,
 ): GridLayoutConfig<T> {
   const newRows = layout.rows.map((row) => {
-    if (row.id !== rowId) return row;
+    if (row.id !== rowId) return row
 
-    const leftCell = row.cells.find((c) => c.id === leftCellId);
-    const rightCell = row.cells.find((c) => c.id === rightCellId);
-    if (!leftCell || !rightCell) return row;
+    const leftCell = row.cells.find((c) => c.id === leftCellId)
+    const rightCell = row.cells.find((c) => c.id === rightCellId)
+    if (!leftCell || !rightCell) return row
 
-    const leftWidth = leftCell.width ?? DEFAULT_CELL_WIDTH;
-    const rightWidth = rightCell.width ?? DEFAULT_CELL_WIDTH;
-    const totalWidth = leftWidth + rightWidth;
+    const leftWidth = leftCell.width ?? DEFAULT_CELL_WIDTH
+    const rightWidth = rightCell.width ?? DEFAULT_CELL_WIDTH
+    const totalWidth = leftWidth + rightWidth
 
-    let newLeftWidth = leftWidth + (deltaPercent / 100) * totalWidth;
-    let newRightWidth = rightWidth - (deltaPercent / 100) * totalWidth;
+    let newLeftWidth = leftWidth + (deltaPercent / 100) * totalWidth
+    let newRightWidth = rightWidth - (deltaPercent / 100) * totalWidth
 
     const leftMin =
-      ((leftCell.minWidth ?? MIN_CELL_WIDTH_PERCENT) / 100) * totalWidth;
+      ((leftCell.minWidth ?? MIN_CELL_WIDTH_PERCENT) / 100) * totalWidth
     const rightMin =
-      ((rightCell.minWidth ?? MIN_CELL_WIDTH_PERCENT) / 100) * totalWidth;
+      ((rightCell.minWidth ?? MIN_CELL_WIDTH_PERCENT) / 100) * totalWidth
 
     if (newLeftWidth < leftMin) {
-      newLeftWidth = leftMin;
-      newRightWidth = totalWidth - leftMin;
+      newLeftWidth = leftMin
+      newRightWidth = totalWidth - leftMin
     }
     if (newRightWidth < rightMin) {
-      newRightWidth = rightMin;
-      newLeftWidth = totalWidth - rightMin;
+      newRightWidth = rightMin
+      newLeftWidth = totalWidth - rightMin
     }
 
     const newCells = row.cells.map((cell) => {
-      if (cell.id === leftCellId) return { ...cell, width: newLeftWidth };
-      if (cell.id === rightCellId) return { ...cell, width: newRightWidth };
-      return cell;
-    });
+      if (cell.id === leftCellId) return { ...cell, width: newLeftWidth }
+      if (cell.id === rightCellId) return { ...cell, width: newRightWidth }
+      return cell
+    })
 
-    return { ...row, cells: newCells };
-  });
-  return normalizeLayout({ ...layout, rows: newRows });
+    return { ...row, cells: newCells }
+  })
+  return normalizeLayout({ ...layout, rows: newRows })
 }
 
 /**
@@ -162,34 +162,34 @@ export function swapCells<T>(
   cellId1: string,
   cellId2: string,
 ): GridLayoutConfig<T> {
-  let parentRow1: GridRow<T> | null = null;
-  let parentRow2: GridRow<T> | null = null;
+  let parentRow1: GridRow<T> | null = null
+  let parentRow2: GridRow<T> | null = null
 
   for (const row of layout.rows) {
-    if (row.cells.find((c) => c.id === cellId1)) parentRow1 = row;
-    if (row.cells.find((c) => c.id === cellId2)) parentRow2 = row;
+    if (row.cells.find((c) => c.id === cellId1)) parentRow1 = row
+    if (row.cells.find((c) => c.id === cellId2)) parentRow2 = row
   }
 
-  if (!parentRow1 || !parentRow2) return layout;
+  if (!parentRow1 || !parentRow2) return layout
 
-  const target1 = parentRow1.cells.find((c) => c.id === cellId1);
-  const target2 = parentRow2.cells.find((c) => c.id === cellId2);
-  if (!target1 || !target2) return layout;
+  const target1 = parentRow1.cells.find((c) => c.id === cellId1)
+  const target2 = parentRow2.cells.find((c) => c.id === cellId2)
+  if (!target1 || !target2) return layout
 
   const newRows = layout.rows.map((row) => {
     const newCells = row.cells.map((cell) => {
       if (cell.id === cellId1) {
-        return { ...target2, width: cell.width }; // Swap cell but preserve original container's width
+        return { ...target2, width: cell.width } // Swap cell but preserve original container's width
       }
       if (cell.id === cellId2) {
-        return { ...target1, width: cell.width };
+        return { ...target1, width: cell.width }
       }
-      return cell;
-    });
-    return { ...row, cells: newCells };
-  });
+      return cell
+    })
+    return { ...row, cells: newCells }
+  })
 
-  return normalizeLayout({ ...layout, rows: newRows });
+  return normalizeLayout({ ...layout, rows: newRows })
 }
 
 /**
@@ -207,9 +207,9 @@ export function removeCell<T>(
   let newRows = layout.rows.map((row) => ({
     ...row,
     cells: row.cells.filter((c) => c.id !== cellId),
-  }));
-  newRows = newRows.filter((row) => row.cells.length > 0);
-  return normalizeLayout({ ...layout, rows: newRows });
+  }))
+  newRows = newRows.filter((row) => row.cells.length > 0)
+  return normalizeLayout({ ...layout, rows: newRows })
 }
 
 /**
@@ -226,31 +226,31 @@ export function moveCellToNewRow<T>(
   cellId: string,
   targetRowIndex: number, // 0 means top, layout.rows.length means bottom
 ): GridLayoutConfig<T> {
-  let cellToMove: GridCell<T> | null = null;
+  let cellToMove: GridCell<T> | null = null
   for (const row of layout.rows) {
-    const found = row.cells.find((c) => c.id === cellId);
+    const found = row.cells.find((c) => c.id === cellId)
     if (found) {
-      cellToMove = found;
-      break;
+      cellToMove = found
+      break
     }
   }
 
-  if (!cellToMove) return layout;
+  if (!cellToMove) return layout
 
   let newRows = layout.rows.map((row) => ({
     ...row,
     cells: row.cells.filter((c) => c.id !== cellId),
-  }));
+  }))
 
   const newRow: GridRow<T> = {
     id: `row-${Date.now()}-${Math.random().toString(36).substring(2, 7)}`,
     cells: [{ ...cellToMove, width: 1 }],
-  };
+  }
 
-  newRows.splice(targetRowIndex, 0, newRow);
-  newRows = newRows.filter((row) => row.cells.length > 0);
+  newRows.splice(targetRowIndex, 0, newRow)
+  newRows = newRows.filter((row) => row.cells.length > 0)
 
-  return normalizeLayout({ ...layout, rows: newRows });
+  return normalizeLayout({ ...layout, rows: newRows })
 }
 
 /**
@@ -269,46 +269,46 @@ export function insertCellAdjacent<T>(
   targetCellId: string,
   position: "left" | "right",
 ): GridLayoutConfig<T> {
-  if (sourceCellId === targetCellId) return layout;
+  if (sourceCellId === targetCellId) return layout
 
-  let sourceCell: GridCell<T> | null = null;
+  let sourceCell: GridCell<T> | null = null
   for (const row of layout.rows) {
-    const found = row.cells.find((c) => c.id === sourceCellId);
+    const found = row.cells.find((c) => c.id === sourceCellId)
     if (found) {
-      sourceCell = found;
-      break;
+      sourceCell = found
+      break
     }
   }
-  if (!sourceCell) return layout;
+  if (!sourceCell) return layout
 
   let newRows = layout.rows.map((row) => ({
     ...row,
     cells: row.cells.filter((c) => c.id !== sourceCellId),
-  }));
+  }))
 
   newRows = newRows.map((row) => {
-    const targetIdx = row.cells.findIndex((c) => c.id === targetCellId);
-    if (targetIdx === -1) return row;
+    const targetIdx = row.cells.findIndex((c) => c.id === targetCellId)
+    if (targetIdx === -1) return row
 
-    const updatedCells = [...row.cells];
-    const targetCell = updatedCells[targetIdx];
-    if (!targetCell || !sourceCell) return row;
+    const updatedCells = [...row.cells]
+    const targetCell = updatedCells[targetIdx]
+    if (!targetCell || !sourceCell) return row
 
-    const newTargetWidth = (targetCell.width || 1) / 2;
+    const newTargetWidth = (targetCell.width || 1) / 2
 
-    updatedCells[targetIdx] = { ...targetCell, width: newTargetWidth };
-    const cellToInsert = { ...sourceCell, width: newTargetWidth };
+    updatedCells[targetIdx] = { ...targetCell, width: newTargetWidth }
+    const cellToInsert = { ...sourceCell, width: newTargetWidth }
 
     if (position === "left") {
-      updatedCells.splice(targetIdx, 0, cellToInsert);
+      updatedCells.splice(targetIdx, 0, cellToInsert)
     } else {
-      updatedCells.splice(targetIdx + 1, 0, cellToInsert);
+      updatedCells.splice(targetIdx + 1, 0, cellToInsert)
     }
 
-    return { ...row, cells: updatedCells };
-  });
+    return { ...row, cells: updatedCells }
+  })
 
-  newRows = newRows.filter((row) => row.cells.length > 0);
+  newRows = newRows.filter((row) => row.cells.length > 0)
 
-  return normalizeLayout({ ...layout, rows: newRows });
+  return normalizeLayout({ ...layout, rows: newRows })
 }

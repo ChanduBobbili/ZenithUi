@@ -1,5 +1,5 @@
-import { cn } from "@zenithui/utils";
-import { Fragment, useState } from "react";
+import { cn } from "@zenithui/utils"
+import { Fragment, useState } from "react"
 import {
   insertCellAdjacent,
   moveCellToNewRow,
@@ -7,35 +7,35 @@ import {
   resizeRow,
   swapCells,
   swapRows,
-} from "../lib/layout-utils";
-import type { GridCell, GridLayoutConfig, GridRow } from "../types";
-import { RowResizeHandle } from "./handlers";
-import { GridRowLine } from "./row";
+} from "../lib/layout-utils"
+import type { GridCell, GridLayoutConfig, GridRow } from "../types"
+import { RowResizeHandle } from "./handlers"
+import { GridRowLine } from "./row"
 
 /**
  * Props for the GridLayout component.
  * @template T - The type of data associated with each grid cell.
  */
 export interface GridLayoutProps<T> {
-  layout: GridLayoutConfig<T>;
-  onChange: (layout: GridLayoutConfig<T>) => void;
-  renderItem: (cell: GridCell<T>) => React.ReactNode;
+  layout: GridLayoutConfig<T>
+  onChange: (layout: GridLayoutConfig<T>) => void
+  renderItem: (cell: GridCell<T>) => React.ReactNode
 
   // Customizations
-  className?: string;
-  rowClassName?: string | ((row: GridRow<T>) => string);
-  cellClassName?: string | ((cell: GridCell<T>) => string);
-  dropZoneClassName?: string;
+  className?: string
+  rowClassName?: string | ((row: GridRow<T>) => string)
+  cellClassName?: string | ((cell: GridCell<T>) => string)
+  dropZoneClassName?: string
 
-  renderRowControls?: (row: GridRow<T>) => React.ReactNode;
-  renderEmptyState?: () => React.ReactNode;
+  renderRowControls?: (row: GridRow<T>) => React.ReactNode
+  renderEmptyState?: () => React.ReactNode
 
   // Custom Handles
-  rowResizeHandle?: React.ReactNode;
-  colResizeHandle?: React.ReactNode;
+  rowResizeHandle?: React.ReactNode
+  colResizeHandle?: React.ReactNode
   dragHandle?: (props: {
-    dragHandleProps: React.HTMLAttributes<HTMLElement>;
-  }) => React.ReactNode;
+    dragHandleProps: React.HTMLAttributes<HTMLElement>
+  }) => React.ReactNode
 }
 
 /**
@@ -59,98 +59,98 @@ export function GridLayout<T>({
   colResizeHandle,
   dragHandle,
 }: GridLayoutProps<T>) {
-  const [draggedId, setDraggedId] = useState<string | null>(null);
-  const [draggedType, setDraggedType] = useState<"row" | "cell" | null>(null);
-  const [dragTargetId, setDragTargetId] = useState<string | null>(null);
+  const [draggedId, setDraggedId] = useState<string | null>(null)
+  const [draggedType, setDraggedType] = useState<"row" | "cell" | null>(null)
+  const [dragTargetId, setDragTargetId] = useState<string | null>(null)
   const [dragTargetPosition, setDragTargetPosition] = useState<
     "left" | "right" | "swap" | "newRow" | null
-  >(null);
-  const [isResizing, setIsResizing] = useState(false);
+  >(null)
+  const [isResizing, setIsResizing] = useState(false)
 
   // -- ROW DRAG HANDLERS --
   const handleRowDragStart = (rowId: string) => {
-    setDraggedId(rowId);
-    setDraggedType("row");
-  };
+    setDraggedId(rowId)
+    setDraggedType("row")
+  }
 
   const handleRowDragOver = (e: React.DragEvent, targetId: string) => {
-    e.preventDefault();
-    e.dataTransfer.dropEffect = "move";
+    e.preventDefault()
+    e.dataTransfer.dropEffect = "move"
     if (draggedType === "row" && draggedId !== targetId) {
-      setDragTargetId(targetId);
-      setDragTargetPosition("swap");
+      setDragTargetId(targetId)
+      setDragTargetPosition("swap")
     }
-  };
+  }
 
   const handleRowDrop = (e: React.DragEvent, targetId: string) => {
-    e.preventDefault();
+    e.preventDefault()
     if (draggedType === "row" && draggedId && draggedId !== targetId) {
-      onChange(swapRows(layout, draggedId, targetId));
+      onChange(swapRows(layout, draggedId, targetId))
     }
-    resetDragState();
-  };
+    resetDragState()
+  }
 
   // -- CELL DRAG HANDLERS --
   const handleCellDragStart = (cellId: string) => {
-    setDraggedId(cellId);
-    setDraggedType("cell");
-  };
+    setDraggedId(cellId)
+    setDraggedType("cell")
+  }
 
   const handleCellDragOver = (
     e: React.DragEvent,
     targetId: string,
     position: "left" | "right" | "swap",
   ) => {
-    e.preventDefault();
-    e.dataTransfer.dropEffect = "move";
+    e.preventDefault()
+    e.dataTransfer.dropEffect = "move"
     if (draggedType === "cell" && draggedId !== targetId) {
-      setDragTargetId(targetId);
-      setDragTargetPosition(position);
+      setDragTargetId(targetId)
+      setDragTargetPosition(position)
     }
-  };
+  }
 
   const handleCellDrop = (
     e: React.DragEvent,
     targetId: string,
     position: "left" | "right" | "swap",
   ) => {
-    e.preventDefault();
+    e.preventDefault()
     if (draggedType === "cell" && draggedId && draggedId !== targetId) {
       if (position === "swap") {
-        onChange(swapCells(layout, draggedId, targetId));
+        onChange(swapCells(layout, draggedId, targetId))
       } else {
-        onChange(insertCellAdjacent(layout, draggedId, targetId, position));
+        onChange(insertCellAdjacent(layout, draggedId, targetId, position))
       }
     }
-    resetDragState();
-  };
+    resetDragState()
+  }
 
   // -- NEW ROW DROP ZONE (For Cells) --
   const handleNewRowDragOver = (e: React.DragEvent, index: number) => {
-    e.preventDefault();
+    e.preventDefault()
     if (draggedType === "cell") {
-      setDragTargetId(`new-row-${index}`);
-      setDragTargetPosition("newRow");
+      setDragTargetId(`new-row-${index}`)
+      setDragTargetPosition("newRow")
     }
-  };
+  }
 
   const handleNewRowDrop = (e: React.DragEvent, index: number) => {
-    e.preventDefault();
+    e.preventDefault()
     if (draggedType === "cell" && draggedId) {
-      onChange(moveCellToNewRow(layout, draggedId, index));
+      onChange(moveCellToNewRow(layout, draggedId, index))
     }
-    resetDragState();
-  };
+    resetDragState()
+  }
 
   const resetDragState = () => {
-    setDraggedId(null);
-    setDraggedType(null);
-    setDragTargetId(null);
-    setDragTargetPosition(null);
-  };
+    setDraggedId(null)
+    setDraggedType(null)
+    setDragTargetId(null)
+    setDragTargetPosition(null)
+  }
 
   if (layout.rows.length === 0) {
-    if (renderEmptyState) return <>{renderEmptyState()}</>;
+    if (renderEmptyState) return <>{renderEmptyState()}</>
 
     return (
       <div
@@ -161,7 +161,7 @@ export function GridLayout<T>({
       >
         <p className="text-sm">No items in the layout.</p>
       </div>
-    );
+    )
   }
 
   const resolveClassName = <U,>(
@@ -169,10 +169,10 @@ export function GridLayout<T>({
     classProp: string | ((item: U) => string) | undefined,
   ) => {
     if (typeof classProp === "function") {
-      return classProp(item);
+      return classProp(item)
     }
-    return classProp;
-  };
+    return classProp
+  }
 
   return (
     <div
@@ -285,5 +285,5 @@ export function GridLayout<T>({
         </Fragment>
       ))}
     </div>
-  );
+  )
 }
