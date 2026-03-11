@@ -1,5 +1,11 @@
 # zenithui-docs
 
+## 1.4.4
+
+### Patch Changes
+
+- c20a79f: added new card components
+
 ## 1.4.3
 
 ### Patch Changes
