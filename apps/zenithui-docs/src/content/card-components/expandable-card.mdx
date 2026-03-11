@@ -1,0 +1,64 @@
+import NPMTab from "@/components/npm-tab"
+import { ExpandableCardPreview } from "@/components/card-components/expandable-card-demo"
+
+# Expandable Card
+
+The **Expandable Card** is a complex, interactive component that elegantly expands from a compact thumbnail state into a full-screen or modal-like detailed view when clicked. It utilizes Framer Motion's shared layout capabilities (`layoutId`) to morph the card from its grid position seamlessly.
+
+**Primary Use Cases:**
+
+- Detailed view systems (e.g., viewing an article, an artist profile, or an image gallery).
+- Dashboard widgets that expand to reveal more metrics.
+- Portfolios where you click a project to read a deep-dive case study.
+
+_Context:_ Includes accessibility considerations like closing on `Escape` key press or clicking outside the expanded area using the internal `useOutsideClick` hook.
+
+## 🚀 Installation through Shadcn CLI
+
+You can install this component using your preferred package manager. Note that you must have Shadcn CLI initialized in your project before adding this component.
+
+<NPMTab path={`${process.env.NEXT_PUBLIC_SITE_URL}/r/expandable-card.json`} />
+
+## Component Preview
+
+This snippet imports the pre-assembled `ExpandableCardDemo` block. Internally, this component handles its own state and maps over an array of `cards`.
+
+<div className="mt-8 mb-8 flex w-full">
+  <ExpandableCardPreview />
+</div>
+
+```tsx
+import ExpandableCardDemo from "@/components/ui/expandable-card";
+
+export function ExpandableCardPreview() {
+  return (
+    <div className="w-full h-full p-8 bg-gray-50 dark:bg-neutral-900 rounded-xl relative overflow-hidden min-h-[500px]">
+      <h2 className="text-2xl font-bold mb-8 text-center text-neutral-800 dark:text-neutral-200">
+        Artists Library
+      </h2>
+      <ExpandableCardDemo />
+    </div>
+  );
+}
+```
+
+## Component Props List
+
+_Note: In the default implementation provided by the registry, `ExpandableCardDemo` encapsulates its data. If you wish to make it dynamic, you can pass the following proposed props to your extracted component._
+
+| Prop Name | Type         | Required | Default        | Description                                                                                                                                        |
+| :-------- | :----------- | :------- | :------------- | :------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `cards`   | `CardItem[]` | No       | Internal Array | (Customizable) An array of data objects containing properties like `title`, `description`, `src` (image URL), `ctaText`, `ctaLink`, and `content`. |
+
+### Recommended `CardItem` Interface
+
+If you refactor the component to accept props, your objects should ideally look like this:
+
+| Field         | Type                    | Required | Description                                                          |
+| :------------ | :---------------------- | :------- | :------------------------------------------------------------------- |
+| `title`       | `string`                | Yes      | The primary headline for the card.                                   |
+| `description` | `string`                | Yes      | A short subtitle or snippet.                                         |
+| `src`         | `string`                | Yes      | The thumbnail image source URL.                                      |
+| `ctaText`     | `string`                | Yes      | The text for the call-to-action button.                              |
+| `ctaLink`     | `string`                | Yes      | Absolute or relative URL for the CTA button.                         |
+| `content`     | `() => React.ReactNode` | Yes      | A render function representing the expanded deep-dive content block. |
