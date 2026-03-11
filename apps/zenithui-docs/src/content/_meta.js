@@ -34,6 +34,11 @@ export default {
       timestamp: false, // Hide timestamp on this page
     },
   },
+  "grid-layout": {
+    theme: {
+      timestamp: false, // Hide timestamp on this page
+    },
+  },
   "theme-toggle": {
     theme: {
       timestamp: false, // Hide timestamp on this page

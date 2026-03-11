@@ -1,0 +1,97 @@
+import BasicGridLayout from "@/components/grid-layout/basic"
+import DashboardDemo from "@/components/grid-layout/dashboard-demo"
+
+# Grid Layout
+
+A highly customizable, React Context-powered drag-and-drop grid layout component. Supports row and column resizing, reordering, and moving items across rows with comprehensive hook-based architectural support for fully decoupling visual presentation from internal logic.
+
+## ⚙️ Usage
+
+The GridLayout operates on a `Provider` and hooks architecture. You create your custom visual Grid cells and rows that are then bound to ZenithUI's logic via hooks.
+
+<BasicGridLayout />
+
+```tsx
+import {
+  GridLayout,
+  useGridCell,
+  useGridRow,
+  type GridLayoutConfig
+} from "@zenithui/grid-layout"
+
+// Create standard layout data
+const initialLayout: GridLayoutConfig<{ id: string, title?: string }> = {
+  rows: [
+    {
+      id: "row-1",
+      height: 250,
+      cells: [
+        { id: "cell-1", width: 50, data: { id: "1", title: "Content A" } },
+        { id: "cell-2", width: 50, data: { id: "2" } }
+      ]
+    }
+  ]
+}
+
+export function GridDemo() {
+  const [layout, setLayout] = useState(initialLayout)
+
+  return (
+    <GridLayout
+      layout={layout}
+      onChange={setLayout}
+      renderItem={(cell) => (
+        <div className="h-full w-full bg-neutral-100 rounded-md border p-4 shadow-sm">
+          {cell.data.title || cell.id}
+        </div>
+      )}
+    />
+  )
+}
+```
+
+---
+
+## 📊 Dashboard Example
+
+Built-in support for generic layouts lets you construct complete dashboard engines without coupling rendering concerns.
+Passing the `renderRowControls` triggers dynamic overlay components bound directly to the overarching Grid array mapping.
+
+<DashboardDemo />
+
+---
+
+## 📍 Hook-based Extensibility
+
+Because GridLayout utilizes a powerful Context API provider, you can build your own grid shells or controls tightly integrated with the live structural data using Custom Hooks:
+
+### `useGridLayout()`
+
+Use this hook anywhere _inside_ the layout to manage the global configuration or respond to specific layout behaviors explicitly:
+
+```tsx
+import { useGridLayout } from "@zenithui/grid-layout"
+
+function CustomGlobalGridControl() {
+  const { state, handlers } = useGridLayout()
+
+  return (
+    <button onClick={() => handlers.onResizeRow("row-1", 50)}>
+      {state.isResizing ? "Resizing underway..." : "Expand Row 1"}
+    </button>
+  )
+}
+```
+
+### `useGridRow(rowId)` & `useGridCell(cellId)`
+
+Component-specific hooks cleanly scope interactions context variables to your component mappings. Ideal for creating custom handles without prop-drilling.
+
+```tsx
+import { useGridCell } from "@zenithui/grid-layout"
+
+function StatusIndicator({ cellId }) {
+  const { isDragging, isActive } = useGridCell(cellId)
+  return <span>{isDragging ? "Moving" : "Idle"}</span>
+}
+```

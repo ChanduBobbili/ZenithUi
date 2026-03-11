@@ -1,65 +1,45 @@
-import { cn } from "@zenithui/utils"
-import { useEffect, useRef, useState } from "react"
-
-/**
- * Props for resize handle components.
- */
-export interface ResizeHandleInnerProps {
-  onMouseDown: (e: React.MouseEvent) => void
-  isDragging: boolean
-}
+import { useRef, useState, useEffect } from "react"
+import { cn } from "@/lib/utils"
 
 export interface ResizeHandleProps {
-  onResize?: (delta: number) => void
-  onResizing?: (delta: number) => void
+  onResize: (delta: number) => void
   onResizeStart?: () => void
   onResizeEnd?: () => void
-  children?:
-    | React.ReactNode
-    | ((props: ResizeHandleInnerProps) => React.ReactNode)
+  children?: React.ReactNode
   className?: string
 }
 
-/**
- * A handle component used to resize columns (cells horizontally).
- * Renders an invisible draggable area that triggers resize callbacks on drag.
- *
- * @param props - The component props.
- */
 export function ColResizeHandle({
   onResize,
-  onResizing,
   onResizeStart,
   onResizeEnd,
   children,
   className,
 }: ResizeHandleProps) {
   const [isDragging, setIsDragging] = useState(false)
+  const startXRef = useRef(0)
   const onResizeRef = useRef(onResize)
-  const onResizingRef = useRef(onResizing)
   const onResizeStartRef = useRef(onResizeStart)
   const onResizeEndRef = useRef(onResizeEnd)
 
   useEffect(() => {
     onResizeRef.current = onResize
-    onResizingRef.current = onResizing
     onResizeStartRef.current = onResizeStart
     onResizeEndRef.current = onResizeEnd
-  }, [onResize, onResizing, onResizeStart, onResizeEnd])
+  }, [onResize, onResizeStart, onResizeEnd])
 
   const handleMouseDown = (e: React.MouseEvent) => {
     e.preventDefault()
     e.stopPropagation()
     setIsDragging(true)
-    const startX = e.clientX
+    startXRef.current = e.clientX
     onResizeStartRef.current?.()
-
-    let cumulativeDeltaX = 0
 
     const handleMouseMove = (moveEvent: MouseEvent) => {
       moveEvent.preventDefault()
-      cumulativeDeltaX = moveEvent.clientX - startX
-      onResizingRef.current?.(cumulativeDeltaX)
+      const deltaX = moveEvent.clientX - startXRef.current
+      startXRef.current = moveEvent.clientX
+      onResizeRef.current(deltaX)
     }
 
     const handleMouseUp = () => {
@@ -68,7 +48,6 @@ export function ColResizeHandle({
       document.removeEventListener("mouseup", handleMouseUp)
       document.body.style.cursor = ""
       document.body.style.userSelect = ""
-      onResizeRef.current?.(cumulativeDeltaX)
       onResizeEndRef.current?.()
     }
 
@@ -81,22 +60,23 @@ export function ColResizeHandle({
   return (
     <div
       className={cn(
-        "group/col-handle relative z-10 flex w-3 shrink-0 cursor-col-resize items-center justify-center transition-colors",
+        "group/col-handle relative z-10 flex w-3 shrink-0 cursor-col-resize items-center justify-center",
+        "opacity-0 transition-colors hover:bg-primary/5 hover:opacity-100 active:opacity-100",
+        isDragging && "bg-primary/10",
         className,
       )}
       onMouseDown={handleMouseDown}
     >
-      {typeof children === "function" ? (
-        children({ onMouseDown: handleMouseDown, isDragging })
-      ) : children ? (
-        (children as React.ReactNode)
+      {/* If children provided, use that as custom handle. Otherwise, default grip */}
+      {children ? (
+        children
       ) : (
         <>
           <div
             className={cn(
-              "absolute inset-y-2 left-1/2 w-0.5 -translate-x-1/2 rounded-full",
-              "transition-colors group-hover/col-handle:bg-neutral-300",
-              isDragging && "bg-neutral-400",
+              "absolute inset-y-2 left-1/2 w-0.5 -translate-x-1/2 rounded-full bg-border",
+              "transition-colors group-hover/col-handle:bg-primary/50",
+              isDragging && "bg-primary",
             )}
           />
           <div
@@ -105,9 +85,9 @@ export function ColResizeHandle({
               isDragging && "opacity-100",
             )}
           >
-            <div className="h-1 w-1 rounded-full bg-neutral-400/50" />
-            <div className="h-1 w-1 rounded-full bg-neutral-400/50" />
-            <div className="h-1 w-1 rounded-full bg-neutral-400/50" />
+            <div className="h-1 w-1 rounded-full bg-muted-foreground/50" />
+            <div className="h-1 w-1 rounded-full bg-muted-foreground/50" />
+            <div className="h-1 w-1 rounded-full bg-muted-foreground/50" />
           </div>
         </>
       )}
@@ -115,46 +95,37 @@ export function ColResizeHandle({
   )
 }
 
-/**
- * A handle component used to resize rows (vertically).
- * Renders an invisible draggable area that triggers resize callbacks on drag.
- *
- * @param props - The component props.
- */
 export function RowResizeHandle({
   onResize,
-  onResizing,
   onResizeStart,
   onResizeEnd,
   children,
   className,
 }: ResizeHandleProps) {
   const [isDragging, setIsDragging] = useState(false)
+  const startYRef = useRef(0)
   const onResizeRef = useRef(onResize)
-  const onResizingRef = useRef(onResizing)
   const onResizeStartRef = useRef(onResizeStart)
   const onResizeEndRef = useRef(onResizeEnd)
 
   useEffect(() => {
     onResizeRef.current = onResize
-    onResizingRef.current = onResizing
     onResizeStartRef.current = onResizeStart
     onResizeEndRef.current = onResizeEnd
-  }, [onResize, onResizing, onResizeStart, onResizeEnd])
+  }, [onResize, onResizeStart, onResizeEnd])
 
   const handleMouseDown = (e: React.MouseEvent) => {
     e.preventDefault()
     e.stopPropagation()
     setIsDragging(true)
-    const startY = e.clientY
+    startYRef.current = e.clientY
     onResizeStartRef.current?.()
-
-    let cumulativeDeltaY = 0
 
     const handleMouseMove = (moveEvent: MouseEvent) => {
       moveEvent.preventDefault()
-      cumulativeDeltaY = moveEvent.clientY - startY
-      onResizingRef.current?.(cumulativeDeltaY)
+      const deltaY = moveEvent.clientY - startYRef.current
+      startYRef.current = moveEvent.clientY
+      onResizeRef.current(deltaY)
     }
 
     const handleMouseUp = () => {
@@ -163,7 +134,6 @@ export function RowResizeHandle({
       document.removeEventListener("mouseup", handleMouseUp)
       document.body.style.cursor = ""
       document.body.style.userSelect = ""
-      onResizeRef.current?.(cumulativeDeltaY)
       onResizeEndRef.current?.()
     }
 
@@ -176,22 +146,23 @@ export function RowResizeHandle({
   return (
     <div
       className={cn(
-        "group/row-handle relative flex h-3 cursor-row-resize items-center justify-center transition-colors",
+        "group/row-handle relative flex h-3 cursor-row-resize items-center justify-center",
+        "opacity-0 transition-colors hover:bg-primary/5 hover:opacity-100 active:opacity-100",
+        isDragging && "bg-primary/10",
         className,
       )}
       onMouseDown={handleMouseDown}
     >
-      {typeof children === "function" ? (
-        children({ onMouseDown: handleMouseDown, isDragging })
-      ) : children ? (
-        (children as React.ReactNode)
+      {/* If children provided, use that as custom handle. Otherwise, default grip */}
+      {children ? (
+        children
       ) : (
         <>
           <div
             className={cn(
-              "absolute inset-x-4 top-1/2 h-0.5 -translate-y-1/2 rounded-full",
-              "transition-colors group-hover/row-handle:bg-neutral-300",
-              isDragging && "bg-neutral-400",
+              "absolute inset-x-4 top-1/2 h-0.5 -translate-y-1/2 rounded-full bg-border",
+              "transition-colors group-hover/row-handle:bg-primary/50",
+              isDragging && "bg-primary",
             )}
           />
           <div
@@ -200,9 +171,9 @@ export function RowResizeHandle({
               isDragging && "opacity-100",
             )}
           >
-            <div className="h-1 w-1 rounded-full bg-neutral-400/50" />
-            <div className="h-1 w-1 rounded-full bg-neutral-400/50" />
-            <div className="h-1 w-1 rounded-full bg-neutral-400/50" />
+            <div className="h-1 w-1 rounded-full bg-muted-foreground/50" />
+            <div className="h-1 w-1 rounded-full bg-muted-foreground/50" />
+            <div className="h-1 w-1 rounded-full bg-muted-foreground/50" />
           </div>
         </>
       )}

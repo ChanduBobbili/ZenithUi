@@ -1,0 +1,47 @@
+# API Reference
+
+## Components
+
+### `GridLayout`
+
+Automatically provides the `GridLayoutProvider` environment and constructs a default grid interface mapped out using the layout prop.
+
+| Prop         | Type                                    | Default | Description                                    |
+| ------------ | --------------------------------------- | ------- | ---------------------------------------------- |
+| `layout`     | `GridLayoutConfig<T>`                   | -       | The core grid configuration arrays             |
+| `onChange`   | `(layout: GridLayoutConfig<T>) => void` | -       | Form control propagation for saving the layout |
+| `renderItem` | `(cell: GridCell<T>) => ReactNode`      | -       | Primary visual renderer per mapped data cell   |
+| `constants`  | `Partial<GridLayoutConstants>`          | -       | Override minimum heights, boundaries           |
+
+---
+
+## Hooks
+
+### `useGridLayout<T>()`
+
+Provides direct pipeline access into the layout provider layer.
+
+**Returns:** `GridLayoutContextValue<T>`
+
+- `state`: Runtime interactive measurements (resizing, dragging targets, offset).
+- `config`: Inherited min widths, heights constants.
+- `refs`: Raw DOM Refs attached to all columns and handlers.
+- `handlers`: Core interactive triggers (`onDragStart`, `onDrop`, `onResizeCell`).
+
+### `useGridRow<T>(rowId: string)`
+
+Provides row-specific triggers contextualized from the global layout object.
+
+**Returns:**
+
+- `isDragging: boolean`: Active target matching `rowId`.
+- `setRowRef`: Binder to apply to inner generic div nodes tracking rows.
+
+### `useGridCell<T>(cellId: string)`
+
+Provides cell-specific event dispatchers isolated from grid siblings.
+
+**Returns:**
+
+- `isActive: boolean`: Track whether cell has been selected currently.
+- `handlers.onDragStart()`: Instantly propagate column transfer.

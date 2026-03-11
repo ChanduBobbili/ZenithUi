@@ -1,5 +1,6 @@
 import { cn } from "@zenithui/utils"
-import { useState } from "react"
+import { useRef, useState } from "react"
+import { useGridCell } from "../context"
 import type { GridCell } from "../types"
 
 /**
@@ -9,32 +10,16 @@ import type { GridCell } from "../types"
 export interface GridItemProps<T> {
   cell: GridCell<T>
   parentRowId: string
-  isDragging?: boolean
-  isResizing?: boolean
-  isDragTarget?: boolean
-  dragTargetPosition?: "left" | "right" | "swap" | null
   className?: string
 
   // Custom renders
-  renderItem: (cell: GridCell<T>) => React.ReactNode
+  renderItem: (
+    cell: GridCell<T>,
+    helpers: { dragHandleProps: React.HTMLAttributes<HTMLElement> },
+  ) => React.ReactNode
   renderDragHandle?: (props: {
     dragHandleProps: React.HTMLAttributes<HTMLElement>
   }) => React.ReactNode
-
-  // Handlers
-  onDragStart: (cellId: string, parentRowId: string) => void
-  onDragOver: (
-    e: React.DragEvent,
-    cellId: string,
-    position: "left" | "right" | "swap",
-  ) => void
-  onDrop: (
-    e: React.DragEvent,
-    cellId: string,
-    position: "left" | "right" | "swap",
-  ) => void
-  onDragEnd: () => void
-  onDragLeave: () => void
 }
 
 /**
@@ -47,30 +32,44 @@ export interface GridItemProps<T> {
 export function GridItem<T>({
   cell,
   parentRowId,
-  isDragging,
-  isResizing,
-  isDragTarget,
-  dragTargetPosition,
   className,
   renderItem,
   renderDragHandle,
-  onDragStart,
-  onDragOver,
-  onDrop,
-  onDragEnd,
-  onDragLeave,
 }: GridItemProps<T>) {
+  const {
+    state,
+    contextConfig,
+    isDragging,
+    isDragTarget,
+    dragTargetPosition,
+    isActive,
+    setCellRef,
+    handlers,
+  } = useGridCell<T>(cell.id)
+
+  const dragTargetRef = useRef<HTMLElement | null>(null)
+
+  const isResizing = state.isResizing
+
   const [internalDropPos, setInternalDropPos] = useState<
     "left" | "right" | "swap" | null
   >(null)
 
   const handleDragStart = (e: React.DragEvent) => {
+    if (
+      dragTargetRef.current &&
+      !dragTargetRef.current.closest('[data-grid-drag-handle="true"]')
+    ) {
+      e.preventDefault()
+      return
+    }
+
     e.dataTransfer.effectAllowed = "move"
     e.dataTransfer.setData(
       "application/grid-cell",
       JSON.stringify({ cellId: cell.id, parentRowId }),
     )
-    onDragStart(cell.id, parentRowId)
+    handlers.onDragStart()
   }
 
   const handleDragOverLocal = (e: React.DragEvent) => {
@@ -87,20 +86,20 @@ export function GridItem<T>({
     else if (x > rect.width - threshold) position = "right"
 
     setInternalDropPos(position)
-    onDragOver(e, cell.id, position)
+    handlers.onDragOver(e, position)
   }
 
   const handleDragLeaveLocal = () => {
     setInternalDropPos(null)
-    onDragLeave()
+    handlers.onDragLeave()
   }
 
   const handleDropLocal = (e: React.DragEvent) => {
     e.preventDefault()
     if (internalDropPos) {
-      onDrop(e, cell.id, internalDropPos)
+      handlers.onDrop(e, internalDropPos)
     } else {
-      onDrop(e, cell.id, "swap")
+      handlers.onDrop(e, "swap")
     }
     setInternalDropPos(null)
   }
@@ -111,11 +110,13 @@ export function GridItem<T>({
 
   return (
     <div
+      ref={setCellRef}
       className={cn(
         "group/cell relative h-full",
         "transition-[flex] duration-300 ease-in-out",
         isDragging && "opacity-40",
         isResizing && "pointer-events-none transition-none select-none",
+        isActive && "ring-1 ring-blue-500", // Optional: style active cells
         cell.className,
         className,
       )}
@@ -128,31 +129,71 @@ export function GridItem<T>({
       onDragOver={handleDragOverLocal}
       onDragLeave={handleDragLeaveLocal}
       onDrop={handleDropLocal}
-      onDragEnd={onDragEnd}
+      onDragEnd={handlers.onDragEnd}
+      onMouseDown={(e) => {
+        dragTargetRef.current = e.target as HTMLElement
+      }}
+      onClick={handlers.onClick}
+      onKeyDown={(e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault()
+          handlers.onClick()
+        }
+      }}
       data-grid-type="cell"
     >
       {/* Drop Zone Highlights */}
       {activeDropPos === "left" && (
-        <div className="absolute inset-y-0 left-0 z-20 w-1 animate-pulse bg-blue-500/80" />
+        <div className="pointer-events-none absolute inset-y-0 left-0 z-20 w-0">
+          {contextConfig?.renderDropZoneOverlay?.("left") ?? (
+            <div className="absolute inset-y-0 -left-1 w-2 rounded-full bg-blue-500 shadow-[0_0_8px_rgba(59,130,246,0.6)]" />
+          )}
+        </div>
       )}
       {activeDropPos === "right" && (
-        <div className="absolute inset-y-0 right-0 z-20 w-1 animate-pulse bg-blue-500/80" />
+        <div className="pointer-events-none absolute inset-y-0 right-0 z-20 w-0">
+          {contextConfig?.renderDropZoneOverlay?.("right") ?? (
+            <div className="absolute inset-y-0 -right-1 w-2 rounded-full bg-blue-500 shadow-[0_0_8px_rgba(59,130,246,0.6)]" />
+          )}
+        </div>
       )}
       {activeDropPos === "swap" && (
-        <div className="absolute inset-0 z-20 animate-pulse bg-blue-500/10 ring-2 ring-blue-500" />
+        <div className="pointer-events-none absolute inset-0 z-20">
+          {contextConfig?.renderDropZoneOverlay?.("swap") ?? (
+            <div className="absolute inset-0 rounded-md bg-blue-500/15 ring-2 ring-blue-500 ring-offset-1" />
+          )}
+        </div>
       )}
 
       {/* Internal Content */}
-      <div className="relative h-full w-full">{renderItem(cell)}</div>
+      <div className="relative h-full w-full">
+        {renderItem(cell, {
+          dragHandleProps: {
+            "aria-label": "Drag to reorder",
+            "data-grid-drag-handle": "true",
+          } as React.HTMLAttributes<HTMLElement> & {
+            "data-grid-drag-handle": string
+          },
+        })}
+      </div>
 
-      {/* Custom or default drag handle */}
-      <div className="absolute top-2 left-2 z-10 cursor-grab opacity-0 transition-opacity group-hover/cell:opacity-100 active:cursor-grabbing">
+      {/* Custom or default drag handle directly rendered by GridItem (if not embedded in renderItem) */}
+      <div className="absolute top-2 left-2 z-10 opacity-0 transition-opacity group-hover/cell:opacity-100">
         {renderDragHandle ? (
           renderDragHandle({
-            dragHandleProps: { "aria-label": "Drag to reorder" },
+            dragHandleProps: {
+              "aria-label": "Drag to reorder",
+              "data-grid-drag-handle": "true",
+              className: "cursor-grab active:cursor-grabbing",
+            } as React.HTMLAttributes<HTMLElement> & {
+              "data-grid-drag-handle": string
+            },
           })
         ) : (
-          <div className="rounded border border-neutral-200 bg-white/50 p-1 shadow-sm backdrop-blur-sm">
+          <div
+            className="cursor-grab rounded border border-neutral-200 bg-white/50 p-1 shadow-sm backdrop-blur-sm active:cursor-grabbing"
+            data-grid-drag-handle="true"
+          >
             <svg
               width="15"
               height="15"

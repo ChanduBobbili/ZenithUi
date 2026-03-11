@@ -1,4 +1,4 @@
-import type { GridCell, GridLayoutConfig, GridRow } from "../types"
+import type { GridLayoutConfig, GridRow, GridCell } from "./types"
 
 const MIN_ROW_HEIGHT = 100
 const DEFAULT_CELL_WIDTH = 1
@@ -22,15 +22,6 @@ function normalizeLayout<T>(layout: GridLayoutConfig<T>): GridLayoutConfig<T> {
   return { ...layout, rows: newRows }
 }
 
-/**
- * Swaps two rows in the layout.
- *
- * @template T - The type of the data contained within the cells.
- * @param layout - The current grid layout configuration.
- * @param rowId1 - The ID of the first row to swap.
- * @param rowId2 - The ID of the second row to swap.
- * @returns A new layout configuration with the rows swapped.
- */
 export function swapRows<T>(
   layout: GridLayoutConfig<T>,
   rowId1: string,
@@ -50,15 +41,6 @@ export function swapRows<T>(
   return { ...layout, rows: newRows }
 }
 
-/**
- * Resizes a row to a new height, respecting its minimum height constraint.
- *
- * @template T - The type of the data contained within the cells.
- * @param layout - The current grid layout configuration.
- * @param rowId - The ID of the row to resize.
- * @param newHeight - The new height in pixels.
- * @returns A new layout configuration with the resized row.
- */
 export function resizeRow<T>(
   layout: GridLayoutConfig<T>,
   rowId: string,
@@ -72,14 +54,6 @@ export function resizeRow<T>(
   return { ...layout, rows: newRows }
 }
 
-/**
- * Removes a row from the layout.
- *
- * @template T - The type of the data contained within the cells.
- * @param layout - The current grid layout configuration.
- * @param rowId - The ID of the row to remove.
- * @returns A new layout configuration with the row removed.
- */
 export function removeRow<T>(
   layout: GridLayoutConfig<T>,
   rowId: string,
@@ -90,17 +64,6 @@ export function removeRow<T>(
   }
 }
 
-/**
- * Resizes an adjacent pair of cells within a row, proportionally adjusting their widths.
- *
- * @template T - The type of the data contained within the cells.
- * @param layout - The current grid layout configuration.
- * @param rowId - The ID of the row containing the cells.
- * @param leftCellId - The ID of the left cell in the pair.
- * @param rightCellId - The ID of the right cell in the pair.
- * @param deltaPercent - The percentage delta to adjust by (positive expands left, negative expands right).
- * @returns A new layout configuration with the resized cells.
- */
 export function resizeCellPair<T>(
   layout: GridLayoutConfig<T>,
   rowId: string,
@@ -147,16 +110,6 @@ export function resizeCellPair<T>(
   return normalizeLayout({ ...layout, rows: newRows })
 }
 
-/**
- * Swaps the positions of two cells in the grid.
- * Preserves the original container widths while shifting the cell definitions.
- *
- * @template T - The type of the data contained within the cells.
- * @param layout - The current grid layout configuration.
- * @param cellId1 - The ID of the first cell to swap.
- * @param cellId2 - The ID of the second cell to swap.
- * @returns A new layout configuration with the cells swapped.
- */
 export function swapCells<T>(
   layout: GridLayoutConfig<T>,
   cellId1: string,
@@ -172,9 +125,8 @@ export function swapCells<T>(
 
   if (!parentRow1 || !parentRow2) return layout
 
-  const target1 = parentRow1.cells.find((c) => c.id === cellId1)
-  const target2 = parentRow2.cells.find((c) => c.id === cellId2)
-  if (!target1 || !target2) return layout
+  const target1 = parentRow1.cells.find((c) => c.id === cellId1)!
+  const target2 = parentRow2.cells.find((c) => c.id === cellId2)!
 
   const newRows = layout.rows.map((row) => {
     const newCells = row.cells.map((cell) => {
@@ -192,14 +144,6 @@ export function swapCells<T>(
   return normalizeLayout({ ...layout, rows: newRows })
 }
 
-/**
- * Removes a cell from the grid layout. Removes the parent row if it becomes empty.
- *
- * @template T - The type of the data contained within the cells.
- * @param layout - The current grid layout configuration.
- * @param cellId - The ID of the cell to remove.
- * @returns A new layout configuration with the cell removed.
- */
 export function removeCell<T>(
   layout: GridLayoutConfig<T>,
   cellId: string,
@@ -212,15 +156,6 @@ export function removeCell<T>(
   return normalizeLayout({ ...layout, rows: newRows })
 }
 
-/**
- * Moves an existing cell into a newly created row at the specified index.
- *
- * @template T - The type of the data contained within the cells.
- * @param layout - The current grid layout configuration.
- * @param cellId - The ID of the cell to move.
- * @param targetRowIndex - The index at which to insert the new row (0 for top, layout.rows.length for bottom).
- * @returns A new layout configuration with the cell moved.
- */
 export function moveCellToNewRow<T>(
   layout: GridLayoutConfig<T>,
   cellId: string,
@@ -243,7 +178,7 @@ export function moveCellToNewRow<T>(
   }))
 
   const newRow: GridRow<T> = {
-    id: `row-${Date.now()}-${Math.random().toString(36).substring(2, 7)}`,
+    id: `row-${Date.now()}-${Math.random().toString(36).substr(2, 5)}`,
     cells: [{ ...cellToMove, width: 1 }],
   }
 
@@ -253,16 +188,6 @@ export function moveCellToNewRow<T>(
   return normalizeLayout({ ...layout, rows: newRows })
 }
 
-/**
- * Inserts a cell adjacent to a target cell, sharing the available width equally.
- *
- * @template T - The type of the data contained within the cells.
- * @param layout - The current grid layout configuration.
- * @param sourceCellId - The ID of the cell being moved/inserted.
- * @param targetCellId - The ID of the target cell to insert next to.
- * @param position - Whether to insert the cell to the "left" or "right" of the target.
- * @returns A new layout configuration with the cell inserted.
- */
 export function insertCellAdjacent<T>(
   layout: GridLayoutConfig<T>,
   sourceCellId: string,
@@ -291,13 +216,11 @@ export function insertCellAdjacent<T>(
     if (targetIdx === -1) return row
 
     const updatedCells = [...row.cells]
-    const targetCell = updatedCells[targetIdx]
-    if (!targetCell || !sourceCell) return row
-
+    const targetCell = updatedCells[targetIdx]!
     const newTargetWidth = (targetCell.width || 1) / 2
 
     updatedCells[targetIdx] = { ...targetCell, width: newTargetWidth }
-    const cellToInsert = { ...sourceCell, width: newTargetWidth }
+    const cellToInsert = { ...sourceCell!, width: newTargetWidth }
 
     if (position === "left") {
       updatedCells.splice(targetIdx, 0, cellToInsert)

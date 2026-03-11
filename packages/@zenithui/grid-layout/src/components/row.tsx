@@ -1,5 +1,6 @@
 import { cn } from "@zenithui/utils"
-import { Fragment, useRef } from "react"
+import { Fragment } from "react"
+import { useGridRow } from "../context"
 import type { GridCell, GridRow } from "../types"
 import { GridItem } from "./cell"
 import { ColResizeHandle } from "./handlers"
@@ -10,51 +11,19 @@ import { ColResizeHandle } from "./handlers"
  */
 export interface GridRowLineProps<T> {
   row: GridRow<T>
-  rowIndex: number
-  isDragging?: boolean
-  isResizing?: boolean
-  isDragTarget?: boolean
   className?: string
   cellClassName?: string | ((cell: GridCell<T>) => string)
 
   // Custom renders
-  renderItem: (cell: GridCell<T>) => React.ReactNode
+  renderItem: (
+    cell: GridCell<T>,
+    helpers: { dragHandleProps: React.HTMLAttributes<HTMLElement> },
+  ) => React.ReactNode
   renderDragHandle?: (props: {
     dragHandleProps: React.HTMLAttributes<HTMLElement>
   }) => React.ReactNode
   renderRowControls?: (row: GridRow<T>) => React.ReactNode
-  renderRowResizeHandle?: React.ReactNode
   renderColResizeHandle?: React.ReactNode
-
-  // Handlers
-  onRowDragStart: (rowId: string) => void
-  onRowDragOver: (e: React.DragEvent, targetId: string) => void
-  onRowDrop: (e: React.DragEvent, targetId: string) => void
-  onRowDragEnd: () => void
-  onRowDragLeave: () => void
-
-  onCellDragStart: (cellId: string, parentRowId: string) => void
-  onCellDragOver: (
-    e: React.DragEvent,
-    targetId: string,
-    position: "left" | "right" | "swap",
-  ) => void
-  onCellDrop: (
-    e: React.DragEvent,
-    targetId: string,
-    position: "left" | "right" | "swap",
-  ) => void
-  onCellDragEnd: () => void
-  onCellDragLeave: () => void
-
-  onColResize: (leftCellId: string, rightCellId: string, deltaX: number) => void
-  onColResizeStart?: () => void
-  onColResizeEnd?: () => void
-
-  // State
-  draggedCellId?: string | null
-  dragTargetCellId?: string | null
-  dragTargetPosition?: "left" | "right" | "swap" | null
 }
 
 /**
@@ -66,42 +35,26 @@ export interface GridRowLineProps<T> {
  */
 export function GridRowLine<T>({
   row,
-  isDragging,
-  isResizing,
-  isDragTarget,
   className,
   cellClassName,
   renderItem,
   renderDragHandle,
   renderRowControls,
   renderColResizeHandle,
-  onRowDragStart,
-  onRowDragOver,
-  onRowDrop,
-  onRowDragEnd,
-  onRowDragLeave,
-  onCellDragStart,
-  onCellDragOver,
-  onCellDrop,
-  onCellDragEnd,
-  onCellDragLeave,
-  onColResize,
-  onColResizeStart,
-  onColResizeEnd,
-  dragTargetCellId,
-  dragTargetPosition,
 }: GridRowLineProps<T>) {
-  const rowRef = useRef<HTMLDivElement>(null)
+  const { isDragging, isDragTarget, setRowRef, handlers, state, constants } =
+    useGridRow<T>(row.id)
+
+  const isResizing = state.isResizing
 
   const handleRowDragStart = (e: React.DragEvent) => {
-    // Only drag the row itself if we aren't dragging a cell
     if ((e.target as HTMLElement).closest('[data-grid-type="cell"]')) return
     e.dataTransfer.effectAllowed = "move"
     e.dataTransfer.setData(
       "application/grid-row",
       JSON.stringify({ rowId: row.id }),
     )
-    onRowDragStart(row.id)
+    handlers.onDragStart()
   }
 
   const handleColResize = (
@@ -109,11 +62,7 @@ export function GridRowLine<T>({
     rightCellId: string,
     deltaX: number,
   ) => {
-    if (!rowRef.current) return
-    const rowWidth = rowRef.current.offsetWidth
-    if (rowWidth === 0) return
-    const deltaPercent = (deltaX / rowWidth) * 100
-    onColResize(leftCellId, rightCellId, deltaPercent)
+    handlers.onResizeCell(row.id, leftCellId, rightCellId, deltaX)
   }
 
   return (
@@ -128,7 +77,7 @@ export function GridRowLine<T>({
         className,
       )}
       style={{
-        height: row.height ?? 280,
+        height: row.height ?? constants.minRowHeight,
       }}
       data-grid-type="row"
       draggable
@@ -137,30 +86,30 @@ export function GridRowLine<T>({
         const target = e.target as HTMLElement
         if (!target.closest('[data-grid-type="cell"]')) {
           e.preventDefault()
-          onRowDragOver(e, row.id)
+          handlers.onDragOver(e)
         }
       }}
       onDragLeave={(e) => {
         const target = e.target as HTMLElement
         if (!target.closest('[data-grid-type="cell"]')) {
-          onRowDragLeave()
+          handlers.onDragLeave()
         }
       }}
       onDrop={(e) => {
         const target = e.target as HTMLElement
         if (!target.closest('[data-grid-type="cell"]')) {
           e.preventDefault()
-          onRowDrop(e, row.id)
+          handlers.onDrop(e)
         }
       }}
-      onDragEnd={onRowDragEnd}
+      onDragEnd={handlers.onDragEnd}
     >
-      {/* Row Controls - Absolute positioned to the left (provided by user) */}
+      {/* Row Controls */}
       {renderRowControls?.(row)}
 
       {/* Row Inner Container */}
       <div
-        ref={rowRef}
+        ref={setRowRef}
         className="flex h-full w-full gap-0 overflow-hidden"
       >
         {row.cells.map((cell, index) => (
@@ -168,36 +117,37 @@ export function GridRowLine<T>({
             <GridItem
               cell={cell}
               parentRowId={row.id}
-              isResizing={isResizing}
               className={
                 typeof cellClassName === "function"
                   ? cellClassName(cell)
                   : cellClassName
               }
-              isDragTarget={dragTargetCellId === cell.id}
-              dragTargetPosition={
-                dragTargetCellId === cell.id ? dragTargetPosition : null
-              }
               renderItem={renderItem}
               renderDragHandle={renderDragHandle}
-              onDragStart={onCellDragStart}
-              onDragOver={onCellDragOver}
-              onDrop={onCellDrop}
-              onDragEnd={onCellDragEnd}
-              onDragLeave={onCellDragLeave}
             />
 
             {/* Column Resize Handle */}
             {index < row.cells.length - 1 && row.cells[index + 1] && (
               <ColResizeHandle
+                onResizing={(deltaX) => {
+                  const nextCell = row.cells[index + 1]
+                  if (nextCell) {
+                    handlers.onResizingCell(
+                      row.id,
+                      cell.id,
+                      nextCell.id,
+                      deltaX,
+                    )
+                  }
+                }}
                 onResize={(deltaX) => {
                   const nextCell = row.cells[index + 1]
                   if (nextCell) {
                     handleColResize(cell.id, nextCell.id, deltaX)
                   }
                 }}
-                onResizeStart={onColResizeStart}
-                onResizeEnd={onColResizeEnd}
+                onResizeStart={handlers.onResizeStart}
+                onResizeEnd={handlers.onResizeEnd}
               >
                 {renderColResizeHandle}
               </ColResizeHandle>

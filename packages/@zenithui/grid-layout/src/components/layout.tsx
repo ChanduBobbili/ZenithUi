@@ -1,36 +1,29 @@
 import { cn } from "@zenithui/utils"
-import { Fragment, useState } from "react"
-import {
-  insertCellAdjacent,
-  moveCellToNewRow,
-  resizeCellPair,
-  resizeRow,
-  swapCells,
-  swapRows,
-} from "../lib/layout-utils"
-import type { GridCell, GridLayoutConfig, GridRow } from "../types"
+import { Fragment } from "react"
+import { GridLayoutProvider, useGridLayout } from "../context"
+import type {
+  GridCell,
+  GridLayoutConfig,
+  GridLayoutConstants,
+  GridRow,
+} from "../types"
 import { RowResizeHandle } from "./handlers"
 import { GridRowLine } from "./row"
 
-/**
- * Props for the GridLayout component.
- * @template T - The type of data associated with each grid cell.
- */
-export interface GridLayoutProps<T> {
-  layout: GridLayoutConfig<T>
-  onChange: (layout: GridLayoutConfig<T>) => void
-  renderItem: (cell: GridCell<T>) => React.ReactNode
-
-  // Customizations
+export interface GridLayoutPresentationProps<T> {
+  renderItem: (
+    cell: GridCell<T>,
+    helpers: { dragHandleProps: React.HTMLAttributes<HTMLElement> },
+  ) => React.ReactNode
   className?: string
   rowClassName?: string | ((row: GridRow<T>) => string)
   cellClassName?: string | ((cell: GridCell<T>) => string)
   dropZoneClassName?: string
-
   renderRowControls?: (row: GridRow<T>) => React.ReactNode
   renderEmptyState?: () => React.ReactNode
-
-  // Custom Handles
+  renderDropZoneOverlay?: (
+    position: "left" | "right" | "swap" | "newRow",
+  ) => React.ReactNode
   rowResizeHandle?: React.ReactNode
   colResizeHandle?: React.ReactNode
   dragHandle?: (props: {
@@ -39,15 +32,10 @@ export interface GridLayoutProps<T> {
 }
 
 /**
- * A highly customizable drag-and-drop grid layout component.
- * Supports row and column resizing, reordering, and moving items across rows.
- *
- * @template T - The type of data associated with each grid cell.
- * @param props - The component props.
+ * The inner presentation component for GridLayout.
+ * Used internally, assumes it is wrapped in GridLayoutProvider.
  */
-export function GridLayout<T>({
-  layout,
-  onChange,
+export function GridLayoutPresentation<T>({
   renderItem,
   className,
   rowClassName,
@@ -55,103 +43,30 @@ export function GridLayout<T>({
   dropZoneClassName,
   renderRowControls,
   renderEmptyState,
+  renderDropZoneOverlay,
   rowResizeHandle,
   colResizeHandle,
   dragHandle,
-}: GridLayoutProps<T>) {
-  const [draggedId, setDraggedId] = useState<string | null>(null)
-  const [draggedType, setDraggedType] = useState<"row" | "cell" | null>(null)
-  const [dragTargetId, setDragTargetId] = useState<string | null>(null)
-  const [dragTargetPosition, setDragTargetPosition] = useState<
-    "left" | "right" | "swap" | "newRow" | null
-  >(null)
-  const [isResizing, setIsResizing] = useState(false)
+}: GridLayoutPresentationProps<T>) {
+  const { state, handlers, refs } = useGridLayout<T>()
+  const { layoutState: layout, draggedType, dragTargetId } = state
 
-  // -- ROW DRAG HANDLERS --
-  const handleRowDragStart = (rowId: string) => {
-    setDraggedId(rowId)
-    setDraggedType("row")
-  }
-
-  const handleRowDragOver = (e: React.DragEvent, targetId: string) => {
-    e.preventDefault()
-    e.dataTransfer.dropEffect = "move"
-    if (draggedType === "row" && draggedId !== targetId) {
-      setDragTargetId(targetId)
-      setDragTargetPosition("swap")
-    }
-  }
-
-  const handleRowDrop = (e: React.DragEvent, targetId: string) => {
-    e.preventDefault()
-    if (draggedType === "row" && draggedId && draggedId !== targetId) {
-      onChange(swapRows(layout, draggedId, targetId))
-    }
-    resetDragState()
-  }
-
-  // -- CELL DRAG HANDLERS --
-  const handleCellDragStart = (cellId: string) => {
-    setDraggedId(cellId)
-    setDraggedType("cell")
-  }
-
-  const handleCellDragOver = (
-    e: React.DragEvent,
-    targetId: string,
-    position: "left" | "right" | "swap",
-  ) => {
-    e.preventDefault()
-    e.dataTransfer.dropEffect = "move"
-    if (draggedType === "cell" && draggedId !== targetId) {
-      setDragTargetId(targetId)
-      setDragTargetPosition(position)
-    }
-  }
-
-  const handleCellDrop = (
-    e: React.DragEvent,
-    targetId: string,
-    position: "left" | "right" | "swap",
-  ) => {
-    e.preventDefault()
-    if (draggedType === "cell" && draggedId && draggedId !== targetId) {
-      if (position === "swap") {
-        onChange(swapCells(layout, draggedId, targetId))
-      } else {
-        onChange(insertCellAdjacent(layout, draggedId, targetId, position))
-      }
-    }
-    resetDragState()
-  }
-
-  // -- NEW ROW DROP ZONE (For Cells) --
   const handleNewRowDragOver = (e: React.DragEvent, index: number) => {
-    e.preventDefault()
     if (draggedType === "cell") {
-      setDragTargetId(`new-row-${index}`)
-      setDragTargetPosition("newRow")
+      e.preventDefault()
+      handlers.onDragOver(e, `new-row-${index}`, "newRow")
     }
   }
 
   const handleNewRowDrop = (e: React.DragEvent, index: number) => {
-    e.preventDefault()
-    if (draggedType === "cell" && draggedId) {
-      onChange(moveCellToNewRow(layout, draggedId, index))
+    if (draggedType === "cell") {
+      e.preventDefault()
+      handlers.onDrop(e, `new-row-${index}`, "newRow")
     }
-    resetDragState()
-  }
-
-  const resetDragState = () => {
-    setDraggedId(null)
-    setDraggedType(null)
-    setDragTargetId(null)
-    setDragTargetPosition(null)
   }
 
   if (layout.rows.length === 0) {
     if (renderEmptyState) return <>{renderEmptyState()}</>
-
     return (
       <div
         className={cn(
@@ -176,6 +91,7 @@ export function GridLayout<T>({
 
   return (
     <div
+      ref={refs.containerRef}
       className={cn(
         "group/grid mx-auto flex w-full flex-col gap-0 px-2",
         className,
@@ -185,16 +101,21 @@ export function GridLayout<T>({
       {draggedType === "cell" && (
         <div
           className={cn(
-            "z-10 -my-2 h-4 w-full rounded-md transition-all duration-300",
+            "relative z-20 -my-3 h-6 w-full rounded-md transition-all duration-300",
             dragTargetId === "new-row-0"
-              ? "scale-y-150 bg-blue-500/40 ring-2 ring-blue-500"
-              : "bg-transparent hover:bg-blue-500/20",
+              ? "bg-blue-500/10"
+              : "bg-transparent hover:bg-blue-500/5",
             dropZoneClassName,
           )}
           onDragOver={(e) => handleNewRowDragOver(e, 0)}
-          onDragLeave={() => setDragTargetId(null)}
+          onDragLeave={handlers.onDragLeave}
           onDrop={(e) => handleNewRowDrop(e, 0)}
-        />
+        >
+          {dragTargetId === "new-row-0" &&
+            (renderDropZoneOverlay?.("newRow") ?? (
+              <div className="absolute inset-x-0 top-1/2 h-1 -translate-y-1/2 rounded-full bg-blue-500 shadow-[0_0_8px_rgba(59,130,246,0.6)]" />
+            ))}
+        </div>
       )}
 
       {layout.rows.map((row, index) => (
@@ -202,35 +123,12 @@ export function GridLayout<T>({
           <div className="group/row-wrapper relative">
             <GridRowLine
               row={row}
-              rowIndex={index}
               className={resolveClassName(row, rowClassName)}
               cellClassName={cellClassName}
-              isDragging={draggedId === row.id && draggedType === "row"}
-              isResizing={isResizing}
-              isDragTarget={dragTargetId === row.id && draggedType === "row"}
               renderItem={renderItem}
               renderDragHandle={dragHandle}
               renderColResizeHandle={colResizeHandle}
               renderRowControls={renderRowControls}
-              onRowDragStart={handleRowDragStart}
-              onRowDragOver={handleRowDragOver}
-              onRowDrop={handleRowDrop}
-              onRowDragEnd={resetDragState}
-              onRowDragLeave={() => setDragTargetId(null)}
-              onCellDragStart={handleCellDragStart}
-              onCellDragOver={handleCellDragOver}
-              onCellDrop={handleCellDrop}
-              onCellDragEnd={resetDragState}
-              onCellDragLeave={() => setDragTargetId(null)}
-              onColResize={(leftId, rightId, delta) =>
-                onChange(resizeCellPair(layout, row.id, leftId, rightId, delta))
-              }
-              onColResizeStart={() => setIsResizing(true)}
-              onColResizeEnd={() => setIsResizing(false)}
-              dragTargetCellId={dragTargetId}
-              dragTargetPosition={
-                dragTargetPosition === "newRow" ? null : dragTargetPosition
-              }
             />
           </div>
 
@@ -238,31 +136,32 @@ export function GridLayout<T>({
           {index < layout.rows.length - 1 ? (
             <div className="relative">
               <RowResizeHandle
-                onResize={(deltaY) =>
-                  onChange(
-                    resizeRow(layout, row.id, (row.height || 280) + deltaY),
-                  )
-                }
-                onResizeStart={() => setIsResizing(true)}
-                onResizeEnd={() => setIsResizing(false)}
+                onResizing={(deltaY) => handlers.onResizingRow(row.id, deltaY)}
+                onResize={(deltaY) => handlers.onResizeRow(row.id, deltaY)}
+                onResizeStart={handlers.onResizeStart}
+                onResizeEnd={handlers.onResizeEnd}
               >
                 {rowResizeHandle}
               </RowResizeHandle>
 
-              {/* Overlay new row drop zone onto the resize handle when dragging a cell */}
               {draggedType === "cell" && (
                 <div
                   className={cn(
-                    "absolute inset-0 z-20 rounded-md transition-all duration-300",
+                    "pointer-events-auto absolute inset-x-0 -top-3 bottom-0 z-30 transition-all duration-300",
                     dragTargetId === `new-row-${index + 1}`
-                      ? "bg-blue-500/40 ring-2 ring-blue-500"
-                      : "bg-transparent hover:bg-blue-500/20",
+                      ? "bg-blue-500/10"
+                      : "bg-transparent hover:bg-blue-500/5",
                     dropZoneClassName,
                   )}
                   onDragOver={(e) => handleNewRowDragOver(e, index + 1)}
-                  onDragLeave={() => setDragTargetId(null)}
+                  onDragLeave={handlers.onDragLeave}
                   onDrop={(e) => handleNewRowDrop(e, index + 1)}
-                />
+                >
+                  {dragTargetId === `new-row-${index + 1}` &&
+                    (renderDropZoneOverlay?.("newRow") ?? (
+                      <div className="absolute inset-x-0 top-1/2 h-1 -translate-y-1/2 rounded-full bg-blue-500 shadow-[0_0_8px_rgba(59,130,246,0.6)]" />
+                    ))}
+                </div>
               )}
             </div>
           ) : (
@@ -270,20 +169,59 @@ export function GridLayout<T>({
             draggedType === "cell" && (
               <div
                 className={cn(
-                  "z-10 mt-2 -mb-2 h-4 w-full rounded-md transition-all duration-300",
+                  "relative z-20 mt-2 -mb-2 h-6 w-full rounded-md transition-all duration-300",
                   dragTargetId === `new-row-${layout.rows.length}`
-                    ? "scale-y-150 bg-blue-500/40 ring-2 ring-blue-500"
-                    : "bg-transparent hover:bg-blue-500/20",
+                    ? "bg-blue-500/10"
+                    : "bg-transparent hover:bg-blue-500/5",
                   dropZoneClassName,
                 )}
                 onDragOver={(e) => handleNewRowDragOver(e, layout.rows.length)}
-                onDragLeave={() => setDragTargetId(null)}
+                onDragLeave={handlers.onDragLeave}
                 onDrop={(e) => handleNewRowDrop(e, layout.rows.length)}
-              />
+              >
+                {dragTargetId === `new-row-${layout.rows.length}` &&
+                  (renderDropZoneOverlay?.("newRow") ?? (
+                    <div className="absolute inset-x-0 top-1/2 h-1 -translate-y-1/2 rounded-full bg-blue-500 shadow-[0_0_8px_rgba(59,130,246,0.6)]" />
+                  ))}
+              </div>
             )
           )}
         </Fragment>
       ))}
     </div>
+  )
+}
+
+export interface GridLayoutProps<T> extends GridLayoutPresentationProps<T> {
+  layout: GridLayoutConfig<T>
+  onChange: (layout: GridLayoutConfig<T>) => void
+  constants?: Partial<GridLayoutConstants>
+}
+
+/**
+ * A highly customizable drag-and-drop grid layout component.
+ * Supports row and column resizing, reordering, and moving items across rows.
+ * Automatically wraps the grid in a `GridLayoutProvider`.
+ *
+ * @template T - The type of data associated with each grid cell.
+ * @param props - The component props.
+ */
+export function GridLayout<T>({
+  layout,
+  onChange,
+  constants,
+  ...presentationProps
+}: GridLayoutProps<T>) {
+  return (
+    <GridLayoutProvider
+      layout={layout}
+      onChange={onChange}
+      constants={constants}
+      config={{
+        renderDropZoneOverlay: presentationProps.renderDropZoneOverlay,
+      }}
+    >
+      <GridLayoutPresentation {...presentationProps} />
+    </GridLayoutProvider>
   )
 }
