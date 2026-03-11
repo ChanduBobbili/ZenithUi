@@ -82,4 +82,61 @@ export const ui: Registry["items"] = [
       },
     ],
   },
+  {
+    name: "3d-card",
+    type: "registry:ui",
+    title: "3D Card Effect",
+    description:
+      "A card perspective effect, hover over the card to elevate card elements.",
+    files: [
+      {
+        path: "ui/3d-card.tsx",
+        type: "registry:ui",
+      },
+    ],
+  },
+  {
+    name: "card-hover-effect",
+    type: "registry:ui",
+    title: "Hover Effect",
+    description:
+      "Hover over the cards and the effect slides to the currently hovered card.",
+    dependencies: ["motion"],
+    files: [
+      {
+        path: "ui/card-hover-effect.tsx",
+        type: "registry:ui",
+      },
+    ],
+  },
+  {
+    name: "expandable-card",
+    type: "registry:ui",
+    title: "Expandable Cards",
+    description: "Click cards to expand them and show additional information.",
+    dependencies: ["motion"],
+    files: [
+      {
+        path: "ui/expandable-card.tsx",
+        type: "registry:ui",
+      },
+      {
+        path: "hooks/use-outside-click.ts",
+        type: "registry:hook",
+      },
+    ],
+  },
+  {
+    name: "direction-aware-hover",
+    type: "registry:ui",
+    title: "Direction Aware Hover",
+    description: "A direction aware hover effect using Framer Motion.",
+    dependencies: ["motion"],
+    files: [
+      {
+        path: "ui/direction-aware-hover.tsx",
+        type: "registry:ui",
+      },
+    ],
+  },
 ]

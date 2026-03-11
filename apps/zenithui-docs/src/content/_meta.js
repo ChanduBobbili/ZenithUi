@@ -49,4 +49,5 @@ export default {
       timestamp: false, // Hide timestamp on this page
     },
   },
+  "card-components": "Card Components",
 }

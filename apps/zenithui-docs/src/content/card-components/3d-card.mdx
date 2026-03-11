@@ -1,0 +1,104 @@
+import NPMTab from "@/components/npm-tab"
+import { ThreeDCardPreview } from "@/components/card-components/3d-card-demo"
+
+# 3D Card Effect
+
+The **3D Card Effect** is a visually striking UI component that creates a realistic 3D perspective effect when a user hovers over it. It tracks the mouse movement and smoothly rotates the card along the X and Y axes, elevating its inner elements to create a sense of depth and interactivity.
+
+**Primary Use Cases:**
+
+- Showcase feature highlights on landing pages.
+- Highly interactive product or pricing cards.
+- Portfolio items that demand attention.
+
+_Context:_ This component is inspired by Aceternity UI and integrates seamlessly into the ZenithUI ecosystem.
+
+## 🚀 Installation through Shadcn CLI
+
+You can install this component using your preferred package manager. Note that you must have Shadcn CLI initialized in your project before adding this component.
+
+<NPMTab path={`${process.env.NEXT_PUBLIC_SITE_URL}/r/3d-card.json`} />
+
+## Component Preview
+
+Here is a complete example of how to implement the 3D Card Effect. The card features a title, a description, an image, and interactive buttons that elevate upon hover.
+
+<div className="mt-8 mb-8 flex w-full justify-center">
+  <ThreeDCardPreview />
+</div>
+
+```tsx
+import { CardContainer, CardBody, CardItem } from "@/components/ui/3d-card";
+
+export function ThreeDCardPreview() {
+  return (
+    <CardContainer className="inter-var">
+      <CardBody className="bg-gray-50 relative group/card dark:hover:shadow-2xl dark:hover:shadow-emerald-500/10 dark:bg-black dark:border-white/20 border-black/10 w-auto sm:w-[30rem] h-auto rounded-xl p-6 border">
+        <CardItem
+          translateZ="50"
+          className="text-xl font-bold text-neutral-600 dark:text-white"
+        >
+          Make things float in air
+        </CardItem>
+        <CardItem
+          as="p"
+          translateZ="60"
+          className="text-neutral-500 text-sm max-w-sm mt-2 dark:text-neutral-300"
+        >
+          Hover over this card to unleash the power of CSS perspective.
+        </CardItem>
+        <CardItem translateZ="100" className="w-full mt-4">
+          <div className="h-60 w-full object-cover rounded-xl group-hover/card:shadow-xl bg-gradient-to-br from-purple-500 to-indigo-500" />
+        </CardItem>
+        <div className="flex justify-between items-center mt-20">
+          <CardItem
+            translateZ={20}
+            as="button"
+            className="px-4 py-2 rounded-xl text-xs font-normal dark:text-white"
+          >
+            Try now →
+          </CardItem>
+          <CardItem
+            translateZ={20}
+            as="button"
+            className="px-4 py-2 rounded-xl bg-black dark:bg-white dark:text-black text-white text-xs font-bold"
+          >
+            Sign up
+          </CardItem>
+        </div>
+      </CardBody>
+    </CardContainer>
+  );
+}
+```
+
+## Component Props List
+
+### `CardContainer`
+
+| Prop Name            | Type              | Required | Default     | Description                                                                                   |
+| :------------------- | :---------------- | :------- | :---------- | :-------------------------------------------------------------------------------------------- |
+| `children`           | `React.ReactNode` | Yes      | -           | The content to be rendered inside the perspective container.                                  |
+| `className`          | `string`          | No       | `undefined` | Additional Tailwind CSS classes applied to the inner animating wrapper.                       |
+| `containerClassName` | `string`          | No       | `undefined` | Additional Tailwind CSS classes applied to the outermost wrapper controlling the perspective. |
+
+### `CardBody`
+
+| Prop Name   | Type              | Required | Default     | Description                                                          |
+| :---------- | :---------------- | :------- | :---------- | :------------------------------------------------------------------- |
+| `children`  | `React.ReactNode` | Yes      | -           | The components (usually `CardItem`s) to render inside the card body. |
+| `className` | `string`          | No       | `undefined` | Tailwind CSS classes applied to the 3D preserved card wrapper.       |
+
+### `CardItem`
+
+| Prop Name    | Type                | Required | Default     | Description                                                                                      |
+| :----------- | :------------------ | :------- | :---------- | :----------------------------------------------------------------------------------------------- |
+| `children`   | `React.ReactNode`   | Yes      | -           | The content inside the elevated item.                                                            |
+| `as`         | `React.ElementType` | No       | `"div"`     | The HTML tag or React component used to render the item (e.g., `"button"`, `"a"`, `"p"`).        |
+| `translateX` | `number \| string`  | No       | `0`         | The distance to translate along the X-axis upon hover.                                           |
+| `translateY` | `number \| string`  | No       | `0`         | The distance to translate along the Y-axis upon hover.                                           |
+| `translateZ` | `number \| string`  | No       | `0`         | The distance to translate along the Z-axis upon hover. This dictates how "high" the item floats. |
+| `rotateX`    | `number \| string`  | No       | `0`         | Angle to rotate around the X-axis upon hover.                                                    |
+| `rotateY`    | `number \| string`  | No       | `0`         | Angle to rotate around the Y-axis upon hover.                                                    |
+| `rotateZ`    | `number \| string`  | No       | `0`         | Angle to rotate around the Z-axis upon hover.                                                    |
+| `className`  | `string`            | No       | `undefined` | Additional styles for the item.                                                                  |

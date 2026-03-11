@@ -1,0 +1,93 @@
+import NPMTab from "@/components/npm-tab"
+import { CardHoverEffectPreview } from "@/components/card-components/card-hover-effect-demo"
+
+# Card Hover Effect
+
+The **Card Hover Effect** is a dynamic, animated grid layout component. When a user hovers over any card in the grid, a smooth background highlight slides behind the actively hovered card using Framer Motion. This creates a deeply satisfying and modern navigating experience for users interacting with collections of items.
+
+**Primary Use Cases:**
+
+- Highlighting navigation menus or feature grids.
+- Displaying technology stacks, portfolios, or pricing tiers.
+- Any grid layout where you want subtle but impactful interactivity.
+
+_Context:_ This component leverages `motion` to orchestrate fluid layout animations and fits perfectly into standard Tailwind grids.
+
+## 🚀 Installation through Shadcn CLI
+
+You can install this component using your preferred package manager. Note that you must have Shadcn CLI initialized in your project before adding this component.
+
+<NPMTab path={`${process.env.NEXT_PUBLIC_SITE_URL}/r/card-hover-effect.json`} />
+
+## Component Preview
+
+Below is a complete implementation demonstrating the card hover effect within a grid of items.
+
+<div className="mt-8 mb-8 flex w-full">
+  <CardHoverEffectPreview />
+</div>
+
+```tsx
+import { HoverEffect } from "@/components/ui/card-hover-effect";
+
+export function CardHoverEffectPreview() {
+  const projects = [
+    {
+      title: "Stripe",
+      description: "A technology company that builds economic infrastructure for the internet.",
+      link: "https://stripe.com",
+    },
+    {
+      title: "Netflix",
+      description: "A streaming service that offers a wide variety of award-winning TV shows, movies, anime, documentaries, and more.",
+      link: "https://netflix.com",
+    },
+    {
+      title: "Google",
+      description: "A multinational technology company that specializes in Internet-related services and products.",
+      link: "https://google.com",
+    },
+    {
+      title: "Meta",
+      description: "A technology conglomerate that develops social media platforms and virtual reality hardware.",
+      link: "https://meta.com",
+    },
+  ];
+
+  return (
+    <div className="max-w-5xl mx-auto px-8 w-full">
+      <HoverEffect items={projects} />
+    </div>
+  );
+}
+```
+
+## Component Props List
+
+### `HoverEffect`
+
+| Prop Name   | Type                                                     | Required | Default     | Description                                                          |
+| :---------- | :------------------------------------------------------- | :------- | :---------- | :------------------------------------------------------------------- |
+| `items`     | `{ title: string; description: string; link: string }[]` | Yes      | -           | An array of objects defining the content for each card.              |
+| `className` | `string`                                                 | No       | `undefined` | Additional Tailwind CSS classes applied to the outer grid container. |
+
+### `Card` (Sub-component)
+
+| Prop Name   | Type              | Required | Default     | Description                             |
+| :---------- | :---------------- | :------- | :---------- | :-------------------------------------- |
+| `children`  | `React.ReactNode` | Yes      | -           | Rendered content inside the card layer. |
+| `className` | `string`          | No       | `undefined` | Custom styling for the individual card. |
+
+### `CardTitle` (Sub-component)
+
+| Prop Name   | Type              | Required | Default     | Description                                   |
+| :---------- | :---------------- | :------- | :---------- | :-------------------------------------------- |
+| `children`  | `React.ReactNode` | Yes      | -           | Title text.                                   |
+| `className` | `string`          | No       | `undefined` | Optional classes for overriding title styles. |
+
+### `CardDescription` (Sub-component)
+
+| Prop Name   | Type              | Required | Default     | Description                                         |
+| :---------- | :---------------- | :------- | :---------- | :-------------------------------------------------- |
+| `children`  | `React.ReactNode` | Yes      | -           | Description text.                                   |
+| `className` | `string`          | No       | `undefined` | Optional classes for overriding description styles. |

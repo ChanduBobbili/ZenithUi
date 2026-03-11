@@ -1,8 +1,15 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "time-picker",
-  "dependencies": ["@zenithui/time-picker", "lucide-react"],
-  "registryDependencies": ["popover", "scroll-area", "toggle-group"],
+  "dependencies": [
+    "@zenithui/time-picker",
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "popover",
+    "scroll-area",
+    "toggle-group"
+  ],
   "files": [
     {
       "path": "registry/ui/time-picker.tsx",

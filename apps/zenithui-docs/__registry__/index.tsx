@@ -134,6 +134,78 @@ export const Index: Record<string, any> = {
     }),
     meta: undefined,
   },
+  "3d-card": {
+    name: "3d-card",
+    description: "A card perspective effect, hover over the card to elevate card elements.",
+    type: "registry:ui",
+    registryDependencies: undefined,
+    files: [{
+      path: "registry/ui/3d-card.tsx",
+      type: "registry:ui",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/ui/3d-card.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
+      return { default: mod.default || mod[exportName] }
+    }),
+    meta: undefined,
+  },
+  "card-hover-effect": {
+    name: "card-hover-effect",
+    description: "Hover over the cards and the effect slides to the currently hovered card.",
+    type: "registry:ui",
+    registryDependencies: undefined,
+    files: [{
+      path: "registry/ui/card-hover-effect.tsx",
+      type: "registry:ui",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/ui/card-hover-effect.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
+      return { default: mod.default || mod[exportName] }
+    }),
+    meta: undefined,
+  },
+  "expandable-card": {
+    name: "expandable-card",
+    description: "Click cards to expand them and show additional information.",
+    type: "registry:ui",
+    registryDependencies: undefined,
+    files: [{
+      path: "registry/ui/expandable-card.tsx",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/hooks/use-outside-click.ts",
+      type: "registry:hook",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/ui/expandable-card.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
+      return { default: mod.default || mod[exportName] }
+    }),
+    meta: undefined,
+  },
+  "direction-aware-hover": {
+    name: "direction-aware-hover",
+    description: "A direction aware hover effect using Framer Motion.",
+    type: "registry:ui",
+    registryDependencies: undefined,
+    files: [{
+      path: "registry/ui/direction-aware-hover.tsx",
+      type: "registry:ui",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/ui/direction-aware-hover.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
+      return { default: mod.default || mod[exportName] }
+    }),
+    meta: undefined,
+  },
   "utils": {
     name: "utils",
     description: "",

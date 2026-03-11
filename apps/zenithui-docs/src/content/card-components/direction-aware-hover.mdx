@@ -1,0 +1,62 @@
+import NPMTab from "@/components/npm-tab"
+import { DirectionAwareHoverPreview } from "@/components/card-components/direction-aware-hover-demo"
+
+# Direction Aware Hover
+
+The **Direction Aware Hover** component intelligently detects the direction from which the user's mouse enters the bounding box of the card (top, right, bottom, or left). It then animates the image scaling and text overlay to slide in from that exact direction.
+
+**Primary Use Cases:**
+
+- Interactive image galleries.
+- Product feature displays where hover transitions need a touch of spatial cleverness.
+- Blog post thumbnails revealing article titles smoothly.
+
+_Context:_ Built using mathematical detection via cursor coordinates mapped to the element's bounding rect, passing the result to Framer Motion states.
+
+## 🚀 Installation through Shadcn CLI
+
+You can install this component using your preferred package manager. Note that you must have Shadcn CLI initialized in your project before adding this component.
+
+<NPMTab
+  path={`${process.env.NEXT_PUBLIC_SITE_URL}/r/direction-aware-hover.json`}
+/>
+
+## Component Preview
+
+A clear example demonstrating the spatial interaction. Hover over the component from different sides to see the text and overlay slide in accordingly.
+
+<div className="mt-8 mb-8 flex w-full">
+  <DirectionAwareHoverPreview />
+</div>
+
+```tsx
+import { DirectionAwareHover } from "@/components/ui/direction-aware-hover";
+
+export function DirectionAwareHoverPreview() {
+  const imageUrl = "https://images.unsplash.com/photo-1663765970236-f2acfde22237?q=80&w=3532&auto=format&fit=crop";
+
+  return (
+    <div className="h-[40rem] flex flex-col items-center justify-center space-y-4 w-full">
+      <DirectionAwareHover imageUrl={imageUrl} className="rounded-2xl shadow-xl">
+        <p className="font-bold text-2xl text-white">In the mountains</p>
+        <p className="font-normal text-sm text-gray-200 mt-2">$1299 / night</p>
+        <button className="px-4 py-2 mt-4 bg-white text-black font-semibold rounded-md text-sm cursor-pointer hover:bg-gray-100 transition">
+          Book Now
+        </button>
+      </DirectionAwareHover>
+    </div>
+  );
+}
+```
+
+## Component Props List
+
+### `DirectionAwareHover`
+
+| Prop Name           | Type                        | Required | Default     | Description                                                                   |
+| :------------------ | :-------------------------- | :------- | :---------- | :---------------------------------------------------------------------------- |
+| `imageUrl`          | `string`                    | Yes      | -           | Absolute or relative URL of the background image to render.                   |
+| `children`          | `React.ReactNode \| string` | Yes      | -           | The overlay content (e.g., text, buttons) that is revealed upon hover.        |
+| `childrenClassName` | `string`                    | No       | `undefined` | Custom Tailwind CSS classes applied to the wrapper containing the `children`. |
+| `imageClassName`    | `string`                    | No       | `undefined` | Custom Tailwind CSS classes applied directly to the `<img />` tag.            |
+| `className`         | `string`                    | No       | `undefined` | Additional styles applied to the outermost container of the component.        |
