@@ -50,4 +50,6 @@ export default {
     },
   },
   "card-components": "Card Components",
+  inputs: "Inputs",
+  player: "Player Components",
 }

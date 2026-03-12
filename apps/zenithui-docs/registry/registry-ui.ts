@@ -139,4 +139,46 @@ export const ui: Registry["items"] = [
       },
     ],
   },
+  {
+    name: "input-with-tags",
+    type: "registry:ui",
+    title: "Input With Tags",
+    description: "An input component that accepts and displays tags.",
+    dependencies: ["motion", "lucide-react"],
+    registryDependencies: ["button"],
+    files: [
+      {
+        path: "ui/input-with-tags.tsx",
+        type: "registry:ui",
+      },
+    ],
+  },
+  {
+    name: "video-player",
+    type: "registry:ui",
+    title: "Video Player",
+    description: "A custom video player component.",
+    dependencies: ["motion", "lucide-react"],
+    registryDependencies: ["button"],
+    files: [
+      {
+        path: "ui/video-player.tsx",
+        type: "registry:ui",
+      },
+    ],
+  },
+  {
+    name: "audio-player",
+    type: "registry:ui",
+    title: "Audio Player",
+    description: "A custom audio player component.",
+    dependencies: ["motion", "lucide-react"],
+    registryDependencies: ["button"],
+    files: [
+      {
+        path: "ui/audio-player.tsx",
+        type: "registry:ui",
+      },
+    ],
+  },
 ]

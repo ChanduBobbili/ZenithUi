@@ -1,0 +1,26 @@
+import { InputWithTagsPreview } from "@/components/inputs/input-with-tags-demo"
+import NPMTab from "@/components/npm-tab"
+
+# Input With Tags
+
+An input component that allows users to type entries and hit Enter to convert them into removable tags, featuring smooth animations for adding and removing tags.
+
+## 🚀 Installation through Shadcn CLI
+
+<NPMTab path={`${process.env.NEXT_PUBLIC_SITE_URL}/r/input-with-tags.json`} />
+
+Note: Make sure your Shadcn CLI is initialized in your project.
+
+## Component Preview
+
+<div className="border-border bg-background mt-6 flex w-full flex-col items-center justify-center rounded-xl border p-8">
+  <InputWithTagsPreview />
+</div>
+
+## Component Props List
+
+| Prop          | Type     | Required | Description                                                                                      |
+| :------------ | :------- | :------: | :----------------------------------------------------------------------------------------------- |
+| `placeholder` | `string` |    No    | Placeholder text for the input field. Defaults to "Type something and press Enter...".           |
+| `className`   | `string` |    No    | Optional additional CSS classes to apply to the container.                                       |
+| `limit`       | `number` |    No    | Maximum number of tags allowed. Defaults to 10. Internally disables input when limit is reached. |

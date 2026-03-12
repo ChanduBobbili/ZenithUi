@@ -206,6 +206,57 @@ export const Index: Record<string, any> = {
     }),
     meta: undefined,
   },
+  "input-with-tags": {
+    name: "input-with-tags",
+    description: "An input component that accepts and displays tags.",
+    type: "registry:ui",
+    registryDependencies: ["button"],
+    files: [{
+      path: "registry/ui/input-with-tags.tsx",
+      type: "registry:ui",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/ui/input-with-tags.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
+      return { default: mod.default || mod[exportName] }
+    }),
+    meta: undefined,
+  },
+  "video-player": {
+    name: "video-player",
+    description: "A custom video player component.",
+    type: "registry:ui",
+    registryDependencies: ["button"],
+    files: [{
+      path: "registry/ui/video-player.tsx",
+      type: "registry:ui",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/ui/video-player.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
+      return { default: mod.default || mod[exportName] }
+    }),
+    meta: undefined,
+  },
+  "audio-player": {
+    name: "audio-player",
+    description: "A custom audio player component.",
+    type: "registry:ui",
+    registryDependencies: ["button"],
+    files: [{
+      path: "registry/ui/audio-player.tsx",
+      type: "registry:ui",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/ui/audio-player.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
+      return { default: mod.default || mod[exportName] }
+    }),
+    meta: undefined,
+  },
   "utils": {
     name: "utils",
     description: "",

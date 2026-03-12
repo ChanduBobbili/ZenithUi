@@ -1,0 +1,24 @@
+import { VideoPlayerPreview } from "@/components/player/video-player-demo"
+import NPMTab from "@/components/npm-tab"
+
+# Video Player
+
+A custom, sleek video player built with Framer Motion, offering modern playback controls, progress sweeping, and volume sliders.
+
+## 🚀 Installation through Shadcn CLI
+
+<NPMTab path={`${process.env.NEXT_PUBLIC_SITE_URL}/r/video-player.json`} />
+
+Note: Make sure your Shadcn CLI is initialized in your project.
+
+## Component Preview
+
+<div className="border-border bg-background mt-6 flex w-full flex-col items-center justify-center rounded-xl border p-8">
+  <VideoPlayerPreview />
+</div>
+
+## Component Props List
+
+| Prop  | Type     | Required | Description                                   |
+| :---- | :------- | :------: | :-------------------------------------------- |
+| `src` | `string` |   Yes    | The URL or relative path to the video source. |
