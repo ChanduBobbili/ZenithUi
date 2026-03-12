@@ -1,5 +1,11 @@
 # zenithui-docs
 
+## 1.4.5
+
+### Patch Changes
+
+- Add VideoPlayer, AudioPlayer, and InputWithTags components along with their documentation and registry entries.
+
 ## 1.4.4
 
 ### Patch Changes
