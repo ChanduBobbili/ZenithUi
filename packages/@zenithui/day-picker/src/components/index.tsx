@@ -1,6 +1,5 @@
-import { forwardRef, useEffect, useState } from "react"
+import { forwardRef, useCallback, useMemo, useState } from "react"
 import type {
-  DateRange,
   DayPickerProps,
   DayPickerState,
   InternalRange,
@@ -24,20 +23,28 @@ const DayPicker = forwardRef<HTMLDivElement, DayPickerProps>((props, ref) => {
     hideOutsideDates = false,
     hideWeekdays = false,
   } = props
-  // Validate selected if provided
+  // FIX(#2): Replaced render-time throw with console.error + early return.
+  // Throwing during render crashes the entire React tree unless an error boundary
+  // is present. For a library component, graceful degradation is preferred.
   if (
     props.mode === "range" &&
     selected !== undefined &&
     selected instanceof Date
   ) {
-    throw new Error("Range mode requires a date range, not a single date.")
+    console.error(
+      "[DayPicker] Range mode requires a DateRange object, not a single Date.",
+    )
+    return null
   }
   if (
     props.mode === "single" &&
     selected !== undefined &&
     !(selected instanceof Date)
   ) {
-    throw new Error("Single mode requires a single date.")
+    console.error(
+      "[DayPicker] Single mode requires a single Date, not a DateRange.",
+    )
+    return null
   }
 
   const [state, setState] = useState<DayPickerState>("day")
@@ -54,32 +61,50 @@ const DayPicker = forwardRef<HTMLDivElement, DayPickerProps>((props, ref) => {
 
   const [focus, setFocus] = useState<Date | null>(null)
 
-  useEffect(() => {
-    if (props.mode === "range" && onSelect && range.from && range.to) {
-      ;(onSelect as (date: DateRange) => void)(range as DateRange)
-    }
-  }, [range, onSelect, props.mode])
+  // FIX(#4): Stable no-op fallback to avoid new reference on every render
+  const noOp = useCallback(() => {}, [])
+
+  // FIX(#4): Memoize context value to prevent unnecessary re-renders of all
+  // consumers. Without this, every state change in DayPicker re-renders every
+  // child that calls useDayPicker(), even if the values they read haven't changed.
+  const contextValue = useMemo(
+    () => ({
+      currentMonth,
+      focus,
+      range,
+      state,
+      hideOutsideDates,
+      disableNavigation,
+      hideWeekdays,
+      selected: selected ?? null,
+      classNames,
+      disabled,
+      mode: props.mode,
+      onSelect: onSelect ?? noOp,
+      setCurrentMonth,
+      setFocus,
+      setRange,
+      setState,
+    }),
+    [
+      currentMonth,
+      focus,
+      range,
+      state,
+      hideOutsideDates,
+      disableNavigation,
+      hideWeekdays,
+      selected,
+      classNames,
+      disabled,
+      props.mode,
+      onSelect,
+      noOp,
+    ],
+  )
 
   return (
-    <DayPickerContext.Provider
-      value={{
-        currentMonth,
-        focus,
-        range,
-        state,
-        hideOutsideDates,
-        disableNavigation,
-        hideWeekdays,
-        selected: selected ?? null,
-        classNames,
-        disabled,
-        mode: props.mode,
-        onSelect: onSelect ?? (() => {}),
-        setCurrentMonth,
-        setFocus,
-        setRange,
-        setState,
-      }}
+    <DayPickerContext.Provider value={contextValue}
     >
       <div
         ref={ref}
