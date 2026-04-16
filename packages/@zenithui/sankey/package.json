@@ -1,0 +1,77 @@
+{
+  "name": "@zenithui/sankey",
+  "version": "0.0.0",
+  "private": false,
+  "description": "A ZenithUi Time Picker is React component enables users to select a date or date range from calendar.",
+  "publishConfig": {
+    "access": "public"
+  },
+  "type": "module",
+  "module": "./dist/index.js",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./style.css": {
+      "import": "./dist/index.css"
+    }
+  },
+  "files": [
+    "dist",
+    "dist/index.css"
+  ],
+  "sideEffects": [
+    "dist/index.css"
+  ],
+  "scripts": {
+    "prepack": "node update-deps.js",
+    "postpublish": "node reset-deps.js",
+    "prepublishOnly": "npm pack && pnpm install --no-frozen-lockfile && npm run build",
+    "build": "rslib build",
+    "build:storybook": "storybook build",
+    "check": "biome check --write",
+    "dev": "rslib build --watch",
+    "format": "prettier --write .",
+    "clean": "rm -rf dist && rm -rf storybook-static",
+    "lint": "eslint .",
+    "storybook": "storybook dev"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "2.4.11",
+    "@rsbuild/plugin-react": "^1.4.6",
+    "@rslib/core": "^0.21.2",
+    "@types/react": "^19.2.14",
+    "react": "^19.2.5",
+    "typescript": "^6.0.2"
+  },
+  "peerDependencies": {
+    "react": ">=17.0.0",
+    "react-dom": ">=17.0.0"
+  },
+  "peerDependenciesMeta": {
+    "react": {
+      "optional": false
+    },
+    "react-dom": {
+      "optional": false
+    }
+  },
+  "engines": {
+    "npm": ">=9",
+    "node": ">=20"
+  },
+  "homepage": "https://zenithui-docs.vercel.app/",
+  "bugs": {
+    "url": "https://github.com/ChanduBobbili/ZenithUi/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ChanduBobbili/ZenithUi.git#main"
+  },
+  "license": "MIT",
+  "author": "Chandu Bobbili <chandubobbili12@gmail.com> (https://github.com/ChanduBobbili)",
+  "packageManager": "pnpm@9.5.0"
+}
