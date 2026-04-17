@@ -39,6 +39,7 @@
     "@zenithui/day-picker": "workspace:*",
     "@zenithui/fab": "workspace:*",
     "@zenithui/light-box": "workspace:*",
+    "@zenithui/sankey": "workspace:*",
     "@zenithui/time-picker": "workspace:*",
     "@zenithui/toast": "workspace:*",
     "@zenithui/tooltip": "workspace:*",

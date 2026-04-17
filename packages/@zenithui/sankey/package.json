@@ -2,7 +2,7 @@
   "name": "@zenithui/sankey",
   "version": "0.0.0",
   "private": false,
-  "description": "A ZenithUi Time Picker is React component enables users to select a date or date range from calendar.",
+  "description": "A composable, fully customizable React Sankey chart component with CSS variable theming, slot-based overrides, and TypeScript-first APIs.",
   "publishConfig": {
     "access": "public"
   },
@@ -38,6 +38,12 @@
     "clean": "rm -rf dist && rm -rf storybook-static",
     "lint": "eslint .",
     "storybook": "storybook dev"
+  },
+  "dependencies": {
+    "eventemitter3": "^5.0.4",
+    "immer": "^11.1.4",
+    "zustand": "^5.0.12",
+    "@zenithui/utils": "workspace:*"
   },
   "devDependencies": {
     "@biomejs/biome": "2.4.11",

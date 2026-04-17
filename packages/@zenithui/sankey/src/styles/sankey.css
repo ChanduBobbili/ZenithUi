@@ -1,0 +1,90 @@
+/* ─── @zenithui/sankey — Default Theme ─────────────────────────── */
+
+.sankey-chart {
+  --sankey-bg: transparent;
+  --sankey-node-color: #4932a4;
+  --sankey-node-radius: 8px;
+  --sankey-node-hover-brightness: 1.3;
+  --sankey-link-opacity: 0.8;
+  --sankey-link-hover-opacity: 1;
+  --sankey-link-fade-opacity: 0.15;
+  --sankey-label-color: #f2f2f2;
+  --sankey-label-font: "Inter", system-ui, -apple-system, sans-serif;
+  --sankey-label-size: 12px;
+  --sankey-tooltip-bg: rgba(30, 30, 30, 0.85);
+  --sankey-tooltip-blur: 12px;
+  --sankey-tooltip-border: rgba(255, 255, 255, 0.1);
+  --sankey-tooltip-radius: 8px;
+  --sankey-tooltip-color: #f2f2f2;
+  --sankey-legend-color: #f2f2f2;
+
+  background: var(--sankey-bg);
+  font-family: var(--sankey-label-font);
+}
+
+/* ─── Nodes ───────────────────────────────────────────────────────── */
+
+.sankey-node {
+  transition:
+    filter 0.2s ease,
+    opacity 0.2s ease;
+}
+
+.sankey-node:hover {
+  filter: brightness(var(--sankey-node-hover-brightness));
+}
+
+/* ─── Links ───────────────────────────────────────────────────────── */
+
+.sankey-link {
+  transition:
+    fill-opacity 0.2s ease,
+    opacity 0.2s ease;
+}
+
+.sankey-link:hover {
+  fill-opacity: var(--sankey-link-hover-opacity) !important;
+}
+
+/* ─── Labels ──────────────────────────────────────────────────────── */
+
+.sankey-label {
+  fill: var(--sankey-label-color);
+  font-size: var(--sankey-label-size);
+  font-family: var(--sankey-label-font);
+}
+
+/* ─── Tooltip ─────────────────────────────────────────────────────── */
+
+.sankey-tooltip {
+  animation: sankey-tooltip-in 0.15s ease;
+}
+
+@keyframes sankey-tooltip-in {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ─── Legend ───────────────────────────────────────────────────────── */
+
+.sankey-legend {
+  color: var(--sankey-legend-color);
+  font-family: var(--sankey-label-font);
+}
+
+/* ─── Reduced Motion ──────────────────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  .sankey-node,
+  .sankey-link,
+  .sankey-tooltip {
+    transition: none !important;
+    animation: none !important;
+  }
+}
