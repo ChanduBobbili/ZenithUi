@@ -1,5 +1,5 @@
 import { cn } from "@zenithui/utils"
-import { ButtonProps } from "../../lib/types"
+import type { ButtonProps } from "../../lib/types"
 import "./button.css"
 
 export default function Button({

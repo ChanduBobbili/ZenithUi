@@ -1,7 +1,7 @@
 import "./toast-container.css"
 import { createPortal } from "react-dom"
 import { lazy, memo, useMemo } from "react"
-import { Toast, ToastPosition } from "../../lib/types"
+import type { Toast, ToastPosition } from "../../lib/types"
 import { useToast } from "../../hooks/use-toast"
 import { getPositionClass, reverseToasts } from "../../lib/utils"
 import { cn } from "@zenithui/utils"
@@ -33,7 +33,7 @@ export default function ToastContainer({
       },
       {} as Record<string, Toast[]>,
     )
-  }, [toasts])
+  }, [toasts, globalPosition])
 
   // Memoize each group's toasts outside the map
   const memoizedGroupedToasts = useMemo(() => {

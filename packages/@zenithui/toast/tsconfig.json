@@ -11,7 +11,9 @@
     "useDefineForClassFields": true,
     "typeRoots": ["./src/types", "./node_modules/@types"],
     "allowSyntheticDefaultImports": true,
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "rootDir": "./src",
+    "outDir": "./dist"
   },
   "include": ["src", "global.d.ts"]
 }

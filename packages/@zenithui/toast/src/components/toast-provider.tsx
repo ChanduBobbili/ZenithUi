@@ -42,8 +42,7 @@ export default function ToastProvider({
   // Add toast function
   const addToast = useCallback(
     (
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      message: string | Promise<any>,
+      message: string | Promise<unknown>,
       type: ToastType,
       options?: ToastOptions,
     ) => {

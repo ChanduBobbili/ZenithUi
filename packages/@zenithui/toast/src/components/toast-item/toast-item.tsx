@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react"
-import { Toast } from "../../lib/types"
+import type { Toast } from "../../lib/types"
 import { useToast } from "../../hooks/use-toast"
 import { getToastAnimation, getToastTheme } from "../../lib/utils"
 import "./toast-item.css"
@@ -37,7 +37,7 @@ export default function ToastItem({ toast, ...props }: ToastItemProps) {
   )
 
   // useRef to store timeout reference
-  const timeoutRef = useRef<NodeJS.Timeout | null>(null)
+  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   const setTimer = useCallback(() => {
     if (
@@ -54,7 +54,14 @@ export default function ToastItem({ toast, ...props }: ToastItemProps) {
         options?.duration ? options?.duration : duration,
       )
     }
-  }, [])
+  }, [
+    disableAutoDismiss,
+    duration,
+    options?.duration,
+    options?.disableAutoDismiss,
+    setToasts,
+    toast.id,
+  ])
 
   const trackPromise = useCallback(async () => {
     try {
@@ -75,7 +82,7 @@ export default function ToastItem({ toast, ...props }: ToastItemProps) {
     } finally {
       setTimer()
     }
-  }, [])
+  }, [options?.error, options?.success, toast.message, setTimer])
 
   // Auto-dismiss toast after duration
   useEffect(() => {
@@ -88,14 +95,13 @@ export default function ToastItem({ toast, ...props }: ToastItemProps) {
         clearTimeout(timeoutRef.current)
       }
     }
-  }, [])
+  }, [toast.message, toast.type, trackPromise])
 
   return (
     <div
       {...props}
       role="alert"
       aria-live="assertive"
-      tabIndex={0}
       data-type={toast.type}
       data-animation={options?.animation ? options.animation : animation}
       data-rich-colors={options?.richColors ? options.richColors : richColors}
@@ -251,6 +257,7 @@ export default function ToastItem({ toast, ...props }: ToastItemProps) {
         <>
           {options?.showCloseButton || showCloseButton ? (
             <button
+              type="button"
               className={cn(
                 "zenithui-toast-close",
                 options?.richColors
