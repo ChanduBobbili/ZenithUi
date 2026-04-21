@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useMemo, useRef, useState } from "react"
 import { flushSync } from "react-dom"
 
 const isBrowser = typeof window !== "undefined"
@@ -56,6 +56,8 @@ export type ThemeAnimationType =
   | "WARP"
   | "GLITCH"
 
+type Theme = "light" | "dark" | "system"
+
 interface ReactThemeSwitchAnimationHook {
   ref: React.RefObject<HTMLButtonElement | null>
   toggleSwitchTheme: () => Promise<void>
@@ -70,11 +72,12 @@ export interface ReactThemeSwitchAnimationProps {
   animationType?: ThemeAnimationType
   blurAmount?: number
   styleId?: string
-  isDarkMode?: boolean
+  theme?: Theme
   rippleCount?: number
   splitDirection?: "horizontal" | "vertical" | "diagonal"
   pixelSize?: number
   glitchIntensity?: number
+  storageKey?: string
   onDarkModeChange?: (isDark: boolean) => void
 }
 
@@ -89,11 +92,12 @@ const useThemeMode = (
     animationType = "CIRCLE",
     blurAmount = 2,
     styleId = "zenithui-theme-switch-style",
-    isDarkMode: externalDarkMode,
+    theme: externalTheme,
     rippleCount = 3,
     splitDirection = "vertical",
     pixelSize = 10,
     glitchIntensity = 5,
+    storageKey = "theme",
     onDarkModeChange,
   } = props || {}
 
@@ -111,7 +115,17 @@ const useThemeMode = (
   }, [])
 
   const [internalDarkMode, setInternalDarkMode] = useState(
-    isBrowser ? localStorage.getItem("theme") === "dark" : false,
+    isBrowser ? localStorage.getItem(storageKey) === "dark" : false,
+  )
+
+  const externalDarkMode = useMemo(
+    () =>
+      externalTheme === "dark"
+        ? true
+        : externalTheme === "light"
+          ? false
+          : window.matchMedia("(prefers-color-scheme: dark)").matches,
+    [externalTheme],
   )
 
   const isDarkMode = externalDarkMode ?? internalDarkMode
