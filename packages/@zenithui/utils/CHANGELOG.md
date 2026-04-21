@@ -1,5 +1,11 @@
 # @zenithui/utils
 
+## 0.4.1
+
+### Patch Changes
+
+- optimize useThemeMode hook with improved style injection and resolution handling
+
 ## 0.4.0
 
 ### Minor Changes
