@@ -1,5 +1,14 @@
 # @zenithui/light-box
 
+## 1.1.3
+
+### Patch Changes
+
+- Updated dependencies
+- Updated dependencies
+- Updated dependencies
+  - @zenithui/utils@0.4.0
+
 ## 1.1.2
 
 ### Patch Changes

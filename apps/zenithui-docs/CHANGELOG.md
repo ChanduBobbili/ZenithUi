@@ -1,5 +1,23 @@
 # zenithui-docs
 
+## 1.5.0
+
+### Minor Changes
+
+- Updated docs for zenithui/utils
+
+### Patch Changes
+
+- Updated dependencies
+- Updated dependencies
+- Updated dependencies
+  - @zenithui/utils@0.4.0
+  - @zenithui/day-picker@1.1.1
+  - @zenithui/fab@1.0.1
+  - @zenithui/light-box@1.1.3
+  - @zenithui/time-picker@1.2.3
+  - @zenithui/toast@1.0.10
+
 ## 1.4.6
 
 ### Patch Changes

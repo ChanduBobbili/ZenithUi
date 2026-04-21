@@ -1,5 +1,13 @@
 # @zenithui/utils
 
+## 0.4.0
+
+### Minor Changes
+
+- Added computeDeltaPercent, convertToTitleCase, formatDelta, formatNumber, getDifferences, splitWord
+- enhance useThemeMode hook with theme prop and storage key for improved theme management
+- Added useLocalStorage, useSSE, useResizeObserver hooks
+
 ## 0.3.0
 
 ### Minor Changes

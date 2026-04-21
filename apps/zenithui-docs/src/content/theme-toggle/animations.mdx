@@ -16,6 +16,44 @@ import GlitchThemeAnimator from "@/components/theme-toggle/glitch"
 
 Below are all supported theme transition animations with corresponding components.
 
+### Selecting an animation
+
+Pass `animationType` to `useThemeMode`. These are the exact string values supported:
+
+```tsx
+import { useThemeMode } from "@zenithui/utils"
+
+export function GlitchToggle() {
+  const { ref, toggleSwitchTheme } = useThemeMode({
+    animationType: "GLITCH",
+  })
+
+  return (
+    <button ref={ref} onClick={toggleSwitchTheme}>
+      Toggle
+    </button>
+  )
+}
+```
+
+Quick mapping (UI label → `animationType`):
+
+| Label | `animationType` |
+| --- | --- |
+| Circle | `"CIRCLE"` |
+| Circle Blur | `"CIRCLE-BLUR"` |
+| Swipe | `"SWIPE"` |
+| Diamond | `"DIAMOND"` |
+| Ripple | `"RIPPLE"` |
+| Shutter | `"SHUTTER"` |
+| Split | `"SPLIT"` |
+| Spiral | `"SPIRAL"` |
+| Pixelate | `"PIXELATE"` |
+| Random Blocks | `"RANDOM_BLOCKS"` |
+| Corners | `"CORNERS"` |
+| Warp | `"WARP"` |
+| Glitch | `"GLITCH"` |
+
 ## 1. Circle
 
 A smooth circular expansion effect from the click/toggle point.

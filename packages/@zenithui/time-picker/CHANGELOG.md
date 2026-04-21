@@ -1,5 +1,14 @@
 # @zenithui/time-picker
 
+## 1.2.3
+
+### Patch Changes
+
+- Updated dependencies
+- Updated dependencies
+- Updated dependencies
+  - @zenithui/utils@0.4.0
+
 ## 1.2.2
 
 ### Patch Changes

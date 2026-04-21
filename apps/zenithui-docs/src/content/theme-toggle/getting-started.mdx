@@ -16,6 +16,97 @@ The `useThemeMode` hook manages the theme state and triggers animations during t
 - Animate transitions between themes using a selected animation effect.
 - Ensure smooth visual feedback across the app.
 
+### Basic usage
+
+`useThemeMode` returns:
+
+- `ref`: attach to the button (animation origin is computed from its bounds)
+- `toggleSwitchTheme`: async function to switch theme (with animation when supported)
+- `isDarkMode`: current dark-mode boolean
+
+```tsx
+import { useThemeMode } from "@zenithui/utils"
+
+export function ThemeToggle() {
+  const { ref, toggleSwitchTheme, isDarkMode } = useThemeMode({
+    animationType: "CIRCLE",
+    globalClassName: "dark",
+  })
+
+  return (
+    <button ref={ref} onClick={toggleSwitchTheme}>
+      {isDarkMode ? "Dark" : "Light"}
+    </button>
+  )
+}
+```
+
+### Uncontrolled vs controlled
+
+#### Uncontrolled (internal state + persistence)
+
+If you don’t pass `theme` or `onDarkModeChange`, the hook keeps its own state and persists it using `storageKey` in `localStorage`.
+
+```tsx
+const { ref, toggleSwitchTheme, isDarkMode } = useThemeMode({
+  storageKey: "theme",
+})
+```
+
+#### Controlled (external state)
+
+If you pass `theme`, the hook derives `isDarkMode` from it. If you also pass `onDarkModeChange`, the hook will call it instead of updating internal state.
+
+```tsx
+import { useState } from "react"
+import { useThemeMode } from "@zenithui/utils"
+
+type Theme = "light" | "dark" | "system"
+
+export function ControlledThemeToggle() {
+  const [theme, setTheme] = useState<Theme>("system")
+
+  const { ref, toggleSwitchTheme, isDarkMode } = useThemeMode({
+    theme,
+    onDarkModeChange: (nextIsDark) => {
+      setTheme(nextIsDark ? "dark" : "light")
+    },
+  })
+
+  return (
+    <button ref={ref} onClick={toggleSwitchTheme}>
+      {isDarkMode ? "Dark" : "Light"}
+    </button>
+  )
+}
+```
+
+### Props reference
+
+The hook accepts the following options.
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `duration` | `number` | `750` | Animation duration in ms. |
+| `easing` | `string` | `"ease-in-out"` | Easing function used by Web Animations / keyframes. |
+| `pseudoElement` | `string` | `"::view-transition-new(root)"` | Pseudo-element target used for view-transition animations. |
+| `globalClassName` | `string` | `"dark"` | Class toggled on `document.documentElement` when dark mode is active. |
+| `animationType` | `ThemeAnimationType` | `"CIRCLE"` | Animation preset. See “Available Animations”. |
+| `blurAmount` | `number` | `2` | Used by `"CIRCLE-BLUR"` to control blur strength. |
+| `styleId` | `string` | `"zenithui-theme-switch-style"` | DOM id for injected `<style>` used by some animations. |
+| `theme` | `"light" \| "dark" \| "system"` | `undefined` | When provided, `isDarkMode` is derived from this value (controlled usage). |
+| `rippleCount` | `number` | `3` | Number of ripples for `"RIPPLE"`. |
+| `splitDirection` | `"horizontal" \| "vertical" \| "diagonal"` | `"vertical"` | Split direction for `"SPLIT"`. |
+| `pixelSize` | `number` | `10` | Pixel block size for `"PIXELATE"`. |
+| `glitchIntensity` | `number` | `5` | Horizontal jitter strength for `"GLITCH"`. |
+| `storageKey` | `string` | `"theme"` | `localStorage` key used in uncontrolled mode. |
+| `onDarkModeChange` | `(isDark: boolean) => void` | `undefined` | Callback for controlled mode; when set, the hook calls this instead of mutating internal state. |
+
+### Browser support & accessibility
+
+- If the View Transition API is unavailable, `toggleSwitchTheme` falls back to an instant switch.
+- If the user prefers reduced motion (`prefers-reduced-motion: reduce`), the hook also falls back to an instant switch.
+
 ---
 
 ## 🚀 Installation through Shadcn CLI

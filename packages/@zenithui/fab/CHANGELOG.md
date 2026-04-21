@@ -1,5 +1,14 @@
 # @zenithui/fab
 
+## 1.0.1
+
+### Patch Changes
+
+- Updated dependencies
+- Updated dependencies
+- Updated dependencies
+  - @zenithui/utils@0.4.0
+
 ## 1.0.0
 
 ### Major Changes

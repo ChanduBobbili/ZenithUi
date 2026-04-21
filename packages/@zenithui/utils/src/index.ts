@@ -8,6 +8,9 @@ export { default as useIsomorphicLayoutEffect } from "./hooks/use-isomorphic-lay
 export { default as useMediaQuery } from "./hooks/use-media-query"
 export { default as useTheme } from "./hooks/use-theme"
 export { default as useUnMount } from "./hooks/use-unmount"
+export { default as useSSE } from "./hooks/use-sse"
+export { default as useLocalStorage } from "./hooks/use-local-storage"
+export { default as useResizeObserver } from "./hooks/use-resize-observer"
 export {
   default as useThemeMode,
   type ThemeAnimationType,
@@ -35,4 +38,10 @@ export {
   sleep,
   uuid,
   formatBytes,
+  computeDeltaPercent,
+  convertToTitleCase,
+  formatDelta,
+  formatNumber,
+  getDifferences,
+  splitWord,
 } from "./lib/utils"
