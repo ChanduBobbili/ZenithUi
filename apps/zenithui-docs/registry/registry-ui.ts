@@ -181,4 +181,15 @@ export const ui: Registry["items"] = [
       },
     ],
   },
+  {
+    name: "grid-layout",
+    type: "registry:ui",
+    dependencies: ["@zenithui/grid-layout", "framer-motion"],
+    files: [
+      {
+        path: "ui/grid-layout.tsx",
+        type: "registry:ui",
+      },
+    ],
+  },
 ]

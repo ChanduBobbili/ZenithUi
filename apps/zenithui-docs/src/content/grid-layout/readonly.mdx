@@ -1,0 +1,26 @@
+import ReadonlyDemo from "@/components/grid-layout/readonly"
+
+# Readonly Grid Layout
+
+Pass `readonly` to disable all drag-and-drop and resize interactions. Useful for display-only dashboards or locked layouts.
+
+## Demo
+
+<ReadonlyDemo />
+
+## Usage
+
+```jsx filename="example.jsx"
+<GridLayout
+  layout={layout}
+  onChange={setLayout}
+  readonly
+  renderItem={(cell) => <YourWidget data={cell.data} />}
+/>
+```
+
+When `readonly` is `true`:
+
+- Cell and row drag handles are hidden
+- Column and row resize handles are not rendered
+- Drop zones for new rows are disabled

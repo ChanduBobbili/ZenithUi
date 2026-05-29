@@ -1,0 +1,243 @@
+import { Table } from "nextra/components"
+
+# API
+
+---
+
+## GridLayout
+
+<Table>
+  <thead>
+    <Table.Tr>
+      <Table.Th>Prop Name</Table.Th>
+      <Table.Th>Type</Table.Th>
+      <Table.Th>Description</Table.Th>
+      <Table.Th>Default</Table.Th>
+    </Table.Tr>
+  </thead>
+  <tbody>
+    <Table.Tr>
+      <Table.Td>**layout**</Table.Td>
+      <Table.Td>`GridLayoutConfig<T>`</Table.Td>
+      <Table.Td>Current layout state.</Table.Td>
+      <Table.Td>Required</Table.Td>
+    </Table.Tr>
+    <Table.Tr>
+      <Table.Td>**onChange**</Table.Td>
+      <Table.Td>`(layout: GridLayoutConfig<T>) => void`</Table.Td>
+      <Table.Td>Called on every structural or size change.</Table.Td>
+      <Table.Td>Required</Table.Td>
+    </Table.Tr>
+    <Table.Tr>
+      <Table.Td>**renderItem**</Table.Td>
+      <Table.Td>`(cell: GridCell<T>) => ReactNode`</Table.Td>
+      <Table.Td>Render content for each cell.</Table.Td>
+      <Table.Td>Required</Table.Td>
+    </Table.Tr>
+    <Table.Tr>
+      <Table.Td>**renderRowControls**</Table.Td>
+      <Table.Td>`(row: GridRow<T>) => ReactNode`</Table.Td>
+      <Table.Td>Optional controls overlay per row.</Table.Td>
+      <Table.Td>—</Table.Td>
+    </Table.Tr>
+    <Table.Tr>
+      <Table.Td>**renderEmptyState**</Table.Td>
+      <Table.Td>`() => ReactNode`</Table.Td>
+      <Table.Td>Custom empty state when there are no rows.</Table.Td>
+      <Table.Td>—</Table.Td>
+    </Table.Tr>
+    <Table.Tr>
+      <Table.Td>**rowResizeHandle**</Table.Td>
+      <Table.Td>`ReactNode`</Table.Td>
+      <Table.Td>Custom row resize handle UI.</Table.Td>
+      <Table.Td>—</Table.Td>
+    </Table.Tr>
+    <Table.Tr>
+      <Table.Td>**colResizeHandle**</Table.Td>
+      <Table.Td>`ReactNode`</Table.Td>
+      <Table.Td>Custom column resize handle UI.</Table.Td>
+      <Table.Td>—</Table.Td>
+    </Table.Tr>
+    <Table.Tr>
+      <Table.Td>**dragHandle**</Table.Td>
+      <Table.Td>`(props: { dragHandleProps }) => ReactNode`</Table.Td>
+      <Table.Td>Custom drag handle for cells.</Table.Td>
+      <Table.Td>—</Table.Td>
+    </Table.Tr>
+    <Table.Tr>
+      <Table.Td>**showDragHandle**</Table.Td>
+      <Table.Td>`boolean`</Table.Td>
+      <Table.Td>Show/hide cell drag handles.</Table.Td>
+      <Table.Td>`true`</Table.Td>
+    </Table.Tr>
+    <Table.Tr>
+      <Table.Td>**readonly**</Table.Td>
+      <Table.Td>`boolean`</Table.Td>
+      <Table.Td>Disable all drag-and-drop and resize interactions.</Table.Td>
+      <Table.Td>`false`</Table.Td>
+    </Table.Tr>
+    <Table.Tr>
+      <Table.Td>**columnGapPx**</Table.Td>
+      <Table.Td>`number`</Table.Td>
+      <Table.Td>Horizontal gap between cells in pixels.</Table.Td>
+      <Table.Td>`0`</Table.Td>
+    </Table.Tr>
+    <Table.Tr>
+      <Table.Td>**rowGapPx**</Table.Td>
+      <Table.Td>`number`</Table.Td>
+      <Table.Td>Vertical gap between rows in pixels.</Table.Td>
+      <Table.Td>`0`</Table.Td>
+    </Table.Tr>
+  </tbody>
+</Table>
+
+---
+
+## Types
+
+### GridCell&lt;T&gt;
+
+<Table>
+  <thead>
+    <Table.Tr>
+      <Table.Th>Property</Table.Th>
+      <Table.Th>Type</Table.Th>
+      <Table.Th>Description</Table.Th>
+      <Table.Th>Default</Table.Th>
+    </Table.Tr>
+  </thead>
+  <tbody>
+    <Table.Tr>
+      <Table.Td>**id**</Table.Td>
+      <Table.Td>`string`</Table.Td>
+      <Table.Td>Unique cell identifier.</Table.Td>
+      <Table.Td>Required</Table.Td>
+    </Table.Tr>
+    <Table.Tr>
+      <Table.Td>**width**</Table.Td>
+      <Table.Td>`number`</Table.Td>
+      <Table.Td>Flex weight (normalised to percentage internally).</Table.Td>
+      <Table.Td>`1`</Table.Td>
+    </Table.Tr>
+    <Table.Tr>
+      <Table.Td>**minWidth**</Table.Td>
+      <Table.Td>`number`</Table.Td>
+      <Table.Td>Minimum width as percentage of row.</Table.Td>
+      <Table.Td>`10`</Table.Td>
+    </Table.Tr>
+    <Table.Tr>
+      <Table.Td>**reorderable**</Table.Td>
+      <Table.Td>`boolean`</Table.Td>
+      <Table.Td>When false, cell cannot be dragged or used as drop target.</Table.Td>
+      <Table.Td>`true`</Table.Td>
+    </Table.Tr>
+    <Table.Tr>
+      <Table.Td>**resizable**</Table.Td>
+      <Table.Td>`boolean`</Table.Td>
+      <Table.Td>When false, no column resize handle after this cell.</Table.Td>
+      <Table.Td>`true`</Table.Td>
+    </Table.Tr>
+    <Table.Tr>
+      <Table.Td>**data**</Table.Td>
+      <Table.Td>`T`</Table.Td>
+      <Table.Td>Arbitrary cell payload passed to `renderItem`.</Table.Td>
+      <Table.Td>Required</Table.Td>
+    </Table.Tr>
+  </tbody>
+</Table>
+
+### GridRow&lt;T&gt;
+
+<Table>
+  <thead>
+    <Table.Tr>
+      <Table.Th>Property</Table.Th>
+      <Table.Th>Type</Table.Th>
+      <Table.Th>Description</Table.Th>
+      <Table.Th>Default</Table.Th>
+    </Table.Tr>
+  </thead>
+  <tbody>
+    <Table.Tr>
+      <Table.Td>**id**</Table.Td>
+      <Table.Td>`string`</Table.Td>
+      <Table.Td>Unique row identifier.</Table.Td>
+      <Table.Td>Required</Table.Td>
+    </Table.Tr>
+    <Table.Tr>
+      <Table.Td>**height**</Table.Td>
+      <Table.Td>`number`</Table.Td>
+      <Table.Td>Row height in pixels.</Table.Td>
+      <Table.Td>`280`</Table.Td>
+    </Table.Tr>
+    <Table.Tr>
+      <Table.Td>**minHeight**</Table.Td>
+      <Table.Td>`number`</Table.Td>
+      <Table.Td>Minimum row height in pixels.</Table.Td>
+      <Table.Td>`100`</Table.Td>
+    </Table.Tr>
+    <Table.Tr>
+      <Table.Td>**reorderable**</Table.Td>
+      <Table.Td>`boolean`</Table.Td>
+      <Table.Td>When false, row cannot be dragged to swap order.</Table.Td>
+      <Table.Td>`true`</Table.Td>
+    </Table.Tr>
+    <Table.Tr>
+      <Table.Td>**cells**</Table.Td>
+      <Table.Td>`GridCell<T>[]`</Table.Td>
+      <Table.Td>Cells in this row.</Table.Td>
+      <Table.Td>Required</Table.Td>
+    </Table.Tr>
+  </tbody>
+</Table>
+
+### GridLayoutConfig&lt;T&gt;
+
+<Table>
+  <thead>
+    <Table.Tr>
+      <Table.Th>Property</Table.Th>
+      <Table.Th>Type</Table.Th>
+      <Table.Th>Description</Table.Th>
+    </Table.Tr>
+  </thead>
+  <tbody>
+    <Table.Tr>
+      <Table.Td>**rows**</Table.Td>
+      <Table.Td>`GridRow<T>[]`</Table.Td>
+      <Table.Td>All rows in the layout.</Table.Td>
+    </Table.Tr>
+  </tbody>
+</Table>
+
+---
+
+## Sub-components
+
+Exported for advanced composition:
+
+| Component | Description |
+|-----------|-------------|
+| `GridLayout` | Top-level orchestrator; owns drag-and-drop and resize state |
+| `GridItem` | Single draggable/droppable cell |
+| `GridRowLine` | Horizontal row of cells with column resize |
+| `ColResizeHandle` | Animated column resize handle |
+| `RowResizeHandle` | Animated row resize handle |
+
+---
+
+## Utility functions
+
+Pure layout mutation helpers exported from `@zenithui/grid-layout`:
+
+| Function | Description |
+|----------|-------------|
+| `swapRows(layout, rowId1, rowId2)` | Swap two rows |
+| `swapCells(layout, cellId1, cellId2)` | Swap two cells (preserving slot widths) |
+| `insertCellAdjacent(layout, srcId, targetId, position)` | Move cell left or right of target |
+| `moveCellToNewRow(layout, cellId, index)` | Eject cell to a new row at index |
+| `resizeCellPair(layout, rowId, leftId, rightId, deltaPercent)` | Resize two adjacent cells |
+| `resizeRow(layout, rowId, newHeight)` | Set row height |
+| `snapRowToGrid(layout, rowId, columns?)` | Snap cell widths to nearest column (default 12) |
+| `removeCell(layout, cellId)` | Remove a cell |
+| `removeRow(layout, rowId)` | Remove a row |

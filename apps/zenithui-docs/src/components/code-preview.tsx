@@ -7,9 +7,14 @@ interface CodePreviewProps {
     language: string
   }
   children: React.ReactNode
+  previewClassName?: string
 }
 
-export default function CodePreview({ code, children }: CodePreviewProps) {
+export default function CodePreview({
+  code,
+  children,
+  previewClassName,
+}: CodePreviewProps) {
   return (
     <Tabs defaultValue="preview">
       <TabsList className="w-full justify-start rounded-none border-b bg-transparent p-0">
@@ -28,7 +33,10 @@ export default function CodePreview({ code, children }: CodePreviewProps) {
       </TabsList>
       <TabsContent
         value="preview"
-        className="flex items-center justify-center overflow-hidden rounded-sm bg-slate-100 p-20 dark:bg-zinc-900"
+        className={
+          previewClassName ??
+          "flex items-center justify-center overflow-hidden rounded-sm bg-slate-100 p-20 dark:bg-zinc-900"
+        }
       >
         {children}
       </TabsContent>

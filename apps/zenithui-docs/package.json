@@ -38,6 +38,7 @@
     "@vercel/speed-insights": "^2.0.0",
     "@zenithui/day-picker": "workspace:*",
     "@zenithui/fab": "workspace:*",
+    "@zenithui/grid-layout": "workspace:*",
     "@zenithui/light-box": "workspace:*",
     "@zenithui/time-picker": "workspace:*",
     "@zenithui/toast": "workspace:*",

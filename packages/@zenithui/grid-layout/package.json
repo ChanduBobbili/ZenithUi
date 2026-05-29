@@ -1,0 +1,89 @@
+{
+  "name": "@zenithui/grid-layout",
+  "version": "0.1.0",
+  "private": false,
+  "description": "A flexible, interactive grid layout component for React with drag-and-drop reordering, column/row resize, and a 12-column snap grid. Part of the ZenithUI ecosystem.",
+  "publishConfig": {
+    "access": "public"
+  },
+  "type": "module",
+  "module": "./dist/index.js",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "prepack": "node update-deps.js",
+    "postpublish": "node reset-deps.js",
+    "prepublishOnly": "pnpm build",
+    "build": "rslib build",
+    "check": "biome check --write",
+    "dev": "rslib build --watch",
+    "format": "biome format --write",
+    "lint": "biome lint",
+    "lint:fix": "biome lint --write",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "@zenithui/utils": "workspace:*",
+    "framer-motion": ">=11.0.0"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^1.9.4",
+    "@rsbuild/plugin-react": "^1.1.1",
+    "@rslib/core": "^0.5.5",
+    "@types/node": "^22.13.13",
+    "rsbuild-plugin-dts": "^0.5.5"
+  },
+  "peerDependencies": {
+    "react": ">=17.0.0",
+    "react-dom": ">=17.0.0",
+    "framer-motion": ">=11.0.0"
+  },
+  "peerDependenciesMeta": {
+    "react": {
+      "optional": false
+    },
+    "react-dom": {
+      "optional": false
+    },
+    "framer-motion": {
+      "optional": false
+    }
+  },
+  "engines": {
+    "npm": ">=9",
+    "node": ">=20"
+  },
+  "keywords": [
+    "react",
+    "components",
+    "ui",
+    "zenithui",
+    "grid",
+    "grid-layout",
+    "drag-and-drop",
+    "resizable",
+    "dashboard",
+    "layout",
+    "typescript"
+  ],
+  "homepage": "https://zenithui-docs.vercel.app/",
+  "bugs": {
+    "url": "https://github.com/ChanduBobbili/ZenithUi/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ChanduBobbili/ZenithUi.git#main"
+  },
+  "license": "MIT",
+  "author": "Chandu Bobbili <chandubobbili12@gmail.com> (https://github.com/ChanduBobbili)",
+  "packageManager": "pnpm@9.5.0"
+}

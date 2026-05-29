@@ -1,0 +1,71 @@
+import { Steps } from "nextra/components"
+
+# Getting Started
+
+A flexible, interactive grid layout for React with drag-and-drop reordering, column and row resize, and a 12-column snap grid.
+
+## Features
+
+- Drag-and-drop cell reordering (swap, insert left/right, eject to new row)
+- Drag-and-drop row reordering
+- Live column and row resizing with animated handles
+- 12-column snap grid on column resize release
+- Readonly mode to disable all interactions
+- Per-cell and per-row `reorderable` and `resizable` flags
+- Full render-prop API for custom UI
+
+## Installation
+
+<Steps>
+
+### Install the package
+
+Install the library and its peer dependency using your preferred package manager:
+
+```sh npm2yarn copy
+npm install @zenithui/grid-layout framer-motion
+```
+
+### Basic usage
+
+```jsx filename="example.jsx"
+import { GridLayout } from "@zenithui/grid-layout"
+import { useState } from "react"
+
+const initialLayout = {
+  rows: [
+    {
+      id: "row-1",
+      height: 280,
+      cells: [
+        { id: "cell-1", width: 1, data: { title: "Widget A" } },
+        { id: "cell-2", width: 1, data: { title: "Widget B" } },
+      ],
+    },
+  ],
+}
+
+export default function Dashboard() {
+  const [layout, setLayout] = useState(initialLayout)
+
+  return (
+    <GridLayout
+      layout={layout}
+      onChange={setLayout}
+      renderItem={(cell) => (
+        <div className="flex h-full items-center justify-center rounded-lg border p-4">
+          {cell.data.title}
+        </div>
+      )}
+    />
+  )
+}
+```
+
+</Steps>
+
+---
+
+## Reporting Issues
+
+Found a bug or have a feature request? [Create an issue](https://github.com/ChanduBobbili/ZenithUi/issues) on GitHub.
